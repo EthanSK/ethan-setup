@@ -321,12 +321,15 @@ function openTopic(topic, trigger) {
   render();
   document.querySelector("#detail-kicker").textContent = topic === "desk" || topic === "chair" ? item.name : copy[0];
   document.querySelector("#detail-title").textContent = copy[1];
-  document.querySelector("#detail-description").textContent = copy[2];
-  document.querySelector("#detail-description").hidden = !copy[2];
+  const description = document.querySelector("#detail-description");
+  description.textContent = copy[2];
+  description.hidden = !copy[2];
   const mouse = topic === "razer" || topic === "corsair";
   const panel = app ? "software" : mouse ? "mouse" : topic === "code" || topic === "voice" || topic === "sausages" ? topic : (topic === "codex" || topic === "obs") ? "screen" : "hardware"; // Hardware opens its product; separate nearby Codex and OBS hotspots own the software views, never combined monitor/software labels (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
   for (const name of ["mouse", "code", "voice", "hardware", "screen", "sausages", "software"]) document.querySelector(`#${name}-detail`).hidden = name !== panel;
   const productLink = document.querySelector("#product-link");
+  if (topic === "scarlett") document.querySelector(".product-info").prepend(description); // Keep Ethan's Scarlett explanation beside its image without duplicating it in the heading.
+  else document.querySelector(".detail-heading").insertBefore(description, productLink);
   productLink.hidden = !item;
   if (item) productLink.href = item.url;
   if (app) {

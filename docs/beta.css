@@ -198,6 +198,7 @@
 #product-specs { list-style: none; padding: 0; margin: 0; }
 #product-specs li { padding: 13px 0; border-bottom: 1px solid #ffffff17; font-size: 13px; }
 .product-info > a, .product-info > button { display: block; }
+.product-info > #detail-description { margin: 0 0 24px; font-size: clamp(20px, 2vw, 26px); line-height: 1.4; color: #f3efe8; }
 .product-media { min-width: 0; }
 .product-photo { position: relative; display: grid; place-items: center; height: min(54vh, 430px); min-height: 250px; margin: 0; padding: 20px 20px 42px; border-radius: 16px; background: #fff; overflow: hidden; }
 .product-photo > img { width: 100%; height: 100%; min-height: 0; object-fit: scale-down; }

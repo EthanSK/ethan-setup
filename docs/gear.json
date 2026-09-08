@@ -143,8 +143,8 @@
       "3rd generation",
       "18 inputs / 8 outputs"
     ],
-    "evidence": "eBay purchase, May 2023",
-    "description": "My Focusrite Scarlett 18i8 third generation audio interface.",
+    "evidence": "Connected hardware checked against Focusrite's generation identification guide, 8 September 2026",
+    "description": "My audio interface connects the microphone and speakers to my Mac for recording and playback.",
     "images": [
       {
         "src": "assets/products/scarlett-angled-view.webp",
