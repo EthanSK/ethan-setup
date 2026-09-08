@@ -28,9 +28,9 @@ Public product links and exact selected configurations are in `docs/gear.json`. 
 | Hbada E3 Pro 2026, grey, footrest | Hbada shipment confirmation, July 2026 |
 | FlexiSpot E7 Pro 2025, bamboo 180 × 80 cm, black frame | Previously verified purchase configuration from Agentic Mouse; March 2025 invoice found again |
 | Shure SM7B | Ethan’s identification; Shure manual drawings |
-| Dell S3422DW | Earlier host display inventory, not newly confirmed: the current capture device obscures its identity |
+| Dell S3422DW | July 2026 host display inventory identifies DELL S3422DW at 3440 × 1440, 100 Hz; rechecked against that record and Dell's user guide. The current capture device obscures direct identification |
 | Samsung S80UA / S27A800U | Live display name LS27A800U; regional suffix unconfirmed |
-| Mac mini | Ethan identified its location; generation remains unconfirmed and must not be invented |
+| Mac mini M4, 16 GB, silver | Direct hardware identification on 8 September 2026 confirms Mac mini, M4 and 16 GB; [Apple's 2024 specifications](https://support.apple.com/en-gb/121555) confirm the silver 127 × 127 × 50 mm enclosure |
 | Corsair and Razer mice | Existing published Agentic Mouse setup and authored models |
 
 Product links can lead to a current shop configuration, regional equivalent or support page after a model is discontinued. The configured desk size, chair colour and drive capacity above are the purchased setup, not a claim about a store’s default selection.

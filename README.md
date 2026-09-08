@@ -20,7 +20,7 @@ The website lets you try those controls and the app’s HUD without installing a
 - Click a mouse, screen or hardware label to move closer and open it. Edge arrows point to items outside the view.
 - Rotate product models by dragging. Use arrow keys to rotate and Home to reset.
 - Click outside a dialog or press Escape to return to the room.
-- Open the Dell for the interactive desktop, Dock, menu bar and Codex example. Open the Samsung for the silent OBS recording demo.
+- Open the Dell for the interactive desktop, Dock, menu bar and Codex example. Open the Samsung for the silent OBS recording demo. Both screens fill the dialog; their rotatable monitor models are in **Everything I use → Hardware**.
 - Open **Everything I use** for the hardware, apps, public skills and project links.
 
 The room is a photograph with a Three.js camera, not a scan of the entire room. The sausage legs are intentional. Product models are reference-based illustrations, not manufacturer CAD or dimensionally certified replicas.
@@ -35,7 +35,7 @@ The room is a photograph with a Three.js camera, not a scan of the entire room. 
 | [Yamaha HS8](https://usa.yamaha.com/products/proaudio/speakers/hs_series/) | White pair · 8-inch studio monitors |
 | [Focusrite Scarlett 18i8](https://us.focusrite.com/products/scarlett-18i8-3rd-gen) | 3rd generation · 18 inputs / 8 outputs |
 | [Pioneer DDJ-FLX4](https://www.pioneerdj.com/en/product/dj-controllers/ddj-flx4/) | Black · 2-channel DJ controller |
-| [Mac mini](https://www.apple.com/uk/mac-mini/) | Under the left speaker |
+| [Mac mini](https://support.apple.com/en-gb/121555) | M4 · 16 GB memory · Silver |
 | [Akai MPK mini Plus](https://www.akaipro.com/discover/mpk) | 37 keys · 8 MPC pads |
 | [Shure SM7B](https://www.shure.com/en-GB/products/microphones/sm7b) | Dynamic microphone · Dictation and recording |
 | [Dell S3422DW](https://www.dell.com/support/home/en-uk/product-support/product/dell-s3422dw-monitor/overview) | 34-inch · 3440 × 1440 · Curved ultrawide |
@@ -45,7 +45,7 @@ The room is a photograph with a Three.js camera, not a scan of the entire room. 
 | [FlexiSpot E7 Pro](https://flexispot.co.uk/next-generation-standing-desk-e7-pro) | 2025 model · Bamboo · 180 × 80 cm · Black frame |
 | [Hbada E3 Pro](https://www.hbada.uk/products/hbada-e3-pro-ergonomic-office-chair?variant=57072259858807) | 2026 edition · Grey · With footrest |
 
-The Mac mini’s generation is unconfirmed. The Dell S3422DW identification comes from an earlier display inventory; the Samsung reports LS27A800U, with its full regional SKU unconfirmed. The Amazon order confirms **14 TB**, despite my initially calling it 12 TB. Product links identify the hardware; availability and offered variants can change. [Source notes](SOURCES.md) explain the evidence and remaining uncertainty.
+The Mac mini identifies itself as an M4 with 16 GB memory. The Dell S3422DW identification comes from a July 2026 display inventory; the Samsung currently reports LS27A800U, with its full regional SKU unconfirmed. The Amazon order confirms **14 TB**, despite my initially calling it 12 TB. Product links identify the hardware; availability and offered variants can change. [Source notes](SOURCES.md) explain the evidence and remaining uncertainty.
 
 ## Apps and skills
 
@@ -63,7 +63,7 @@ python3 scripts/check.py
 python3 -m http.server 8842 --bind 127.0.0.1 --directory .build/site
 ```
 
-Open [localhost:8842](http://127.0.0.1:8842/). Rebuild after editing `docs/`, then reload the browser. GitHub Pages serves the generated `.build/site` artifact.
+Open [localhost:8842](http://127.0.0.1:8842/). Keep the server running while using the preview: product models load when opened, so a cached room cannot load them after the server stops. Rebuild after editing `docs/`, then reload the browser. Use the [published website](https://ethansk.github.io/ethan-setup/) for a preview that remains available after closing the terminal. GitHub Pages serves the generated `.build/site` artifact.
 
 ## Update the setup
 
