@@ -5,7 +5,7 @@
   <header><span class="window-lights" aria-hidden="true">● ● ●</span><strong>OBS++</strong><span>Recording is simulated here.</span><a href="https://github.com/EthanSK/obs-plus-plus" target="_blank" rel="noopener">View project ↗</a></header>
   <main>
     <section class="preview" aria-label="Recording preview">
-      <div class="preview-content"><img id="scene-image" src="./assets/room.webp" alt="Ethan’s desk in the example recording"><div id="desktop-preview" hidden><div class="desktop-title">Example code review <span>Better Git VS Code</span></div><div class="example-editor"><aside>CHANGES<br><br>mouse.ts<br><br>controls.ts<br><br>README.md</aside><pre><span>+ // Review code without moving your hand.</span>
+      <div class="preview-content"><img id="scene-image" src="./assets/room.svg?v=__SITE_VERSION__" alt="Ethan’s desk in the example recording"><div id="desktop-preview" hidden><div class="desktop-title">Example code review <span>Better Git VS Code</span></div><div class="example-editor"><aside>CHANGES<br><br>mouse.ts<br><br>controls.ts<br><br>README.md</aside><pre><span>+ // Review code without moving your hand.</span>
   function review(direction) {
 <span>+   jumpToChange(direction);</span>
   }
@@ -13,7 +13,7 @@
   function hold(direction) {
 <span>+   stageCurrentFile();</span>
 <span>+   jumpToChange(direction);</span>
-  }</pre></div><img class="webcam" src="./assets/room.webp" alt="Room preview"></div><div class="record-badge"><i></i><span id="preview-status">REC</span></div></div>
+  }</pre></div><img class="webcam" src="./assets/room.svg?v=__SITE_VERSION__" alt="Room preview"></div><div class="record-badge"><i></i><span id="preview-status">REC</span></div></div>
     </section>
     <div class="panels">
       <section><h2>Scenes</h2><div class="scene-list"><button type="button" aria-pressed="true" data-scene="room">Room</button><button type="button" aria-pressed="false" data-scene="desktop">Desktop + camera</button></div></section>
