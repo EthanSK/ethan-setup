@@ -69,6 +69,7 @@ Open [localhost:8842](http://127.0.0.1:8842/). Rebuild after editing `docs/`, th
 
 - **Hardware and hotspot positions:** edit `docs/gear.json`; coordinates run from 0 to 1 across the room image. Keep this README’s inventory consistent.
 - **Room and interactions:** `docs/index.html`, `docs/beta.css` and `docs/beta.mjs`.
+- **Share preview:** `docs/assets/sausage-legs-social.jpg` uses the original sausage-leg photo; Open Graph and large-image card metadata in `docs/index.html` point to that image. Keep its dimensions and alt text in sync when replacing it.
 - **Product geometry:** `docs/product-models.mjs`; reference notes are in `PRODUCT-MODELS.md`.
 - **OBS example:** `docs/obs.html`, `docs/obs.css` and `docs/obs.mjs`.
 - **Mouse modes, HUD, mouse models or icon:** change the canonical Agentic Mouse repository, publish it, then run `python3 scripts/sync-sources.py` here. The published native export chooses the source commit; this site does not maintain another button map.
