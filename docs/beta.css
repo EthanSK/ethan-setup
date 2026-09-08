@@ -6,7 +6,7 @@
 .room-stage { position: fixed; inset: 0; isolation: isolate; touch-action: none; }
 .room-poster, #room-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
 .room-poster { object-fit: contain; }
-#room-canvas { opacity: 0; transition: opacity 500ms; touch-action: none; cursor: grab; outline-offset: -6px; }
+#room-canvas { opacity: 0; transition: opacity 500ms; touch-action: none; cursor: zoom-in; outline-offset: -6px; }
 .room-ready #room-canvas { opacity: 1; }
 .room-ready .room-poster { visibility: hidden; }
 .room-shade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(#05070c33, transparent 32%, transparent 55%, #05070cc9); }
@@ -111,6 +111,7 @@
 .video-progress i { width: 100%; transform-origin: left; transform: scaleX(.36); animation: beta-video-progress 24s linear infinite; animation-play-state: paused; }
 .video-example.is-playing .video-progress i { animation-play-state: running; }
 
+#room-canvas.at-zoom-limit { cursor: grab; }
 #room-canvas.is-dragging { cursor: grabbing; }
 
 /* Feature controls expand over their photographed object after the camera moves closer. */

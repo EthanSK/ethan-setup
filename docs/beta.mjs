@@ -78,7 +78,7 @@ function draw(now = 0) {
     for (let i = 1; i < items.length; i++) items[i][axis] = Math.max(items[i][axis], items[i-1][axis] + gap);
   }
   const labelRects = [];
-  for (const {button,rawX,rawY,x,y,outside} of projected.sort((a,b) => Number(b.outside) - Number(a.outside))) {
+  for (const {button,rawX,rawY,x,y,outside} of projected.sort((a,b) => Number(a.outside) - Number(b.outside))) { // Give objects in the area being explored label space before distant edge arrows.
     button.classList.toggle("offscreen", outside);
     button.style.setProperty("--arrow-angle", `${Math.atan2(rawY - y, rawX - x) + Math.PI / 2}rad`);
     const labelWidth = hotspotWidths.get(button) || 120;
@@ -96,6 +96,7 @@ function draw(now = 0) {
 function render() { if (!frame && !document.hidden) { lastFrame = performance.now(); frame = requestAnimationFrame(draw); } }
 function zoom(value) {
   target.zoom = Math.max(0, Math.min(1.35, value));
+  canvas.classList.toggle("at-zoom-limit", target.zoom === 1.35);
   if (target.zoom < .15) { target.panX = width < 760 ? 3.4 : 0; target.panY = Math.max(0, (roomHeight - roomWidth * stage.clientHeight / stage.clientWidth) / 2); } // Keep the full upper monitor in the wide-screen starting crop.
   stage.classList.toggle("room-entered", target.zoom > .15);
   document.querySelector('[data-view="desk"]').setAttribute("aria-pressed", String(target.zoom > .15));
@@ -104,6 +105,18 @@ function zoom(value) {
     hotspots.forEach(button => { button.style.left = `${Number(button.dataset.x) * 100}%`; button.style.top = `${Number(button.dataset.y) * 100}%`; });
   }
   render();
+}
+/** Move a little closer while keeping the clicked point under the pointer. */
+function zoomAt(clientX, clientY) {
+  const nextZoom = Math.min(1.35, target.zoom + .35);
+  if (renderer && width && height) { // A first click can arrive before the photo loads; anchoring needs the measured viewport to avoid invalid camera coordinates.
+    const bounds = stage.getBoundingClientRect();
+    const scale = 2 * camera.position.z * Math.tan(THREE.MathUtils.degToRad(22.5)) / height;
+    const approach = 1 - (1 - nextZoom * .56) / (1 - view.zoom * .56); // Move the camera by the portion of the clicked point's offset lost to zoom, so it stays anchored instead of jumping to the centre.
+    target.panX = camera.position.x + (clientX - bounds.left - width / 2) * scale * approach - focusPoint.x * nextZoom;
+    target.panY = camera.position.y - (clientY - bounds.top - height / 2) * scale * approach - focusPoint.y * nextZoom;
+  }
+  zoom(nextZoom);
 }
 async function createRoom() {
   try {
@@ -211,7 +224,9 @@ stage.addEventListener("lostpointercapture", event => { if (event.target === sta
 window.addEventListener("blur", cancelRoomGesture);
 document.addEventListener("visibilitychange", () => { if (document.hidden) cancelRoomGesture(); });
 stage.addEventListener("click", event => {
-  if (dragged) { event.preventDefault(); event.stopPropagation(); dragged = false; } // A drag or pinch that starts on the entry prompt must not also activate its click action.
+  if (dragged) { event.preventDefault(); event.stopPropagation(); dragged = false; return; } // A drag or pinch must not also zoom the background or activate the entry prompt on release.
+  if (event.target.closest("button, a") || detail.open || directory.open) return;
+  zoomAt(event.clientX, event.clientY);
 }, true);
 canvas.addEventListener("keydown", event => {
   if (!["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Home", "Enter"].includes(event.key)) return;

@@ -8,6 +8,10 @@ The room and HUD can remain visible from browser cache after the local HTTP serv
 
 A ground shadow placed below the unrotated model can cut through its lower half after pitch rotation. Position it below the rotated bounds, then inspect front, side and tilted views. Preserve the shared canvas context while disposing each product's geometry, materials, listeners and animation work.
 
+## Background navigation
+
+The room needs a plain background-click action as well as drag handling. Increase zoom around the clicked photo point using the currently visible camera scale, and retain the drag/pinch click suppression so releasing a gesture cannot also zoom. Anchor only after the photo viewport is measured; a click can arrive during image loading. Give visible objects label space before distant edge arrows. Verify actual clicks at different coordinates, unchanged scale after dragging, drag-cursor release, wheel direction, and product/backdrop clicks in the built-in browser.
+
 ## Monitor views
 
 The Dell room hotspot opens its rotatable monitor model, specs and product link. A separate nearby Codex hotspot opens the full-height desktop embed; do not route the Dell product click to that website again. The Samsung hotspot also opens its monitor product; a nearby OBS hotspot owns the recording demo and setup details. Do not combine distinct hardware/software identities in one label or click action. Do not reintroduce duplicate headings, subtitles or a Desktop / 3D monitor toolbar above the embedded screen. Keep its accessible name, close control and outside-click dismissal.
