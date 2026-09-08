@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Agentic Mouse",
+    "repository": "EthanSK/agentic-mouse",
+    "url": "https://github.com/EthanSK/agentic-mouse"
+  },
+  {
+    "name": "Better Git VS Code",
+    "repository": "EthanSK/better-git-vscode",
+    "url": "https://github.com/EthanSK/better-git-vscode"
+  },
+  {
+    "name": "VoiceInk++",
+    "repository": "EthanSK/VoiceInkPlusPlus",
+    "url": "https://github.com/EthanSK/VoiceInkPlusPlus"
+  },
+  {
+    "name": "Agent Bridge",
+    "repository": "EthanSK/agent-bridge",
+    "url": "https://github.com/EthanSK/agent-bridge"
+  },
+  {
+    "name": "Producer Player",
+    "repository": "EthanSK/producer-player",
+    "url": "https://github.com/EthanSK/producer-player"
+  },
+  {
+    "name": "Menu Bar Dock",
+    "repository": "EthanSK/Menu-Bar-Dock",
+    "url": "https://github.com/EthanSK/Menu-Bar-Dock"
+  },
+  {
+    "name": "OBS++",
+    "repository": "EthanSK/obs-plus-plus",
+    "url": "https://github.com/EthanSK/obs-plus-plus"
+  },
+  {
+    "name": "Aitum Stream Suite",
+    "repository": "EthanSK/obs-aitum-stream-suite",
+    "url": "https://github.com/EthanSK/obs-aitum-stream-suite"
+  },
+  {
+    "name": "Restream Chat Plus Plus",
+    "repository": "EthanSK/restream-chat-plus-plus",
+    "url": "https://github.com/EthanSK/restream-chat-plus-plus"
+  },
+  {
+    "name": "OBScene",
+    "repository": "EthanSK/OBScene",
+    "url": "https://github.com/EthanSK/OBScene"
+  },
+  {
+    "name": "Stats Widget from Website",
+    "repository": "EthanSK/stats-widget-from-website",
+    "url": "https://github.com/EthanSK/stats-widget-from-website"
+  },
+  {
+    "name": "Restore Terminals",
+    "repository": "EthanSK/restore-terminals-vscode",
+    "url": "https://github.com/EthanSK/restore-terminals-vscode"
+  },
+  {
+    "name": "AI Wallpaper Generator",
+    "repository": "EthanSK/AI-Wallpaper-Generator",
+    "url": "https://github.com/EthanSK/AI-Wallpaper-Generator"
+  },
+  {
+    "name": "YouTube Word Finder",
+    "repository": "EthanSK/Youtube-Word-Finder",
+    "url": "https://github.com/EthanSK/Youtube-Word-Finder"
+  },
+  {
+    "name": "Ye Olde Meme Game 2",
+    "repository": "EthanSK/Ye-Olde-Meme-Game-2-Public",
+    "url": "https://github.com/EthanSK/Ye-Olde-Meme-Game-2-Public"
+  },
+  {
+    "name": "C to MIPS Compiler",
+    "repository": "EthanSK/C-to-MIPS-Compiler",
+    "url": "https://github.com/EthanSK/C-to-MIPS-Compiler"
+  }
+]

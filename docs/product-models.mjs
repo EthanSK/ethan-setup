@@ -14,9 +14,11 @@ const PITCH_MIN = -.55, PITCH_MAX = 1.35;
  * Render one product in `canvas`. Resolves to {reset, dispose}; rejects when WebGL or the model is unavailable
  * so the caller can fall back to the reference photograph and link.
  */
-export async function createProductViewer(canvas, productId, controls) {
+export async function createProductViewer(canvas, productId, controls, loadSignal) {
   const build = builders[productId];
   if (!build) throw new Error(`No 3D model is available for "${productId}".`);
+  const { group, view, movements = [] } = await build(loadSignal);
+  loadSignal?.throwIfAborted(); // A closed MacBook request must finish before allocating a renderer or touching a newer product's shared controls.
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: "low-power" });
   const controller = new AbortController();
   const { signal } = controller;
@@ -46,7 +48,6 @@ export async function createProductViewer(canvas, productId, controls) {
     fill.position.set(2, -3, 7);
     scene.add(fill);
 
-    const { group, view, movements = [] } = await build();
     for (const movement of movements) movement.apply(0);
     const bounds = new THREE.Box3().setFromObject(group);
     for (const movement of movements) { // Fit the whole adjustment sweep once; fitting only the initial pose clips raised desks and portrait monitors.
@@ -66,7 +67,7 @@ export async function createProductViewer(canvas, productId, controls) {
     const rotatedBounds = new THREE.Box3();
     scene.add(shadow);
 
-    let width = 0, viewHeight = 0;
+    let width = 0, viewHeight = 0, zoom = 1, fitDistance = 0;
     function fit() {
       const w = canvas.clientWidth, h = canvas.clientHeight;
       if (!w || !h) return false;
@@ -76,12 +77,14 @@ export async function createProductViewer(canvas, productId, controls) {
         const halfVertical = THREE.MathUtils.degToRad(camera.fov / 2);
         const halfHorizontal = Math.atan(Math.tan(halfVertical) * camera.aspect);
         const distance = radius / Math.sin(Math.min(halfVertical, halfHorizontal)) * 1.06; // The whole bounding sphere stays inside the shorter edge at any rotation.
-        camera.position.set(0, 0, distance);
-        camera.near = Math.max(1, distance - radius * 1.6);
-        camera.far = distance + radius * 1.6;
+        fitDistance = distance;
         camera.updateProjectionMatrix();
         renderer.setSize(w, h, false);
       }
+      camera.position.z = fitDistance / zoom;
+      camera.near = Math.max(.1, camera.position.z - radius * 1.6);
+      camera.far = camera.position.z + radius * 1.6;
+      camera.updateProjectionMatrix();
       return true;
     }
     function draw() {
@@ -159,6 +162,12 @@ export async function createProductViewer(canvas, productId, controls) {
     }
     function interact() { inspect(); render(); }
 
+    canvas.addEventListener("wheel", event => {
+      event.preventDefault();
+      const delta = event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? canvas.clientHeight : 1);
+      zoom = THREE.MathUtils.clamp(zoom * Math.exp(delta * .0015), .65, 2.4);
+      interact();
+    }, { passive: false, signal });
     canvas.style.touchAction = "pan-y"; // Horizontal touch drags rotate; vertical ones still scroll the dialog.
     canvas.addEventListener("pointerdown", event => {
       if (event.button !== 0 || dragging) return;
@@ -212,6 +221,7 @@ export async function createProductViewer(canvas, productId, controls) {
     intersection.observe(canvas);
 
     function reset() {
+      zoom = 1;
       pose.yaw = view.yaw;
       pose.pitch = view.pitch;
       autoTurn = true;
@@ -1029,8 +1039,8 @@ function drawDesktop(ctx, w, h, windows, tint = [18, 22, 32]) {
 }
 /** Fit the actual Tahoe wallpaper without stretching it, then draw the MacBook's desktop chrome. */
 function drawMacBookDesktop(ctx, w, h, wallpaper) {
-  const scale = Math.max(w / wallpaper.naturalWidth, h / wallpaper.naturalHeight);
-  const width = wallpaper.naturalWidth * scale, height = wallpaper.naturalHeight * scale;
+  const scale = Math.max(w / wallpaper.width, h / wallpaper.height);
+  const width = wallpaper.width * scale, height = wallpaper.height * scale;
   ctx.drawImage(wallpaper, (w - width) / 2, (h - height) / 2, width, height); // Ethan meant Apple's rocks-and-water wallpaper, not generated dry pebbles; do not restore the procedural substitute (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
   ctx.globalAlpha = 1;
   ctx.fillStyle = "rgba(255,255,255,.10)";
@@ -1049,8 +1059,11 @@ function drawMacBookDesktop(ctx, w, h, wallpaper) {
 }
 
 /** 16-inch MacBook Pro (space black), lid open 105°: 355.7 × 248.1 mm base, 16:10 display with notch, keys and trackpad. */
-async function buildMacBook() {
-  const wallpaper = await new THREE.ImageLoader().loadAsync(new URL("./assets/macbook-wallpaper.webp?v=__SITE_VERSION__", import.meta.url).href);
+async function buildMacBook(signal) {
+  const response = await fetch(new URL("./assets/macbook-wallpaper.webp?v=__SITE_VERSION__", import.meta.url), { signal });
+  if (!response.ok) throw new Error(`Wallpaper download failed (${response.status})`);
+  const wallpaper = await createImageBitmap(await response.blob());
+  if (signal?.aborted) { wallpaper.close(); signal.throwIfAborted(); }
   const group = new THREE.Group();
   const anodised = std(0x2c2c2f, .46, .72), keycap = std(0x121214, .6), well = std(0x09090a, .75), pad = std(0x202023, .35, .35);
   const glass = std(0x050506, .22, .15), hole = std(0, 1);
@@ -1095,6 +1108,7 @@ async function buildMacBook() {
   lid.add(at(plate(W - 3, D - 3, .6, 3, glass), 0, -.05, D / 2, Math.PI / 2));
   const screenW = 348.7, screenH = 218;
   lid.add(at(decal(screenW, screenH, (ctx, w, h) => drawMacBookDesktop(ctx, w, h, wallpaper), { pxPerMM: 3, emissive: .9 }), 0, -.5, D - 3.5 - screenH / 2, Math.PI / 2));
+  wallpaper.close();
   group.add(lid);
   feet(group, W, D, 22, 5, 1.6);
   return { group, view: { yaw: .5, pitch: .3 }, movements: [{name: "Laptop lid", duration: 12, apply: t => { lid.rotation.x = -THREE.MathUtils.degToRad(105 - 100*t); }}] };

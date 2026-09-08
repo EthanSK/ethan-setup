@@ -85,3 +85,11 @@ Ethan’s photo and likeness are published for this personal setup showcase. Reu
 ## OBS setup details
 
 The OBS view records a safe settings snapshot checked on 8 September 2026 against the installed OBS++ 32.2.2 bundle, Aitum++ 1.2.1 log entry, current profile settings and recording log. Desk and laptop profiles are identified separately. The website never exports raw profiles, stream keys, private browser dock addresses or device IDs. The Aitum canvas size and Apple H.264 encoder alignment are different values and are labelled separately. The public forks own their change notes and build instructions: [OBS++](https://github.com/EthanSK/obs-plus-plus) and [Aitum++](https://github.com/EthanSK/obs-aitum-stream-suite). Neither currently publishes a binary installer; the example is a simulation, not native-runtime verification.
+
+## September 2026 interface audit
+
+The expanded project directory uses public repository metadata checked without authentication on 8 September 2026; `docs/projects.json` records the selected repository URLs. The software hotspots derive the same synced `apps.json` as the app directory; Codex and OBS keep their separate screen views. Personal skill cards contain short capability descriptions, without private paths or unpublished repository links.
+
+The wide Scroll to zoom heading uses the same Microgramma D Extended Bold font asset as Ethan's AIMVS heading, at his request. The included font is third-party artwork and is not covered by this repository's MIT code licence.
+
+Ethan's portfolio URL, https://portosaurus.github.io/ethansk/, is linked as “Ethan's portfolio” by the official Portosaurus homepage. The public page returned HTTP 200 without a frame-blocking policy on 8 September 2026; the site links it beside the brand and embeds it in the directory. LinkedIn lists Portosaurus as Ethan's portfolio-generator project, but the homepage supplied the individual portfolio URL.

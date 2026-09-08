@@ -10,7 +10,7 @@ function room(viewportWidth = 390, viewportHeight = 844) {
     handlers = new Map();
     captured = new Set();
     classes = new Set();
-    style = {};
+    style = { setProperty() {} };
     clientWidth = viewportWidth;
     clientHeight = viewportHeight;
     classList = {

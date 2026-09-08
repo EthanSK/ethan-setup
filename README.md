@@ -19,14 +19,16 @@ The website lets you try those controls and the app’s HUD without installing a
 - Click the background to zoom in around that point and reveal nearby items, or drag to move around.
 - Scroll down to zoom in and up to zoom out. Spread two fingers to zoom in and pinch them together to zoom out; the photo stays under the midpoint of your fingers. You can start on an item label and keep dragging with one finger after lifting the other.
 - Click a mouse, screen or hardware label to move closer and open it. Edge arrows point to items outside the view.
-- Rotate product models by dragging. Use arrow keys to rotate and Home to reset.
+- Rotate product models by dragging and scroll down to zoom in or up to zoom out. Use arrow keys to rotate and Home or Reset view to restore the original framing.
 - Moving parts animate back and forth: the desk lifts, the chair adjusts, screens tilt and music controls move. Choose an adjustment or pause it; dragging pauses the adjustment for six seconds. Reduced motion starts paused.
 - Every hardware dialog opens in 3D, with official product photos underneath. Click a thumbnail or use the arrows, scroll the strip to see more, and select **3D** to return to the model.
 - Click outside a dialog or press Escape to return to the room.
 - Open the Dell for its rotatable monitor model, specs and product link. The nearby **Codex** hotspot opens the interactive desktop, Dock, menu bar and Codex example. Samsung opens its monitor product; the separate **OBS** hotspot opens the silent recording demo and my setup details.
-- Open **Everything I use** for the hardware, apps, public skills and project links.
+- Apps float individually near the photographed Dock as you zoom in; hover or focus an icon for its name and click it for its own software view. Codex and OBS retain their separate screen hotspots.
+- Open **Everything I use** for hardware, apps, 12 public skills, five personal skill descriptions and 16 public projects. All external links open a separate browser page; my [Portosaurus portfolio](https://portosaurus.github.io/ethansk/) is linked beside the site name and embedded below the project list.
+- **View product** appears beside each hardware heading. Models and gallery images report failed loads and offer a retry; a failed model does not hide its official photographs.
 
-The room is a photograph with a Three.js camera, not a scan of the entire room. The sausage legs are intentional; their hotspot has a Tesco Finest product link and my joke subtitle. Product models are reference-based illustrations, not manufacturer CAD or dimensionally certified replicas.
+The room is a photograph with a Three.js camera, not a scan of the entire room. 3D views require WebGL 2; product photographs and links remain available if the device cannot create a renderer. Models render at up to 30 fps with pixel density capped at 1.5, pause when hidden, and load on demand; they have not been tested on every device. The sausage legs are intentional; their hotspot has a Tesco Finest product link and my joke subtitle. Product models are reference-based illustrations, not manufacturer CAD or dimensionally certified replicas.
 
 ## On my desk
 
@@ -84,6 +86,7 @@ Open [localhost:8842](http://127.0.0.1:8842/). Keep the server running while usi
 - **Product galleries:** `docs/product-gallery.mjs` reads each item's `images` in `docs/gear.json`: local WebP `src`, a concise `angle`, and its official image `source`. Keep images proportional under `docs/assets/products/`, verify the actual model and colour, and document their origin in `SOURCES.md`. The 3D option remains first and is selected again whenever a dialog opens.
 - **OBS example and setup details:** `docs/obs.html`, `docs/obs.css` and `docs/obs.mjs`. Keep the dated settings consistent with the [OBS++ setup guide](https://github.com/EthanSK/obs-plus-plus/blob/master/SETUP.md); do not present the example as live telemetry.
 - **Mouse modes, HUD, mouse models or icon:** change the canonical Agentic Mouse repository, publish it, then run `python3 scripts/sync-sources.py` here. The published native export chooses the source commit; this site does not maintain another button map.
+- **Public project cards:** edit `docs/projects.json` only after verifying each repository is public without authentication. Personal skills can be described without publishing their local configuration.
 - **Desktop, Dock or apps:** change the response-preferences public demo. The Codex hotspot embeds that site directly; the sync script refreshes this site’s app directory.
 
 `sources.lock.json` records the actual source revision and file hashes. A daily GitHub Actions run refreshes the published mouse runtime and app directory, checks the result, saves changes and deploys them. Manual workflow dispatch does the same. Ordinary pushes build the committed snapshot. An upstream refresh that fails checks stops before deployment.

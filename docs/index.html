@@ -32,8 +32,8 @@
 </head>
 <body class="room-beta">
   <header class="room-header">
-    <a class="setup-brand" href="./">Ethan’s setup</a>
-    <a class="room-classic" href="https://github.com/EthanSK">GitHub ↗</a>
+    <div class="brand-links"><a class="setup-brand" href="./">Ethan’s setup</a><a class="portfolio-link" href="https://portosaurus.github.io/ethansk/" target="_blank" rel="noopener noreferrer">Portfolio</a></div>
+    <a class="room-classic" href="https://github.com/EthanSK" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.76-.24.76-.54v-2.1c-3.12.68-3.78-1.32-3.78-1.32-.51-1.29-1.24-1.63-1.24-1.63-1.02-.7.08-.68.08-.68 1.12.08 1.71 1.15 1.71 1.15 1 1.71 2.62 1.22 3.26.94.1-.72.39-1.22.71-1.5-2.49-.29-5.11-1.25-5.11-5.54 0-1.22.44-2.22 1.15-3-.12-.29-.5-1.43.11-2.97 0 0 .94-.3 3.08 1.15a10.7 10.7 0 0 1 5.6 0c2.14-1.45 3.08-1.15 3.08-1.15.61 1.54.23 2.68.11 2.97.71.78 1.15 1.78 1.15 3 0 4.3-2.63 5.25-5.13 5.53.4.35.76 1.03.76 2.07v3.08c0 .3.2.65.77.54A11.2 11.2 0 0 0 12 .8Z"/></svg>GitHub ↗</a>
   </header>
   <nav class="project-rail" aria-labelledby="software-title">
     <h2 id="software-title">Software</h2>
@@ -74,17 +74,17 @@
   </main>
   <dialog class="room-detail" id="room-detail" aria-labelledby="detail-title">
     <button type="button" class="detail-close" aria-label="Back to the room">×</button>
-    <div class="detail-heading"><p class="room-kicker" id="detail-kicker"></p><h1 id="detail-title"></h1><p id="detail-description"></p></div>
+    <div class="detail-heading"><p class="room-kicker" id="detail-kicker"></p><h1 id="detail-title"></h1><p id="detail-description"></p><a id="product-link" class="product-link" target="_blank" rel="noopener noreferrer" hidden>View product ↗</a></div>
     <div id="mouse-detail" hidden>
       <div class="mouse-media"><div class="beta-mice">
-        <figure class="hero-product" data-mouse="corsair" hidden>
+        <figure class="hero-product" data-mouse="corsair" hidden><div class="mouse-state" role="status"><span>Loading 3D view…</span><button type="button" data-retry-mouse="corsair" hidden>Retry 3D view</button></div>
           <img src="./assets/corsair.webp" width="1200" height="1200" alt="Corsair Scimitar Elite Wireless SE" />
           <canvas tabindex="0" aria-label="Drag to rotate the Corsair mouse; click a button to try it"></canvas>
           <svg class="speech-leader" aria-hidden="true"><path></path><circle r="4"></circle></svg>
           <button type="button" class="speech-callout" data-voice>Activate speech mode</button>
           <button type="button" class="hero-reset">Reset view ↻</button>
         </figure>
-        <figure class="hero-product" data-mouse="razer" hidden>
+        <figure class="hero-product" data-mouse="razer" hidden><div class="mouse-state" role="status"><span>Loading 3D view…</span><button type="button" data-retry-mouse="razer" hidden>Retry 3D view</button></div>
           <img src="./assets/razer.webp" width="500" height="500" alt="Razer Naga Left-Handed Edition" />
           <canvas tabindex="0" aria-label="Drag to rotate the Razer mouse; click a button to try it"></canvas>
           <svg class="speech-leader" aria-hidden="true"><path></path><circle r="4"></circle></svg>
@@ -92,7 +92,7 @@
           <button type="button" class="hero-reset">Reset view ↻</button>
         </figure>
       </div></div>
-      <p class="detail-hint">Drag the mouse to rotate it, then click a button or use the HUD below</p>
+      <p class="detail-hint">Drag to rotate, scroll to zoom, click a button to see it in the HUD</p>
       <label class="beta-app">Current app <select id="beta-app"></select></label>
       <div id="beta-hud"></div>
       <p id="beta-feedback" role="status">Loading the mouse controls…</p>
@@ -119,21 +119,25 @@
       <a class="detail-link" href="https://github.com/EthanSK/VoiceInkPlusPlus">Get VoiceInk++ ↗</a>
     </div>
     <div id="hardware-detail" hidden>
-      <div class="product-media"><div class="product-stage"><canvas id="product-canvas" tabindex="0" aria-label="Drag to rotate the product; arrow keys rotate; Home resets"></canvas><div id="product-movement" hidden><select aria-label="Movement"></select><button type="button">Pause movement</button></div><button id="product-reset" type="button">Reset view ↻</button><p id="product-state" role="status">Loading 3D view…</p></div></div>
-      <div class="product-info"><ul id="product-specs"></ul><a id="product-link" class="detail-link" href="https://github.com/EthanSK">View product ↗</a><button id="product-demo" type="button" class="detail-link" hidden></button><p class="detail-note">Drag to rotate · Modelled from product references</p></div>
+      <div class="product-media"><div class="product-stage"><canvas id="product-canvas" tabindex="0" aria-label="Drag to rotate the product; scroll to zoom; arrow keys rotate; Home resets"></canvas><div id="product-movement" hidden><select aria-label="Movement"></select><button type="button">Pause movement</button></div><button id="product-reset" type="button">Reset view ↻</button><p id="product-state" role="status">Loading 3D view…</p><button id="product-retry" type="button" hidden>Retry 3D view</button></div></div>
+      <div class="product-info"><ul id="product-specs"></ul><button id="product-demo" type="button" class="detail-link" hidden></button><p class="detail-note">Drag to rotate, scroll to zoom</p></div>
     </div>
     <div id="screen-detail" hidden>
-      <iframe id="desktop-frame" title="Interactive example of Ethan’s desktop" loading="lazy" allow="" referrerpolicy="no-referrer"></iframe>
+      <iframe id="desktop-frame" title="Interactive example of Ethan’s desktop" loading="eager" allow="" referrerpolicy="no-referrer"></iframe>
     </div>
+    <div id="software-detail" hidden><img id="software-icon" width="112" height="112" alt=""><a id="software-link" class="product-link" target="_blank" rel="noopener noreferrer">View software ↗</a><button id="software-demo" type="button" class="detail-link" hidden></button></div>
     <div id="sausages-detail" hidden><a class="detail-link" href="https://www.tesco.com/shop/en-GB/products/280002982">View product ↗</a></div>
   </dialog>
   <dialog class="setup-directory" id="setup-directory" aria-labelledby="directory-title">
     <button type="button" class="directory-close" aria-label="Back to the room">×</button>
     <h1 id="directory-title">Everything I use</h1>
-    <nav class="directory-sections" aria-label="Setup sections"><a href="#directory-gear">Hardware</a><a href="#directory-apps">Apps</a><a href="#directory-skills">Skills</a></nav>
+    <nav class="directory-sections" aria-label="Setup sections"><a href="#directory-gear">Hardware</a><a href="#directory-apps">Apps</a><a href="#directory-skills">Skills</a><a href="#directory-projects">Projects</a><a href="#directory-portfolio">Portfolio</a></nav>
     <h2 id="directory-gear">On my desk</h2><div class="directory-gear"></div>
     <h2 id="directory-apps">Apps</h2><div class="directory-apps"></div>
     <h2 id="directory-skills">Skills I use with agents</h2><div class="directory-skills"></div>
+    <div class="directory-personal-skills"></div>
+    <h2 id="directory-projects">Projects</h2><div class="directory-projects"></div>
+    <section class="portfolio-section" id="directory-portfolio"><h2><a href="https://portosaurus.github.io/ethansk/" target="_blank" rel="noopener noreferrer">Portfolio ↗</a></h2><iframe src="https://portosaurus.github.io/ethansk/" title="Ethan SK portfolio" loading="lazy" referrerpolicy="no-referrer"></iframe></section>
     <section class="setup-follow"><a class="linkedin-logo" href="https://www.linkedin.com/in/ethansk/" aria-label="Ethan SK on LinkedIn">in</a><div><h2>Follow me on LinkedIn</h2><p>Tips on the agentic future.</p><a href="https://www.linkedin.com/in/ethansk/">Follow Ethan SK ↗</a> · <a href="https://www.linkedin.com/in/ethansk/recent-activity/all/">Recent posts ↗</a></div></section>
     <p class="beta-disclaimer">All the wording on this website is AI generated, so sorry if it’s cringe.</p>
   </dialog>
