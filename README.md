@@ -20,7 +20,7 @@ The website lets you try those controls and the app’s HUD without installing a
 - Click a mouse, screen or hardware label to move closer and open it. Edge arrows point to items outside the view.
 - Rotate product models by dragging. Use arrow keys to rotate and Home to reset.
 - Click outside a dialog or press Escape to return to the room.
-- Open the Dell for the interactive desktop, Dock, menu bar and Codex example. Open the Samsung for the silent OBS recording demo. Both screens fill the dialog; their rotatable monitor models are in **Everything I use → Hardware**.
+- Open the Dell for its rotatable monitor model, specs and product link. The nearby **Codex** hotspot opens the interactive desktop, Dock, menu bar and Codex example. Open the Samsung for the silent OBS recording demo; its monitor model is in **Everything I use → Hardware**.
 - Open **Everything I use** for the hardware, apps, public skills and project links.
 
 The room is a photograph with a Three.js camera, not a scan of the entire room. The sausage legs are intentional. Product models are reference-based illustrations, not manufacturer CAD or dimensionally certified replicas.
@@ -74,7 +74,7 @@ Open [localhost:8842](http://127.0.0.1:8842/). Keep the server running while usi
 - **Product geometry:** `docs/product-models.mjs`; reference notes are in `PRODUCT-MODELS.md`. The MacBook uses the actual Tahoe rocks-and-water wallpaper in `docs/assets/macbook-wallpaper.webp`, cropped proportionally.
 - **OBS example:** `docs/obs.html`, `docs/obs.css` and `docs/obs.mjs`.
 - **Mouse modes, HUD, mouse models or icon:** change the canonical Agentic Mouse repository, publish it, then run `python3 scripts/sync-sources.py` here. The published native export chooses the source commit; this site does not maintain another button map.
-- **Desktop, Dock or apps:** change the response-preferences public demo. The Dell embeds that site directly; the sync script refreshes this site’s app directory.
+- **Desktop, Dock or apps:** change the response-preferences public demo. The Codex hotspot embeds that site directly; the sync script refreshes this site’s app directory.
 
 `sources.lock.json` records the actual source revision and file hashes. A daily GitHub Actions run refreshes the published mouse runtime and app directory, checks the result, saves changes and deploys them. Manual workflow dispatch does the same. Ordinary pushes build the committed snapshot. An upstream refresh that fails checks stops before deployment.
 
@@ -84,7 +84,7 @@ Before pushing a UI change, manually test the final build in Codex’s built-in 
 
 ## Privacy and reuse
 
-The two external monitors in the main photo show edited versions of my work-screen and OBS captures. Private chats, account details and raw desktop captures are not included. Clicking those monitors opens the interactive public desktop and OBS examples. The OBS and dictation examples do not request microphone, camera or screen-recording access, and do not control the real machine. The embedded public desktop and fonts require a network connection.
+The two external monitors in the main photo show edited versions of my work-screen and OBS captures. Private chats, account details and raw desktop captures are not included. The separate Codex hotspot opens the public desktop example, the Dell opens its product model, and the Samsung opens the OBS example. The OBS and dictation examples do not request microphone, camera or screen-recording access, and do not control the real machine. The embedded public desktop and fonts require a network connection.
 
 Code is MIT licensed; third-party code retains its notices. Ethan’s photographs and likeness, app artwork, manufacturer images and trademarks are not a general-purpose asset pack. Replace them with your own content when adapting this site.
 
