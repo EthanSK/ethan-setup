@@ -1,0 +1,6 @@
+Use case: precise-object-edit
+Asset type: existing website room photo with already-edited monitor content.
+Image 1 is the edit target. Surgical edit ONLY to the laptop's illuminated screen at the far left of the desk (approximately x=26–251,y=433–561 on the original 1586×992 canvas).
+Replace only that laptop's currently blurred UI with a beautiful sharp minimal desktop wallpaper of smooth pale grey, cream and charcoal river pebbles, large rounded stones filling the screen, natural soft lighting, no app windows, no desktop icons, no words. Fit it exactly inside the existing laptop screen bezel at its existing perspective.
+Leave BOTH external monitors and their screenshot content exactly unchanged. Preserve the original 1586×992 canvas, aspect ratio and camera framing. Preserve absolutely everything outside the laptop screen: the laptop body/keyboard/bezel, room, desk, equipment, person, face, hair, hands, black CDO FOR LIFE shirt, beige shorts, comical sausage legs. Do not regenerate or change the person. No extra objects or overlays.
+Keep the wallpaper sharp but with realistic screen brightness for the dark room. No glare or blur.

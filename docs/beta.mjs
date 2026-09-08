@@ -112,7 +112,7 @@ async function createRoom() {
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(45, 1, .1, 100);
-    const texture = await new THREE.TextureLoader().loadAsync(new URL("./assets/room.webp?v=__SITE_VERSION__", import.meta.url).href);
+    const texture = await new THREE.TextureLoader().loadAsync(new URL("./assets/room.svg?v=__SITE_VERSION__", import.meta.url).href);
     texture.colorSpace = THREE.SRGBColorSpace;
     photo = new THREE.Mesh(new THREE.PlaneGeometry(roomWidth, roomHeight), new THREE.MeshBasicMaterial({ map: texture }));
     scene.add(photo); // A restrained camera over the original photo gives depth without distorting Ethan's face or inventing unseen parts of the room.

@@ -41,7 +41,11 @@ The room photograph was generated from Ethan’s own reference photos and later 
 
 The share preview, `docs/assets/sausage-legs-social.jpg`, is a JPEG export of the original `ethan-sausage-legs.webp` at its unchanged 1671 × 941 dimensions. It keeps Ethan’s face and the sausage legs prominent without another image-generation pass.
 
-Two desktop screenshots supplied on 8 September 2026 showed the ultrawide work layout and the upper OBS display. They contained private conversations and account details. No raw screenshot is included: the Dell reuses the public desktop example, and OBS recreates the recording layout with public example content. The page never connects to OBS or the native mouse app.
+The 00:22 and 00:25 desktop captures from 8 September 2026 are the references for the two external screens in the main photograph. The Dell insert retains the Vibideo asset browser, developer tools, Codex workspace and public mouse website; the Samsung insert retains OBS++, its scene preview, audio mixer and CPU/GPU graphs. The built-in image editing tool fitted their content into the photographed displays and removed private conversations, account details, local paths and transcription overlays. These are edited screenshot inserts, not untouched captures or a live view of Ethan’s computer.
+
+`docs/assets/room-screens.webp` is a WebP export of that edit. A separate edit, `room-laptop.webp`, supplies the pebble wallpaper Ethan requested for his MacBook screen. `scripts/build-room-image.py` packages only those three screen regions over the unchanged original `room.webp` in the self-contained `room.svg`. Its upper outline excludes Ethan’s head and hair; the face, body, sausage legs and every pixel outside the screen outlines come from the original photo. The same composite loads in the Three.js room and the plain-image fallback. The social card retains its existing image.
+
+No raw screenshot is included. Clicking the Dell still opens the canonical public desktop example; clicking the Samsung opens the interactive public OBS example. The page never connects to OBS or the native mouse app. The built-in image tool's prompts are recorded in `image-prompts/room-screens.txt` and `image-prompts/room-laptop.txt` without private input paths.
 
 ## Dependencies and rights
 

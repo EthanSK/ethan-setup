@@ -4,7 +4,7 @@
 
 My desk, apps and mouse controls for working with agents, recording and making music.
 
-![My desk](docs/assets/room.webp)
+![My desk](docs/assets/room.svg)
 
 ## Review code without moving your hand
 
@@ -69,6 +69,7 @@ Open [localhost:8842](http://127.0.0.1:8842/). Keep the server running while usi
 
 - **Hardware and hotspot positions:** edit `docs/gear.json`; coordinates run from 0 to 1 across the room image. Keep this README’s inventory consistent.
 - **Room and interactions:** `docs/index.html`, `docs/beta.css` and `docs/beta.mjs`.
+- **Screens in the room photo:** `docs/assets/room.svg` places the edited work screen, OBS screen and laptop wallpaper over the original `room.webp`, preserving the person and room. After replacing `room-screens.webp`, `room-laptop.webp` or adjusting the screen outlines, run `python3 scripts/build-room-image.py`, then rebuild. See [source notes](SOURCES.md) for the screenshot references and privacy edits.
 - **Share preview:** `docs/assets/sausage-legs-social.jpg` uses the original sausage-leg photo; Open Graph and large-image card metadata in `docs/index.html` point to that image. Keep its dimensions and alt text in sync when replacing it.
 - **Product geometry:** `docs/product-models.mjs`; reference notes are in `PRODUCT-MODELS.md`.
 - **OBS example:** `docs/obs.html`, `docs/obs.css` and `docs/obs.mjs`.
@@ -77,13 +78,13 @@ Open [localhost:8842](http://127.0.0.1:8842/). Keep the server running while usi
 
 `sources.lock.json` records the actual source revision and file hashes. A daily GitHub Actions run refreshes the published mouse runtime and app directory, checks the result, saves changes and deploys them. Manual workflow dispatch does the same. Ordinary pushes build the committed snapshot. An upstream refresh that fails checks stops before deployment.
 
-Before pushing a UI change, manually test the final build in Chromium: enter, wheel both ways, drag and release, pinch with two touch points, edge arrows, dialogs, models, both mice, code review, dictation, desktop and OBS. Check a narrow mobile viewport, keyboard controls, reduced motion and browser errors. Automated checks do not prove visual quality or touch behavior.
+Before pushing a UI change, manually test the final build in Codex’s built-in browser: enter, wheel both ways, drag and release, edge arrows, dialogs, models, both mice, code review, dictation, desktop and OBS. Check a narrow mobile viewport, keyboard controls, reduced motion and browser errors. Test actual two-touch pinch when the browser tool supports it; report that check as unverified otherwise. Do not open or focus personal Chrome for testing. Automated checks do not prove visual quality or touch behavior.
 
 [AGENTS.md](AGENTS.md) describes ownership and verification requirements for agents. [SOURCES.md](SOURCES.md) covers provenance, privacy and licensing.
 
 ## Privacy and reuse
 
-The screenshots were used as layout references. Private chats, account details and raw desktop captures are not included. The OBS and dictation examples do not request microphone, camera or screen-recording access, and do not control the real machine. The embedded public desktop and fonts require a network connection.
+The two external monitors in the main photo show edited versions of my work-screen and OBS captures. Private chats, account details and raw desktop captures are not included. Clicking those monitors opens the interactive public desktop and OBS examples. The OBS and dictation examples do not request microphone, camera or screen-recording access, and do not control the real machine. The embedded public desktop and fonts require a network connection.
 
 Code is MIT licensed; third-party code retains its notices. Ethan’s photographs and likeness, app artwork, manufacturer images and trademarks are not a general-purpose asset pack. Replace them with your own content when adapting this site.
 

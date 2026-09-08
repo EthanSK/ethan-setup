@@ -1,7 +1,7 @@
 {
   "agenticMouse": {
     "repository": "https://github.com/EthanSK/agentic-mouse",
-    "revision": "e132fb09331b29803821a21e5243a96795bd63b2",
+    "revision": "d7b2335ea1c5e3c2cb1b09cc8b8fdb25490c6ea8",
     "publishedMap": "https://ethansk.github.io/agentic-mouse/simulator-data.json"
   },
   "desktop": {
@@ -9,7 +9,7 @@
     "apps": "https://ethansk.github.io/response-preferences/desktop/apps.json"
   },
   "sha256": {
-    "agentic-mouse-mark.svg": "72b7188f1c5051559d1aae41ff46e88f1d8517f3d86909fc92bf2ea3ceb56370",
+    "agentic-mouse-mark.svg": "f6cd4cbbabe46502a6a08e8d6d51e768ad92b980c92a4f713f7c77b5b9d3f8fa",
     "apps.json": "a6a3b274bee1c50214e3d51ccdf41fff11a69e7d9ee302deb82c5b8caf61e281",
     "assets/apps/chrome.png": "76d25cd7dd3e82082ebef88f911409f6148722af2f2c9df8816910b0706e35a9",
     "assets/apps/claude.png": "efc6c8fe0b934cffae7d0faa6fbc5ddab11f14a11abc6f235ca3e11d42b6228f",
@@ -58,8 +58,8 @@
     "mouse-model.mjs": "dfc481130f6103382c15be379c8aaedd75834f491fbf52d415002962536efaa6",
     "mouse-motion.mjs": "6b7925159f66627523575708856ef39c7c8e4b10064ade9695a9408a036bb68c",
     "native-hud.mjs": "3891db55ae64e125dbcb05742fa9cbd8f9aedb94eeb984a25571b568136e3f4e",
-    "showcase.css": "1a05e2f1d7587e3b88c8f8d568f3afaa933e69dcba31045dbab85cbb8dd3a6a8",
-    "simulator-data.json": "c2f1ac9a92f62676ab3c23efc7481a3e0d0cabf0d8b287f5d5b469f012cc0262",
+    "showcase.css": "62426032fdfee0369b06d90a261e22a148ae9b330aa72c399b12c338af5b60f7",
+    "simulator-data.json": "e53c431a55ac641efe0e04069956975c5878f237b6d2671ef358b1640136b057",
     "simulator.mjs": "95ad64a7a27598c0f3f868d632d382555e7c100f5958a75be46279b4b5e0d1e8"
   }
 }

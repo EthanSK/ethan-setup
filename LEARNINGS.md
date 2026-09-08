@@ -12,6 +12,8 @@ A ground shadow placed below the unrotated model can cut through its lower half 
 
 Room monitor clicks open full-height desktop or OBS demos. The Hardware directory opens the monitors' rotatable models, which retain an Open screen action. Do not reintroduce duplicate headings, subtitles or a Desktop / 3D monitor toolbar above the embedded screen. Keep its accessible name, close control and outside-click dismissal.
 
+Screenshots requested for the main room picture must actually appear inside its photographed displays. Using them only as layout references for click-open demos leaves the reported blur unchanged. Apply the safe screen content to the main image and inspect the screen edges and head occlusion at close zoom. Keep the approved original photo outside those regions so another screen edit cannot change Ethan’s face or body.
+
 ## Hardware identification
 
 When purchase search cannot identify a paired computer, read its hardware model and chip through the existing diagnostic connection. Publish only the relevant specs, never its connection details or identifiers. Match the confirmed generation to official dimensions and photographs before building its enclosure.
