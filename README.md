@@ -20,6 +20,7 @@ The website lets you try those controls and the app’s HUD without installing a
 - Scroll down to zoom in and up to zoom out. Spread two fingers to zoom in and pinch them together to zoom out.
 - Click a mouse, screen or hardware label to move closer and open it. Edge arrows point to items outside the view.
 - Rotate product models by dragging. Use arrow keys to rotate and Home to reset.
+- Moving parts animate back and forth: the desk lifts, the chair adjusts, screens tilt and music controls move. Choose an adjustment or pause it; dragging pauses the adjustment for six seconds. Reduced motion starts paused.
 - Every hardware dialog opens in 3D, with official product photos underneath. Click a thumbnail or use the arrows, scroll the strip to see more, and select **3D** to return to the model.
 - Click outside a dialog or press Escape to return to the room.
 - Open the Dell for its rotatable monitor model, specs and product link. The nearby **Codex** hotspot opens the interactive desktop, Dock, menu bar and Codex example. Samsung opens its monitor product; the separate **OBS** hotspot opens the silent recording demo and my setup details.
@@ -65,6 +66,7 @@ Requires Python 3.10+ and Node.js 22+ for checks; no npm packages or native app 
 ```sh
 python3 scripts/build.py
 python3 scripts/check.py
+node scripts/check-model-geometry.mjs
 python3 -m http.server 8842 --bind 127.0.0.1 --directory .build/site
 ```
 
@@ -76,7 +78,7 @@ Open [localhost:8842](http://127.0.0.1:8842/). Keep the server running while usi
 - **Room and interactions:** `docs/index.html`, `docs/beta.css` and `docs/beta.mjs`.
 - **Room picture:** `docs/assets/room.svg` combines the corrected face, work screen, OBS screen, laptop wallpaper and small Canon camera patch with the original `room.webp`. The body, clothes, sausage legs and surrounding room remain from that original. After replacing `room-screens.webp`, `room-details.webp`, `room-camera.webp` or adjusting the region outlines, run `python3 scripts/build-room-image.py`, then rebuild. See [source notes](SOURCES.md) for references and privacy edits.
 - **Share preview:** `docs/assets/sausage-legs-social.jpg` uses the original sausage-leg photo; Open Graph and large-image card metadata in `docs/index.html` point to that image. Keep its dimensions and alt text in sync when replacing it.
-- **Product geometry:** `docs/product-models.mjs`; reference notes are in `PRODUCT-MODELS.md`. The MacBook uses the actual Tahoe rocks-and-water wallpaper in `docs/assets/macbook-wallpaper.webp`, cropped proportionally.
+- **Product geometry:** `docs/product-models.mjs`; geometry and movement references are in [PRODUCT-MODELS.md](PRODUCT-MODELS.md). The MacBook uses the actual Tahoe rocks-and-water wallpaper in `docs/assets/macbook-wallpaper.webp`, cropped proportionally.
 - **Product galleries:** `docs/product-gallery.mjs` reads each item's `images` in `docs/gear.json`: local WebP `src`, a concise `angle`, and its official image `source`. Keep images proportional under `docs/assets/products/`, verify the actual model and colour, and document their origin in `SOURCES.md`. The 3D option remains first and is selected again whenever a dialog opens.
 - **OBS example and setup details:** `docs/obs.html`, `docs/obs.css` and `docs/obs.mjs`. Keep the dated settings consistent with the [OBS++ setup guide](https://github.com/EthanSK/obs-plus-plus/blob/master/SETUP.md); do not present the example as live telemetry.
 - **Mouse modes, HUD, mouse models or icon:** change the canonical Agentic Mouse repository, publish it, then run `python3 scripts/sync-sources.py` here. The published native export chooses the source commit; this site does not maintain another button map.
