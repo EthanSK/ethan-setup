@@ -1,74 +1,10 @@
 [
   {
-    "id": "corsair",
-    "name": "Corsair Scimitar Elite Wireless SE",
-    "label": "Right mouse",
-    "x": 0.523,
-    "y": 0.507,
-    "url": "https://www.corsair.com/uk/en/p/gaming-mouse/ch-9314415-ww/scimitar-elite-wireless-se-mmo-gaming-mouse-black-yellow-ch-9314415-ww",
-    "specs": [
-      "Right-handed",
-      "12 thumb buttons",
-      "Black / yellow"
-    ],
-    "evidence": "User setup and existing published source",
-    "description": "",
-    "images": [
-      {
-        "src": "assets/products/corsair-angled-view.webp",
-        "angle": "Angled view",
-        "source": "https://assets.corsair.com/image/upload/c_pad,q_auto,h_1024,w_1024,f_auto/products/Gaming-Mice/CH-9314415-WW/gallery/SCIMITAR_ELITE_SE_BLK-YLO_01.webp"
-      },
-      {
-        "src": "assets/products/corsair-desk-view.webp",
-        "angle": "Desk view",
-        "source": "https://assets.corsair.com/image/upload/c_pad,q_auto,h_1024,w_1024,f_auto/products/Gaming-Mice/CH-9314415-WW/gallery/SCIMITAR_ELITE_SE_BLK-YLO_10.webp"
-      },
-      {
-        "src": "assets/products/corsair-side-buttons.webp",
-        "angle": "Side buttons",
-        "source": "https://assets.corsair.com/image/upload/c_pad,q_auto,h_1024,w_1024,f_auto/products/Gaming-Mice/CH-9314415-WW/gallery/SCIMITAR_ELITE_SE_BLK-YLO_11.webp"
-      }
-    ]
-  },
-  {
-    "id": "razer",
-    "name": "Razer Naga Left-Handed Edition",
-    "label": "Left mouse",
-    "x": 0.367,
-    "y": 0.526,
-    "url": "https://www.razer.com/gb-en/gaming-mice/razer-naga-left-handed-edition",
-    "specs": [
-      "Left-handed",
-      "12 mirrored controls",
-      "Black"
-    ],
-    "evidence": "User setup and existing published source",
-    "description": "",
-    "images": [
-      {
-        "src": "assets/products/razer-top.webp",
-        "angle": "Top",
-        "source": "https://medias-p1.phoenix.razer.com/sys-master-phoenix-images-container/h3b/h72/9081450430494/Razer-Naga-Left-Handed-Edition-Gallery2.jpg"
-      },
-      {
-        "src": "assets/products/razer-side-buttons.webp",
-        "angle": "Side buttons",
-        "source": "https://medias-p1.phoenix.razer.com/sys-master-phoenix-images-container/h27/h6b/9081450659870/Razer-Naga-Left-Handed-Edition-Gallery3.jpg"
-      },
-      {
-        "src": "assets/products/razer-desk-view.webp",
-        "angle": "Desk view",
-        "source": "https://medias-p1.phoenix.razer.com/sys-master-phoenix-images-container/hff/h63/9081450889246/Razer-Naga-Left-Handed-Edition-Gallery0.jpg"
-      }
-    ]
-  },
-  {
     "id": "macbook",
     "name": "MacBook Pro",
     "label": "MacBook Pro",
-    "x": 0.097,
-    "y": 0.381,
+    "x": 0.101,
+    "y": 0.536,
     "url": "https://support.apple.com/en-gb/126319",
     "specs": [
       "16-inch",
@@ -102,33 +38,178 @@
     ]
   },
   {
-    "id": "hs8",
-    "name": "Yamaha HS8",
-    "label": "Yamaha HS8",
-    "x": 0.199,
-    "y": 0.343,
-    "url": "https://usa.yamaha.com/products/proaudio/speakers/hs_series/",
+    "id": "corsair",
+    "name": "Corsair Scimitar Elite Wireless SE",
+    "label": "Right mouse",
+    "x": 0.391,
+    "y": 0.647,
+    "url": "https://www.corsair.com/uk/en/p/gaming-mouse/ch-9314415-ww/scimitar-elite-wireless-se-mmo-gaming-mouse-black-yellow-ch-9314415-ww",
     "specs": [
-      "White pair",
-      "8-inch studio monitors"
+      "Right-handed",
+      "12 thumb buttons",
+      "Black / yellow"
     ],
-    "evidence": "Gear4music purchase, September 2024",
-    "description": "A pair of white Yamaha HS8s I use as studio monitors.",
+    "evidence": "User setup and existing published source",
+    "description": "",
     "images": [
       {
-        "src": "assets/products/hs8-front.webp",
-        "angle": "Front",
-        "source": "https://usa.yamaha.com/files/photoviewer_speakers_hs8w_front_c7316ff194eafc2ff9a869556d94f546.jpg"
-      },
-      {
-        "src": "assets/products/hs8-angled-view.webp",
+        "src": "assets/products/corsair-angled-view.webp",
         "angle": "Angled view",
-        "source": "https://usa.yamaha.com/files/photoviewer_speakers_hs8w_left_549e444f8bebbecaae383bf0af0cddf1.jpg"
+        "source": "https://assets.corsair.com/image/upload/c_pad,q_auto,h_1024,w_1024,f_auto/products/Gaming-Mice/CH-9314415-WW/gallery/SCIMITAR_ELITE_SE_BLK-YLO_01.webp"
       },
       {
-        "src": "assets/products/hs8-back.webp",
+        "src": "assets/products/corsair-desk-view.webp",
+        "angle": "Desk view",
+        "source": "https://assets.corsair.com/image/upload/c_pad,q_auto,h_1024,w_1024,f_auto/products/Gaming-Mice/CH-9314415-WW/gallery/SCIMITAR_ELITE_SE_BLK-YLO_10.webp"
+      },
+      {
+        "src": "assets/products/corsair-side-buttons.webp",
+        "angle": "Side buttons",
+        "source": "https://assets.corsair.com/image/upload/c_pad,q_auto,h_1024,w_1024,f_auto/products/Gaming-Mice/CH-9314415-WW/gallery/SCIMITAR_ELITE_SE_BLK-YLO_11.webp"
+      }
+    ]
+  },
+  {
+    "id": "razer",
+    "name": "Razer Naga Left-Handed Edition",
+    "label": "Left mouse",
+    "x": 0.231,
+    "y": 0.67,
+    "url": "https://www.razer.com/gb-en/gaming-mice/razer-naga-left-handed-edition",
+    "specs": [
+      "Left-handed",
+      "12 mirrored controls",
+      "Black"
+    ],
+    "evidence": "User setup and existing published source",
+    "description": "",
+    "images": [
+      {
+        "src": "assets/products/razer-top.webp",
+        "angle": "Top",
+        "source": "https://medias-p1.phoenix.razer.com/sys-master-phoenix-images-container/h3b/h72/9081450430494/Razer-Naga-Left-Handed-Edition-Gallery2.jpg"
+      },
+      {
+        "src": "assets/products/razer-side-buttons.webp",
+        "angle": "Side buttons",
+        "source": "https://medias-p1.phoenix.razer.com/sys-master-phoenix-images-container/h27/h6b/9081450659870/Razer-Naga-Left-Handed-Edition-Gallery3.jpg"
+      },
+      {
+        "src": "assets/products/razer-desk-view.webp",
+        "angle": "Desk view",
+        "source": "https://medias-p1.phoenix.razer.com/sys-master-phoenix-images-container/hff/h63/9081450889246/Razer-Naga-Left-Handed-Edition-Gallery0.jpg"
+      }
+    ]
+  },
+  {
+    "id": "dell",
+    "name": "Dell S3422DW",
+    "label": "Dell ultrawide",
+    "x": 0.401,
+    "y": 0.396,
+    "url": "https://www.dell.com/support/home/en-uk/product-support/product/dell-s3422dw-monitor/overview",
+    "specs": [
+      "34-inch",
+      "3440 × 1440",
+      "Curved ultrawide"
+    ],
+    "evidence": "Host display inventory from July 2026 identifies DELL S3422DW at 3440 × 1440 and 100 Hz; current capture device obscures its identity",
+    "description": "My 34-inch Dell ultrawide, the main display.",
+    "images": [
+      {
+        "src": "assets/products/dell-angled-view.webp",
+        "angle": "Angled view",
+        "source": "https://i.dell.com/is/image/DellContent//content/dam/ss2/product-images/dell-client-products/peripherals/monitors/s-series/s3422dw/media-gallery/s3422dw_cfp_00030lf095_sl.psd?fmt=png-alpha&pscan=auto&scl=1&hei=804&wid=804&qlt=100,1&resMode=sharp2&size=804,804&chrss=full"
+      },
+      {
+        "src": "assets/products/dell-front.webp",
+        "angle": "Front",
+        "source": "https://cdn.e-misija.si/pdf/S3422DW.pdf"
+      }
+    ]
+  },
+  {
+    "id": "chair",
+    "name": "Hbada E3 Pro",
+    "label": "Hbada E3 Pro",
+    "x": 0.784,
+    "y": 0.683,
+    "url": "https://www.hbada.uk/products/hbada-e3-pro-ergonomic-office-chair?variant=57072259858807",
+    "specs": [
+      "2026 edition",
+      "Grey",
+      "With footrest"
+    ],
+    "evidence": "Hbada shipment confirmation, July 2026",
+    "description": "My Hbada E3 Pro 2026 in grey, with a footrest.",
+    "images": [
+      {
+        "src": "assets/products/chair-angled-view.webp",
+        "angle": "Angled view",
+        "source": "https://www.hbada.uk/cdn/shop/files/E3_Pro_2026_Gray_with_footrest_ergonomic_office_chair_side.png?v=1778028844&width=1280"
+      },
+      {
+        "src": "assets/products/chair-back.webp",
         "angle": "Back",
-        "source": "https://usa.yamaha.com/files/photoviewer_speakers_hs8w_rear_e35550b5acbe667ab42d081d17dc8ba0.jpg"
+        "source": "https://www.hbada.uk/cdn/shop/files/E3_Pro_2026_Gray_with_footrest_ergonomic_office_chair_back.png?v=1778028843&width=1280"
+      },
+      {
+        "src": "assets/products/chair-reclined.webp",
+        "angle": "Reclined",
+        "source": "https://www.hbada.uk/cdn/shop/files/E3_Pro_2026_Gray_with_footrest_ergonomic_office_chair_tilt.png?v=1778028843&width=1280"
+      }
+    ]
+  },
+  {
+    "id": "desk",
+    "name": "FlexiSpot E7 Pro",
+    "label": "FlexiSpot E7 Pro",
+    "x": 0.269,
+    "y": 0.69,
+    "url": "https://flexispot.co.uk/next-generation-standing-desk-e7-pro",
+    "specs": [
+      "2025 model",
+      "Bamboo · 180 × 80 cm",
+      "Black frame"
+    ],
+    "evidence": "Previously verified FlexiSpot purchase, March 2025",
+    "description": "My FlexiSpot E7 Pro, 180x80cm bamboo top on a black frame.",
+    "images": [
+      {
+        "src": "assets/products/desk-frame-detail.webp",
+        "angle": "Frame detail",
+        "source": "https://s3.springbeetle.com/prod-us2-bucket/trantor/attachments/US/E7Pro-20250324-img2-3.png"
+      },
+      {
+        "src": "assets/products/desk-bamboo-finish.webp",
+        "angle": "Bamboo finish",
+        "source": "https://s3.springbeetle.eu/prod-eu-s3/NaturalBamboo_20260903_Ds3bJcmg.jpg"
+      }
+    ]
+  },
+  {
+    "id": "shure",
+    "name": "Shure SM7B",
+    "label": "Shure SM7B",
+    "x": 0.541,
+    "y": 0.471,
+    "url": "https://www.shure.com/en-GB/products/microphones/sm7b",
+    "specs": [
+      "Dynamic microphone",
+      "Dictation and recording"
+    ],
+    "evidence": "User confirmed",
+    "description": "My Shure SM7B, used for dictation and recording.",
+    "images": [
+      {
+        "src": "assets/products/shure-in-use.webp",
+        "angle": "In use",
+        "source": "https://products.shureweb.eu/shure_product_db/generic_product_images/files/4aa/a56/2c-/original/8db9e709e76b383acccb2722456bbaf6.jpg"
+      },
+      {
+        "src": "assets/products/shure-studio-setup.webp",
+        "angle": "Studio setup",
+        "source": "https://products.shureweb.eu/shure_product_db/generic_product_images/files/ab1/dbc/c9-/original/e47dab6714636784660838eb9e21a67d.jpg"
       }
     ]
   },
@@ -136,8 +217,8 @@
     "id": "scarlett",
     "name": "Focusrite Scarlett 18i8",
     "label": "Scarlett 18i8",
-    "x": 0.232,
-    "y": 0.482,
+    "x": 0.39,
+    "y": 0.537,
     "url": "https://us.focusrite.com/products/scarlett-18i8-3rd-gen",
     "specs": [
       "3rd generation",
@@ -164,149 +245,65 @@
     ]
   },
   {
-    "id": "flx4",
-    "name": "Pioneer DDJ-FLX4",
-    "label": "DDJ-FLX4",
-    "x": 0.367,
-    "y": 0.448,
-    "url": "https://www.pioneerdj.com/en/product/dj-controllers/ddj-flx4/",
+    "id": "hs8",
+    "name": "Yamaha HS8",
+    "label": "Yamaha HS8",
+    "x": 0.183,
+    "y": 0.428,
+    "url": "https://usa.yamaha.com/products/proaudio/speakers/hs_series/",
     "specs": [
-      "Black",
-      "2-channel DJ controller"
+      "White pair",
+      "8-inch studio monitors"
     ],
-    "evidence": "Argos collected receipt, June 2025",
-    "description": "My Pioneer DDJ-FLX4 controller for DJing.",
+    "evidence": "Gear4music purchase, September 2024",
+    "description": "A pair of white Yamaha HS8s I use as studio monitors.",
     "images": [
       {
-        "src": "assets/products/flx4-top.webp",
-        "angle": "Top",
-        "source": "https://www.pioneerdj.com/product-images/558/b92a4a01-892f-4d24-ae4e-44f1872d1d24/ddj-flx4_3.png"
-      },
-      {
-        "src": "assets/products/flx4-angled-view.webp",
-        "angle": "Angled view",
-        "source": "https://www.pioneerdj.com/product-images/556/d067d24e-28a0-42d1-ac50-5cf2392f755e/ddj-flx4_1.png"
-      },
-      {
-        "src": "assets/products/flx4-front.webp",
+        "src": "assets/products/hs8-front.webp",
         "angle": "Front",
-        "source": "https://www.pioneerdj.com/product-images/559/30daed79-91f3-4453-b23b-e57f0f2cd855/ddj-flx4_4.png"
-      }
-    ]
-  },
-  {
-    "id": "macmini",
-    "name": "Mac mini",
-    "label": "Mac mini",
-    "x": 0.299,
-    "y": 0.471,
-    "url": "https://support.apple.com/en-gb/121555",
-    "specs": [
-      "Apple M4",
-      "16 GB memory",
-      "Silver"
-    ],
-    "evidence": "Live Mac mini hardware identification confirms M4 and 16 GB; Apple specifies the 2024 silver enclosure",
-    "description": "",
-    "images": [
-      {
-        "src": "assets/products/macmini-top.webp",
-        "angle": "Top",
-        "source": "https://cdsassets.apple.com/live/7WUAS350/images/tech-specs/mac-mini-2024.png"
+        "source": "https://usa.yamaha.com/files/photoviewer_speakers_hs8w_front_c7316ff194eafc2ff9a869556d94f546.jpg"
       },
       {
-        "src": "assets/products/macmini-front-connections.webp",
-        "angle": "Front connections",
-        "source": "https://cdsassets.apple.com/live/7WUAS350/images/tech-specs/121555-mac-mini-2024-gb-portimage1.png"
-      },
-      {
-        "src": "assets/products/macmini-rear-connections.webp",
-        "angle": "Rear connections",
-        "source": "https://cdsassets.apple.com/live/7WUAS350/images/tech-specs/121555-mac-mini-2024-gb-portimage2.png"
-      }
-    ]
-  },
-  {
-    "id": "akai",
-    "name": "Akai MPK mini Plus",
-    "label": "MPK mini Plus",
-    "x": 0.525,
-    "y": 0.443,
-    "url": "https://www.akaipro.com/discover/mpk",
-    "specs": [
-      "37 keys",
-      "8 MPC pads"
-    ],
-    "evidence": "Amazon purchase, February 2023",
-    "description": "My Akai MPK mini Plus, a 37-key USB MIDI keyboard with pads.",
-    "images": [
-      {
-        "src": "assets/products/akai-top.webp",
-        "angle": "Top",
-        "source": "https://cdn.builder.io/api/v1/image/assets%2F47c5d023e7b3451a86ac03602c65dce8%2Fb9162d20cd534391a91ade2e0b156e83"
-      },
-      {
-        "src": "assets/products/akai-angled-view.webp",
+        "src": "assets/products/hs8-angled-view.webp",
         "angle": "Angled view",
-        "source": "https://cdn.builder.io/api/v1/image/assets%2F47c5d023e7b3451a86ac03602c65dce8%2Ffbd479ab6a0747709f1b4f976fc02929"
+        "source": "https://usa.yamaha.com/files/photoviewer_speakers_hs8w_left_549e444f8bebbecaae383bf0af0cddf1.jpg"
       },
       {
-        "src": "assets/products/akai-back.webp",
+        "src": "assets/products/hs8-back.webp",
         "angle": "Back",
-        "source": "https://cdn.builder.io/api/v1/image/assets%2F47c5d023e7b3451a86ac03602c65dce8%2F11194ceffc97496d9e58083cdc49651a"
+        "source": "https://usa.yamaha.com/files/photoviewer_speakers_hs8w_rear_e35550b5acbe667ab42d081d17dc8ba0.jpg"
       }
     ]
   },
   {
-    "id": "shure",
-    "name": "Shure SM7B",
-    "label": "Shure SM7B",
-    "x": 0.09,
-    "y": 0.224,
-    "url": "https://www.shure.com/en-GB/products/microphones/sm7b",
+    "id": "samsung",
+    "name": "Samsung S80UA",
+    "label": "Samsung",
+    "x": 0.744,
+    "y": 0.159,
+    "url": "https://www.samsung.com/pt/monitors/high-resolution/s80ua-27-inch-ips-uhd-4k-ls27a800ujpxen/",
     "specs": [
-      "Dynamic microphone",
-      "Dictation and recording"
+      "27-inch",
+      "4K",
+      "S27A800U"
     ],
-    "evidence": "User confirmed",
-    "description": "My Shure SM7B, used for dictation and recording.",
+    "evidence": "Live display identifies LS27A800U; full regional SKU not verified",
+    "description": "My 27-inch Samsung S80UA above the ultrawide, used for OBS recording.",
     "images": [
       {
-        "src": "assets/products/shure-in-use.webp",
-        "angle": "In use",
-        "source": "https://products.shureweb.eu/shure_product_db/generic_product_images/files/4aa/a56/2c-/original/8db9e709e76b383acccb2722456bbaf6.jpg"
-      },
-      {
-        "src": "assets/products/shure-studio-setup.webp",
-        "angle": "Studio setup",
-        "source": "https://products.shureweb.eu/shure_product_db/generic_product_images/files/ab1/dbc/c9-/original/e47dab6714636784660838eb9e21a67d.jpg"
-      }
-    ]
-  },
-  {
-    "id": "dell",
-    "name": "Dell S3422DW",
-    "label": "Dell ultrawide",
-    "x": 0.417,
-    "y": 0.307,
-    "url": "https://www.dell.com/support/home/en-uk/product-support/product/dell-s3422dw-monitor/overview",
-    "specs": [
-      "34-inch",
-      "3440 × 1440",
-      "Curved ultrawide"
-    ],
-    "evidence": "Host display inventory from July 2026 identifies DELL S3422DW at 3440 × 1440 and 100 Hz; current capture device obscures its identity",
-    "description": "My 34-inch Dell ultrawide, the main display.",
-    "images": [
-      {
-        "src": "assets/products/dell-angled-view.webp",
-        "angle": "Angled view",
-        "source": "https://i.dell.com/is/image/DellContent//content/dam/ss2/product-images/dell-client-products/peripherals/monitors/s-series/s3422dw/media-gallery/s3422dw_cfp_00030lf095_sl.psd?fmt=png-alpha&pscan=auto&scl=1&hei=804&wid=804&qlt=100,1&resMode=sharp2&size=804,804&chrss=full"
-      },
-      {
-        "src": "assets/products/dell-front.webp",
+        "src": "assets/products/samsung-front.webp",
         "angle": "Front",
-        "source": "https://cdn.e-misija.si/pdf/S3422DW.pdf"
+        "source": "https://images.samsung.com/is/image/samsung/p6pim/pt/ls27a800ujpxen/gallery/pt-s80ua-477507-ls27a800ujpxen-538170967?$1164_776_PNG$"
+      },
+      {
+        "src": "assets/products/samsung-back.webp",
+        "angle": "Back",
+        "source": "https://images.samsung.com/is/image/samsung/p6pim/pt/ls27a800ujpxen/gallery/pt-s80ua-477507-ls27a800ujpxen-538170916?$1164_776_PNG$"
+      },
+      {
+        "src": "assets/products/samsung-angled-view.webp",
+        "angle": "Angled view",
+        "source": "https://images.samsung.com/is/image/samsung/p6pim/pt/ls27a800ujpxen/gallery/pt-s80ua-477507-ls27a800ujpxen-538170917?$1164_776_PNG$"
       }
     ]
   },
@@ -314,8 +311,8 @@
     "id": "canon",
     "name": "Canon EOS M50 Mark II",
     "label": "Canon M50 II",
-    "x": 0.521,
-    "y": 0.149,
+    "x": 0.517,
+    "y": 0.163,
     "url": "https://www.canon.co.uk/cameras/eos-m50-mark-ii/specifications/",
     "specs": [
       "24.1MP APS-C",
@@ -346,43 +343,11 @@
     ]
   },
   {
-    "id": "samsung",
-    "name": "Samsung S80UA",
-    "label": "Samsung",
-    "x": 0.658,
-    "y": 0.169,
-    "url": "https://www.samsung.com/pt/monitors/high-resolution/s80ua-27-inch-ips-uhd-4k-ls27a800ujpxen/",
-    "specs": [
-      "27-inch",
-      "4K",
-      "S27A800U"
-    ],
-    "evidence": "Live display identifies LS27A800U; full regional SKU not verified",
-    "description": "My 27-inch Samsung S80UA above the ultrawide, used for OBS recording.",
-    "images": [
-      {
-        "src": "assets/products/samsung-front.webp",
-        "angle": "Front",
-        "source": "https://images.samsung.com/is/image/samsung/p6pim/pt/ls27a800ujpxen/gallery/pt-s80ua-477507-ls27a800ujpxen-538170967?$1164_776_PNG$"
-      },
-      {
-        "src": "assets/products/samsung-back.webp",
-        "angle": "Back",
-        "source": "https://images.samsung.com/is/image/samsung/p6pim/pt/ls27a800ujpxen/gallery/pt-s80ua-477507-ls27a800ujpxen-538170916?$1164_776_PNG$"
-      },
-      {
-        "src": "assets/products/samsung-angled-view.webp",
-        "angle": "Angled view",
-        "source": "https://images.samsung.com/is/image/samsung/p6pim/pt/ls27a800ujpxen/gallery/pt-s80ua-477507-ls27a800ujpxen-538170917?$1164_776_PNG$"
-      }
-    ]
-  },
-  {
     "id": "bigknob",
     "name": "Mackie Big Knob Passive",
     "label": "Big Knob",
-    "x": 0.301,
-    "y": 0.522,
+    "x": 0.329,
+    "y": 0.581,
     "url": "https://mackie.com/en/products/accessories/big_knob_passive.html",
     "specs": [
       "Passive monitor controller",
@@ -402,8 +367,8 @@
     "id": "drive",
     "name": "WD Elements Desktop",
     "label": "WD Elements",
-    "x": 0.157,
-    "y": 0.831,
+    "x": 0.217,
+    "y": 0.554,
     "url": "https://www.westerndigital.com/products/external-drives/wd-elements-desktop-usb-3-0-hdd?sku=WDBWLG0140HBK-EESN",
     "specs": [
       "14 TB",
@@ -431,61 +396,96 @@
     ]
   },
   {
-    "id": "desk",
-    "name": "FlexiSpot E7 Pro",
-    "label": "FlexiSpot E7 Pro",
-    "x": 0.22,
-    "y": 0.608,
-    "url": "https://flexispot.co.uk/next-generation-standing-desk-e7-pro",
+    "id": "macmini",
+    "name": "Mac mini",
+    "label": "Mac mini",
+    "x": 0.169,
+    "y": 0.54,
+    "url": "https://support.apple.com/en-gb/121555",
     "specs": [
-      "2025 model",
-      "Bamboo · 180 × 80 cm",
-      "Black frame"
+      "Apple M4",
+      "16 GB memory",
+      "Silver"
     ],
-    "evidence": "Previously verified FlexiSpot purchase, March 2025",
-    "description": "My FlexiSpot E7 Pro, 180x80cm bamboo top on a black frame.",
+    "evidence": "Live Mac mini hardware identification confirms M4 and 16 GB; Apple specifies the 2024 silver enclosure",
+    "description": "",
     "images": [
       {
-        "src": "assets/products/desk-frame-detail.webp",
-        "angle": "Frame detail",
-        "source": "https://s3.springbeetle.com/prod-us2-bucket/trantor/attachments/US/E7Pro-20250324-img2-3.png"
+        "src": "assets/products/macmini-top.webp",
+        "angle": "Top",
+        "source": "https://cdsassets.apple.com/live/7WUAS350/images/tech-specs/mac-mini-2024.png"
       },
       {
-        "src": "assets/products/desk-bamboo-finish.webp",
-        "angle": "Bamboo finish",
-        "source": "https://s3.springbeetle.eu/prod-eu-s3/NaturalBamboo_20260903_Ds3bJcmg.jpg"
+        "src": "assets/products/macmini-front-connections.webp",
+        "angle": "Front connections",
+        "source": "https://cdsassets.apple.com/live/7WUAS350/images/tech-specs/121555-mac-mini-2024-gb-portimage1.png"
+      },
+      {
+        "src": "assets/products/macmini-rear-connections.webp",
+        "angle": "Rear connections",
+        "source": "https://cdsassets.apple.com/live/7WUAS350/images/tech-specs/121555-mac-mini-2024-gb-portimage2.png"
       }
     ]
   },
   {
-    "id": "chair",
-    "name": "Hbada E3 Pro",
-    "label": "Hbada E3 Pro",
-    "x": 0.852,
-    "y": 0.772,
-    "url": "https://www.hbada.uk/products/hbada-e3-pro-ergonomic-office-chair?variant=57072259858807",
+    "id": "akai",
+    "name": "Akai MPK mini Plus",
+    "label": "MPK mini Plus",
+    "x": 0.444,
+    "y": 0.577,
+    "url": "https://www.akaipro.com/discover/mpk",
     "specs": [
-      "2026 edition",
-      "Grey",
-      "With footrest"
+      "37 keys",
+      "8 MPC pads"
     ],
-    "evidence": "Hbada shipment confirmation, July 2026",
-    "description": "My Hbada E3 Pro 2026 in grey, with a footrest.",
+    "evidence": "Amazon purchase, February 2023",
+    "description": "My Akai MPK mini Plus, a 37-key USB MIDI keyboard with pads.",
     "images": [
       {
-        "src": "assets/products/chair-angled-view.webp",
+        "src": "assets/products/akai-top.webp",
+        "angle": "Top",
+        "source": "https://cdn.builder.io/api/v1/image/assets%2F47c5d023e7b3451a86ac03602c65dce8%2Fb9162d20cd534391a91ade2e0b156e83"
+      },
+      {
+        "src": "assets/products/akai-angled-view.webp",
         "angle": "Angled view",
-        "source": "https://www.hbada.uk/cdn/shop/files/E3_Pro_2026_Gray_with_footrest_ergonomic_office_chair_side.png?v=1778028844&width=1280"
+        "source": "https://cdn.builder.io/api/v1/image/assets%2F47c5d023e7b3451a86ac03602c65dce8%2Ffbd479ab6a0747709f1b4f976fc02929"
       },
       {
-        "src": "assets/products/chair-back.webp",
+        "src": "assets/products/akai-back.webp",
         "angle": "Back",
-        "source": "https://www.hbada.uk/cdn/shop/files/E3_Pro_2026_Gray_with_footrest_ergonomic_office_chair_back.png?v=1778028843&width=1280"
+        "source": "https://cdn.builder.io/api/v1/image/assets%2F47c5d023e7b3451a86ac03602c65dce8%2F11194ceffc97496d9e58083cdc49651a"
+      }
+    ]
+  },
+  {
+    "id": "flx4",
+    "name": "Pioneer DDJ-FLX4",
+    "label": "DDJ-FLX4",
+    "x": 0.392,
+    "y": 0.504,
+    "url": "https://www.pioneerdj.com/en/product/dj-controllers/ddj-flx4/",
+    "specs": [
+      "Black",
+      "2-channel DJ controller"
+    ],
+    "evidence": "Argos collected receipt, June 2025",
+    "description": "My Pioneer DDJ-FLX4 controller for DJing.",
+    "images": [
+      {
+        "src": "assets/products/flx4-top.webp",
+        "angle": "Top",
+        "source": "https://www.pioneerdj.com/product-images/558/b92a4a01-892f-4d24-ae4e-44f1872d1d24/ddj-flx4_3.png"
       },
       {
-        "src": "assets/products/chair-reclined.webp",
-        "angle": "Reclined",
-        "source": "https://www.hbada.uk/cdn/shop/files/E3_Pro_2026_Gray_with_footrest_ergonomic_office_chair_tilt.png?v=1778028843&width=1280"
+        "src": "assets/products/flx4-angled-view.webp",
+        "angle": "Angled view",
+        "source": "https://www.pioneerdj.com/product-images/556/d067d24e-28a0-42d1-ac50-5cf2392f755e/ddj-flx4_1.png"
+      },
+      {
+        "src": "assets/products/flx4-front.webp",
+        "angle": "Front",
+        "source": "https://www.pioneerdj.com/product-images/559/30daed79-91f3-4453-b23b-e57f0f2cd855/ddj-flx4_4.png"
       }
     ]
   }

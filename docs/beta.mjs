@@ -20,17 +20,7 @@ for (const item of gear) {
   const label = document.createElement("span"); label.className = "hotspot-label"; label.textContent = item.label;
   button.append(dot, label); hotspotContainer.append(button);
 }
-const dockApps = apps.filter(app => app.id !== "trash" && app.id !== "chatgpt" && app.id !== "obs");
-for (const [index, app] of dockApps.entries()) {
-  const button = document.createElement("button");
-  button.type = "button"; button.className = "software-hotspot"; button.dataset.topic = `software:${app.id}`;
-  button.dataset.x = .29 + (index % 12) * .0175; button.dataset.y = .372 + Math.floor(index / 12) * .027;
-  button.setAttribute("aria-label", app.name);
-  const icon = document.createElement("img"); icon.src = new URL(app.icon, "https://ethansk.github.io/response-preferences/").href; icon.alt = ""; icon.width = icon.height = 30; icon.loading = "lazy";
-  const label = document.createElement("span"); label.className = "hotspot-label"; label.textContent = app.name;
-  button.append(icon, label); hotspotContainer.append(button);
-}
-const hotspots = [...hotspotContainer.children];
+const hotspots = [...hotspotContainer.children]; // Ethan rejected the full app-dock overlay: keep apps in the Software rail and directory, not a second grid over the photo (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
 const hotspotWidths = new Map();
 const view = { zoom: 0, panX: 0, panY: 0 };
 const target = { zoom: 0, panX: 0, panY: 0 };
@@ -67,7 +57,6 @@ function draw(now = 0) {
     else view[key] = target[key];
   }
   const projection = roomProjection();
-  stage.style.setProperty("--software-size", `${Math.max(20, Math.min(38, .016 * roomWidth / projection.scale))}px`);
   camera.position.set(projection.x, projection.y, projection.depth);
   camera.lookAt(projection.x, projection.y, 0);
   camera.updateMatrixWorld();
@@ -92,19 +81,14 @@ function draw(now = 0) {
   });
   for (const edge of ["left", "right", "top", "bottom"]) {
     const vertical = edge === "left" || edge === "right", axis = vertical ? "y" : "x";
-    const items = projected.filter(item => item.edge === edge && !item.button.classList.contains("software-hotspot")).sort((a,b) => a[axis] - b[axis]);
+    const items = projected.filter(item => item.edge === edge).sort((a,b) => a[axis] - b[axis]);
     const min = (vertical ? top : left) + 18, max = (vertical ? bottom : right) - 18;
     const gap = Math.min(vertical ? 38 : 118, (max - min) / Math.max(1, items.length - 1));
     for (let i = 0; i < items.length; i++) items[i][axis] = Math.max(min + i * gap, Math.min(max - (items.length - 1 - i) * gap, items[i][axis])); // Reserve space for every arrow before clamping so several items cannot pile up at a corner.
     for (let i = 1; i < items.length; i++) items[i][axis] = Math.max(items[i][axis], items[i-1][axis] + gap);
   }
-  const labelRects = projected.filter(item => !item.outside && item.button.classList.contains("software-hotspot")).map(item => ({left: item.x - 20, right: item.x + 20, top: item.y - 20, bottom: item.y + 20})); // Hardware labels must not cover clickable software icons near the dock.
+  const labelRects = [];
   for (const {button,rawX,rawY,x,y,outside} of projected.sort((a,b) => Number(a.outside) - Number(b.outside))) { // Give objects in the area being explored label space before distant edge arrows.
-    if (button.classList.contains("software-hotspot")) {
-      button.hidden = outside;
-      button.style.left = `${rawX}px`; button.style.top = `${rawY}px`;
-      continue; // Software belongs at the photographed dock; distant apps must not fill the room edges with arrows.
-    }
     button.classList.toggle("offscreen", outside);
     button.style.setProperty("--arrow-angle", `${Math.atan2(rawY - y, rawX - x) + Math.PI / 2}rad`);
     const labelWidth = hotspotWidths.get(button) || 120;
@@ -123,7 +107,7 @@ function render() { if (!frame && !document.hidden) { lastFrame = performance.no
 function zoom(value) {
   target.zoom = Math.max(0, Math.min(1.35, value));
   canvas.classList.toggle("at-zoom-limit", target.zoom === 1.35);
-  if (target.zoom < .15) { target.panX = width < 760 ? 6.6 : 0; target.panY = Math.max(0, (roomHeight - roomWidth * stage.clientHeight / stage.clientWidth) / 2); } // Keep the full upper monitor in the wide-screen starting crop.
+  if (target.zoom < .15) { target.panX = width < 760 ? 3.4 : 0; target.panY = Math.max(0, (roomHeight - roomWidth * stage.clientHeight / stage.clientWidth) / 2); } // Keep the full upper monitor in the wide-screen starting crop.
   stage.classList.toggle("room-entered", target.zoom > .15);
   document.querySelector('[data-view="desk"]').setAttribute("aria-pressed", String(target.zoom > .15));
   if (!renderer) {
@@ -158,7 +142,7 @@ async function createRoom() {
     new ResizeObserver(() => {
       cancelRoomGesture(); // Rotation or a resized viewport invalidates the active fingers' screen coordinates.
       width = stage.clientWidth; height = stage.clientHeight;
-      if (target.zoom === 0) { target.panX = width < 760 ? 6.6 : 0; target.panY = Math.max(0, (roomHeight - roomWidth * height / width) / 2); } // Start on Ethan in portrait and keep the upper monitor inside the wide-screen crop.
+      if (target.zoom === 0) { target.panX = width < 760 ? 3.4 : 0; target.panY = Math.max(0, (roomHeight - roomWidth * height / width) / 2); } // Start on Ethan in portrait and keep the upper monitor inside the wide-screen crop.
       hotspots.forEach(button => hotspotWidths.set(button, button.querySelector(".hotspot-label").offsetWidth)); // Measure labels once per resize, not between style writes on every animation frame.
       camera.aspect = width / height; camera.updateProjectionMatrix();
       renderer.setSize(width, height, false); render();
@@ -278,7 +262,7 @@ canvas.addEventListener("keydown", event => {
   if (event.key === "ArrowUp" || event.key === "Enter") zoom(target.zoom + .2);
   if (event.key === "ArrowDown") zoom(target.zoom - .2);
   if (event.key === "Home") zoom(0);
-  if (event.key === "ArrowLeft" || event.key === "ArrowRight") { const { limitX } = roomProjection(); target.panX = THREE.MathUtils.clamp(target.panX + (event.key === "ArrowLeft" ? -.3 : .3), -limitX, limitX); render(); } // Use the same bounds as dragging; the rebuilt photo starts farther right on mobile, beyond the old fixed limit.
+  if (event.key === "ArrowLeft" || event.key === "ArrowRight") { const { limitX } = roomProjection(); target.panX = THREE.MathUtils.clamp(target.panX + (event.key === "ArrowLeft" ? -.3 : .3), -limitX, limitX); render(); } // Use the same bounds as dragging so keyboard panning does not snap a dragged camera back to an unrelated fixed limit.
 });
 document.querySelector("#enter-room").addEventListener("click", () => { target.panX = 0; target.panY = 0; zoom(.85); document.querySelector('[data-view="desk"]').focus({ preventScroll: true }); });
 document.querySelector("#zoom-in").addEventListener("click", () => zoom(target.zoom + .2));
@@ -299,9 +283,9 @@ const topics = {
   desk: ["My desk setup", "Both mice stay on the desk", "High sensitivity keeps movement small, and I sometimes use both mice to click through code review faster."],
   chair: ["My desk setup", "Lean back without reaching for a keyboard", "I use thumb controls and dictation with the footrest out, switching hands whenever I want."],
 };
-/** Follow nearby photo anchors once around the desk, keeping each app and related demo together. */
+/** Follow nearby photo anchors once around the desk, keeping related demos beside their hardware. */
 function buildDialogRoute() {
-  const remaining = hotspots.filter(button => !button.classList.contains("software-hotspot"));
+  const remaining = [...hotspots];
   const ordered = [];
   let current = remaining.reduce((left, button) => Number(button.dataset.x) < Number(left.dataset.x) ? button : left);
   while (remaining.length) {
@@ -310,7 +294,6 @@ function buildDialogRoute() {
     ordered.push(topic);
     if (topic === "dell") ordered.push("code");
     if (topic === "shure") ordered.push("voice");
-    if (topic === "codex") ordered.push(...dockApps.map(app => `software:${app.id}`));
     const distance = button => Math.hypot((Number(button.dataset.x) - Number(current.dataset.x)) * roomWidth, (Number(button.dataset.y) - Number(current.dataset.y)) * roomHeight); // Use photo proportions, not current zoom; a fixed route makes Previous undo Next instead of bouncing between two nearest items.
     current = remaining.reduce((nearest, button) => !nearest || distance(button) < distance(nearest) ? button : nearest, null);
   }
@@ -323,7 +306,7 @@ function updateDialogNavigation() {
   const index = dialogRoute.indexOf(detail.dataset.topic);
   for (const button of dialogNavigation) {
     const topic = dialogRoute[(index + Number(button.dataset.step) + dialogRoute.length) % dialogRoute.length];
-    const name = topics[topic]?.[1] || gearById.get(topic)?.name || apps.find(app => topic === `software:${app.id}`).name;
+    const name = topics[topic]?.[1] || gearById.get(topic).name;
     button.dataset.destination = topic;
     button.title = `${Number(button.dataset.step) < 0 ? "Previous" : "Next"}: ${name}`;
     button.setAttribute("aria-label", button.title);
@@ -332,8 +315,7 @@ function updateDialogNavigation() {
 let returnFocus, returnView, productViewer, productRequest = 0, productLoad, disposeGallery;
 function openTopic(topic, trigger) {
   const item = gearById.get(topic);
-  const app = apps.find(app => topic === `software:${app.id}`);
-  const copy = topics[topic] || (item && ["My setup", item.name, item.description]) || (app && ["Software", app.name, ""]);
+  const copy = topics[topic] || (item && ["My setup", item.name, item.description]);
   if (!copy) return;
   cancelRoomGesture();
   stopDetailInteraction();
@@ -356,21 +338,13 @@ function openTopic(topic, trigger) {
   description.textContent = copy[2];
   description.hidden = !copy[2];
   const mouse = topic === "razer" || topic === "corsair";
-  const panel = app ? "software" : mouse ? "mouse" : topic === "code" || topic === "voice" || topic === "sausages" ? topic : (topic === "codex" || topic === "obs") ? "screen" : "hardware"; // Hardware opens its product; separate nearby Codex and OBS hotspots own the software views, never combined monitor/software labels (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
-  for (const name of ["mouse", "code", "voice", "hardware", "screen", "sausages", "software"]) document.querySelector(`#${name}-detail`).hidden = name !== panel;
+  const panel = mouse ? "mouse" : topic === "code" || topic === "voice" || topic === "sausages" ? topic : (topic === "codex" || topic === "obs") ? "screen" : "hardware"; // Hardware opens its product; separate nearby Codex and OBS hotspots own the software views, never combined monitor/software labels (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
+  for (const name of ["mouse", "code", "voice", "hardware", "screen", "sausages"]) document.querySelector(`#${name}-detail`).hidden = name !== panel;
   const productLink = document.querySelector("#product-link");
   if (topic === "scarlett") document.querySelector(".product-info").prepend(description); // Keep Ethan's Scarlett explanation beside its image without duplicating it in the heading.
   else document.querySelector(".detail-heading").insertBefore(description, productLink);
   productLink.hidden = !item;
   if (item) productLink.href = item.url;
-  if (app) {
-    document.querySelector("#software-icon").src = new URL(app.icon, "https://ethansk.github.io/response-preferences/").href;
-    document.querySelector("#software-link").href = app.url;
-    const demo = document.querySelector("#software-demo");
-    const demoTopic = {agenticmouse: "corsair", voiceinkplusplus: "voice", "visual-studio-code": "code"}[app.id];
-    demo.hidden = !demoTopic;
-    if (demoTopic) { demo.textContent = {corsair: "Try the mouse controls", voice: "Try dictation", code: "Review code"}[demoTopic]; demo.onclick = () => openTopic(demoTopic, demo); }
-  }
   if (mouse) {
     if (simulator) { simulator.chooseHand(topic); updateMouse(); }
     document.querySelectorAll(".beta-mice figure").forEach(figure => { figure.hidden = figure.dataset.mouse !== topic; });
@@ -589,31 +563,43 @@ for (const item of gear) {
   document.querySelector(".directory-gear").append(button);
 }
 
-for (const app of apps.filter(app => app.url)) {
+const appUseOrder = new Map([
+  "chatgpt", "agenticmouse", "voiceinkplusplus", "google-chrome", "visual-studio-code", "obs",
+  "spotify", "mail", "notion", "restream-chat-plus-plus", "finder", "iterm", "opera", "telegram",
+  "activity-monitor", "claude", "safari", "firefox", "terminal", "surfshark", "obscene",
+  "karabiner-elements", "docker-desktop", "menu-bar-dock", "stats-widget-from-website", "lghub",
+  "xcode", "system-settings", "unity-hub", "music", "preview", "textedit", "reminders", "icue",
+  "focusrite-control", "razer", "karabiner-eventviewer", "rekordbox", "producer-player", "aiwallpaper",
+  "opencode", "magnet", "amphetamine", "stay", "ableton-live-12-suite", "adobe-photoshop-2026",
+].map((id, index) => [id, index])); // Recent macOS use, with the daily mouse/dictation tools near the top; keep this local order separate from the synced desktop inventory.
+for (const app of apps.filter(app => app.url && app.id !== "trash").sort((a, b) => (appUseOrder.get(a.id) ?? appUseOrder.size) - (appUseOrder.get(b.id) ?? appUseOrder.size))) { // A newly synced app stays visible at the end until its usage is ranked; Trash is a desktop action, not an app.
   const link = document.createElement("a"); link.href = app.url; link.target = "_blank"; link.rel = "noopener";
-  const icon = document.createElement("img"); icon.src = new URL(app.icon, "https://ethansk.github.io/response-preferences/").href; icon.alt = ""; icon.width = 30; icon.height = 30; icon.loading = "lazy";
+  const icon = document.createElement("img"); icon.src = app.id === "agenticmouse" ? "./agentic-mouse-mark.svg?v=__SITE_VERSION__" : new URL(app.icon, "https://ethansk.github.io/response-preferences/").href; icon.alt = ""; icon.width = 30; icon.height = 30; icon.loading = "lazy"; // Use the canonical synced mouse artwork; the desktop inventory still has the old blank application icon.
   const name = document.createElement("span"); name.textContent = app.name;
   link.append(icon,name); document.querySelector(".directory-apps").append(link);
 }
 const skills = [
- ["Honest Comments", "honest-comments", "Keep code comments honest"],
- ["Agent Swarm Management", "agent-swarm-management", "Run several agents at once"],
  ["Response Preferences", "response-preferences", "How I want agents to write replies"],
+ ["Development workflow", null, "Plan, build and check work"],
+ ["AIMVS dev workflow", "aimvs-dev-skill", "My project workflow as a reference"],
+ ["Repository learnings", null, "Keep what agents learn about a repo"],
+ ["Browser testing", null, "Test a website in a real browser"],
+ ["UI wording", null, "Write UI text in my voice"],
  ["Outstanding Items", "outstanding-items", "Keep track of unfinished work"],
+ ["Front-end design", null, "Design the front end"],
  ["Submit ChatGPT Feedback", "submit-chatgpt-feedback", "Report problems from the current task"],
  ["Local Web Debug Mode", "local-web-debug-mode", "Debug a local website with an agent"],
- ["Deepgram dictation", "claude-code-deepgram-stt-skill", "Talk to Claude Code"],
- ["Emoji Consistency", "emoji-consistency", "Use consistent emoji meanings"],
  ["Skill self-reload", "claude-skill-self-reload-plugins-mac", "Reload changed Claude skills on macOS"],
- ["AIMVS dev workflow", "aimvs-dev-skill", "My project workflow as a reference"],
- ["Agent Bridge", "agent-bridge", "Connect agents across machines"],
  ["Pre-Commit Codex Review", "pre-commit-codex-review", "Review changes before committing"],
-];
+ ["Emoji Consistency", "emoji-consistency", "Use consistent emoji meanings"],
+ ["Deepgram dictation", "claude-code-deepgram-stt-skill", "Transcribes Telegram voice notes for Claude Code"],
+]; // Rank public and personal skills together by recent use; splitting them forced commonly used personal workflows below older published tools.
 for (const [name,repo,description] of skills) {
- const link = document.createElement("a"); link.href = `https://github.com/EthanSK/${repo}`; link.target = "_blank"; link.rel = "noopener noreferrer";
+ const card = document.createElement(repo ? "a" : "article");
+ if (repo) { card.href = `https://github.com/EthanSK/${repo}`; card.target = "_blank"; card.rel = "noopener noreferrer"; }
  const title = document.createElement("strong"); title.textContent = name;
  const summary = document.createElement("span"); summary.textContent = description;
- link.append(title,summary); document.querySelector(".directory-skills").append(link);
+ card.append(title,summary); document.querySelector(".directory-skills").append(card);
 }
 
 window.addEventListener("message", event => {
@@ -622,22 +608,10 @@ window.addEventListener("message", event => {
 
 for (const link of document.querySelectorAll('a[href^="https://"]')) { link.target = "_blank"; link.rel = "noopener noreferrer"; }
 
-for (const [name, description] of [
-  ["Browser testing", "Test a website in a real browser"],
-  ["Repository learnings", "Keep what agents learn about a repo"],
-  ["Development workflow", "Plan, build and check work"],
-  ["Front-end design", "Design the front end"],
-  ["UI wording", "Write UI text in my voice"],
-]) {
-  const card = document.createElement("article");
-  const title = document.createElement("strong"); title.textContent = name;
-  const summary = document.createElement("span"); summary.textContent = description;
-  card.append(title, summary); document.querySelector(".directory-personal-skills").append(card);
-}
 const projects = await fetch(new URL("./projects.json?v=__SITE_VERSION__", import.meta.url)).then(response => response.json());
 for (const project of projects) {
   const link = document.createElement("a"); link.href = project.url; link.target = "_blank"; link.rel = "noopener noreferrer";
   const title = document.createElement("strong"); title.textContent = project.name;
-  const repository = document.createElement("span"); repository.textContent = project.repository;
+  const repository = document.createElement("span"); repository.textContent = project.description || project.repository;
   link.append(title, repository); document.querySelector(".directory-projects").append(link);
 }

@@ -1,3 +1,5 @@
+Historical rejected reconstruction; retained for provenance only. The active room restores the pre-timeline composition through scripts/build-room-image.py.
+
 Fresh room rebuild from original references — built-in image generation.
 
 The image tool accepts at most five input paths. Original photographs were arranged into identity, hardware and screen contact sheets with proportional sizing; these private reference sheets are not published. No rejected generated room was used for the initial generation.
