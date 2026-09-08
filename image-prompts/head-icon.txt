@@ -1,0 +1,5 @@
+Use case: background-extraction.
+Edit target: the supplied original close-up photograph of Ethan, with short dark hair and a broad smile.
+Asset type: photographic head cutout for a tiny early-2000s personal-website favicon.
+Extract only his entire head: all the hair, both ears, face, beard and chin. Remove the room, shirt, shoulders and neck below the jaw. Keep his exact facial identity, original smile, teeth, eye shapes, skin texture, head proportions, hair shape, camera angle and natural photographic lighting. This is a cutout of the supplied real photo, not a new portrait: do not beautify, cartoon, stylise or reinterpret the face. Do not add hair or alter expression.
+Centre the cutout on a square canvas with about 6 percent clearance at top and bottom; preserve its proportions. Use a perfectly flat solid #00ff00 chroma-key background, with no shadows, gradients, texture, glow, outline, floor, text or watermark. Crisp natural edges for clean local background removal. No green tint or spill on the head.

@@ -23,7 +23,7 @@ def build():
     for path in files:
         target = OUTPUT / path.relative_to(SOURCE)
         target.parent.mkdir(parents=True, exist_ok=True)
-        if path.suffix in {'.html','.css','.js','.mjs','.json'}:
+        if path.suffix in {'.html','.css','.js','.mjs','.json','.webmanifest'}:
             target.write_text(path.read_text().replace('__SITE_VERSION__', version))
         else:
             shutil.copyfile(path,target)
