@@ -9,6 +9,7 @@ const canvas = document.querySelector("#room-canvas");
 const detail = document.querySelector("#room-detail");
 const reduced = matchMedia("(prefers-reduced-motion: reduce)");
 const gear = await fetch(new URL("./gear.json?v=__SITE_VERSION__", import.meta.url)).then(response => { if (!response.ok) throw new Error("Hardware data did not load"); return response.json(); });
+const apps = await fetch(new URL("./apps.json?v=__SITE_VERSION__", import.meta.url)).then(response => { if (!response.ok) throw new Error("App data did not load"); return response.json(); });
 const gearById = new Map(gear.map(item => [item.id, item]));
 const hotspotContainer = document.querySelector(".room-hotspots");
 for (const item of gear) {
@@ -18,6 +19,16 @@ for (const item of gear) {
   const dot = document.createElement("span"); dot.className = "hotspot-dot"; dot.setAttribute("aria-hidden", "true");
   const label = document.createElement("span"); label.className = "hotspot-label"; label.textContent = item.label;
   button.append(dot, label); hotspotContainer.append(button);
+}
+const dockApps = apps.filter(app => app.id !== "trash" && app.id !== "chatgpt" && app.id !== "obs");
+for (const [index, app] of dockApps.entries()) {
+  const button = document.createElement("button");
+  button.type = "button"; button.className = "software-hotspot"; button.dataset.topic = `software:${app.id}`;
+  button.dataset.x = .29 + (index % 12) * .0175; button.dataset.y = .485 + Math.floor(index / 12) * .027;
+  button.setAttribute("aria-label", app.name);
+  const icon = document.createElement("img"); icon.src = new URL(app.icon, "https://ethansk.github.io/response-preferences/").href; icon.alt = ""; icon.width = icon.height = 30; icon.loading = "lazy";
+  const label = document.createElement("span"); label.className = "hotspot-label"; label.textContent = app.name;
+  button.append(icon, label); hotspotContainer.append(button);
 }
 const hotspots = [...hotspotContainer.children];
 const hotspotWidths = new Map();
@@ -56,6 +67,7 @@ function draw(now = 0) {
     else view[key] = target[key];
   }
   const projection = roomProjection();
+  stage.style.setProperty("--software-size", `${Math.max(20, Math.min(38, .016 * roomWidth / projection.scale))}px`);
   camera.position.set(projection.x, projection.y, projection.depth);
   camera.lookAt(projection.x, projection.y, 0);
   camera.updateMatrixWorld();
@@ -80,14 +92,19 @@ function draw(now = 0) {
   });
   for (const edge of ["left", "right", "top", "bottom"]) {
     const vertical = edge === "left" || edge === "right", axis = vertical ? "y" : "x";
-    const items = projected.filter(item => item.edge === edge).sort((a,b) => a[axis] - b[axis]);
+    const items = projected.filter(item => item.edge === edge && !item.button.classList.contains("software-hotspot")).sort((a,b) => a[axis] - b[axis]);
     const min = (vertical ? top : left) + 18, max = (vertical ? bottom : right) - 18;
     const gap = Math.min(vertical ? 38 : 118, (max - min) / Math.max(1, items.length - 1));
     for (let i = 0; i < items.length; i++) items[i][axis] = Math.max(min + i * gap, Math.min(max - (items.length - 1 - i) * gap, items[i][axis])); // Reserve space for every arrow before clamping so several items cannot pile up at a corner.
     for (let i = 1; i < items.length; i++) items[i][axis] = Math.max(items[i][axis], items[i-1][axis] + gap);
   }
-  const labelRects = [];
+  const labelRects = projected.filter(item => !item.outside && item.button.classList.contains("software-hotspot")).map(item => ({left: item.x - 20, right: item.x + 20, top: item.y - 20, bottom: item.y + 20})); // Hardware labels must not cover clickable software icons near the dock.
   for (const {button,rawX,rawY,x,y,outside} of projected.sort((a,b) => Number(a.outside) - Number(b.outside))) { // Give objects in the area being explored label space before distant edge arrows.
+    if (button.classList.contains("software-hotspot")) {
+      button.hidden = outside;
+      button.style.left = `${rawX}px`; button.style.top = `${rawY}px`;
+      continue; // Software belongs at the photographed dock; distant apps must not fill the room edges with arrows.
+    }
     button.classList.toggle("offscreen", outside);
     button.style.setProperty("--arrow-angle", `${Math.atan2(rawY - y, rawX - x) + Math.PI / 2}rad`);
     const labelWidth = hotspotWidths.get(button) || 120;
@@ -282,13 +299,15 @@ const topics = {
   desk: ["My desk setup", "Both mice stay on the desk", "High sensitivity keeps movement small, and I sometimes use both mice to click through code review faster."],
   chair: ["My desk setup", "Lean back without reaching for a keyboard", "I use thumb controls and dictation with the footrest out, switching hands whenever I want."],
 };
-let returnFocus, returnView, productViewer, productRequest = 0, disposeGallery;
+let returnFocus, returnView, productViewer, productRequest = 0, productLoad, disposeGallery;
 function openTopic(topic, trigger) {
   const item = gearById.get(topic);
-  const copy = topics[topic] || (item && ["My setup", item.name, item.description]);
+  const app = apps.find(app => topic === `software:${app.id}`);
+  const copy = topics[topic] || (item && ["My setup", item.name, item.description]) || (app && ["Software", app.name, ""]);
   if (!copy) return;
   cancelRoomGesture();
   disposeGallery?.(); disposeGallery = null;
+  productLoad?.abort();
   productViewer?.dispose(); productViewer = null; productRequest++;
   document.querySelector("#desktop-frame").removeAttribute("src");
   if (!detail.open) { returnFocus = trigger; returnView = { ...target }; }
@@ -305,8 +324,19 @@ function openTopic(topic, trigger) {
   document.querySelector("#detail-description").textContent = copy[2];
   document.querySelector("#detail-description").hidden = !copy[2];
   const mouse = topic === "razer" || topic === "corsair";
-  const panel = mouse ? "mouse" : topic === "code" || topic === "voice" || topic === "sausages" ? topic : (topic === "codex" || topic === "obs") ? "screen" : "hardware"; // Hardware opens its product; separate nearby Codex and OBS hotspots own the software views, never combined monitor/software labels (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
-  for (const name of ["mouse", "code", "voice", "hardware", "screen", "sausages"]) document.querySelector(`#${name}-detail`).hidden = name !== panel;
+  const panel = app ? "software" : mouse ? "mouse" : topic === "code" || topic === "voice" || topic === "sausages" ? topic : (topic === "codex" || topic === "obs") ? "screen" : "hardware"; // Hardware opens its product; separate nearby Codex and OBS hotspots own the software views, never combined monitor/software labels (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
+  for (const name of ["mouse", "code", "voice", "hardware", "screen", "sausages", "software"]) document.querySelector(`#${name}-detail`).hidden = name !== panel;
+  const productLink = document.querySelector("#product-link");
+  productLink.hidden = !item;
+  if (item) productLink.href = item.url;
+  if (app) {
+    document.querySelector("#software-icon").src = new URL(app.icon, "https://ethansk.github.io/response-preferences/").href;
+    document.querySelector("#software-link").href = app.url;
+    const demo = document.querySelector("#software-demo");
+    const demoTopic = {agenticmouse: "corsair", voiceinkplusplus: "voice", "visual-studio-code": "code"}[app.id];
+    demo.hidden = !demoTopic;
+    if (demoTopic) { demo.textContent = {corsair: "Try the mouse controls", voice: "Try dictation", code: "Review code"}[demoTopic]; demo.onclick = () => openTopic(demoTopic, demo); }
+  }
   if (mouse) {
     if (simulator) { simulator.chooseHand(topic); updateMouse(); }
     document.querySelectorAll(".beta-mice figure").forEach(figure => { figure.hidden = figure.dataset.mouse !== topic; });
@@ -326,6 +356,7 @@ document.querySelectorAll("[data-voice]").forEach(button => button.addEventListe
 document.querySelector(".detail-close").addEventListener("click", () => detail.close());
 detail.addEventListener("close", () => {
   disposeGallery?.(); disposeGallery = null;
+  productLoad?.abort();
   productViewer?.dispose(); productViewer = null; productRequest++;
   document.querySelector("#desktop-frame").removeAttribute("src");
   Object.assign(target, returnView); // Closing a feature returns to the exact zoom and pan from which it was opened.
@@ -363,13 +394,18 @@ const mapRequest = fetch(new URL("./simulator-data.json?v=__SITE_VERSION__", imp
 async function loadMouse(hand) {
   if (loadedMice.has(hand)) return;
   loadedMice.add(hand);
+  const state = document.querySelector(`[data-mouse="${hand}"] .mouse-state`);
+  state.hidden = false; state.querySelector("span").textContent = "Loading 3D view…"; state.querySelector("button").hidden = true;
   try {
     const map = await mapRequest;
-    await createHeroMouse(document.querySelector(`.beta-mice [data-mouse="${hand}"]`), map.sources[hand], (source, cell) => {
+    const ready = await createHeroMouse(document.querySelector(`.beta-mice [data-mouse="${hand}"]`), map.sources[hand], (source, cell) => {
       simulator.chooseHand(source); simulator.press(cell); updateMouse();
-    }, (_source, cell) => simulator.control(cell).title);
-  } catch { loadedMice.delete(hand); }
+    }, (_source, cell) => simulator.control(cell).title, true);
+    if (!ready) throw new Error("Mouse model failed to load");
+    document.querySelector(`[data-mouse="${hand}"] .mouse-state`).hidden = true;
+  } catch { loadedMice.delete(hand); state.querySelector("span").textContent = "3D view failed to load."; state.querySelector("button").hidden = false; }
 }
+document.querySelectorAll("[data-retry-mouse]").forEach(button => button.addEventListener("click", () => loadMouse(button.dataset.retryMouse)));
 function updateGestures() {
   const control = simulator.control(simulator.state.selected);
   document.querySelector("#beta-hold").disabled = !control.wheel && !control.keypad;
@@ -458,6 +494,8 @@ dismissOutside(detail);
 async function showHardware(id) {
   const item = gearById.get(id);
   const request = ++productRequest;
+  productLoad?.abort(); productLoad = new AbortController();
+  const signal = AbortSignal.any([productLoad.signal, AbortSignal.timeout(20000)]);
   document.querySelector("#hardware-detail").hidden = false;
   document.querySelector("#screen-detail").hidden = true;
   document.querySelector("#desktop-frame").removeAttribute("src"); // Stop the embedded desktop while its hardware model is shown.
@@ -468,20 +506,27 @@ async function showHardware(id) {
   demo.hidden = id !== "shure";
   demo.textContent = "Try dictation";
   demo.onclick = () => openTopic("voice", demo);
+  document.querySelector("#product-retry").hidden = true;
   const status = document.querySelector("#product-state"); status.hidden = false; status.textContent = "Loading 3D view…";
   const productCanvas = document.querySelector("#product-canvas"); productCanvas.hidden = false;
+  const failed = () => { if (request === productRequest) { status.textContent = "3D view failed to load."; productCanvas.hidden = true; document.querySelector("#product-retry").hidden = false; } };
+  signal.addEventListener("abort", failed, { once: true }); // A stalled module import must not leave Loading visible forever.
   try {
     const {createProductViewer} = await import("./product-models.mjs?v=__SITE_VERSION__");
     if (request !== productRequest) return;
+    signal.throwIfAborted();
     productViewer?.dispose();
-    const viewer = await createProductViewer(productCanvas, id, document.querySelector("#product-movement"));
+    const viewer = await createProductViewer(productCanvas, id, document.querySelector("#product-movement"), signal);
     if (request !== productRequest || !detail.open) { viewer.dispose(); return; }
     productViewer = viewer; status.hidden = true;
-  } catch (error) { if (request === productRequest) { status.textContent = "3D view unavailable"; productCanvas.hidden = true; } console.warn("Product view unavailable", id, error); }
+  } catch (error) { if (request === productRequest) { failed(); console.warn("Product view unavailable", id, error); } }
+  finally { signal.removeEventListener("abort", failed); }
 }
+document.querySelector("#product-retry").addEventListener("click", () => showHardware(detail.dataset.topic));
 document.querySelector("#product-reset").addEventListener("click", () => productViewer?.reset());
 /** Reuse the canonical public desktop so its apps and Codex example stay maintained in one place. */
 function showScreen(id) {
+  productLoad?.abort();
   productViewer?.dispose(); productViewer = null; productRequest++;
   document.querySelector("#hardware-detail").hidden = true; document.querySelector("#screen-detail").hidden = false;
   const frame = document.querySelector("#desktop-frame");
@@ -502,7 +547,7 @@ for (const item of gear) {
   button.append(name, specs); button.addEventListener("click", () => { directory.close(); openTopic(item.id, document.querySelector("#show-directory")); }); // Hardware entries always open product models; software has separate room hotspots.
   document.querySelector(".directory-gear").append(button);
 }
-const apps = await fetch(new URL("./apps.json?v=__SITE_VERSION__", import.meta.url)).then(response => response.json());
+
 for (const app of apps.filter(app => app.url)) {
   const link = document.createElement("a"); link.href = app.url; link.target = "_blank"; link.rel = "noopener";
   const icon = document.createElement("img"); icon.src = new URL(app.icon, "https://ethansk.github.io/response-preferences/").href; icon.alt = ""; icon.width = 30; icon.height = 30; icon.loading = "lazy";
@@ -510,6 +555,8 @@ for (const app of apps.filter(app => app.url)) {
   link.append(icon,name); document.querySelector(".directory-apps").append(link);
 }
 const skills = [
+ ["Honest Comments", "honest-comments", "Keep code comments honest"],
+ ["Agent Swarm Management", "agent-swarm-management", "Run several agents at once"],
  ["Response Preferences", "response-preferences", "How I want agents to write replies"],
  ["Outstanding Items", "outstanding-items", "Keep track of unfinished work"],
  ["Submit ChatGPT Feedback", "submit-chatgpt-feedback", "Report problems from the current task"],
@@ -522,7 +569,7 @@ const skills = [
  ["Pre-Commit Codex Review", "pre-commit-codex-review", "Review changes before committing"],
 ];
 for (const [name,repo,description] of skills) {
- const link = document.createElement("a"); link.href = `https://github.com/EthanSK/${repo}`;
+ const link = document.createElement("a"); link.href = `https://github.com/EthanSK/${repo}`; link.target = "_blank"; link.rel = "noopener noreferrer";
  const title = document.createElement("strong"); title.textContent = name;
  const summary = document.createElement("span"); summary.textContent = description;
  link.append(title,summary); document.querySelector(".directory-skills").append(link);
@@ -531,3 +578,25 @@ for (const [name,repo,description] of skills) {
 window.addEventListener("message", event => {
   if (event.origin === location.origin && event.source === document.querySelector("#desktop-frame").contentWindow && event.data === "close-setup-screen" && detail.open) detail.close(); // Accept Escape only from this site's embedded OBS demo.
 });
+
+for (const link of document.querySelectorAll('a[href^="https://"]')) { link.target = "_blank"; link.rel = "noopener noreferrer"; }
+
+for (const [name, description] of [
+  ["Browser testing", "Test a website in a real browser"],
+  ["Repository learnings", "Keep what agents learn about a repo"],
+  ["Development workflow", "Plan, build and check work"],
+  ["Front-end design", "Design the front end"],
+  ["UI wording", "Write UI text in my voice"],
+]) {
+  const card = document.createElement("article");
+  const title = document.createElement("strong"); title.textContent = name;
+  const summary = document.createElement("span"); summary.textContent = description;
+  card.append(title, summary); document.querySelector(".directory-personal-skills").append(card);
+}
+const projects = await fetch(new URL("./projects.json?v=__SITE_VERSION__", import.meta.url)).then(response => response.json());
+for (const project of projects) {
+  const link = document.createElement("a"); link.href = project.url; link.target = "_blank"; link.rel = "noopener noreferrer";
+  const title = document.createElement("strong"); title.textContent = project.name;
+  const repository = document.createElement("span"); repository.textContent = project.repository;
+  link.append(title, repository); document.querySelector(".directory-projects").append(link);
+}

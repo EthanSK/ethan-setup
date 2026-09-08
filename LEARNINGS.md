@@ -51,3 +51,9 @@ Distance-only pinch changes magnification but loses the photo point between the 
 Run `node --test tests/*.test.mjs` alongside the website checks. These tests exercise actual gesture handlers using synthetic two-pointer sequences; they do not prove physical Safari or Android touch behaviour. A narrow screenshot and a mouse drag cannot substitute for a real pinch when the browser tool does not support multitouch.
 
 Use the compact navigation layout for short landscape viewports as well as narrow ones; width alone treated an 844 × 390 phone like a desktop and placed the vertical Software rail over the bottom dock. Keep the room label bounds consistent with the CSS breakpoint and verify the resulting screenshot.
+
+## Async product loading
+
+Closing a slow MacBook load and opening Dell reproduced stale movement controls: the older factory completed and modified the reused canvas and controls before its caller could discard it. Abort pending work on close or product change, load the wallpaper before creating the renderer, and check cancellation before touching shared controls. Keep network loading bounded with a visible retry action, including an import that has not settled. Rejected mouse downloads must leave the cache so reopening can retry; create the model before installing viewer observers.
+
+Gallery thumbnails belong to the currently opened product and should load eagerly; creating lazy thumbnails while a modal is still hidden produced blank tiles until later interaction. Keep loading and retry state separate for the main photograph and the model. Mouse wheel zoom is opt-in in the canonical hero viewer so the standalone Agentic Mouse walkthrough still scrolls normally.

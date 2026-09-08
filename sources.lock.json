@@ -1,7 +1,7 @@
 {
   "agenticMouse": {
     "repository": "https://github.com/EthanSK/agentic-mouse",
-    "revision": "d7b2335ea1c5e3c2cb1b09cc8b8fdb25490c6ea8",
+    "revision": "a26e2b4be184467fa32149cd81877feb9fd10d58",
     "publishedMap": "https://ethansk.github.io/agentic-mouse/simulator-data.json"
   },
   "desktop": {
@@ -35,7 +35,7 @@
     "assets/apps/vsCode.png": "bd9e4602280f5d96ecda57e8757417892e33b8c03a272f19f4e7238820cb9701",
     "assets/corsair.webp": "c3c3580aa151675b56c60f92d24f4dda5632166c384b8eeb57564801f9e3ead7",
     "assets/razer.webp": "135fdd319e69c57301862c377afe514dc155cfed7d323399c8e753bfdfe0ccde",
-    "hero-mice.mjs": "3727039efd452ce1e7e4e366039ce35caf47a88ce1b04795ac472af56e805168",
+    "hero-mice.mjs": "410593bfd7e96ca5083083ac1653c25e5d67793a5ad01704b3ff7af44af55a4d",
     "lib/RoomEnvironment.js": "9f0a30045d3649ea0bbe7e6a8ec29cb0aab71a3e73c463b94fb7ba169c576e83",
     "lib/RoundedBoxGeometry.js": "c1b7c9bd2cddff2e3f3a0723f618a3d364a47450e3d25771d21faed88410bec8",
     "lib/ScrollTrigger.min.js": "2be0336fa42e32f61ddca732137bd45bc2eaedb8eaf1b539e114ed0fa01c1d22",
@@ -55,11 +55,11 @@
     "models/corsair.glb": "efe9f0117c29d6680251650b219ad9f0264c5b510ccd613ef1f160d59b31ebf1",
     "models/marks.json": "44aa026de73280e7f1b334d84e99eb911fe82d381643a798cb4e1311a0e94b9b",
     "models/razer.glb": "c8f1d5ad3edfc3a2beec848944588f024571d963ef335de9f3ab49e44fe0d988",
-    "mouse-model.mjs": "dfc481130f6103382c15be379c8aaedd75834f491fbf52d415002962536efaa6",
+    "mouse-model.mjs": "d2f89ac4b6b788fe46c51937b708594c4fd5312793e6003bf3f42b28a70f26a1",
     "mouse-motion.mjs": "6b7925159f66627523575708856ef39c7c8e4b10064ade9695a9408a036bb68c",
     "native-hud.mjs": "3891db55ae64e125dbcb05742fa9cbd8f9aedb94eeb984a25571b568136e3f4e",
     "showcase.css": "62426032fdfee0369b06d90a261e22a148ae9b330aa72c399b12c338af5b60f7",
-    "simulator-data.json": "e53c431a55ac641efe0e04069956975c5878f237b6d2671ef358b1640136b057",
+    "simulator-data.json": "412e7536b9910298400302122dfd655221627ee1ebfa53803cdf72c928c75f97",
     "simulator.mjs": "95ad64a7a27598c0f3f868d632d382555e7c100f5958a75be46279b4b5e0d1e8"
   }
 }
