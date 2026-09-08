@@ -52,7 +52,9 @@ The Mac mini identifies itself as an M4 with 16 GB memory. The Dell S3422DW iden
 
 Start with [Agentic Mouse](https://github.com/EthanSK/agentic-mouse), [VoiceInk++](https://ethansk.github.io/VoiceInkPlusPlus/), [Better Git VS Code](https://github.com/EthanSK/better-git-vscode), [OBS++](https://github.com/EthanSK/obs-plus-plus), and [Response Preferences](https://ethansk.github.io/response-preferences/).
 
-The full app directory comes from the public [response-preferences desktop inventory](https://ethansk.github.io/response-preferences/desktop/apps.json). The site also links my commonly used public skills and AIMVS development tools. Each project has its own setup instructions; this repository does not install or configure the native apps.
+The Software sidebar links only public repositories. The full app directory comes from the public [response-preferences desktop inventory](https://ethansk.github.io/response-preferences/desktop/apps.json). The skills section includes the separately published AIMVS dev skill.
+
+Each project has its own setup instructions; this repository does not install or configure the native apps.
 
 ## Run locally
 
