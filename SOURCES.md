@@ -20,7 +20,7 @@ Public product links and exact selected configurations are in `docs/gear.json`. 
 | --- | --- |
 | MacBook Pro 16-inch M5 Max, 64 GB, 2 TB | Live host identification on 8 September 2026 confirms the 18-core CPU, 40-core GPU, memory and internal SSD; [Apple's exact-model specifications](https://support.apple.com/en-gb/126319) confirm the display, ProMotion and ports |
 | White Yamaha HS8 pair | Gear4music purchase, September 2024; Yamaha specifications |
-| Scarlett 18i8 third generation | eBay purchase, May 2023; Focusrite’s third-generation page |
+| Scarlett 18i8 third generation | Live USB identification on 8 September 2026; the connected unit's serial prefix matches third generation in [Focusrite's identification guide](https://support.focusrite.com/hc/en-gb/articles/208295789-Which-generation-of-Scarlett-do-I-have). The complete serial remains private; the earlier purchase record is from May 2023 |
 | Pioneer DDJ-FLX4 | Argos collected receipt, June 2025; Pioneer product dimensions |
 | Akai MPK mini Plus | Amazon purchase, February 2023; Akai guide confirms 37 keys and 8 pads |
 | Mackie Big Knob Passive | Gear4music purchase, March 2025; Mackie product page |
