@@ -39,6 +39,8 @@ Product links can lead to a current shop configuration, regional equivalent or s
 
 The room photograph was generated from Ethan’s own reference photos and later edited at his request to preserve his face, shirt, shorts and mice while giving him sausage legs. The current 1586 × 992 version extends the top and right of that approved image to include the full Samsung monitor. The edit requested the same person and room, a public OBS-style preview on the upper screen, and no private messages or account details. `docs/assets/room.webp` is a proportional WebP conversion of that generated image.
 
+The share preview, `docs/assets/sausage-legs-social.jpg`, is a JPEG export of the original `ethan-sausage-legs.webp` at its unchanged 1671 × 941 dimensions. It keeps Ethan’s face and the sausage legs prominent without another image-generation pass.
+
 Two desktop screenshots supplied on 8 September 2026 showed the ultrawide work layout and the upper OBS display. They contained private conversations and account details. No raw screenshot is included: the Dell reuses the public desktop example, and OBS recreates the recording layout with public example content. The page never connects to OBS or the native mouse app.
 
 ## Dependencies and rights
