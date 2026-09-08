@@ -72,6 +72,8 @@ The Canon camera above the ultrawide uses a small built-in image-generation edit
 
 No raw portrait or private screenshot is included. Clicking the Dell opens its monitor product; a separate nearby Codex hotspot opens the canonical public desktop example, and a separate OBS hotspot opens the interactive public OBS example. Samsung opens its monitor product. The page never connects to OBS or the native mouse app. The earlier external-screen prompt remains in `image-prompts/room-screens.txt`.
 
+The personal site's head favicon uses Ethan's original short-hair portrait as the input to a built-in image edit, followed by local chroma-key removal. `docs/assets/ethan-head.png` is the transparent 512-pixel master; `scripts/build-icons.py` exports the smaller browser and home-screen PNGs without stretching it. The edit requested his original face and expression with only the head retained; `image-prompts/head-icon.txt` records the prompt. This is an edited cutout, not an untouched pixel crop of the original portrait.
+
 ## Dependencies and rights
 
 The website code inherits the Agentic Mouse MIT licence. Three.js, its loader utilities, Draco and three-mesh-bvh retain their vendored notices under `docs/lib/`. Any unused copied vendor files are not executed by the room.
