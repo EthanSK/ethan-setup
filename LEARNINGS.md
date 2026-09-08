@@ -21,3 +21,5 @@ Screenshots requested for the main room picture must actually appear inside its 
 ## Hardware identification
 
 When purchase search cannot identify a paired computer, read its hardware model and chip through the existing diagnostic connection. Publish only the relevant specs, never its connection details or identifiers. Match the confirmed generation to official dimensions and photographs before building its enclosure.
+
+Software and joke hotspots belong outside the verified hardware inventory. The sausage-leg link uses the existing dialog and camera flow with its own small link panel; routing it through the hardware viewer would request a product model that does not exist.

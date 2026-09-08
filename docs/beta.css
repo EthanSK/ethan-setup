@@ -138,6 +138,8 @@
 #mouse-detail #beta-feedback { grid-row: 3; }
 #mouse-detail .beta-gestures { grid-row: 4; }
 .room-detail[data-topic="voice"], .room-detail[data-topic="chair"], .room-detail[data-topic="desk"] { width: min(760px, calc(100% - 72px)); }
+.room-detail[data-topic="sausages"] { width: min(460px, calc(100% - 72px)); }
+#sausages-detail .detail-link { margin-top: 0; }
 @media (max-width: 760px) {
  .room-detail, .room-detail[data-topic] { width: calc(100% - 24px); max-height: calc(100svh - 40px); padding: 24px 20px; border-radius: 18px; }
  #code-detail, #mouse-detail { display: block; }
