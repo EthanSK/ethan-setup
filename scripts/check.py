@@ -41,7 +41,7 @@ def check():
             if not (file.parent / spec.split('?')[0]).exists():
                 raise ValueError(f'Missing module: {spec}')
     gear = json.loads((ROOT / 'docs/gear.json').read_text())
-    expected = {'corsair','razer','macbook','hs8','scarlett','flx4','macmini','akai','shure','dell','samsung','bigknob','drive','desk','chair'}
+    expected = {'corsair','razer','macbook','hs8','scarlett','flx4','macmini','akai','shure','dell','canon','samsung','bigknob','drive','desk','chair'}
     assert {item['id'] for item in gear} == expected
     assert len(gear) == len(expected)
     for item in gear:

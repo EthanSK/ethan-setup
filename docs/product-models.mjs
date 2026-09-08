@@ -361,11 +361,79 @@ const builders = {
   drive: buildDrive,
   macbook: buildMacBook,
   macmini: buildMacMini,
+  canon: buildCanon,
   dell: buildDell,
   samsung: buildSamsung,
   desk: buildDesk,
   chair: buildChair,
 };
+
+/** Canon EOS M50 Mark II: 116.3 × 88.1 × 58.7 mm body, with a representative compact EF-M lens and articulated screen. */
+function buildCanon() {
+  const group = new THREE.Group();
+  const shell = std(0x18191c, .58), grip = std(0x101113, .86), trim = std(0x292b2e, .42), black = std(0x050608, .64), silver = std(0x95989b, .3, .85);
+  group.add(at(box(108, 62, 40, shell, 5, 5), 4, 33, 0));
+  group.add(at(box(25, 65, 53, grip, 8, 6), -45.5, 34, 5));
+  group.add(at(box(30, 9, 34, shell, 3), -43, 64, 1));
+  group.add(at(box(33, 8, 39, shell, 3), 40, 64, 0));
+  const hump = new THREE.Shape();
+  hump.moveTo(-27, 60); hump.lineTo(-24, 77); hump.quadraticCurveTo(-22, 85, -15, 86);
+  hump.lineTo(12, 86); hump.quadraticCurveTo(21, 85, 23, 77); hump.lineTo(26, 60); hump.closePath();
+  const housing = new THREE.ExtrudeGeometry(hump, {depth: 35, bevelEnabled: true, bevelSize: 1.5, bevelThickness: 1.2, bevelSegments: 3, curveSegments: 16});
+  group.add(at(new THREE.Mesh(housing, shell), -3, 0, -20));
+  group.add(at(box(35, 2, 26, trim, 2), -4, 77, 7)); // A seam separates the pop-up flash from the viewfinder housing.
+  group.add(at(box(20, 1.5, 20, silver, .6), -4, 87.5, -5));
+  group.add(at(box(15, 1.8, 17, black, .5), -4, 88.5, -5));
+  for (const x of [-13, 5]) group.add(at(box(1.4, 2.2, 19, silver, .4), x, 89, -5));
+  group.add(at(decal(34, 10, (ctx, w, h) => text(ctx, "Canon", w / 2, h / 2, 9, "#eee", 700), {pxPerMM: 8}), -4, 72, 17));
+  group.add(at(decal(17, 12, (ctx, w) => { text(ctx, "EOS", w / 2, 4, 4.8); text(ctx, "M50 II", w / 2, 9, 2.8); }, {pxPerMM: 8}), 40, 18, 20.4));
+  group.add(at(cyl(29, 29, 4, silver, 64, "z"), -6, 35, 22));
+  const lens = new THREE.Group();
+  lens.position.set(-6, 35, 23);
+  lens.add(at(lathe([[0, 0], [28, 0], [30.4, 3], [30.4, 11], [29.7, 12], [29.7, 25], [27, 27], [26.3, 40], [24.8, 43], [0, 43]], shell, 80), 0, 0, 0, Math.PI / 2));
+  for (let i = 0; i < 96; i++) {
+    const angle = i * Math.PI * 2 / 96;
+    lens.add(at(box(.55, .65, 12, grip, .15, 1), Math.cos(angle) * 29.8, Math.sin(angle) * 29.8, 19, 0, 0, angle));
+  }
+  for (const z of [4, 11, 27, 39]) lens.add(at(new THREE.Mesh(new THREE.TorusGeometry(z < 27 ? 30 : 26.3, .6, 8, 80), trim), 0, 0, z));
+  lens.add(at(ring(17.5, 24.8, black, 80), 0, 0, 43.3));
+  lens.add(at(ring(15.5, 17.5, trim, 80), 0, 0, 43.6));
+  lens.add(at(cyl(15.5, 15.5, 1.5, std(0x14232d, .13, .62), 80, "z"), 0, 0, 43.8));
+  lens.add(at(decal(49, 49, (ctx, w, h) => {
+    const glass = ctx.createRadialGradient(w * .44, h * .44, 1, w / 2, h / 2, 15);
+    glass.addColorStop(0, "#080b10"); glass.addColorStop(.36, "#131f25"); glass.addColorStop(.59, "#445c63"); glass.addColorStop(.69, "#2b3144"); glass.addColorStop(1, "#090f14");
+    ctx.fillStyle = glass; ctx.beginPath(); ctx.arc(w / 2, h / 2, 15, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = "#9bbed55a"; ctx.beginPath(); ctx.ellipse(w * .41, h * .43, 3, 5, -.5, 0, Math.PI * 2); ctx.fill();
+    text(ctx, "CANON EF-M", w / 2, 5, 2.4, "#b6b7b9", 400);
+    text(ctx, "15–45mm", w / 2, h - 5, 2.6, "#b6b7b9", 400);
+  }, {pxPerMM: 8}), 0, 0, 44.7));
+  group.add(lens);
+  group.add(at(cyl(8, 8, 4, trim, 40), -44, 71, -6));
+  group.add(at(cyl(6.4, 6.4, 1.5, black, 40), -44, 73.5, -6));
+  group.add(at(cyl(6.3, 7.2, 3, trim, 40), -44, 69, 16));
+  group.add(at(cyl(4.6, 4.6, 1, silver, 40), -44, 71, 16));
+  group.add(at(cyl(2.5, 2.5, .6, std(0xa12629, .6), 24), -29, 68, 9));
+  group.add(at(cyl(3, 3, 2, trim, 24, "z"), 29, 29, 21.5));
+  for (const x of [-58, 57]) group.add(at(new THREE.Mesh(new THREE.TorusGeometry(2.7, 1, 8, 16), silver), x, 59, 1, 0, Math.PI / 2));
+  const rear = new THREE.Group(); rear.rotation.y = Math.PI; rear.position.z = -20.4;
+  rear.add(at(plate(69, 47, 2, 2, trim), 5, 34));
+  rear.add(at(plate(58, 38, .5, 1, black), 5, 34, 1.2));
+  rear.add(at(plate(25, 17, 5, 5, grip), 3, 75, 2));
+  rear.add(at(plate(15, 9, .5, 2, std(0x102026, .2, .4)), 3, 75, 4.8));
+  rear.add(at(cyl(8.5, 8.5, 2, trim, 40, "z"), -42, 28, 1));
+  rear.add(at(cyl(3.2, 3.2, 2.3, black, 32, "z"), -42, 28, 1.3));
+  for (const [x, y] of [[-41, 51], [-28, 53], [-44, 12], [-27, 12]]) rear.add(at(cyl(2.8, 2.8, 1.5, trim, 24, "z"), x, y, 1));
+  group.add(rear);
+  const screen = new THREE.Group(); screen.position.set(59, 34, -15); screen.rotation.y = -.15;
+  screen.add(at(cyl(2.4, 2.4, 42, trim, 24), 0, 0, 0));
+  screen.add(at(box(71, 49, 4.5, shell, 2.5), 37, 0, 0));
+  screen.add(at(plate(64, 42, .5, 1.2, std(0x142028, .23, .22)), 37, 0, 2.6));
+  screen.add(at(decal(59, 37, (ctx, w, h) => {
+    const glow = ctx.createLinearGradient(0, 0, w, h); glow.addColorStop(0, "#27363f"); glow.addColorStop(1, "#111920"); ctx.fillStyle = glow; ctx.fillRect(0, 0, w, h);
+  }), 37, 0, 2.95));
+  group.add(screen);
+  return {group, view: {yaw: -.38, pitch: .22}};
+}
 
 /** Four soft rubber feet under a chassis whose underside is at y = 0. */
 function feet(group, w, d, inset = 18, r = 6, h = 3) {

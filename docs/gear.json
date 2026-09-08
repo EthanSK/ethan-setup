@@ -35,14 +35,20 @@
     "label": "MacBook Pro",
     "x": 0.101,
     "y": 0.536,
-    "url": "https://www.apple.com/uk/macbook-pro/",
+    "url": "https://support.apple.com/en-gb/126319",
     "specs": [
       "16-inch",
       "M5 Max",
-      "64 GB unified memory"
+      "64 GB unified memory",
+      "18-core CPU",
+      "40-core GPU",
+      "2 TB SSD",
+      "16.2-inch Liquid Retina XDR, 3456 × 2234",
+      "ProMotion up to 120Hz",
+      "3 Thunderbolt 5 ports, HDMI, SDXC, MagSafe 3"
     ],
-    "evidence": "User confirmed, corroborated by host hardware",
-    "description": "My 16-inch MacBook Pro with M5 Max and 64GB, where I run my agents."
+    "evidence": "Current host confirms M5 Max, 18-core CPU, 40-core GPU, 64 GB memory and 2 TB SSD; Apple confirms the display and ports for the 2026 16-inch model",
+    "description": "Where I run my agents."
   },
   {
     "id": "hs8",
@@ -143,6 +149,24 @@
     ],
     "evidence": "Host display inventory from July 2026 identifies DELL S3422DW at 3440 × 1440 and 100 Hz; current capture device obscures its identity",
     "description": "My 34-inch Dell ultrawide, the main display."
+  },
+  {
+    "id": "canon",
+    "name": "Canon EOS M50 Mark II",
+    "label": "Canon M50 II",
+    "x": 0.517,
+    "y": 0.163,
+    "url": "https://www.canon.co.uk/cameras/eos-m50-mark-ii/specifications/",
+    "specs": [
+      "24.1MP APS-C",
+      "Black",
+      "EF-M mount",
+      "4K up to 25fps, Full HD up to 60fps",
+      "Dual Pixel CMOS AF, not in 4K",
+      "Vari-angle screen"
+    ],
+    "evidence": "User identification and original desk photograph, corroborated by historical Canon EOS M50 Mark II correspondence; body specifications from Canon",
+    "description": ""
   },
   {
     "id": "samsung",

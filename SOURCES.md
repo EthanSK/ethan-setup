@@ -18,7 +18,7 @@ Public product links and exact selected configurations are in `docs/gear.json`. 
 
 | Item | Evidence |
 | --- | --- |
-| MacBook Pro 16-inch M5 Max, 64 GB | Ethan’s correction and matching live host chip/memory identification |
+| MacBook Pro 16-inch M5 Max, 64 GB, 2 TB | Live host identification on 8 September 2026 confirms the 18-core CPU, 40-core GPU, memory and internal SSD; [Apple's exact-model specifications](https://support.apple.com/en-gb/126319) confirm the display, ProMotion and ports |
 | White Yamaha HS8 pair | Gear4music purchase, September 2024; Yamaha specifications |
 | Scarlett 18i8 third generation | eBay purchase, May 2023; Focusrite’s third-generation page |
 | Pioneer DDJ-FLX4 | Argos collected receipt, June 2025; Pioneer product dimensions |
@@ -29,6 +29,7 @@ Public product links and exact selected configurations are in `docs/gear.json`. 
 | FlexiSpot E7 Pro 2025, bamboo 180 × 80 cm, black frame | Previously verified purchase configuration from Agentic Mouse; March 2025 invoice found again |
 | Shure SM7B | Ethan’s identification; Shure manual drawings |
 | Dell S3422DW | July 2026 host display inventory identifies DELL S3422DW at 3440 × 1440, 100 Hz; rechecked against that record and Dell's user guide. The current capture device obscures direct identification |
+| Canon EOS M50 Mark II, black | Ethan's identification and original desk photograph, corroborated by historical model correspondence; [Canon specifications](https://www.canon.co.uk/cameras/eos-m50-mark-ii/specifications/) and product photographs. The currently fitted lens has not been verified |
 | Samsung S80UA / S27A800U | Live display name LS27A800U; regional suffix unconfirmed |
 | Mac mini M4, 16 GB, silver | Direct hardware identification on 8 September 2026 confirms Mac mini, M4 and 16 GB; [Apple's 2024 specifications](https://support.apple.com/en-gb/121555) confirm the silver 127 × 127 × 50 mm enclosure |
 | Corsair and Razer mice | Existing published Agentic Mouse setup and authored models |
@@ -50,6 +51,8 @@ The 00:22 and 00:25 desktop captures from 8 September 2026 are the references fo
 `scripts/build-room-image.py` packages only the external screens, laptop display and corrected head region over the unchanged original `room.webp` in the self-contained `room.svg`. A soft edge blends the head correction into the existing scene. The shirt and its printed photo, body, hands, shorts, sausage legs and surrounding room remain from the original outside those regions. The same composite loads in the Three.js room, plain-image fallback and OBS example. The social card retains its existing image.
 
 The rotatable MacBook uses `docs/assets/macbook-wallpaper.webp`, a proportional 1280 × 720 WebP conversion of Apple's installed Tahoe default image. It replaces the previous procedural dry-pebble substitute and is the same wallpaper supplied to the room-image edit. Apple retains the wallpaper's rights; it is included to depict Ethan's actual setup, not as original project artwork.
+
+The Canon camera above the ultrawide uses a small built-in image-generation edit based on the original desk photo and Canon's black EOS M50 Mark II product photograph. Only its 148 × 115 patch, `docs/assets/room-camera.webp`, is composited into the existing room at its original pixel scale. All previous image layers, including the corrected face and screen inserts, remain unchanged. `image-prompts/room-camera.txt` records the prompt and selected region; no raw reference photo is published.
 
 No raw portrait or private screenshot is included. Clicking the Dell opens its monitor product; a separate nearby Codex hotspot opens the canonical public desktop example, and a separate OBS hotspot opens the interactive public OBS example. Samsung opens its monitor product. The page never connects to OBS or the native mouse app. The earlier external-screen prompt remains in `image-prompts/room-screens.txt`.
 
