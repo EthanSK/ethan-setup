@@ -1,0 +1,16 @@
+{
+  "name": "Ethan\u2019s setup",
+  "short_name": "Ethan\u2019s setup",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#10141b",
+  "theme_color": "#10141b",
+  "icons": [
+    {
+      "src": "./setup-mark.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

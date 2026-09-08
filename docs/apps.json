@@ -1,0 +1,425 @@
+[
+  {
+    "id": "finder",
+    "name": "Finder",
+    "url": "https://support.apple.com/guide/mac-help/get-to-know-the-finder-mchlp2605/mac",
+    "icon": "./desktop/icons/finder.png",
+    "note": "",
+    "dock": true,
+    "menu": false
+  },
+  {
+    "id": "google-chrome",
+    "name": "Google Chrome",
+    "url": "https://www.google.com/chrome/",
+    "icon": "./desktop/icons/google-chrome.png",
+    "note": "",
+    "dock": true,
+    "menu": true
+  },
+  {
+    "id": "safari",
+    "name": "Safari",
+    "url": "https://www.apple.com/safari/",
+    "icon": "./desktop/icons/safari.png",
+    "note": "",
+    "dock": true,
+    "menu": true
+  },
+  {
+    "id": "firefox",
+    "name": "Firefox",
+    "url": "https://www.mozilla.org/firefox/",
+    "icon": "./desktop/icons/firefox.png",
+    "note": "",
+    "dock": true,
+    "menu": true
+  },
+  {
+    "id": "opera",
+    "name": "Opera",
+    "url": "https://www.opera.com/",
+    "icon": "./desktop/icons/opera.png",
+    "note": "",
+    "dock": true,
+    "menu": true
+  },
+  {
+    "id": "music",
+    "name": "Music",
+    "url": "https://www.apple.com/apple-music/",
+    "icon": "./desktop/icons/music.png",
+    "note": "",
+    "dock": true,
+    "menu": false
+  },
+  {
+    "id": "rekordbox",
+    "name": "rekordbox",
+    "url": "https://rekordbox.com/",
+    "icon": "./desktop/icons/rekordbox.png",
+    "note": "",
+    "dock": true,
+    "menu": false
+  },
+  {
+    "id": "spotify",
+    "name": "Spotify",
+    "url": "https://www.spotify.com/download/mac/",
+    "icon": "./desktop/icons/spotify.png",
+    "note": "",
+    "dock": true,
+    "menu": true
+  },
+  {
+    "id": "adobe-photoshop-2026",
+    "name": "Adobe Photoshop 2026",
+    "url": "https://www.adobe.com/products/photoshop.html",
+    "icon": "./desktop/icons/adobe-photoshop-2026.png",
+    "note": "",
+    "dock": true,
+    "menu": false
+  },
+  {
+    "id": "mail",
+    "name": "Mail",
+    "url": "https://support.apple.com/guide/mail/welcome/mac",
+    "icon": "./desktop/icons/mail.png",
+    "note": "",
+    "dock": true,
+    "menu": false
+  },
+  {
+    "id": "xcode",
+    "name": "Xcode",
+    "url": "https://developer.apple.com/xcode/",
+    "icon": "./desktop/icons/xcode.png",
+    "note": "",
+    "dock": true,
+    "menu": false
+  },
+  {
+    "id": "unity-hub",
+    "name": "Unity Hub",
+    "url": "https://docs.unity.com/hub/install-hub-win-mac",
+    "icon": "./desktop/icons/unity-hub.png",
+    "note": "",
+    "dock": true,
+    "menu": false
+  },
+  {
+    "id": "visual-studio-code",
+    "name": "Visual Studio Code",
+    "url": "https://code.visualstudio.com/",
+    "icon": "./desktop/icons/visual-studio-code.png",
+    "note": "",
+    "dock": true,
+    "menu": true
+  },
+  {
+    "id": "chatgpt",
+    "name": "Codex",
+    "url": "https://openai.com/codex/",
+    "icon": "./desktop/icons/chatgpt.png",
+    "note": "",
+    "dock": true,
+    "menu": true
+  },
+  {
+    "id": "claude",
+    "name": "Claude",
+    "url": "https://claude.com/download",
+    "icon": "./desktop/icons/claude.png",
+    "note": "",
+    "dock": true,
+    "menu": true
+  },
+  {
+    "id": "opencode",
+    "name": "OpenCode",
+    "url": "https://opencode.ai/",
+    "icon": "./desktop/icons/opencode.png",
+    "note": "",
+    "dock": true,
+    "menu": false
+  },
+  {
+    "id": "docker-desktop",
+    "name": "Docker Desktop",
+    "url": "https://www.docker.com/products/docker-desktop/",
+    "icon": "./desktop/icons/docker-desktop.png",
+    "note": "",
+    "dock": true,
+    "menu": true
+  },
+  {
+    "id": "terminal",
+    "name": "Terminal",
+    "url": "https://support.apple.com/guide/terminal/welcome/mac",
+    "icon": "./desktop/icons/terminal.png",
+    "note": "",
+    "dock": true,
+    "menu": false
+  },
+  {
+    "id": "iterm",
+    "name": "iTerm",
+    "url": "https://iterm2.com/",
+    "icon": "./desktop/icons/iterm.png",
+    "note": "",
+    "dock": true,
+    "menu": true
+  },
+  {
+    "id": "activity-monitor",
+    "name": "Activity Monitor",
+    "url": "https://support.apple.com/guide/activity-monitor/welcome/mac",
+    "icon": "./desktop/icons/activity-monitor.png",
+    "note": "",
+    "dock": true,
+    "menu": false
+  },
+  {
+    "id": "focusrite-control",
+    "name": "Focusrite Control",
+    "url": "https://downloads.focusrite.com/",
+    "icon": "./desktop/icons/focusrite-control.png",
+    "note": "",
+    "dock": true,
+    "menu": false
+  },
+  {
+    "id": "obs",
+    "name": "OBS++",
+    "url": "https://github.com/EthanSK/obs-plus-plus",
+    "icon": "./desktop/icons/obs.png",
+    "note": "Ethan’s OBS fork.",
+    "dock": true,
+    "menu": true
+  },
+  {
+    "id": "restream-chat-plus-plus",
+    "name": "Restream Chat Plus Plus",
+    "url": "https://github.com/EthanSK/restream-chat-plus-plus",
+    "icon": "./desktop/icons/restream-chat-plus-plus.png",
+    "note": "Ethan’s Restream Chat fork.",
+    "dock": true,
+    "menu": true
+  },
+  {
+    "id": "system-settings",
+    "name": "System Settings",
+    "url": "https://support.apple.com/guide/mac-help/change-system-settings-mh15217/mac",
+    "icon": "./desktop/icons/system-settings.png",
+    "note": "",
+    "dock": true,
+    "menu": false
+  },
+  {
+    "id": "telegram",
+    "name": "Telegram",
+    "url": "https://macos.telegram.org/",
+    "icon": "./desktop/icons/telegram.png",
+    "note": "",
+    "dock": true,
+    "menu": true
+  },
+  {
+    "id": "voiceinkplusplus",
+    "name": "VoiceInkPlusPlus",
+    "url": "https://ethansk.github.io/VoiceInkPlusPlus/",
+    "icon": "./desktop/icons/voiceinkplusplus.png",
+    "note": "Ethan’s VoiceInk fork.",
+    "dock": true,
+    "menu": true
+  },
+  {
+    "id": "karabiner-eventviewer",
+    "name": "Karabiner-EventViewer",
+    "url": "https://karabiner-elements.pqrs.org/docs/manual/operation/eventviewer/",
+    "icon": "./desktop/icons/karabiner-eventviewer.png",
+    "note": "",
+    "dock": true,
+    "menu": false
+  },
+  {
+    "id": "karabiner-elements",
+    "name": "Karabiner-Elements",
+    "url": "https://karabiner-elements.pqrs.org/",
+    "icon": "./desktop/icons/karabiner-elements.png",
+    "note": "",
+    "dock": true,
+    "menu": true
+  },
+  {
+    "id": "icue",
+    "name": "iCUE",
+    "url": "https://www.corsair.com/us/en/s/icue",
+    "icon": "./desktop/icons/icue.png",
+    "note": "",
+    "dock": true,
+    "menu": false
+  },
+  {
+    "id": "razer",
+    "name": "Razer",
+    "url": "https://www.razer.com/synapse",
+    "icon": "./desktop/icons/razer.png",
+    "note": "",
+    "dock": true,
+    "menu": false
+  },
+  {
+    "id": "producer-player",
+    "name": "Producer Player",
+    "url": "https://ethansk.github.io/producer-player/",
+    "icon": "./desktop/icons/producer-player.png",
+    "note": "",
+    "dock": true,
+    "menu": false
+  },
+  {
+    "id": "surfshark",
+    "name": "Surfshark",
+    "url": "https://surfshark.com/download/macos",
+    "icon": "./desktop/icons/surfshark.png",
+    "note": "",
+    "dock": true,
+    "menu": true
+  },
+  {
+    "id": "notion",
+    "name": "Notion",
+    "url": "https://www.notion.com/desktop",
+    "icon": "./desktop/icons/notion.png",
+    "note": "",
+    "dock": true,
+    "menu": true
+  },
+  {
+    "id": "stats-widget-from-website",
+    "name": "Stats Widget from Website",
+    "url": "https://ethansk.github.io/stats-widget-from-website/",
+    "icon": "./desktop/icons/stats-widget-from-website.png",
+    "note": "",
+    "dock": true,
+    "menu": true
+  },
+  {
+    "id": "textedit",
+    "name": "TextEdit",
+    "url": "https://support.apple.com/guide/textedit/welcome/mac",
+    "icon": "./desktop/icons/textedit.png",
+    "note": "",
+    "dock": true,
+    "menu": false
+  },
+  {
+    "id": "preview",
+    "name": "Preview",
+    "url": "https://support.apple.com/guide/preview/welcome/mac",
+    "icon": "./desktop/icons/preview.png",
+    "note": "",
+    "dock": true,
+    "menu": false
+  },
+  {
+    "id": "reminders",
+    "name": "Reminders",
+    "url": "https://support.apple.com/guide/reminders/welcome/mac",
+    "icon": "./desktop/icons/reminders.png",
+    "note": "",
+    "dock": true,
+    "menu": false
+  },
+  {
+    "id": "menu-bar-dock",
+    "name": "Menu Bar Dock",
+    "url": "https://www.menubardock.com/",
+    "icon": "./desktop/icons/menu-bar-dock.png",
+    "note": "Put your running and favourite apps in the menu bar.",
+    "dock": false,
+    "menu": true
+  },
+  {
+    "id": "aiwallpaper",
+    "name": "AI Wallpaper Generator",
+    "url": "https://www.aiwallpapergenerator.ai/",
+    "icon": "./desktop/icons/aiwallpaper.png",
+    "note": "Generate wallpapers from a prompt.",
+    "dock": false,
+    "menu": true
+  },
+  {
+    "id": "amphetamine",
+    "name": "Amphetamine",
+    "url": "https://apps.apple.com/us/app/amphetamine/id937984704?mt=12",
+    "icon": "./desktop/icons/amphetamine.png",
+    "note": "Keep your Mac awake.",
+    "dock": false,
+    "menu": true
+  },
+  {
+    "id": "obscene",
+    "name": "OBScene",
+    "url": "https://ethansk.github.io/OBScene/",
+    "icon": "./desktop/icons/obscene.png",
+    "note": "",
+    "dock": false,
+    "menu": true
+  },
+  {
+    "id": "stay",
+    "name": "Stay",
+    "url": "https://apps.apple.com/us/app/stay/id435410196?mt=12",
+    "icon": "./desktop/icons/stay.png",
+    "note": "Restore window positions when displays change.",
+    "dock": false,
+    "menu": true
+  },
+  {
+    "id": "agenticmouse",
+    "name": "Agentic Mouse",
+    "url": "https://ethansk.github.io/agentic-mouse/",
+    "icon": "./desktop/icons/agenticmouse.png",
+    "note": "Ethan’s mouse controls and utilities.",
+    "dock": false,
+    "menu": true
+  },
+  {
+    "id": "magnet",
+    "name": "Magnet",
+    "url": "https://magnet.crowdcafe.com/",
+    "icon": "./desktop/icons/magnet.png",
+    "note": "",
+    "dock": false,
+    "menu": true
+  },
+  {
+    "id": "ableton-live-12-suite",
+    "name": "Ableton Live 12 Suite",
+    "url": "https://www.ableton.com/live/",
+    "icon": "./desktop/icons/ableton-live-12-suite.png",
+    "note": "",
+    "dock": false,
+    "menu": true
+  },
+  {
+    "id": "lghub",
+    "name": "Logitech G HUB",
+    "url": "https://www.logitechg.com/ghub",
+    "icon": "./desktop/icons/lghub.png",
+    "note": "",
+    "dock": false,
+    "menu": true
+  },
+  {
+    "id": "trash",
+    "name": "Trash",
+    "url": "https://support.apple.com/guide/mac-help/delete-files-and-folders-on-mac-mchlp1093/mac",
+    "icon": "./desktop/icons/trash.png",
+    "note": "",
+    "dock": true,
+    "menu": false
+  }
+]
