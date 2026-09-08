@@ -20,6 +20,7 @@ The website lets you try those controls and the app’s HUD without installing a
 - Scroll down to zoom in and up to zoom out. Spread two fingers to zoom in and pinch them together to zoom out.
 - Click a mouse, screen or hardware label to move closer and open it. Edge arrows point to items outside the view.
 - Rotate product models by dragging. Use arrow keys to rotate and Home to reset.
+- Every hardware dialog opens in 3D, with official product photos underneath. Click a thumbnail or use the arrows, scroll the strip to see more, and select **3D** to return to the model.
 - Click outside a dialog or press Escape to return to the room.
 - Open the Dell for its rotatable monitor model, specs and product link. The nearby **Codex** hotspot opens the interactive desktop, Dock, menu bar and Codex example. Samsung opens its monitor product; the separate **OBS** hotspot opens the silent recording demo and my setup details.
 - Open **Everything I use** for the hardware, apps, public skills and project links.
@@ -76,6 +77,7 @@ Open [localhost:8842](http://127.0.0.1:8842/). Keep the server running while usi
 - **Room picture:** `docs/assets/room.svg` combines the corrected face, work screen, OBS screen, laptop wallpaper and small Canon camera patch with the original `room.webp`. The body, clothes, sausage legs and surrounding room remain from that original. After replacing `room-screens.webp`, `room-details.webp`, `room-camera.webp` or adjusting the region outlines, run `python3 scripts/build-room-image.py`, then rebuild. See [source notes](SOURCES.md) for references and privacy edits.
 - **Share preview:** `docs/assets/sausage-legs-social.jpg` uses the original sausage-leg photo; Open Graph and large-image card metadata in `docs/index.html` point to that image. Keep its dimensions and alt text in sync when replacing it.
 - **Product geometry:** `docs/product-models.mjs`; reference notes are in `PRODUCT-MODELS.md`. The MacBook uses the actual Tahoe rocks-and-water wallpaper in `docs/assets/macbook-wallpaper.webp`, cropped proportionally.
+- **Product galleries:** `docs/product-gallery.mjs` reads each item's `images` in `docs/gear.json`: local WebP `src`, a concise `angle`, and its official image `source`. Keep images proportional under `docs/assets/products/`, verify the actual model and colour, and document their origin in `SOURCES.md`. The 3D option remains first and is selected again whenever a dialog opens.
 - **OBS example and setup details:** `docs/obs.html`, `docs/obs.css` and `docs/obs.mjs`. Keep the dated settings consistent with the [OBS++ setup guide](https://github.com/EthanSK/obs-plus-plus/blob/master/SETUP.md); do not present the example as live telemetry.
 - **Mouse modes, HUD, mouse models or icon:** change the canonical Agentic Mouse repository, publish it, then run `python3 scripts/sync-sources.py` here. The published native export chooses the source commit; this site does not maintain another button map.
 - **Desktop, Dock or apps:** change the response-preferences public demo. The Codex hotspot embeds that site directly; the sync script refreshes this site’s app directory.
@@ -83,6 +85,8 @@ Open [localhost:8842](http://127.0.0.1:8842/). Keep the server running while usi
 `sources.lock.json` records the actual source revision and file hashes. A daily GitHub Actions run refreshes the published mouse runtime and app directory, checks the result, saves changes and deploys them. Manual workflow dispatch does the same. Ordinary pushes build the committed snapshot. An upstream refresh that fails checks stops before deployment.
 
 Before pushing a UI change, manually test the final build in Codex’s built-in browser: enter, wheel both ways, drag and release, edge arrows, dialogs, models, both mice, code review, dictation, desktop and OBS. Check a narrow mobile viewport, keyboard controls, reduced motion and browser errors. Test actual two-touch pinch when the browser tool supports it; report that check as unverified otherwise. Do not open or focus personal Chrome for testing. Automated checks do not prove visual quality or touch behavior.
+
+For gallery changes, open all 16 hardware dialogs, inspect every photo, return to 3D and rotate it, then reopen to confirm the default. Check thumbnails, previous/next, keyboard navigation and the horizontally scrolling strip in a narrow viewport; confirm both mouse HUDs still respond after returning from a photo.
 
 [AGENTS.md](AGENTS.md) describes ownership and verification requirements for agents. [SOURCES.md](SOURCES.md) covers provenance, privacy and licensing.
 

@@ -47,6 +47,12 @@ def check():
     for item in gear:
         assert 0 <= item['x'] <= 1 and 0 <= item['y'] <= 1
         assert item['url'].startswith('https://') and item['evidence'] and item['specs']
+        assert item['images'], f"Product gallery is empty: {item['id']}"
+        assert len({image['angle'] for image in item['images']}) == len(item['images'])
+        for image in item['images']:
+            assert image['src'].startswith('assets/products/') and image['src'].endswith('.webp')
+            assert (SITE / image['src']).is_file(), f"Missing product image: {image['src']}"
+            assert image['source'].startswith('https://') and image['angle']
     lock = json.loads((ROOT / 'sources.lock.json').read_text())
     for relative, digest in lock['sha256'].items():
         assert hashlib.sha256((ROOT / 'docs' / relative).read_bytes()).hexdigest() == digest, f'Edit the canonical source, then sync: {relative}'
