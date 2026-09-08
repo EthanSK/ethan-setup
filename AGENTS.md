@@ -1,0 +1,11 @@
+# Ethan’s setup
+
+This repository owns Ethan’s interactive personal setup website; the original Agentic Mouse website remains in EthanSK/agentic-mouse.
+
+- Read README.md and SOURCES.md before changing the site. Keep hardware names, dimensions and links tied to verified evidence in docs/gear.json; never publish invoices, order IDs, serial numbers, private screenshots or local settings.
+- Use frontend-design, write-user-facing-messages, development-workflow and browser-test-on-macbook. Manually test the finished UI after the last relevant edit, including drag release, wheel direction, actual pinch input, outside-dialog dismissal and every changed primary action.
+- Agentic Mouse simulator, HUD, mouse models and app icon remain owned by EthanSK/agentic-mouse. Refresh through scripts/sync-sources.py; never invent a second button map or change the installed native application for a website task.
+- The interactive Codex desktop is maintained at EthanSK/response-preferences. Inspect its public website and source before changing desktop integration; reuse its public demo and canonical app metadata instead of maintaining competing copies. Never publish raw screenshots containing private conversations.
+- Keep the room photograph proportional and preserve Ethan’s face, shorts and deliberately requested sausage legs. Do not add chair-mounted mouse pads or floating desks.
+- Use “Ethan’s setup”, “Boring website”, “Scroll to zoom” and “Pinch to zoom”. Keep headings natural and concise, including “Review code without moving your hand” and “Great for Agentic Engineers”.
+- Website changes include Pages publication, a successful deployment check and verification of the exact live cache-versioned assets. Keep native apps, live OBS recording, unrelated worktrees and user browser windows untouched.

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#090b10" />
+  <meta name="description" content="Explore Ethan’s setup, try the mouse controls and look around the desk." />
+  <title>Ethan’s setup</title>
+  <meta property="og:title" content="Ethan’s setup" />
+  <meta property="og:description" content="My desk, apps and mouse controls for working with agents." />
+  <meta property="og:image" content="https://ethansk.github.io/ethan-setup/assets/room.webp" />
+  <link rel="manifest" href="./site.webmanifest" />
+  <link rel="icon" href="./setup-mark.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="./showcase.css?v=__SITE_VERSION__" />
+  <link rel="stylesheet" href="./beta.css?v=__SITE_VERSION__" />
+  <script type="importmap">{ "imports": { "three": "./lib/three.module.min.js" } }</script>
+</head>
+<body class="room-beta">
+  <header class="room-header">
+    <a class="setup-brand" href="./">Ethan’s setup</a>
+    <a class="room-classic" href="https://ethansk.github.io/agentic-mouse/">Boring website ↗</a>
+  </header>
+  <nav class="project-rail" aria-label="My projects">
+    <a aria-label="Agentic Mouse" href="https://github.com/EthanSK/agentic-mouse"><img src="./agentic-mouse-mark.svg" width="28" height="28" alt=""/><span>Agentic Mouse</span></a>
+    <a aria-label="VoiceInk++" href="https://github.com/EthanSK/VoiceInkPlusPlus"><img src="https://ethansk.github.io/response-preferences/desktop/icons/voiceinkplusplus.png" width="28" height="28" alt=""/><span>VoiceInk++</span></a>
+    <a aria-label="Better Git VS Code" href="https://github.com/EthanSK/better-git-vscode"><img src="./assets/apps/vsCode.png" width="28" height="28" alt=""/><span>Better Git VS Code</span></a>
+    <a aria-label="Response Preferences" href="https://github.com/EthanSK/response-preferences"><img src="./assets/apps/codex.png" width="28" height="28" alt=""/><span>Response Preferences</span></a>
+    <a aria-label="AIMVS" href="https://github.com/EthanSK/ai-music-video-studio"><span class="rail-symbol video-symbol" aria-hidden="true">▷</span><span>AIMVS</span></a>
+    <button type="button" id="show-directory" aria-label="Everything I use"><span class="rail-symbol" aria-hidden="true">⋯</span><span>Everything I use</span></button>
+  </nav>
+  <main class="room-stage" id="room-stage">
+    <img class="room-poster" src="./assets/room.webp?v=__SITE_VERSION__" width="1586" height="992" alt="Ethan reclining at his desk with two giant sausage legs coming out of his shorts, a Razer mouse on the left and a Corsair mouse in his right hand" />
+    <canvas id="room-canvas" tabindex="0" aria-label="Explore the desk. Drag to look around. Scroll or pinch to zoom; use up and down arrow keys to zoom; use left and right arrow keys to move sideways."></canvas>
+    <div class="room-shade" aria-hidden="true"></div>
+    <div class="room-intro">
+      <button id="enter-room" type="button"><span class="wheel-prompt">Scroll to zoom</span><span class="touch-prompt">Pinch to zoom</span></button>
+      <p>Drag to look around</p>
+    </div>
+    <div class="room-hotspots" aria-label="Explore my setup"></div>
+    <div class="room-zoom" role="group" aria-label="Room camera">
+      <button type="button" id="zoom-out" aria-label="Zoom out">−</button><button type="button" id="zoom-in" aria-label="Zoom in">+</button>
+    </div>
+    <nav class="room-dock" aria-label="Explore the desk">
+      <button type="button" data-view="room">The room</button>
+      <button type="button" data-view="desk" aria-pressed="false">The desk</button>
+      <span aria-hidden="true"></span>
+      <button type="button" data-topic="razer">Left mouse</button>
+      <button type="button" data-topic="corsair">Right mouse</button>
+      <button type="button" data-topic="code">Review code</button>
+      <button type="button" data-topic="voice">Dictation</button>
+      <button type="button" data-topic="dell">My desktop</button><button type="button" data-topic="samsung">OBS</button><button type="button" data-directory>Everything I use</button>
+    </nav>
+    <p class="room-caption">AI scene from my photos · <a href="https://www.linkedin.com/in/ethansk/">Follow me on LinkedIn ↗</a></p>
+    <p class="room-loading" role="status">Loading the room…</p>
+  </main>
+  <dialog class="room-detail" id="room-detail" aria-labelledby="detail-title">
+    <button type="button" class="detail-close" aria-label="Back to the room">×</button>
+    <div class="detail-heading"><p class="room-kicker" id="detail-kicker"></p><h1 id="detail-title"></h1><p id="detail-description"></p></div>
+    <div id="mouse-detail" hidden>
+      <div class="beta-mice">
+        <figure class="hero-product" data-mouse="corsair" hidden>
+          <img src="./assets/corsair.webp" width="1200" height="1200" alt="Corsair Scimitar Elite Wireless SE" />
+          <canvas tabindex="0" aria-label="Drag to rotate the Corsair mouse; click a button to try it"></canvas>
+          <svg class="speech-leader" aria-hidden="true"><path></path><circle r="4"></circle></svg>
+          <button type="button" class="speech-callout" data-voice>Activate speech mode</button>
+          <button type="button" class="hero-reset">Reset view ↻</button>
+        </figure>
+        <figure class="hero-product" data-mouse="razer" hidden>
+          <img src="./assets/razer.webp" width="500" height="500" alt="Razer Naga Left-Handed Edition" />
+          <canvas tabindex="0" aria-label="Drag to rotate the Razer mouse; click a button to try it"></canvas>
+          <svg class="speech-leader" aria-hidden="true"><path></path><circle r="4"></circle></svg>
+          <button type="button" class="speech-callout" data-voice>Activate speech mode</button>
+          <button type="button" class="hero-reset">Reset view ↻</button>
+        </figure>
+      </div>
+      <p class="detail-hint">Drag the mouse to rotate it, then click a button or use the HUD below</p>
+      <label class="beta-app">Current app <select id="beta-app"></select></label>
+      <div id="beta-hud"></div>
+      <p id="beta-feedback" role="status">Loading the mouse controls…</p>
+      <div class="beta-gestures"><button type="button" id="beta-hold">Hold selected button</button><button type="button" id="beta-wheel-up">Wheel up ↑</button><button type="button" id="beta-wheel-down">Wheel down ↓</button><button type="button" id="beta-reset">Reset demo</button></div>
+      <p class="detail-note">This demo follows the published app mapping and only controls this page.</p>
+      <a class="detail-link" href="https://ethansk.github.io/agentic-mouse/mouse-map.html">See every button and mode ↗</a>
+    </div>
+    <div id="code-detail" hidden>
+      <div class="code-example">
+        <div class="code-title"><span>Example code review</span><span id="code-staged">0 staged</span></div>
+        <div class="code-file" id="code-file"></div><pre id="code-lines"></pre>
+      </div>
+      <div class="review-demo-buttons"><button type="button" data-review="-1"><strong>5</strong>Previous ↑</button><button type="button" data-review="1"><strong>8</strong>Next ↓</button></div>
+      <p id="review-feedback" role="status">Quick press to jump, or hold for 300 ms and release to stage the file and jump.</p>
+      <button type="button" id="review-reset" class="detail-link">Reset review</button>
+      <p class="detail-note">This is my current workflow with Better Git VS Code, using button 5 or 8 on either mouse.</p>
+      <a class="detail-link" href="https://github.com/EthanSK/better-git-vscode">Get Better Git VS Code ↗</a>
+    </div>
+    <div id="voice-detail" hidden>
+      <div class="video-example"><div class="video-screen"><span aria-hidden="true">▶</span><p>Watching YouTube while I work</p></div><div class="video-controls"><button type="button" id="video-toggle">Pause video</button><span id="video-status" role="status">Playing</span></div><div class="video-progress"><i></i></div></div>
+      <button type="button" class="dictate-button" id="dictate">Start dictation</button>
+      <div class="transcript" id="transcript" role="status">Press Start dictation to see what happens to the video.</div>
+      <p class="detail-note">An interactive example with no microphone or audio; my real setup uses VoiceInk++ and a separate YouTube bridge.</p>
+      <a class="detail-link" href="https://github.com/EthanSK/VoiceInkPlusPlus">Get VoiceInk++ ↗</a>
+    </div>
+    <div id="hardware-detail" hidden>
+      <div class="product-stage"><canvas id="product-canvas" tabindex="0" aria-label="Drag to rotate the product; arrow keys rotate; Home resets"></canvas><button id="product-reset" type="button">Reset view ↻</button><p id="product-state" role="status">Loading 3D view…</p></div>
+      <div class="product-info"><ul id="product-specs"></ul><a id="product-link" class="detail-link" href="https://github.com/EthanSK">View product ↗</a><button id="product-demo" type="button" class="detail-link" hidden></button><p class="detail-note">Drag to rotate · Modelled from product references</p></div>
+    </div>
+    <div id="screen-detail" hidden>
+      <div class="screen-actions"><button type="button" id="screen-desktop">Desktop</button><button type="button" id="screen-product">3D monitor</button><a href="https://ethansk.github.io/response-preferences/" id="screen-source" target="_blank" rel="noopener">Open desktop ↗</a></div>
+      <iframe id="desktop-frame" title="Interactive example of Ethan’s desktop" loading="lazy" allow="" referrerpolicy="no-referrer"></iframe>
+      <p class="detail-note">This is a demo of my desktop, not my real machine.</p>
+    </div>
+    <p class="beta-disclaimer">All the wording is AI generated, so sorry if it’s cringe.</p>
+  </dialog>
+  <dialog class="setup-directory" id="setup-directory" aria-labelledby="directory-title">
+    <button type="button" class="directory-close" aria-label="Back to the room">×</button>
+    <h1 id="directory-title">Everything I use</h1>
+    <nav class="directory-sections" aria-label="Setup sections"><a href="#directory-gear">Hardware</a><a href="#directory-apps">Apps</a><a href="#directory-skills">Skills</a></nav>
+    <h2 id="directory-gear">On my desk</h2><div class="directory-gear"></div>
+    <h2 id="directory-apps">Apps</h2><div class="directory-apps"></div>
+    <h2 id="directory-skills">Skills I use with agents</h2><div class="directory-skills"></div>
+    <section class="setup-follow"><a class="linkedin-logo" href="https://www.linkedin.com/in/ethansk/" aria-label="Ethan SK on LinkedIn">in</a><div><h2>Follow me on LinkedIn</h2><p>Tips on the agentic future.</p><a href="https://www.linkedin.com/in/ethansk/">Follow Ethan SK ↗</a> · <a href="https://www.linkedin.com/in/ethansk/recent-activity/all/">Recent posts ↗</a></div></section>
+    <p class="beta-disclaimer">All the wording on this website is AI generated, so sorry if it’s cringe.</p>
+  </dialog>
+  <noscript><p class="beta-no-js">The interactive room needs JavaScript. <a href="https://ethansk.github.io/agentic-mouse/">Explore the main website instead.</a></p></noscript>
+  <script type="module" src="./beta.mjs?v=__SITE_VERSION__"></script>
+</body>
+</html>

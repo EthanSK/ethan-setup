@@ -1,0 +1,219 @@
+[
+  {
+    "id": "corsair",
+    "name": "Corsair Scimitar Elite Wireless SE",
+    "label": "Right mouse",
+    "x": 0.391,
+    "y": 0.647,
+    "url": "https://www.corsair.com/uk/en/p/gaming-mouse/ch-9314415-ww/scimitar-elite-wireless-se-mmo-gaming-mouse-black-yellow-ch-9314415-ww",
+    "specs": [
+      "Right-handed",
+      "12 thumb buttons",
+      "Black / yellow"
+    ],
+    "evidence": "User setup and existing published source",
+    "description": ""
+  },
+  {
+    "id": "razer",
+    "name": "Razer Naga Left-Handed Edition",
+    "label": "Left mouse",
+    "x": 0.231,
+    "y": 0.67,
+    "url": "https://www.razer.com/gb-en/gaming-mice/razer-naga-left-handed-edition",
+    "specs": [
+      "Left-handed",
+      "12 mirrored controls",
+      "Black"
+    ],
+    "evidence": "User setup and existing published source",
+    "description": ""
+  },
+  {
+    "id": "macbook",
+    "name": "MacBook Pro",
+    "label": "MacBook Pro",
+    "x": 0.101,
+    "y": 0.536,
+    "url": "https://www.apple.com/uk/macbook-pro/",
+    "specs": [
+      "16-inch",
+      "M5 Max",
+      "64 GB unified memory"
+    ],
+    "evidence": "User confirmed, corroborated by host hardware",
+    "description": "My 16-inch MacBook Pro with M5 Max and 64GB, where I run my agents."
+  },
+  {
+    "id": "hs8",
+    "name": "Yamaha HS8",
+    "label": "Yamaha HS8",
+    "x": 0.183,
+    "y": 0.428,
+    "url": "https://usa.yamaha.com/products/proaudio/speakers/hs_series/",
+    "specs": [
+      "White pair",
+      "8-inch studio monitors"
+    ],
+    "evidence": "Gear4music purchase, September 2024",
+    "description": "A pair of white Yamaha HS8s I use as studio monitors."
+  },
+  {
+    "id": "scarlett",
+    "name": "Focusrite Scarlett 18i8",
+    "label": "Scarlett 18i8",
+    "x": 0.39,
+    "y": 0.537,
+    "url": "https://us.focusrite.com/products/scarlett-18i8-3rd-gen",
+    "specs": [
+      "3rd generation",
+      "18 inputs / 8 outputs"
+    ],
+    "evidence": "eBay purchase, May 2023",
+    "description": "My Focusrite Scarlett 18i8 third generation audio interface, under the DJ deck."
+  },
+  {
+    "id": "flx4",
+    "name": "Pioneer DDJ-FLX4",
+    "label": "DDJ-FLX4",
+    "x": 0.392,
+    "y": 0.504,
+    "url": "https://www.pioneerdj.com/en/product/dj-controllers/ddj-flx4/",
+    "specs": [
+      "Black",
+      "2-channel DJ controller"
+    ],
+    "evidence": "Argos collected receipt, June 2025",
+    "description": "My Pioneer DDJ-FLX4 controller for DJing."
+  },
+  {
+    "id": "macmini",
+    "name": "Mac mini",
+    "label": "Mac mini",
+    "x": 0.169,
+    "y": 0.54,
+    "url": "https://www.apple.com/uk/mac-mini/",
+    "specs": [
+      "Under the left speaker"
+    ],
+    "evidence": "User confirmed; generation not verified",
+    "description": "A Mac Mini tucked under the left HS8."
+  },
+  {
+    "id": "akai",
+    "name": "Akai MPK mini Plus",
+    "label": "MPK mini Plus",
+    "x": 0.444,
+    "y": 0.577,
+    "url": "https://www.akaipro.com/discover/mpk",
+    "specs": [
+      "37 keys",
+      "8 MPC pads"
+    ],
+    "evidence": "Amazon purchase, February 2023",
+    "description": "My Akai MPK mini Plus, a 37-key USB MIDI keyboard with pads."
+  },
+  {
+    "id": "shure",
+    "name": "Shure SM7B",
+    "label": "Shure SM7B",
+    "x": 0.541,
+    "y": 0.471,
+    "url": "https://www.shure.com/en-GB/products/microphones/sm7b",
+    "specs": [
+      "Dynamic microphone",
+      "Dictation and recording"
+    ],
+    "evidence": "User confirmed",
+    "description": "My Shure SM7B, used for dictation and recording."
+  },
+  {
+    "id": "dell",
+    "name": "Dell S3422DW",
+    "label": "Dell ultrawide",
+    "x": 0.401,
+    "y": 0.396,
+    "url": "https://www.dell.com/support/home/en-uk/product-support/product/dell-s3422dw-monitor/overview",
+    "specs": [
+      "34-inch",
+      "3440 × 1440",
+      "Curved ultrawide"
+    ],
+    "evidence": "Prior host display identification; model recheck pending",
+    "description": "My 34-inch Dell ultrawide, the main display."
+  },
+  {
+    "id": "samsung",
+    "name": "Samsung S80UA",
+    "label": "Samsung · OBS",
+    "x": 0.744,
+    "y": 0.159,
+    "url": "https://www.samsung.com/pt/monitors/high-resolution/s80ua-27-inch-ips-uhd-4k-ls27a800ujpxen/",
+    "specs": [
+      "27-inch",
+      "4K",
+      "S27A800U"
+    ],
+    "evidence": "Live display identifies LS27A800U; full regional SKU not verified",
+    "description": "My 27-inch Samsung S80UA above the ultrawide, used for OBS recording."
+  },
+  {
+    "id": "bigknob",
+    "name": "Mackie Big Knob Passive",
+    "label": "Big Knob",
+    "x": 0.329,
+    "y": 0.581,
+    "url": "https://mackie.com/en/products/accessories/big_knob_passive.html",
+    "specs": [
+      "Passive monitor controller",
+      "Volume / mono / mute / dim"
+    ],
+    "evidence": "Gear4music purchase, March 2025",
+    "description": "My Mackie Big Knob Passive for volume."
+  },
+  {
+    "id": "drive",
+    "name": "WD Elements Desktop",
+    "label": "WD Elements",
+    "x": 0.217,
+    "y": 0.554,
+    "url": "https://www.westerndigital.com/products/external-drives/wd-elements-desktop-usb-3-0-hdd?sku=WDBWLG0140HBK-EESN",
+    "specs": [
+      "14 TB",
+      "Black",
+      "USB 3.0"
+    ],
+    "evidence": "Amazon order August 2026, delivered September 2026",
+    "description": "My WD Elements Desktop 14TB for storage."
+  },
+  {
+    "id": "desk",
+    "name": "FlexiSpot E7 Pro",
+    "label": "FlexiSpot E7 Pro",
+    "x": 0.269,
+    "y": 0.69,
+    "url": "https://flexispot.co.uk/next-generation-standing-desk-e7-pro",
+    "specs": [
+      "2025 model",
+      "Bamboo · 180 × 80 cm",
+      "Black frame"
+    ],
+    "evidence": "Previously verified FlexiSpot purchase, March 2025",
+    "description": "My FlexiSpot E7 Pro, 180x80cm bamboo top on a black frame."
+  },
+  {
+    "id": "chair",
+    "name": "Hbada E3 Pro",
+    "label": "Hbada E3 Pro",
+    "x": 0.784,
+    "y": 0.683,
+    "url": "https://www.hbada.uk/products/hbada-e3-pro-ergonomic-office-chair?variant=57072259858807",
+    "specs": [
+      "2026 edition",
+      "Grey",
+      "With footrest"
+    ],
+    "evidence": "Hbada shipment confirmation, July 2026",
+    "description": "My Hbada E3 Pro 2026 in grey, with a footrest."
+  }
+]
