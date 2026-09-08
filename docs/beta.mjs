@@ -145,7 +145,7 @@ stage.addEventListener("wheel", event => {
   event.preventDefault();
   cancelRoomGesture();
   const delta = event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? height : 1);
-  zoom(target.zoom - Math.max(-.18, Math.min(.18, delta * .001))); // Match Three.js zoom direction, including the Ctrl+wheel events emitted by trackpad pinches.
+  zoom(target.zoom + (event.ctrlKey ? -1 : 1) * Math.max(-.18, Math.min(.18, delta * .001))); // Scrolling down moves into the room; Chrome's Ctrl+wheel trackpad pinches keep their usual direction.
 }, { passive: false });
 const roomPointers = new Map();
 let drag, pinch, dragged = false;
