@@ -448,7 +448,7 @@ async function showHardware(id) {
     const {createProductViewer} = await import("./product-models.mjs?v=__SITE_VERSION__");
     if (request !== productRequest) return;
     productViewer?.dispose();
-    const viewer = await createProductViewer(productCanvas, id);
+    const viewer = await createProductViewer(productCanvas, id, document.querySelector("#product-movement"));
     if (request !== productRequest || !detail.open) { viewer.dispose(); return; }
     productViewer = viewer; status.hidden = true;
   } catch (error) { if (request === productRequest) { status.textContent = "3D view unavailable"; productCanvas.hidden = true; } console.warn("Product view unavailable", id, error); }
