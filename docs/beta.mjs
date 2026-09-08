@@ -233,13 +233,14 @@ const topics = {
   corsair: ["Right hand · Agentic Mouse", "Corsair Scimitar", "Twelve thumb controls for working with agents, with the top button for VoiceInk++ dictation."],
   razer: ["Left hand · Agentic Mouse", "Razer Naga", "The same controls mirrored for my left hand, so I can switch whenever I want."],
   codex: ["", "Codex", ""],
+  obs: ["", "OBS", ""],
   code: ["Great for Agentic Engineers", "Review code without moving your hand", "Quick press to jump to a change, or hold and release to stage the current file and jump in that direction."],
   voice: ["VoiceInk++", "YouTube pauses when I start talking", "I use a top mouse button to dictate instead of typing, and my video resumes when I finish if my setup paused it."],
   desk: ["My desk setup", "Both mice stay on the desk", "High sensitivity keeps movement small, and I sometimes use both mice to click through code review faster."],
   chair: ["My desk setup", "Lean back without reaching for a keyboard", "I use thumb controls and dictation with the footrest out, switching hands whenever I want."],
 };
 let returnFocus, returnView, productViewer, productRequest = 0;
-function openTopic(topic, trigger, hardwareView = false) {
+function openTopic(topic, trigger) {
   const item = gearById.get(topic);
   const copy = topics[topic] || (item && ["My setup", item.name, item.description]);
   if (!copy) return;
@@ -260,7 +261,7 @@ function openTopic(topic, trigger, hardwareView = false) {
   document.querySelector("#detail-description").textContent = copy[2];
   document.querySelector("#detail-description").hidden = !copy[2];
   const mouse = topic === "razer" || topic === "corsair";
-  const panel = mouse ? "mouse" : topic === "code" || topic === "voice" ? topic : !hardwareView && (topic === "codex" || topic === "samsung") ? "screen" : "hardware"; // Dell opens its product; the nearby Codex hotspot owns the desktop embed, as Ethan requested (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
+  const panel = mouse ? "mouse" : topic === "code" || topic === "voice" ? topic : (topic === "codex" || topic === "obs") ? "screen" : "hardware"; // Hardware opens its product; separate nearby Codex and OBS hotspots own the software views, never combined monitor/software labels (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
   for (const name of ["mouse", "code", "voice", "hardware", "screen"]) document.querySelector(`#${name}-detail`).hidden = name !== panel;
   if (mouse) {
     if (simulator) { simulator.chooseHand(topic); updateMouse(); }
@@ -418,9 +419,9 @@ async function showHardware(id) {
   for (const spec of item.specs) { const li = document.createElement("li"); li.textContent = spec; specs.append(li); }
   const link = document.querySelector("#product-link"); link.href = item.url;
   const demo = document.querySelector("#product-demo");
-  demo.hidden = !["samsung","shure"].includes(id);
-  demo.textContent = id === "shure" ? "Try dictation" : "Open screen";
-  demo.onclick = () => id === "shure" ? openTopic("voice", demo) : showScreen(id);
+  demo.hidden = id !== "shure";
+  demo.textContent = "Try dictation";
+  demo.onclick = () => openTopic("voice", demo);
   const status = document.querySelector("#product-state"); status.hidden = false; status.textContent = "Loading 3D view…";
   const productCanvas = document.querySelector("#product-canvas"); productCanvas.hidden = false;
   try {
@@ -438,8 +439,8 @@ function showScreen(id) {
   productViewer?.dispose(); productViewer = null; productRequest++;
   document.querySelector("#hardware-detail").hidden = true; document.querySelector("#screen-detail").hidden = false;
   const frame = document.querySelector("#desktop-frame");
-  frame.src = id === "samsung" ? "./obs.html?v=__SITE_VERSION__" : "https://ethansk.github.io/response-preferences/";
-  frame.title = id === "samsung" ? "OBS — demo" : "Interactive example of Ethan’s desktop";
+  frame.src = id === "obs" ? "./obs.html?v=__SITE_VERSION__" : "https://ethansk.github.io/response-preferences/";
+  frame.title = id === "obs" ? "OBS — demo" : "Interactive example of Ethan’s desktop";
 }
 const directory = document.querySelector("#setup-directory");
 let directoryTrigger;
@@ -452,7 +453,7 @@ for (const item of gear) {
   const button = document.createElement("button"); button.type = "button";
   const name = document.createElement("strong"); name.textContent = item.name;
   const specs = document.createElement("span"); specs.textContent = item.specs.join(" · ");
-  button.append(name, specs); button.addEventListener("click", () => { directory.close(); openTopic(item.id, document.querySelector("#show-directory"), true); }); // Hardware entries keep the monitor models available without adding controls above the desktop.
+  button.append(name, specs); button.addEventListener("click", () => { directory.close(); openTopic(item.id, document.querySelector("#show-directory")); }); // Hardware entries always open product models; software has separate room hotspots.
   document.querySelector(".directory-gear").append(button);
 }
 const apps = await fetch(new URL("./apps.json?v=__SITE_VERSION__", import.meta.url)).then(response => response.json());
