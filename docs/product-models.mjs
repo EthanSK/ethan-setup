@@ -45,7 +45,7 @@ export async function createProductViewer(canvas, productId) {
     fill.position.set(2, -3, 7);
     scene.add(fill);
 
-    const { group, view } = build();
+    const { group, view } = await build();
     const bounds = new THREE.Box3().setFromObject(group);
     const center = bounds.getCenter(new THREE.Vector3());
     group.position.sub(center); // Rotate about the true centre of the hardware so it never swings out of frame.
@@ -821,7 +821,7 @@ function buildDrive() {
   return { group, view: { yaw: .6, pitch: .22 } };
 }
 
-/** Deterministic pseudo-random stream so generated wallpapers look identical on every visit. */
+/** Deterministic pseudo-random stream so surface details look identical on every visit. */
 function seeded(seed) {
   let state = seed >>> 0;
   return () => { state = (state * 1664525 + 1013904223) >>> 0; return state / 4294967296; };
@@ -855,30 +855,11 @@ function drawDesktop(ctx, w, h, windows, tint = [18, 22, 32]) {
     ctx.beginPath(); ctx.roundRect(w / 2 - dockW / 2 + gap + i * (size + gap), h - dockH - h * .02 + dockH * .17, size, size, size * .22); ctx.fill();
   });
 }
-/** Non-literal pebble wallpaper for the MacBook: soft stones on a slate background, with the notch cut in black. */
-function drawPebbles(ctx, w, h) {
-  const random = seeded(20260908);
-  const background = ctx.createLinearGradient(0, 0, 0, h);
-  background.addColorStop(0, "#2a2d33");
-  background.addColorStop(1, "#15171b");
-  ctx.fillStyle = background;
-  ctx.fillRect(0, 0, w, h);
-  const palette = ["#7d8188", "#9a9ea5", "#b3aca1", "#666a72", "#c2bbb0", "#8a8d93", "#5a5e66", "#a6a39c"];
-  for (let i = 0; i < 34; i++) {
-    const rx = w * (.05 + random() * .12), ry = rx * (.55 + random() * .4);
-    const x = random() * w, y = h * (.15 + random() * .85), angle = random() * Math.PI;
-    const colour = palette[Math.floor(random() * palette.length)];
-    ctx.save();
-    ctx.translate(x, y); ctx.rotate(angle);
-    const shade = ctx.createRadialGradient(-rx * .35, -ry * .4, ry * .1, 0, 0, rx);
-    shade.addColorStop(0, "#ffffff");
-    shade.addColorStop(.25, colour);
-    shade.addColorStop(1, "#1a1c20");
-    ctx.fillStyle = shade;
-    ctx.globalAlpha = .92;
-    ctx.beginPath(); ctx.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2); ctx.fill();
-    ctx.restore();
-  }
+/** Fit the actual Tahoe wallpaper without stretching it, then draw the MacBook's desktop chrome. */
+function drawMacBookDesktop(ctx, w, h, wallpaper) {
+  const scale = Math.max(w / wallpaper.naturalWidth, h / wallpaper.naturalHeight);
+  const width = wallpaper.naturalWidth * scale, height = wallpaper.naturalHeight * scale;
+  ctx.drawImage(wallpaper, (w - width) / 2, (h - height) / 2, width, height); // Ethan meant Apple's rocks-and-water wallpaper, not generated dry pebbles; do not restore the procedural substitute (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
   ctx.globalAlpha = 1;
   ctx.fillStyle = "rgba(255,255,255,.10)";
   ctx.fillRect(0, 0, w, h * .028);
@@ -896,7 +877,8 @@ function drawPebbles(ctx, w, h) {
 }
 
 /** 16-inch MacBook Pro (space black), lid open 105°: 355.7 × 248.1 mm base, 16:10 display with notch, keys and trackpad. */
-function buildMacBook() {
+async function buildMacBook() {
+  const wallpaper = await new THREE.ImageLoader().loadAsync(new URL("./assets/macbook-wallpaper.webp?v=__SITE_VERSION__", import.meta.url).href);
   const group = new THREE.Group();
   const anodised = std(0x2c2c2f, .46, .72), keycap = std(0x121214, .6), well = std(0x09090a, .75), pad = std(0x202023, .35, .35);
   const glass = std(0x050506, .22, .15), hole = std(0, 1);
@@ -940,7 +922,7 @@ function buildMacBook() {
   lid.add(at(box(W, lidH, D, anodised, 3, 4), 0, lidH / 2, D / 2));
   lid.add(at(plate(W - 3, D - 3, .6, 3, glass), 0, -.05, D / 2, Math.PI / 2));
   const screenW = 348.7, screenH = 218;
-  lid.add(at(decal(screenW, screenH, drawPebbles, { pxPerMM: 3, emissive: .9 }), 0, -.5, D - 3.5 - screenH / 2, Math.PI / 2));
+  lid.add(at(decal(screenW, screenH, (ctx, w, h) => drawMacBookDesktop(ctx, w, h, wallpaper), { pxPerMM: 3, emissive: .9 }), 0, -.5, D - 3.5 - screenH / 2, Math.PI / 2));
   group.add(lid);
   feet(group, W, D, 22, 5, 1.6);
   return { group, view: { yaw: .5, pitch: .3 } };
