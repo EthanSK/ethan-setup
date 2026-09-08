@@ -27,6 +27,7 @@ The website lets you try those controls and the app’s HUD without installing a
 - Apps float individually near the photographed Dock as you zoom in; hover or focus an icon for its name and click it for its own software view. Codex and OBS retain their separate screen hotspots.
 - Open **Everything I use** for hardware, apps, 12 public skills, five personal skill descriptions and 16 public projects. All external links open a separate browser page; my [Portosaurus portfolio](https://portosaurus.github.io/ethansk/) is linked beside the site name and embedded below the project list.
 - **View product** appears beside each hardware heading. Models and gallery images report failed loads and offer a retry; a failed model does not hide its official photographs.
+- The Scarlett's larger explanation sits beside its model or photo, above the specs; on a narrow screen it moves below the image gallery.
 
 The room is a photograph with a Three.js camera, not a scan of the entire room. 3D views require WebGL 2; product photographs and links remain available if the device cannot create a renderer. Models render at up to 30 fps with pixel density capped at 1.5, pause when hidden, and load on demand; they have not been tested on every device. The sausage legs are intentional; their hotspot has a Tesco Finest product link and my joke subtitle. Product models are reference-based illustrations, not manufacturer CAD or dimensionally certified replicas.
 
