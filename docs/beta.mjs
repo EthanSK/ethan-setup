@@ -508,7 +508,7 @@ async function showHardware(id) {
   demo.onclick = () => openTopic("voice", demo);
   document.querySelector("#product-retry").hidden = true;
   const status = document.querySelector("#product-state"); status.hidden = false; status.textContent = "Loading 3D view…";
-  const productCanvas = document.querySelector("#product-canvas"); productCanvas.hidden = false;
+  const productCanvas = document.querySelector("#product-canvas"); productCanvas.hidden = false; productCanvas.style.visibility = "hidden"; // The reused canvas still holds the previous product's pixels while this one downloads.
   const failed = () => { if (request === productRequest) { status.textContent = "3D view failed to load."; productCanvas.hidden = true; document.querySelector("#product-retry").hidden = false; } };
   signal.addEventListener("abort", failed, { once: true }); // A stalled module import must not leave Loading visible forever.
   try {
@@ -518,7 +518,7 @@ async function showHardware(id) {
     productViewer?.dispose();
     const viewer = await createProductViewer(productCanvas, id, document.querySelector("#product-movement"), signal);
     if (request !== productRequest || !detail.open) { viewer.dispose(); return; }
-    productViewer = viewer; status.hidden = true;
+    productViewer = viewer; productCanvas.style.visibility = "visible"; status.hidden = true;
   } catch (error) { if (request === productRequest) { failed(); console.warn("Product view unavailable", id, error); } }
   finally { signal.removeEventListener("abort", failed); }
 }
