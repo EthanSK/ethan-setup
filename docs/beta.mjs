@@ -299,6 +299,36 @@ const topics = {
   desk: ["My desk setup", "Both mice stay on the desk", "High sensitivity keeps movement small, and I sometimes use both mice to click through code review faster."],
   chair: ["My desk setup", "Lean back without reaching for a keyboard", "I use thumb controls and dictation with the footrest out, switching hands whenever I want."],
 };
+/** Follow nearby photo anchors once around the desk, keeping each app and related demo together. */
+function buildDialogRoute() {
+  const remaining = hotspots.filter(button => !button.classList.contains("software-hotspot"));
+  const ordered = [];
+  let current = remaining.reduce((left, button) => Number(button.dataset.x) < Number(left.dataset.x) ? button : left);
+  while (remaining.length) {
+    remaining.splice(remaining.indexOf(current), 1);
+    const topic = current.dataset.topic;
+    ordered.push(topic);
+    if (topic === "dell") ordered.push("code");
+    if (topic === "shure") ordered.push("voice");
+    if (topic === "codex") ordered.push(...dockApps.map(app => `software:${app.id}`));
+    const distance = button => Math.hypot((Number(button.dataset.x) - Number(current.dataset.x)) * roomWidth, (Number(button.dataset.y) - Number(current.dataset.y)) * roomHeight); // Use photo proportions, not current zoom; a fixed route makes Previous undo Next instead of bouncing between two nearest items.
+    current = remaining.reduce((nearest, button) => !nearest || distance(button) < distance(nearest) ? button : nearest, null);
+  }
+  return ordered;
+}
+const dialogRoute = buildDialogRoute();
+const dialogNavigation = [...detail.querySelectorAll(".detail-nav")];
+/** Update both destinations from one route, including wraparound at the ends. */
+function updateDialogNavigation() {
+  const index = dialogRoute.indexOf(detail.dataset.topic);
+  for (const button of dialogNavigation) {
+    const topic = dialogRoute[(index + Number(button.dataset.step) + dialogRoute.length) % dialogRoute.length];
+    const name = topics[topic]?.[1] || gearById.get(topic)?.name || apps.find(app => topic === `software:${app.id}`).name;
+    button.dataset.destination = topic;
+    button.title = `${Number(button.dataset.step) < 0 ? "Previous" : "Next"}: ${name}`;
+    button.setAttribute("aria-label", button.title);
+  }
+}
 let returnFocus, returnView, productViewer, productRequest = 0, productLoad, disposeGallery;
 function openTopic(topic, trigger) {
   const item = gearById.get(topic);
@@ -306,6 +336,7 @@ function openTopic(topic, trigger) {
   const copy = topics[topic] || (item && ["My setup", item.name, item.description]) || (app && ["Software", app.name, ""]);
   if (!copy) return;
   cancelRoomGesture();
+  stopDetailInteraction();
   disposeGallery?.(); disposeGallery = null;
   productLoad?.abort();
   productViewer?.dispose(); productViewer = null; productRequest++;
@@ -351,11 +382,13 @@ function openTopic(topic, trigger) {
   if (panel === "screen") showScreen(topic);
   if (item) disposeGallery = createProductGallery(document.querySelector(mouse ? ".mouse-media" : ".product-media"), document.querySelector(mouse ? ".beta-mice" : ".product-stage"), item);
   if (!detail.open) detail.showModal();
-  detail.scrollTop = 0;
-  document.querySelector(".detail-close").focus({ preventScroll: true });
+  detail.querySelector(".detail-body").scrollTop = 0;
+  updateDialogNavigation();
+  (trigger?.classList.contains("detail-nav") ? trigger : document.querySelector(".detail-close")).focus({ preventScroll: true }); // Keep repeated arrow clicks and keyboard activation on the same control while content changes.
 }
 document.querySelectorAll("[data-topic]").forEach(button => button.addEventListener("click", () => openTopic(button.dataset.topic, button)));
 document.querySelectorAll("[data-voice]").forEach(button => button.addEventListener("click", () => openTopic("voice", button)));
+for (const button of dialogNavigation) button.addEventListener("click", () => openTopic(button.dataset.destination, button));
 document.querySelector(".detail-close").addEventListener("click", () => detail.close());
 detail.addEventListener("close", () => {
   disposeGallery?.(); disposeGallery = null;
@@ -365,13 +398,18 @@ detail.addEventListener("close", () => {
   Object.assign(target, returnView); // Closing a feature returns to the exact zoom and pan from which it was opened.
   stage.classList.remove("room-focused");
   render();
+  stopDetailInteraction();
+  returnFocus?.focus({ preventScroll: true });
+});
+
+/** Cancel a held demo control when leaving its topic without clearing the review's staged files. */
+function stopDetailInteraction() {
   document.querySelector(".video-example").classList.remove("is-playing");
   videoPlaying = videoOwned || videoPlaying; // Leaving dictation cancels it and resumes only the example video it paused.
   recording = false; videoOwned = false;
   reviewPress = null; clearTimeout(reviewTimer); // Escape can close the panel while a review key is still held; that cancelled hold must not stage on release.
   document.querySelectorAll("[data-review]").forEach(button => button.classList.remove("is-ready"));
-  returnFocus?.focus({ preventScroll: true });
-});
+}
 
 let simulator, updateHUD, pendingKeypad;
 const loadedMice = new Set();
