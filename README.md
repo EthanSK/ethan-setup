@@ -17,7 +17,7 @@ The website lets you try those controls and the app’s HUD without installing a
 ## Look around
 
 - Click the background to zoom in around that point and reveal nearby items, or drag to move around.
-- Scroll down to zoom in and up to zoom out. Spread two fingers to zoom in and pinch them together to zoom out.
+- Scroll down to zoom in and up to zoom out. Spread two fingers to zoom in and pinch them together to zoom out; the photo stays under the midpoint of your fingers. You can start on an item label and keep dragging with one finger after lifting the other.
 - Click a mouse, screen or hardware label to move closer and open it. Edge arrows point to items outside the view.
 - Rotate product models by dragging. Use arrow keys to rotate and Home to reset.
 - Moving parts animate back and forth: the desk lifts, the chair adjusts, screens tilt and music controls move. Choose an adjustment or pause it; dragging pauses the adjustment for six seconds. Reduced motion starts paused.
@@ -66,6 +66,7 @@ Requires Python 3.10+ and Node.js 22+ for checks; no npm packages or native app 
 ```sh
 python3 scripts/build.py
 python3 scripts/check.py
+node --test tests/*.test.mjs
 node scripts/check-model-geometry.mjs
 python3 -m http.server 8842 --bind 127.0.0.1 --directory .build/site
 ```
@@ -86,7 +87,7 @@ Open [localhost:8842](http://127.0.0.1:8842/). Keep the server running while usi
 
 `sources.lock.json` records the actual source revision and file hashes. A daily GitHub Actions run refreshes the published mouse runtime and app directory, checks the result, saves changes and deploys them. Manual workflow dispatch does the same. Ordinary pushes build the committed snapshot. An upstream refresh that fails checks stops before deployment.
 
-Before pushing a UI change, manually test the final build in Codex’s built-in browser: enter, wheel both ways, drag and release, edge arrows, dialogs, models, both mice, code review, dictation, desktop and OBS. Check a narrow mobile viewport, keyboard controls, reduced motion and browser errors. Test actual two-touch pinch when the browser tool supports it; report that check as unverified otherwise. Do not open or focus personal Chrome for testing. Automated checks do not prove visual quality or touch behavior.
+Before pushing a UI change, manually test the final build in Codex’s built-in browser: enter, wheel both ways, drag and release, edge arrows, dialogs, models, both mice, code review, dictation, desktop and OBS. Check a narrow mobile viewport, keyboard controls, reduced motion and browser errors. Test actual two-touch pinch when the browser tool supports it; report that check as unverified otherwise. Do not open or focus personal Chrome for testing. Automated checks do not prove visual quality or physical touch behavior. The room gesture tests send two-pointer sequences to the actual camera and input handlers, covering pinch direction and anchoring, labels, release suppression, finger handoff and cancellation; they do not emulate Safari or a phone touchscreen.
 
 For gallery changes, open all 16 hardware dialogs, inspect every photo, return to 3D and rotate it, then reopen to confirm the default. Check thumbnails, previous/next, keyboard navigation and the horizontally scrolling strip in a narrow viewport; confirm both mouse HUDs still respond after returning from a photo.
 

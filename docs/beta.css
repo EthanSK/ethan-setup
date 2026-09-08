@@ -88,7 +88,7 @@
 .beta-no-js { position: fixed; z-index: 20; bottom: 0; padding: 16px; background: #151923; font-size: 13px; }
 @media (prefers-reduced-motion: no-preference) { .room-hotspots button > span:last-child { animation: room-float 7s ease-in-out infinite alternate; } .room-hotspots button:nth-child(even) > span:last-child { animation-delay: -4s; } }
 @keyframes room-float { to { transform: translateY(-6px); } }
-@media (max-width: 760px) {
+@media (max-width: 760px), (max-height: 520px) {
  .room-header { padding: 20px; }
  .room-header > a:first-child { font-size: 14px; }
  .room-header .room-classic { font-size: 10px; padding: 10px; }
@@ -141,7 +141,7 @@
 .room-detail[data-topic="voice"], .room-detail[data-topic="chair"], .room-detail[data-topic="desk"] { width: min(760px, calc(100% - 72px)); }
 .room-detail[data-topic="sausages"] { width: min(460px, calc(100% - 72px)); }
 #sausages-detail .detail-link { margin-top: 0; }
-@media (max-width: 760px) {
+@media (max-width: 760px), (max-height: 520px) {
  .room-detail, .room-detail[data-topic] { width: calc(100% - 24px); max-height: calc(100svh - 40px); padding: 24px 20px; border-radius: 18px; }
  #code-detail, #mouse-detail { display: block; }
  #mouse-detail .beta-mice, #mouse-detail .hero-product { height: 250px; }
@@ -248,7 +248,7 @@
  .room-dock { max-width: calc(100% - 150px); overflow-x: auto; }
  .directory-apps { grid-template-columns: repeat(3, minmax(0,1fr)); }
 }
-@media (max-width: 760px) {
+@media (max-width: 760px), (max-height: 520px) {
  .room-header { padding: 19px 18px; }
  .room-header .setup-brand { font-size: 20px; }
  .room-header .room-classic { font-size: 9px; padding: 8px 10px; }
@@ -280,7 +280,7 @@
  .setup-follow p { font-size: 12px; }
 }
 
-@media (min-width:760px) {
+@media (min-width:760px) and (min-height:521px) {
  body:has(.room-entered) .project-rail a span:not(.rail-symbol), body:has(.room-entered) .project-rail button span:not(.rail-symbol) { display:none; }
  body:has(.room-entered) .project-rail a:hover span, body:has(.room-entered) .project-rail a:focus-visible span, body:has(.room-entered) .project-rail button:hover span { display:block; }
  body:has(.room-entered) .project-rail a, body:has(.room-entered) .project-rail button { padding:7px; }
