@@ -154,6 +154,17 @@ test('interrupted pointers are cleared and ordinary mouse wheel direction is pre
   assert.equal(h.target.zoom, before, 'Trackpad pinch keeps the inverse Ctrl+wheel polarity');
 });
 
+test('keyboard panning keeps the portrait starting position without jumping to the old bound', () => {
+  const h = room();
+  h.view.panX = 6.6; h.target.panX = 6.6;
+  h.canvas.fire('keydown', { key: 'ArrowLeft' });
+  h.flush();
+  assert.ok(Math.abs(h.view.panX - 6.3) < .00001, 'One left press moves a single step from Ethan');
+  h.canvas.fire('keydown', { key: 'ArrowRight' });
+  h.flush();
+  assert.ok(Math.abs(h.view.panX - 6.6) < .00001, 'One right press returns to Ethan');
+});
+
 test('zero-distance fingers, large pinches and keyboard activation remain usable', () => {
   const h = room();
   h.stage.fire('pointerdown', { pointerId: 1, clientX: 100 });
