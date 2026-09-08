@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { MouseSimulator } from "./simulator.mjs?v=__SITE_VERSION__";
 import { createNativeHUD } from "./native-hud.mjs?v=__SITE_VERSION__";
 import { createHeroMouse } from "./hero-mice.mjs?v=__SITE_VERSION__";
+import { createProductGallery } from "./product-gallery.mjs?v=__SITE_VERSION__";
 
 const stage = document.querySelector("#room-stage");
 const canvas = document.querySelector("#room-canvas");
@@ -255,12 +256,13 @@ const topics = {
   desk: ["My desk setup", "Both mice stay on the desk", "High sensitivity keeps movement small, and I sometimes use both mice to click through code review faster."],
   chair: ["My desk setup", "Lean back without reaching for a keyboard", "I use thumb controls and dictation with the footrest out, switching hands whenever I want."],
 };
-let returnFocus, returnView, productViewer, productRequest = 0;
+let returnFocus, returnView, productViewer, productRequest = 0, disposeGallery;
 function openTopic(topic, trigger) {
   const item = gearById.get(topic);
   const copy = topics[topic] || (item && ["My setup", item.name, item.description]);
   if (!copy) return;
   cancelRoomGesture();
+  disposeGallery?.(); disposeGallery = null;
   productViewer?.dispose(); productViewer = null; productRequest++;
   document.querySelector("#desktop-frame").removeAttribute("src");
   if (!detail.open) { returnFocus = trigger; returnView = { ...target }; }
@@ -288,6 +290,7 @@ function openTopic(topic, trigger) {
   if (topic === "voice") updateVoice();
   if (panel === "hardware") showHardware(topic);
   if (panel === "screen") showScreen(topic);
+  if (item) disposeGallery = createProductGallery(document.querySelector(mouse ? ".mouse-media" : ".product-media"), document.querySelector(mouse ? ".beta-mice" : ".product-stage"), item);
   if (!detail.open) detail.showModal();
   detail.scrollTop = 0;
   document.querySelector(".detail-close").focus({ preventScroll: true });
@@ -296,6 +299,7 @@ document.querySelectorAll("[data-topic]").forEach(button => button.addEventListe
 document.querySelectorAll("[data-voice]").forEach(button => button.addEventListener("click", () => openTopic("voice", button)));
 document.querySelector(".detail-close").addEventListener("click", () => detail.close());
 detail.addEventListener("close", () => {
+  disposeGallery?.(); disposeGallery = null;
   productViewer?.dispose(); productViewer = null; productRequest++;
   document.querySelector("#desktop-frame").removeAttribute("src");
   Object.assign(target, returnView); // Closing a feature returns to the exact zoom and pan from which it was opened.

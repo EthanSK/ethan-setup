@@ -129,8 +129,9 @@
 #code-detail .review-demo-buttons { margin-top: 22px; }
 #code-detail #review-feedback { margin-bottom: 0; }
 #mouse-detail { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); column-gap: 32px; }
-#mouse-detail > :not(.beta-mice):not(.detail-hint) { grid-column: 2; }
-#mouse-detail .beta-mice { grid-column: 1; grid-row: 1 / 5; height: 340px; align-self: center; }
+#mouse-detail > :not(.mouse-media):not(.detail-hint) { grid-column: 2; }
+#mouse-detail .mouse-media { grid-column: 1; grid-row: 1 / 5; min-width: 0; align-self: center; }
+#mouse-detail .beta-mice { height: 340px; }
 #mouse-detail .hero-product { height: 340px; }
 #mouse-detail .detail-hint { grid-column: 1; grid-row: 5 / 7; }
 #mouse-detail .beta-app { grid-row: 1; }
@@ -197,6 +198,25 @@
 #product-specs { list-style: none; padding: 0; margin: 0; }
 #product-specs li { padding: 13px 0; border-bottom: 1px solid #ffffff17; font-size: 13px; }
 .product-info > a, .product-info > button { display: block; }
+.product-media { min-width: 0; }
+.product-photo { position: relative; display: grid; place-items: center; height: min(47vh, 390px); min-height: 250px; margin: 0; padding: 20px 20px 42px; border-radius: 16px; background: #fff; overflow: hidden; }
+.product-photo > img { width: 100%; height: 100%; min-height: 0; object-fit: scale-down; }
+.product-photo > a { position: absolute; bottom: 12px; right: 16px; color: #505457; font-size: 10px; text-underline-offset: 3px; }
+.product-photo > figcaption { position: absolute; bottom: 12px; left: 16px; color: #505457; font-size: 10px; }
+.product-photo > p { color: #505457; font-size: 13px; }
+.product-gallery { display: flex; align-items: center; gap: 8px; margin-top: 12px; min-width: 0; }
+.gallery-strip { display: flex; flex: 1; gap: 8px; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin; scrollbar-color: #ffffff40 transparent; padding: 3px 1px 7px; }
+.gallery-strip > button { flex: 0 0 78px; height: 62px; display: flex; align-items: center; justify-content: center; gap: 4px; border: 1px solid #ffffff25; border-radius: 9px; background: #ffffff08; padding: 5px; overflow: hidden; }
+.gallery-strip > button[aria-pressed="true"] { border-color: #ded0a9; box-shadow: inset 0 0 0 1px #ded0a9; }
+.gallery-strip > button:has(img) { background: #fff; }
+.gallery-strip img { width: 100%; height: 100%; object-fit: contain; }
+.gallery-strip svg { width: 27px; height: 27px; fill: none; stroke: currentColor; stroke-width: 1.2; }
+.gallery-strip span { font-size: 11px; }
+.gallery-arrow { flex: 0 0 28px; height: 44px; border: 1px solid #ffffff20; border-radius: 9px; background: #ffffff08; font-size: 25px; }
+.gallery-arrow:disabled { opacity: .25; cursor: default; }
+.mouse-media .product-photo { height: 340px; margin-top: 18px; }
+.mouse-media:has(.product-photo:not([hidden])) ~ .detail-hint { visibility: hidden; }
+#hardware-detail:has(.product-photo:not([hidden])) .detail-note { visibility: hidden; }
 .room-detail:has(#screen-detail:not([hidden])) { width: min(1600px, calc(100% - 48px)); height: calc(100svh - 32px); max-height: none; padding: 6px; border-radius: 16px; overflow: visible; } /* Ethan removed the monitor headings and mode tags so the desktop gets the full dialog height. */
 .room-detail:has(#screen-detail:not([hidden])) .detail-heading { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; } /* Keep the dialog's accessible name without a second visible title above the embedded app. */
 .room-detail:has(#screen-detail:not([hidden])) .detail-close { position: absolute; top: -12px; right: -12px; width: 32px; height: 32px; font-size: 22px; box-shadow: 0 2px 12px #0008; }
@@ -244,6 +264,9 @@
  .room-hotspots button .hotspot-label { font-size: 9px; padding: 6px 7px; max-width: 150px; }
  #hardware-detail { display: block; }
  .product-stage { height: 270px; }
+ .product-photo { height: 270px; }
+ .mouse-media .product-photo { height: 250px; }
+ .mouse-media:has(.product-photo:not([hidden])) ~ .detail-hint { display: none; }
  .product-info { margin-top: 12px; }
  #product-specs li { padding: 8px 0; font-size: 12px; }
  .room-detail:has(#screen-detail:not([hidden])) { padding: 4px; width: calc(100% - 24px); height: calc(100svh - 28px); }
