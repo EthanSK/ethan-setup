@@ -15,7 +15,7 @@ viewer.dispose(); // stop rendering, drop listeners/observers and free GPU resou
 ```
 
 - Product ids match `docs/gear.json`: `hs8`, `scarlett`, `flx4`, `akai`, `shure`, `bigknob`, `drive`, `macbook`,
-  `macmini`, `dell`, `samsung`, `desk`, `chair`. The two mice use the original Agentic Mouse GLB files and their native button mapping.
+  `macmini`, `dell`, `canon`, `samsung`, `desk`, `chair`. The two mice use the original Agentic Mouse GLB files and their native button mapping.
 - Drag rotates directly under the pointer (yaw and pitch), the pointer is captured only once a drag has started, a
   mostly vertical touch is left to scroll, and release leaves the model exactly where it is (no inertia). Arrow keys
   rotate and Home resets. A slow auto-turn runs only until the first interaction, and only while the canvas is on
@@ -24,7 +24,7 @@ viewer.dispose(); // stop rendering, drop listeners/observers and free GPU resou
   true bounding sphere, so every vertex stays inside the canvas at any rotation and aspect ratio.
 - Lighting is a neutral studio PMREM (feathered diffusers over a dark backdrop, mirroring `mouse-model.mjs`) with a
   warm key, cool edge and faint fill; the canvas clears transparent so the dialog's dark background shows through.
-- Labels, screens and the bamboo top are small canvas textures drawn at load time; there are no image downloads.
+- Labels, camera reflections and the bamboo top are small canvas textures drawn at load time; the MacBook loads its bundled wallpaper image.
 
 ## Sources and fidelity
 
@@ -40,6 +40,7 @@ viewer.dispose(); // stop rendering, drop listeners/observers and free GPU resou
 | `macbook` | MacBook Pro 16-inch (M5 Max, space black) | 355.7 × 248.1 × 16.8 mm closed, 16.2" 3456 × 2234 display, left MagSafe/2× TB/audio, right SD/TB/HDMI ([apple.com specs](https://www.apple.com/macbook-pro/specs/)) | Lid open about 105°, notch, black key well with individual keys, speaker grilles, large trackpad | Display uses Apple's actual Tahoe rocks-and-water wallpaper, cropped proportionally; the Apple mark on the lid is omitted |
 | `macmini` | Mac mini M4 (2024), silver | 127 × 127 × 50 mm ([Apple specifications and front/rear photographs](https://support.apple.com/en-gb/121555)); M4 and 16 GB verified directly on Ethan's machine | Rounded aluminium enclosure, black ventilated base, two vertical front USB-C ports, indicator and headphone jack; rear power, Ethernet, HDMI and three vertical Thunderbolt ports; underside power button | Corner radius, vent spacing and sockets are drawn from the photographs; the Apple outline reuses the canonical desktop menu icon |
 | `dell` | Dell S3422DW | 808 × 364.5 × 64 mm without stand, 1800R curve, 3440 × 1440 ([Dell user guide](https://dl.dell.com/manuals/all-products/esuprt_electronics_accessories/esuprt_electronics_accessories_monitors/dell-s3422dw-monitor_user's-guide_en-us.pdf)) | Thin black bezel, DELL badge, slim silver stand | The stand base/neck shape is simplified; the screen shows generated dark desktop rectangles |
+| `canon` | Canon EOS M50 Mark II, black | 116.3 × 88.1 × 58.7 mm body ([Canon specifications and product gallery](https://www.canon.co.uk/cameras/eos-m50-mark-ii/specifications/)) | Sculpted grip, viewfinder and flash housing, hot shoe, lens rings, shutter dial, rear controls and open articulated screen | Surface curves and small controls are approximate; the compact EF-M 15–45mm lens illustrates Canon's product reference, not a verified current lens configuration; the display is a plain reflection, not a live feed |
 | `samsung` | Samsung S80UA (S27A800U) | 615.5 × 368.2 × 42.7 mm panel, 615.5 × 551.9 × 196.4 mm with stand, 596.7 × 335.7 mm active area ([samsung.com](https://www.samsung.com/pt/monitors/high-resolution/s80ua-27-inch-ips-uhd-4k-ls27a800ujpxen/)) | Slim bezels, SAMSUNG mark, thin metal stand | Stand base shape simplified; generated desktop content |
 | `desk` | FlexiSpot E7 Pro (2025) | 180 × 80 cm bamboo top; three-stage columns and C-frame per the E7 Pro product page ([flexispot.co.uk](https://flexispot.co.uk/next-generation-standing-desk-e7-pro)) | Black frame, flat feet, rear-set columns, keypad on the front edge | Column and foot cross-sections estimated; bamboo strips are a generated texture |
 | `chair` | Hbada E3 Pro 2026 (grey, with footrest) | Width 25.6 in, seat width 20.27 in, seat height 18.1–20.4 in, five-star base ([hbada.uk](https://www.hbada.uk/products/hbada-e3-pro-ergonomic-office-chair?variant=57072259858807)); colours from `docs/assets/hbada.webp` | Grey mesh seat/back, light grey frame, lumbar wings, headrest, polished base, dark arm pads, footrest pulled out | Rounded mesh panels, curved metal arm supports, lumbar wings and split footrest follow the published chair photograph; the adjustment mechanisms and organic frame remain simplified |
@@ -47,5 +48,7 @@ viewer.dispose(); // stop rendering, drop listeners/observers and free GPU resou
 ## Verification
 
 A development geometry check built all thirteen products with real Three.js geometry and found no invalid coordinates. Manual Chrome testing covered loading, switching products, drag/release, keyboard rotation, reset, narrow viewports and clipping. The shared canvas retains its WebGL context between products while each viewer disposes its geometry, materials, textures, listeners and animation work.
+
+The fourteenth procedural product, the Canon camera, was added on 8 September 2026 and manually checked in Codex's built-in browser at desktop and narrow widths. Its room hotspot, directory entry, model rotation, keyboard controls, reset, product link and outside-dialog dismissal were exercised. The expanded MacBook specification list also fits both layouts. Actual touch pinch remains unverified because the browser tool does not supply two-touch input.
 
 The final visual pass corrected hidden speaker drivers, cylinder orientation, product switching, camera sizing, FLX4 colours and chair geometry. Reference pictures are linked rather than redistributed.

@@ -23,3 +23,9 @@ Screenshots requested for the main room picture must actually appear inside its 
 When purchase search cannot identify a paired computer, read its hardware model and chip through the existing diagnostic connection. Publish only the relevant specs, never its connection details or identifiers. Match the confirmed generation to official dimensions and photographs before building its enclosure.
 
 Software and joke hotspots belong outside the verified hardware inventory. The sausage-leg link uses the existing dialog and camera flow with its own small link panel; routing it through the hardware viewer would request a product model that does not exist.
+
+The MacBook's full specs come from its live CPU/GPU, memory and internal storage identification, with display and ports checked against Apple's exact-model page. Keep the first three entries as a compact directory summary and expose the full list in its dialog. A historical order with a return request can help identify a camera model, but cannot establish the currently fitted lens.
+
+The AI wording disclaimer belongs once in the Everything I use footer. Putting it in the shared product dialog repeats it for every device and makes it appear to be part of embedded apps.
+
+Small equipment corrections should retain only the generated object's local patch in the SVG composite. Keep the existing face and screen layers identical; do not replace the full room with another generated frame. Verify the composite in the built-in browser: ImageMagick's internal SVG renderer misrenders these embedded-image masks and cannot prove their visual appearance.

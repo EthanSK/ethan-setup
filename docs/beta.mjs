@@ -468,7 +468,7 @@ dismissOutside(directory);
 for (const item of gear) {
   const button = document.createElement("button"); button.type = "button";
   const name = document.createElement("strong"); name.textContent = item.name;
-  const specs = document.createElement("span"); specs.textContent = item.specs.join(" · ");
+  const specs = document.createElement("span"); specs.textContent = item.specs.slice(0, 3).join(" · "); // Keep directory cards short; each product dialog shows the complete specification list.
   button.append(name, specs); button.addEventListener("click", () => { directory.close(); openTopic(item.id, document.querySelector("#show-directory")); }); // Hardware entries always open product models; software has separate room hotspots.
   document.querySelector(".directory-gear").append(button);
 }
