@@ -303,7 +303,7 @@
  body:has(.room-entered) .project-rail a, body:has(.room-entered) .project-rail button { padding:7px; }
 }
 
-@media(max-width:759px){.room-poster{object-position:67% center}}
+@media(max-width:759px){.room-poster{object-position:96% center}}
 
 #product-movement { position: absolute; left: 12px; bottom: 12px; right: 110px; display: flex; gap: 6px; align-items: center; }
 #product-movement[hidden] { display: none; }
