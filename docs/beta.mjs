@@ -249,6 +249,7 @@ const topics = {
   razer: ["Left hand · Agentic Mouse", "Razer Naga", "The same controls mirrored for my left hand, so I can switch whenever I want."],
   codex: ["", "Codex", ""],
   obs: ["", "OBS", ""],
+  sausages: ["", "Tesco Finest sausages", "(This is a joke, I only eat M&S, Waitrose, or Deliveroo sausages.)"],
   code: ["Great for Agentic Engineers", "Review code without moving your hand", "Quick press to jump to a change, or hold and release to stage the current file and jump in that direction."],
   voice: ["VoiceInk++", "YouTube pauses when I start talking", "I use a top mouse button to dictate instead of typing, and my video resumes when I finish if my setup paused it."],
   desk: ["My desk setup", "Both mice stay on the desk", "High sensitivity keeps movement small, and I sometimes use both mice to click through code review faster."],
@@ -276,8 +277,8 @@ function openTopic(topic, trigger) {
   document.querySelector("#detail-description").textContent = copy[2];
   document.querySelector("#detail-description").hidden = !copy[2];
   const mouse = topic === "razer" || topic === "corsair";
-  const panel = mouse ? "mouse" : topic === "code" || topic === "voice" ? topic : (topic === "codex" || topic === "obs") ? "screen" : "hardware"; // Hardware opens its product; separate nearby Codex and OBS hotspots own the software views, never combined monitor/software labels (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
-  for (const name of ["mouse", "code", "voice", "hardware", "screen"]) document.querySelector(`#${name}-detail`).hidden = name !== panel;
+  const panel = mouse ? "mouse" : topic === "code" || topic === "voice" || topic === "sausages" ? topic : (topic === "codex" || topic === "obs") ? "screen" : "hardware"; // Hardware opens its product; separate nearby Codex and OBS hotspots own the software views, never combined monitor/software labels (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
+  for (const name of ["mouse", "code", "voice", "hardware", "screen", "sausages"]) document.querySelector(`#${name}-detail`).hidden = name !== panel;
   if (mouse) {
     if (simulator) { simulator.chooseHand(topic); updateMouse(); }
     document.querySelectorAll(".beta-mice figure").forEach(figure => { figure.hidden = figure.dataset.mouse !== topic; });
