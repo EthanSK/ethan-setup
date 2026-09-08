@@ -16,7 +16,8 @@ The website lets you try those controls and the app’s HUD without installing a
 
 ## Look around
 
-- Scroll down to zoom in and up to zoom out; drag the background to move around. Spread two fingers to zoom in and pinch them together to zoom out.
+- Click the background to zoom in around that point and reveal nearby items, or drag to move around.
+- Scroll down to zoom in and up to zoom out. Spread two fingers to zoom in and pinch them together to zoom out.
 - Click a mouse, screen or hardware label to move closer and open it. Edge arrows point to items outside the view.
 - Rotate product models by dragging. Use arrow keys to rotate and Home to reset.
 - Click outside a dialog or press Escape to return to the room.
