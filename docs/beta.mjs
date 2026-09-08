@@ -24,7 +24,7 @@ const dockApps = apps.filter(app => app.id !== "trash" && app.id !== "chatgpt" &
 for (const [index, app] of dockApps.entries()) {
   const button = document.createElement("button");
   button.type = "button"; button.className = "software-hotspot"; button.dataset.topic = `software:${app.id}`;
-  button.dataset.x = .29 + (index % 12) * .0175; button.dataset.y = .485 + Math.floor(index / 12) * .027;
+  button.dataset.x = .29 + (index % 12) * .0175; button.dataset.y = .372 + Math.floor(index / 12) * .027;
   button.setAttribute("aria-label", app.name);
   const icon = document.createElement("img"); icon.src = new URL(app.icon, "https://ethansk.github.io/response-preferences/").href; icon.alt = ""; icon.width = icon.height = 30; icon.loading = "lazy";
   const label = document.createElement("span"); label.className = "hotspot-label"; label.textContent = app.name;
@@ -123,7 +123,7 @@ function render() { if (!frame && !document.hidden) { lastFrame = performance.no
 function zoom(value) {
   target.zoom = Math.max(0, Math.min(1.35, value));
   canvas.classList.toggle("at-zoom-limit", target.zoom === 1.35);
-  if (target.zoom < .15) { target.panX = width < 760 ? 3.4 : 0; target.panY = Math.max(0, (roomHeight - roomWidth * stage.clientHeight / stage.clientWidth) / 2); } // Keep the full upper monitor in the wide-screen starting crop.
+  if (target.zoom < .15) { target.panX = width < 760 ? 6.6 : 0; target.panY = Math.max(0, (roomHeight - roomWidth * stage.clientHeight / stage.clientWidth) / 2); } // Keep the full upper monitor in the wide-screen starting crop.
   stage.classList.toggle("room-entered", target.zoom > .15);
   document.querySelector('[data-view="desk"]').setAttribute("aria-pressed", String(target.zoom > .15));
   if (!renderer) {
@@ -158,7 +158,7 @@ async function createRoom() {
     new ResizeObserver(() => {
       cancelRoomGesture(); // Rotation or a resized viewport invalidates the active fingers' screen coordinates.
       width = stage.clientWidth; height = stage.clientHeight;
-      if (target.zoom === 0) { target.panX = width < 760 ? 3.4 : 0; target.panY = Math.max(0, (roomHeight - roomWidth * height / width) / 2); } // Start on Ethan in portrait and keep the upper monitor inside the wide-screen crop.
+      if (target.zoom === 0) { target.panX = width < 760 ? 6.6 : 0; target.panY = Math.max(0, (roomHeight - roomWidth * height / width) / 2); } // Start on Ethan in portrait and keep the upper monitor inside the wide-screen crop.
       hotspots.forEach(button => hotspotWidths.set(button, button.querySelector(".hotspot-label").offsetWidth)); // Measure labels once per resize, not between style writes on every animation frame.
       camera.aspect = width / height; camera.updateProjectionMatrix();
       renderer.setSize(width, height, false); render();
@@ -278,7 +278,7 @@ canvas.addEventListener("keydown", event => {
   if (event.key === "ArrowUp" || event.key === "Enter") zoom(target.zoom + .2);
   if (event.key === "ArrowDown") zoom(target.zoom - .2);
   if (event.key === "Home") zoom(0);
-  if (event.key === "ArrowLeft" || event.key === "ArrowRight") { target.panX = Math.max(-4, Math.min(4, target.panX + (event.key === "ArrowLeft" ? -.3 : .3))); render(); }
+  if (event.key === "ArrowLeft" || event.key === "ArrowRight") { const { limitX } = roomProjection(); target.panX = THREE.MathUtils.clamp(target.panX + (event.key === "ArrowLeft" ? -.3 : .3), -limitX, limitX); render(); } // Use the same bounds as dragging; the rebuilt photo starts farther right on mobile, beyond the old fixed limit.
 });
 document.querySelector("#enter-room").addEventListener("click", () => { target.panX = 0; target.panY = 0; zoom(.85); document.querySelector('[data-view="desk"]').focus({ preventScroll: true }); });
 document.querySelector("#zoom-in").addEventListener("click", () => zoom(target.zoom + .2));
