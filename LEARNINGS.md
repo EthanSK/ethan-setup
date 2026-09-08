@@ -61,3 +61,9 @@ Closing a slow MacBook load and opening Dell reproduced stale movement controls:
 Disposing a renderer leaves its last pixels on the reused canvas. Hide that canvas without removing its layout until the new viewer is ready, so a MacBook loading screen cannot show the previous Dell model; check this transition with a delayed wallpaper request.
 
 Gallery thumbnails belong to the currently opened product and should load eagerly; creating lazy thumbnails while a modal is still hidden produced blank tiles until later interaction. Keep loading and retry state separate for the main photograph and the model. Mouse wheel zoom is opt-in in the canonical hero viewer so the standalone Agentic Mouse walkthrough still scrolls normally.
+
+## Dialog navigation
+
+Keep the floating previous/next controls outside the dialog's scrolling body, inside the same modal top layer. Centring them on that shell keeps their vertical position stable across short software cards, tall hardware content and full-height screen embeds. Mobile controls must remain inside the viewport, including at 320px and in landscape; keep the close control outside the scroller too.
+
+Build one route from the photographed item positions, with related demos and the Dock apps inserted together. Computing an independent nearest destination on every click can bounce between two items and makes Previous fail to undo Next. Switching topics reuses the existing open/cleanup path and preserves the initial room camera and return focus; cancel held review buttons and active dictation on topic changes as well as close. Verify a full loop, reverse navigation, model/gallery transitions, repeated keyboard activation and backdrop dismissal.

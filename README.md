@@ -22,7 +22,8 @@ The website lets you try those controls and the app’s HUD without installing a
 - Rotate product models by dragging and scroll down to zoom in or up to zoom out. Use arrow keys to rotate and Home or Reset view to restore the original framing.
 - Moving parts animate back and forth: the desk lifts, the chair adjusts, screens tilt and music controls move. Choose an adjustment or pause it; dragging pauses the adjustment for six seconds. Reduced motion starts paused.
 - Every hardware dialog opens in 3D, with official product photos underneath. Click a thumbnail or use the arrows, scroll the strip to see more, and select **3D** to return to the model.
-- Click outside a dialog or press Escape to return to the room.
+- Use the floating left/right arrows to switch between nearby desk items without closing the dialog. Hover for the destination; the route keeps related demos together and apps beside Codex, and wraps around at either end. The arrows stay centred while the content scrolls.
+- Click outside a dialog or press Escape to return to the room and the exact camera position where you started.
 - Open the Dell for its rotatable monitor model, specs and product link. The nearby **Codex** hotspot opens the interactive desktop, Dock, menu bar and Codex example. Samsung opens its monitor product; the separate **OBS** hotspot opens the silent recording demo and my setup details.
 - Apps float individually near the photographed Dock as you zoom in; hover or focus an icon for its name and click it for its own software view. Codex and OBS retain their separate screen hotspots.
 - Open **Everything I use** for hardware, apps, 12 public skills, five personal skill descriptions and 16 public projects. All external links open a separate browser page; my [Portosaurus portfolio](https://portosaurus.github.io/ethansk/) is linked beside the site name and embedded below the project list.

@@ -117,7 +117,16 @@
 /* Feature controls expand over their photographed object after the camera moves closer. */
 .room-focused .room-intro, .room-focused .room-hotspots, .room-focused .room-dock, .room-focused .room-zoom { visibility: hidden; opacity: 0; pointer-events: none; }
 .room-hotspots button > span:last-child, .room-dock { backdrop-filter: none; }
-.room-detail { margin: auto; width: min(1080px, calc(100% - 72px)); height: fit-content; max-height: calc(100svh - 100px); padding: 32px 38px; border-radius: 22px; background: #10141bf5; backdrop-filter: none; box-shadow: 0 30px 130px #0009; }
+.room-detail { margin: auto; width: min(1080px, calc(100% - 72px)); height: fit-content; max-height: calc(100svh - 100px); padding: 0; overflow: visible; border-radius: 22px; background: #10141bf5; backdrop-filter: none; box-shadow: 0 30px 130px #0009; }
+.detail-body { max-height: inherit; padding: 32px 38px; border-radius: inherit; overflow: auto; overscroll-behavior: contain; } /* Only the content scrolls; the modal shell keeps its floating arrows centred and unclipped. */
+.room-detail > .detail-close { position: absolute; top: 24px; right: 24px; float: none; }
+.detail-heading { padding-right: 40px; }
+.detail-nav { position: absolute; z-index: 9; top: 50%; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid #ffffff35; border-radius: 50%; background: #171f2a; color: #eff1f8; box-shadow: 0 4px 18px #0006; touch-action: manipulation; }
+.detail-prev { left: 0; transform: translate(-50%, -50%); }
+.detail-next { right: 0; transform: translate(50%, -50%); }
+.detail-nav svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.detail-nav:hover { background: #303a49; border-color: #ded0a9; }
+.detail-nav:focus-visible { outline: 2px solid #ded0a9; outline-offset: 3px; }
 .room-detail::backdrop { background: #02040a66; backdrop-filter: none; }
 .room-detail[open] { animation: feature-expand 280ms 120ms both cubic-bezier(.2,.8,.2,1); }
 @keyframes feature-expand { from { opacity: 0; transform: scale(.7); } to { opacity: 1; transform: scale(1); } }
@@ -142,7 +151,7 @@
 .room-detail[data-topic="sausages"] { width: min(460px, calc(100% - 72px)); }
 #sausages-detail .detail-link { margin-top: 0; }
 @media (max-width: 760px), (max-height: 520px) {
- .room-detail, .room-detail[data-topic] { width: calc(100% - 24px); max-height: calc(100svh - 40px); padding: 24px 20px; border-radius: 18px; }
+ .room-detail, .room-detail[data-topic] { width: calc(100% - 24px); max-height: calc(100svh - 40px); padding: 0; border-radius: 18px; }
  #code-detail, #mouse-detail { display: block; }
  #mouse-detail .beta-mice, #mouse-detail .hero-product { height: 250px; }
  #code-detail .code-example { min-height: 0; }
@@ -218,9 +227,10 @@
 .mouse-media .product-photo { height: 340px; margin-top: 18px; }
 .mouse-media:has(.product-photo:not([hidden])) ~ .detail-hint { visibility: hidden; }
 #hardware-detail:has(.product-photo:not([hidden])) .detail-note { visibility: hidden; }
-.room-detail:has(#screen-detail:not([hidden])) { width: min(1600px, calc(100% - 48px)); height: calc(100svh - 32px); max-height: none; padding: 6px; border-radius: 16px; overflow: visible; } /* Ethan removed the monitor headings and mode tags so the desktop gets the full dialog height. */
+.room-detail:has(#screen-detail:not([hidden])) { width: min(1600px, calc(100% - 48px)); height: calc(100svh - 32px); max-height: none; padding: 0; border-radius: 16px; overflow: visible; } /* Ethan removed the monitor headings and mode tags so the desktop gets the full dialog height. */
 .room-detail:has(#screen-detail:not([hidden])) .detail-heading { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; } /* Keep the dialog's accessible name without a second visible title above the embedded app. */
 .room-detail:has(#screen-detail:not([hidden])) .detail-close { position: absolute; top: -12px; right: -12px; width: 32px; height: 32px; font-size: 22px; box-shadow: 0 2px 12px #0008; }
+.room-detail:has(#screen-detail:not([hidden])) .detail-body { height: 100%; padding: 6px; overflow: hidden; }
 #screen-detail { height: 100%; }
 #desktop-frame { width: 100%; height: 100%; display: block; border: 1px solid #ffffff25; border-radius: 10px; background: #111; }
 .setup-directory { position: fixed; inset: 0; margin: auto; width: min(1100px, calc(100% - 60px)); max-height: calc(100svh - 70px); padding: 36px; background: #111821; color: #edf0f5; border: 1px solid #ffffff35; border-radius: 22px; overflow: auto; overscroll-behavior: contain; }
@@ -270,8 +280,14 @@
  .mouse-media:has(.product-photo:not([hidden])) ~ .detail-hint { display: none; }
  .product-info { margin-top: 12px; }
  #product-specs li { padding: 8px 0; font-size: 12px; }
- .room-detail:has(#screen-detail:not([hidden])) { padding: 4px; width: calc(100% - 24px); height: calc(100svh - 28px); }
+ .room-detail:has(#screen-detail:not([hidden])) { padding: 0; width: calc(100% - 24px); height: calc(100svh - 28px); }
+ .room-detail:has(#screen-detail:not([hidden])) .detail-body { padding: 4px; }
  .room-detail:has(#screen-detail:not([hidden])) .detail-close { top: -10px; right: -10px; }
+ .room-detail[data-topic] { width: calc(100% - 24px); }
+ .detail-body { padding: 24px 28px; }
+ .room-detail > .detail-close { top: 14px; right: 14px; }
+ .detail-prev { left: 10px; }
+ .detail-next { right: 10px; }
  .setup-directory { width: calc(100% - 22px); max-height: calc(100svh - 36px); padding: 24px 18px; }
  .setup-directory h1 { font-size: 28px; }
  .directory-gear, .directory-skills, .directory-apps { grid-template-columns: repeat(2, minmax(0,1fr)); }

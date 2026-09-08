@@ -74,6 +74,9 @@
   </main>
   <dialog class="room-detail" id="room-detail" aria-labelledby="detail-title">
     <button type="button" class="detail-close" aria-label="Back to the room">×</button>
+    <button type="button" class="detail-nav detail-prev" data-step="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
+    <button type="button" class="detail-nav detail-next" data-step="1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button>
+    <div class="detail-body">
     <div class="detail-heading"><p class="room-kicker" id="detail-kicker"></p><h1 id="detail-title"></h1><p id="detail-description"></p><a id="product-link" class="product-link" target="_blank" rel="noopener noreferrer" hidden>View product ↗</a></div>
     <div id="mouse-detail" hidden>
       <div class="mouse-media"><div class="beta-mice">
@@ -127,6 +130,7 @@
     </div>
     <div id="software-detail" hidden><img id="software-icon" width="112" height="112" alt=""><a id="software-link" class="product-link" target="_blank" rel="noopener noreferrer">View software ↗</a><button id="software-demo" type="button" class="detail-link" hidden></button></div>
     <div id="sausages-detail" hidden><a class="detail-link" href="https://www.tesco.com/shop/en-GB/products/280002982">View product ↗</a></div>
+    </div>
   </dialog>
   <dialog class="setup-directory" id="setup-directory" aria-labelledby="directory-title">
     <button type="button" class="directory-close" aria-label="Back to the room">×</button>
