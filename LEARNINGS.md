@@ -56,4 +56,6 @@ Use the compact navigation layout for short landscape viewports as well as narro
 
 Closing a slow MacBook load and opening Dell reproduced stale movement controls: the older factory completed and modified the reused canvas and controls before its caller could discard it. Abort pending work on close or product change, load the wallpaper before creating the renderer, and check cancellation before touching shared controls. Keep network loading bounded with a visible retry action, including an import that has not settled. Rejected mouse downloads must leave the cache so reopening can retry; create the model before installing viewer observers.
 
+Disposing a renderer leaves its last pixels on the reused canvas. Hide that canvas without removing its layout until the new viewer is ready, so a MacBook loading screen cannot show the previous Dell model; check this transition with a delayed wallpaper request.
+
 Gallery thumbnails belong to the currently opened product and should load eagerly; creating lazy thumbnails while a modal is still hidden produced blank tiles until later interaction. Keep loading and retry state separate for the main photograph and the model. Mouse wheel zoom is opt-in in the canonical hero viewer so the standalone Agentic Mouse walkthrough still scrolls normally.
