@@ -9,7 +9,7 @@ SOURCE = ROOT / 'docs'
 OUTPUT = ROOT / '.build' / 'site'
 
 def build():
-    files = sorted(p for p in SOURCE.rglob('*') if p.is_file() and not p.is_symlink() and p.suffix.lower() in {'.html','.css','.js','.mjs','.json','.svg','.webp','.png','.jpg','.jpeg','.glb','.wasm','.txt','.webmanifest','.xml'})
+    files = sorted(p for p in SOURCE.rglob('*') if p.is_file() and not p.is_symlink() and p.suffix.lower() in {'.html','.css','.js','.mjs','.json','.svg','.webp','.png','.jpg','.jpeg','.glb','.wasm','.txt','.webmanifest','.xml','.otf'})
     digest = hashlib.sha256()
     for path in files:
         digest.update(str(path.relative_to(SOURCE)).encode())

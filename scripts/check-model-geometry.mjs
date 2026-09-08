@@ -14,7 +14,8 @@ const context = new Proxy({}, {get: (_, key) => key === 'createLinearGradient' |
 globalThis.matchMedia = () => ({matches: false});
 globalThis.document = {createElement: () => ({getContext: () => context})};
 globalThis.Path2D = class {};
-THREE.ImageLoader.prototype.loadAsync = async () => ({naturalWidth: 1280, naturalHeight: 720});
+globalThis.fetch = async url => { assert(url.pathname.endsWith("/assets/macbook-wallpaper.webp")); return new Response(await readFile(join(root, "docs/assets/macbook-wallpaper.webp"))); };
+globalThis.createImageBitmap = async () => ({width: 1280, height: 720, close() {}});
 try {
   const rounded = (await readFile(join(root, 'docs/lib/RoundedBoxGeometry.js'), 'utf8')).replace(/from 'three'/g, `from '${threeUrl}'`);
   await writeFile(join(temporary, 'rounded.mjs'), rounded);
