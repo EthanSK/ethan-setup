@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OBS — setup demo</title><link rel="stylesheet" href="./obs.css?v=__SITE_VERSION__"></head>
+<body>
+  <header><span class="window-lights" aria-hidden="true">● ● ●</span><strong>OBS++</strong><span>Recording is simulated here.</span><a href="https://github.com/EthanSK/obs-plus-plus" target="_blank" rel="noopener">View project ↗</a></header>
+  <main>
+    <section class="preview" aria-label="Recording preview">
+      <div class="preview-content"><img id="scene-image" src="./assets/room.webp" alt="Ethan’s desk in the example recording"><div id="desktop-preview" hidden><div class="desktop-title">Example code review <span>Better Git VS Code</span></div><div class="example-editor"><aside>CHANGES<br><br>mouse.ts<br><br>controls.ts<br><br>README.md</aside><pre><span>+ // Review code without moving your hand.</span>
+  function review(direction) {
+<span>+   jumpToChange(direction);</span>
+  }
+
+  function hold(direction) {
+<span>+   stageCurrentFile();</span>
+<span>+   jumpToChange(direction);</span>
+  }</pre></div><img class="webcam" src="./assets/room.webp" alt="Room preview"></div><div class="record-badge"><i></i><span id="preview-status">REC</span></div></div>
+    </section>
+    <div class="panels">
+      <section><h2>Scenes</h2><div class="scene-list"><button type="button" aria-pressed="true" data-scene="room">Room</button><button type="button" aria-pressed="false" data-scene="desktop">Desktop + camera</button></div></section>
+      <section><h2>Sources</h2><label><input id="source-toggle" type="checkbox" checked> Video source</label><p class="small">An example of my recording layout.</p></section>
+      <section class="mixer"><h2>Audio Mixer</h2><label for="mic">Shure SM7B <output id="mic-level">−6 dB</output></label><div class="meter" aria-hidden="true"><i></i></div><div class="mixer-controls"><input id="mic" type="range" min="-60" max="0" value="-6" aria-label="Microphone level"><button type="button" id="mute" aria-pressed="true">Muted</button></div><p class="small">No audio in this example.</p></section>
+      <section class="record-controls"><h2>Controls</h2><button type="button" id="record" aria-pressed="true">Stop recording</button><button type="button" id="pause" aria-pressed="false">Pause recording</button><p id="record-status" role="status">Recording example</p></section>
+    </div>
+  </main>
+  <footer><span id="elapsed">00:00:00</span><span>1920 × 1080 · 60 FPS</span><span>OBS++ demo</span></footer>
+  <script type="module" src="./obs.mjs?v=__SITE_VERSION__"></script>
+</body></html>
