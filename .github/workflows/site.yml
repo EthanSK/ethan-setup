@@ -26,6 +26,7 @@ jobs:
         run: python3 scripts/sync-sources.py
       - run: python3 scripts/build.py
       - run: python3 scripts/check.py
+      - run: node scripts/check-model-geometry.mjs
       - name: Save a verified source refresh
         if: github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
         run: |

@@ -48,6 +48,10 @@ FlexiSpot now offers a newer frame at the UK product URL. Its gallery therefore 
 
 These are manufacturer-owned product assets, not generated photographs or MIT-licensed project artwork. Source links identify provenance and do not imply manufacturer endorsement or a general right to redistribute the assets elsewhere.
 
+## Product geometry and movement
+
+The model pass used the existing official multi-angle gallery captures, then added Shure’s dimension and exploded-yoke drawings, Mackie’s front/rear manual diagrams, monitor adjustment guides and Hbada’s exact 2026 mechanism specifications. [PRODUCT-MODELS.md](PRODUCT-MODELS.md) records the sources, implemented movements and uncertain dimensions, including the conflicting chair lift specifications and the older desk generation. No generated image is used as evidence of a product’s geometry.
+
 ## Room image and screens
 
 The room photograph was generated from Ethan’s own reference photos and later edited at his request to preserve his face, shirt, shorts and mice while giving him sausage legs. The current 1586 × 992 version extends the top and right of that approved image to include the full Samsung monitor. The edit requested the same person and room, a public OBS-style preview on the upper screen, and no private messages or account details. `docs/assets/room.webp` is a proportional WebP conversion of that generated image.

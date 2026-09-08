@@ -35,3 +35,11 @@ Small equipment corrections should retain only the generated object's local patc
 Keep the existing canvas and mouse simulator mounted when showing a product photo. Hiding their preview lets the existing intersection observers stop rendering; returning to 3D retains the orientation and HUD mode. Reset the gallery selection on every dialog opening and dispose its DOM when changing topic or closing. Only scroll the thumbnail strip during selection; scrolling its ancestors can move the whole dialog. Check the strip at 390px, including wheel, keyboard, previous/next and returning to the model.
 
 Manufacturer galleries can contain outdated CDN links, different generations, different colours and oversized blank borders. Verify each selected image visually and store the actual source URL in the hardware inventory. Preserve image proportions, remove only empty outer padding and avoid enlarging low-resolution originals. A current shop's default configuration does not establish Ethan's purchased configuration; use clearly labelled component details if an exact whole-product photo is unavailable.
+
+## Moving product models
+
+Fit the camera across each independent adjustment, reset each joint before evaluating the next, and keep the resulting frame stable while the model moves. A camera fitted only to a resting model clips raised desks and portrait screens; a repeatedly fitted camera makes them appear to shrink. Geometry sweeps catch non-finite coordinates and cross-adjustment reset errors, but manual side/rear inspection is still needed for hinge and panel clearance.
+
+Use manufacturer diagrams alongside photos before assigning proportions or pivots. The SM7B manual locates the fixed XLR bracket and gives the windscreen diameter; Mackie’s rear drawing shows four vertical TRS pairs, not a single row. Current FlexiSpot listings can describe a newer frame than the purchased 2025 model. Hbada’s 2026 page contains contradictory seat-lift figures, so preserve that uncertainty in the model notes rather than inventing precision.
+
+Keep explicit Pause separate from the six-second inspection pause. A visitor choosing a gallery image or hiding the browser page should stop animation work; returning should retain the selected adjustment and orientation. Do not rebuild geometry inside the animation loop.
