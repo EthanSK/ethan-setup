@@ -49,7 +49,7 @@ The 00:22 and 00:25 desktop captures from 8 September 2026 are the references fo
 
 The rotatable MacBook uses `docs/assets/macbook-wallpaper.webp`, a proportional 1280 × 720 WebP conversion of Apple's installed Tahoe default image. It replaces the previous procedural dry-pebble substitute and is the same wallpaper supplied to the room-image edit. Apple retains the wallpaper's rights; it is included to depict Ethan's actual setup, not as original project artwork.
 
-No raw portrait or private screenshot is included. Clicking the Dell still opens the canonical public desktop example; clicking the Samsung opens the interactive public OBS example. The page never connects to OBS or the native mouse app. The earlier external-screen prompt remains in `image-prompts/room-screens.txt`.
+No raw portrait or private screenshot is included. Clicking the Dell opens its monitor product; a separate nearby Codex hotspot opens the canonical public desktop example, and clicking the Samsung opens the interactive public OBS example. The page never connects to OBS or the native mouse app. The earlier external-screen prompt remains in `image-prompts/room-screens.txt`.
 
 ## Dependencies and rights
 

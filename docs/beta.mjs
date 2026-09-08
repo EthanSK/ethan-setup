@@ -232,6 +232,7 @@ document.querySelectorAll("[data-view]").forEach(button => button.addEventListen
 const topics = {
   corsair: ["Right hand · Agentic Mouse", "Corsair Scimitar", "Twelve thumb controls for working with agents, with the top button for VoiceInk++ dictation."],
   razer: ["Left hand · Agentic Mouse", "Razer Naga", "The same controls mirrored for my left hand, so I can switch whenever I want."],
+  codex: ["", "Codex", ""],
   code: ["Great for Agentic Engineers", "Review code without moving your hand", "Quick press to jump to a change, or hold and release to stage the current file and jump in that direction."],
   voice: ["VoiceInk++", "YouTube pauses when I start talking", "I use a top mouse button to dictate instead of typing, and my video resumes when I finish if my setup paused it."],
   desk: ["My desk setup", "Both mice stay on the desk", "High sensitivity keeps movement small, and I sometimes use both mice to click through code review faster."],
@@ -259,7 +260,7 @@ function openTopic(topic, trigger, hardwareView = false) {
   document.querySelector("#detail-description").textContent = copy[2];
   document.querySelector("#detail-description").hidden = !copy[2];
   const mouse = topic === "razer" || topic === "corsair";
-  const panel = mouse ? "mouse" : topic === "code" || topic === "voice" ? topic : !hardwareView && (topic === "dell" || topic === "samsung") ? "screen" : "hardware";
+  const panel = mouse ? "mouse" : topic === "code" || topic === "voice" ? topic : !hardwareView && (topic === "codex" || topic === "samsung") ? "screen" : "hardware"; // Dell opens its product; the nearby Codex hotspot owns the desktop embed, as Ethan requested (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
   for (const name of ["mouse", "code", "voice", "hardware", "screen"]) document.querySelector(`#${name}-detail`).hidden = name !== panel;
   if (mouse) {
     if (simulator) { simulator.chooseHand(topic); updateMouse(); }
@@ -417,7 +418,7 @@ async function showHardware(id) {
   for (const spec of item.specs) { const li = document.createElement("li"); li.textContent = spec; specs.append(li); }
   const link = document.querySelector("#product-link"); link.href = item.url;
   const demo = document.querySelector("#product-demo");
-  demo.hidden = !["dell","samsung","shure"].includes(id);
+  demo.hidden = !["samsung","shure"].includes(id);
   demo.textContent = id === "shure" ? "Try dictation" : "Open screen";
   demo.onclick = () => id === "shure" ? openTopic("voice", demo) : showScreen(id);
   const status = document.querySelector("#product-state"); status.hidden = false; status.textContent = "Loading 3D view…";
