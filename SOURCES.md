@@ -49,7 +49,7 @@ The 00:22 and 00:25 desktop captures from 8 September 2026 are the references fo
 
 The rotatable MacBook uses `docs/assets/macbook-wallpaper.webp`, a proportional 1280 × 720 WebP conversion of Apple's installed Tahoe default image. It replaces the previous procedural dry-pebble substitute and is the same wallpaper supplied to the room-image edit. Apple retains the wallpaper's rights; it is included to depict Ethan's actual setup, not as original project artwork.
 
-No raw portrait or private screenshot is included. Clicking the Dell opens its monitor product; a separate nearby Codex hotspot opens the canonical public desktop example, and clicking the Samsung opens the interactive public OBS example. The page never connects to OBS or the native mouse app. The earlier external-screen prompt remains in `image-prompts/room-screens.txt`.
+No raw portrait or private screenshot is included. Clicking the Dell opens its monitor product; a separate nearby Codex hotspot opens the canonical public desktop example, and a separate OBS hotspot opens the interactive public OBS example. Samsung opens its monitor product. The page never connects to OBS or the native mouse app. The earlier external-screen prompt remains in `image-prompts/room-screens.txt`.
 
 ## Dependencies and rights
 
@@ -58,3 +58,7 @@ The website code inherits the Agentic Mouse MIT licence. Three.js, its loader ut
 App icons and the public desktop’s artwork retain their original owners’ rights; see [the canonical asset notes](https://github.com/EthanSK/response-preferences/blob/main/docs/desktop/ASSETS.md). Manufacturer names and product designs identify Ethan’s equipment and do not imply endorsement. Product model references and limitations are documented in `PRODUCT-MODELS.md`.
 
 Ethan’s photo and likeness are published for this personal setup showcase. Reusing the source code does not grant permission to impersonate him or reuse his photographs as your own setup.
+
+## OBS setup details
+
+The OBS view records a safe settings snapshot checked on 8 September 2026 against the installed OBS++ 32.2.2 bundle, Aitum++ 1.2.1 log entry, current profile settings and recording log. Desk and laptop profiles are identified separately. The website never exports raw profiles, stream keys, private browser dock addresses or device IDs. The Aitum canvas size and Apple H.264 encoder alignment are different values and are labelled separately. The public forks own their change notes and build instructions: [OBS++](https://github.com/EthanSK/obs-plus-plus) and [Aitum++](https://github.com/EthanSK/obs-aitum-stream-suite). Neither currently publishes a binary installer; the example is a simulation, not native-runtime verification.
