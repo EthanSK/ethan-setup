@@ -1,6 +1,6 @@
 # Ethan’s setup
 
-[Explore my setup](https://ethansk.github.io/ethan-setup/) · [Agentic Mouse](https://ethansk.github.io/agentic-mouse/) · [LinkedIn](https://www.linkedin.com/in/ethansk/)
+[Explore my setup](https://ethansk.github.io/ethan-setup/) · [GitHub](https://github.com/EthanSK) · [Agentic Mouse](https://ethansk.github.io/agentic-mouse/) · [LinkedIn](https://www.linkedin.com/in/ethansk/)
 
 My desk, apps and mouse controls for working with agents, recording and making music.
 
