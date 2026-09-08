@@ -43,3 +43,11 @@ Fit the camera across each independent adjustment, reset each joint before evalu
 Use manufacturer diagrams alongside photos before assigning proportions or pivots. The SM7B manual locates the fixed XLR bracket and gives the windscreen diameter; Mackie’s rear drawing shows four vertical TRS pairs, not a single row. Current FlexiSpot listings can describe a newer frame than the purchased 2025 model. Hbada’s 2026 page contains contradictory seat-lift figures, so preserve that uncertainty in the model notes rather than inventing precision.
 
 Keep explicit Pause separate from the six-second inspection pause. A visitor choosing a gallery image or hiding the browser page should stop animation work; returning should retain the selected adjustment and orientation. Do not rebuild geometry inside the animation loop.
+
+## Mobile room gestures
+
+Distance-only pinch changes magnification but loses the photo point between the fingers. Anchor that point in room coordinates at the start, then combine the new separation and moving midpoint; share the camera scale calculation with rendering and one-finger dragging. Touches starting on room item labels must join the gesture, while toolbar buttons and links keep their normal input. Suppress release clicks from the whole multi-touch gesture until a new press, and preserve keyboard clicks. Rebase a remaining finger from the current view, not the camera matrix from the preceding render frame; cancel when resizing invalidates screen coordinates.
+
+Run `node --test tests/*.test.mjs` alongside the website checks. These tests exercise actual gesture handlers using synthetic two-pointer sequences; they do not prove physical Safari or Android touch behaviour. A narrow screenshot and a mouse drag cannot substitute for a real pinch when the browser tool does not support multitouch.
+
+Use the compact navigation layout for short landscape viewports as well as narrow ones; width alone treated an 844 × 390 phone like a desktop and placed the vertical Software rail over the bottom dock. Keep the room label bounds consistent with the CSS breakpoint and verify the resulting screenshot.

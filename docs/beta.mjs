@@ -28,6 +28,20 @@ let focusPoint = { x: 0, y: 0 };
 const roomWidth = 20, roomHeight = 20 * 992 / 1586;
 const point = new THREE.Vector3();
 
+/** Share the visible photo scale between drawing and gestures, including a finger lift before the next frame. */
+function roomProjection(zoomLevel = view.zoom) {
+  const aspect = width / height;
+  const visibleHeight = Math.min(roomHeight, roomWidth / aspect) * (1 - zoomLevel * .56); // Cover the viewport without stretching the photo or introducing letterbox bars.
+  const limitX = Math.max(0, (roomWidth - visibleHeight * aspect) / 2);
+  const limitY = Math.max(0, (roomHeight - visibleHeight) / 2);
+  return {
+    x: THREE.MathUtils.clamp(view.panX + focusPoint.x * zoomLevel, -limitX, limitX),
+    y: THREE.MathUtils.clamp(view.panY + focusPoint.y * zoomLevel, -limitY, limitY),
+    depth: visibleHeight / (2 * Math.tan(THREE.MathUtils.degToRad(22.5))),
+    scale: visibleHeight / height, limitX, limitY,
+  };
+}
+
 /** Render the camera only while it is moving; the photograph keeps its original proportions. */
 function draw(now = 0) {
   frame = 0;
@@ -41,19 +55,13 @@ function draw(now = 0) {
     if (Math.abs(target[key] - view[key]) > .003) moving = true;
     else view[key] = target[key];
   }
-  const distance = Math.min(roomHeight / 2, roomWidth / (2 * camera.aspect)) / Math.tan(THREE.MathUtils.degToRad(22.5)); // Cover the viewport without stretching the photo or introducing letterbox bars.
-  const travel = view.zoom;
-  const depth = distance * (1 - travel * .56);
-  const visibleHeight = 2 * depth * Math.tan(THREE.MathUtils.degToRad(22.5));
-  const limitX = Math.max(0, (roomWidth - visibleHeight * camera.aspect) / 2);
-  const limitY = Math.max(0, (roomHeight - visibleHeight) / 2);
-  const centerX = THREE.MathUtils.clamp(view.panX + focusPoint.x * travel, -limitX, limitX);
-  const centerY = THREE.MathUtils.clamp(view.panY + focusPoint.y * travel, -limitY, limitY);
-  camera.position.set(centerX, centerY, depth);
-  camera.lookAt(centerX, centerY, 0);
+  const projection = roomProjection();
+  camera.position.set(projection.x, projection.y, projection.depth);
+  camera.lookAt(projection.x, projection.y, 0);
   camera.updateMatrixWorld();
   renderer.render(scene, camera);
-  const left = width < 760 ? 20 : 86, right = width - 28, top = width < 760 ? 118 : 90, bottom = height - 126;
+  const compact = width <= 760 || height <= 520; // Match the compact CSS layout on short landscape phones so labels clear the horizontal software bar.
+  const left = compact ? 20 : 86, right = width - 28, top = compact ? 118 : 90, bottom = height - 126;
   const projected = hotspots.map(button => {
     point.set((Number(button.dataset.x) - .5) * roomWidth, (.5 - Number(button.dataset.y)) * roomHeight, .02).project(camera);
     const rawX = (point.x + 1) * width / 2, rawY = (1 - point.y) * height / 2;
@@ -131,6 +139,7 @@ async function createRoom() {
     photo = new THREE.Mesh(new THREE.PlaneGeometry(roomWidth, roomHeight), new THREE.MeshBasicMaterial({ map: texture }));
     scene.add(photo); // A restrained camera over the original photo gives depth without distorting Ethan's face or inventing unseen parts of the room.
     new ResizeObserver(() => {
+      cancelRoomGesture(); // Rotation or a resized viewport invalidates the active fingers' screen coordinates.
       width = stage.clientWidth; height = stage.clientHeight;
       if (target.zoom === 0) { target.panX = width < 760 ? 3.4 : 0; target.panY = Math.max(0, (roomHeight - roomWidth * height / width) / 2); } // Start on Ethan in portrait and keep the upper monitor inside the wide-screen crop.
       hotspots.forEach(button => hotspotWidths.set(button, button.querySelector(".hotspot-label").offsetWidth)); // Measure labels once per resize, not between style writes on every animation frame.
@@ -169,16 +178,27 @@ function startRoomGesture() {
   const [first, second] = roomPointers.values();
   drag = null; pinch = null;
   if (second) {
-    pinch = { distance: Math.hypot(second.x - first.x, second.y - first.y), zoom: view.zoom };
-  } else if (first && camera) {
-    const visibleHeight = 2 * camera.position.z * Math.tan(THREE.MathUtils.degToRad(22.5)); // Convert pointer movement into the photo's current camera scale so it follows the drag at every zoom level.
-    drag = { x: first.x, y: first.y, panX: camera.position.x, panY: camera.position.y, scale: visibleHeight / height, limitX: Math.max(0, (roomWidth - visibleHeight * camera.aspect) / 2), limitY: Math.max(0, (roomHeight - visibleHeight) / 2) };
+    const bounds = stage.getBoundingClientRect();
+    const projection = camera && width && height ? roomProjection() : null;
+    pinch = {
+      distance: Math.hypot(second.x - first.x, second.y - first.y), zoom: view.zoom,
+      anchor: projection && {
+        x: projection.x + ((first.x + second.x) / 2 - bounds.left - width / 2) * projection.scale,
+        y: projection.y - ((first.y + second.y) / 2 - bounds.top - height / 2) * projection.scale,
+      },
+    };
+    dragged = true; // Two-finger contact is a pinch gesture even without movement; neither release should activate a label or zoom again.
+  } else if (first && camera && width && height) {
+    const projection = roomProjection(); // Rebase from the latest gesture state, not a camera matrix that may still be awaiting its render frame.
+    drag = { x: first.x, y: first.y, panX: projection.x, panY: projection.y,
+      scale: projection.scale, limitX: projection.limitX, limitY: projection.limitY };
   }
 }
 stage.addEventListener("pointerdown", event => {
-  if (event.button !== 0 || detail.open) return;
+  if (event.button !== 0 || detail.open || directory.open) return;
   if (!roomPointers.size) dragged = false;
-  if (event.target.closest("button:not(#enter-room), a")) return;
+  const hotspotTouch = event.pointerType === "touch" && event.target.closest(".room-hotspots button");
+  if (!hotspotTouch && event.target.closest("button:not(#enter-room), a")) return; // Fingers can start a room pinch on an item label; toolbar buttons and links keep their own input.
   roomPointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
   startRoomGesture();
 });
@@ -191,6 +211,12 @@ stage.addEventListener("pointermove", event => {
     const distance = Math.hypot(second.x - first.x, second.y - first.y);
     if (!pinch.distance || !distance) return;
     zoom((1 - (1 - pinch.zoom * .56) * pinch.distance / distance) / .56); // Spreading two fingers reduces camera distance in proportion to their separation.
+    if (pinch.anchor && width && height) {
+      const bounds = stage.getBoundingClientRect();
+      const projection = roomProjection(target.zoom);
+      target.panX = THREE.MathUtils.clamp(pinch.anchor.x - ((first.x + second.x) / 2 - bounds.left - width / 2) * projection.scale, -projection.limitX, projection.limitX) - focusPoint.x * target.zoom;
+      target.panY = THREE.MathUtils.clamp(pinch.anchor.y + ((first.y + second.y) / 2 - bounds.top - height / 2) * projection.scale, -projection.limitY, projection.limitY) - focusPoint.y * target.zoom;
+    } // Keep the same photographed point under the two-finger midpoint while it moves and changes scale.
     Object.assign(view, target);
     dragged = true;
   } else if (drag) {
@@ -225,7 +251,7 @@ stage.addEventListener("lostpointercapture", event => { if (event.target === sta
 window.addEventListener("blur", cancelRoomGesture);
 document.addEventListener("visibilitychange", () => { if (document.hidden) cancelRoomGesture(); });
 stage.addEventListener("click", event => {
-  if (dragged) { event.preventDefault(); event.stopPropagation(); dragged = false; return; } // A drag or pinch must not also zoom the background or activate the entry prompt on release.
+  if (dragged && event.detail !== 0) { event.preventDefault(); event.stopPropagation(); return; } // Suppress every release click until a new press, while preserving keyboard activation (detail 0).
   if (event.target.closest("button, a") || detail.open || directory.open) return;
   zoomAt(event.clientX, event.clientY);
 }, true);
