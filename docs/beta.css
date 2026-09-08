@@ -237,15 +237,17 @@
 .setup-directory::backdrop { background: #01030ab3; }
 .directory-close { position: sticky; float: right; top: 0; z-index: 3; width: 35px; height: 35px; border-radius: 50%; background: #2a3442; border: 1px solid #ffffff25; font-size: 24px; }
 .setup-directory h1 { font-size: 34px; letter-spacing: -.045em; margin: 0 0 18px; }
+.directory-order { color: #aeb9c9; font-size: 12px; margin: -7px 0 18px; }
 .setup-directory h2 { font-size: 19px; margin: 35px 0 15px; }
 .directory-sections { display: flex; gap: 18px; font-size: 12px; color: #d7c5a9; }
 .directory-gear, .directory-skills { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 9px; }
-.directory-gear button, .directory-skills a { text-align: left; border: 1px solid #ffffff1c; border-radius: 10px; padding: 15px; background: #1a2430; font: inherit; }
+.directory-gear button, .directory-skills a, .directory-skills article { text-align: left; border: 1px solid #ffffff1c; border-radius: 10px; padding: 15px; background: #1a2430; font: inherit; }
 .directory-gear strong, .directory-skills strong { display: block; font-size: 12px; margin-bottom: 7px; }
 .directory-gear span, .directory-skills span { display: block; font-size: 10px; color: #aeb9c9; line-height: 1.5; }
 .directory-apps { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 8px; }
 .directory-apps a { display: flex; align-items: center; gap: 10px; padding: 8px; border-radius: 8px; border: 1px solid #ffffff15; font-size: 11px; }
 .directory-apps img { object-fit: contain; flex-shrink: 0; }
+.directory-apps span { min-width: 0; overflow-wrap: anywhere; }
 .directory-gear button:hover, .directory-skills a:hover, .directory-apps a:hover { border-color: #dec59d; background: #25323f; }
 .setup-follow { margin-top: 40px; padding: 32px; border: 1px solid #87b5dc55; border-radius: 16px; display: flex; align-items: center; gap: 30px; background: #152b40; }
 .setup-follow .linkedin-logo { width: 100px; height: 100px; display: grid; place-items: center; flex-shrink: 0; border-radius: 18px; background: #0a66c2; color: white; font: bold 78px Arial,sans-serif; letter-spacing: -5px; padding-right: 5px; }
@@ -303,7 +305,7 @@
  body:has(.room-entered) .project-rail a, body:has(.room-entered) .project-rail button { padding:7px; }
 }
 
-@media(max-width:759px){.room-poster{object-position:96% center}}
+@media(max-width:759px){.room-poster{object-position:67% center}}
 
 #product-movement { position: absolute; left: 12px; bottom: 12px; right: 110px; display: flex; gap: 6px; align-items: center; }
 #product-movement[hidden] { display: none; }
@@ -323,23 +325,14 @@
 .mouse-state { position: absolute; z-index: 3; left: 50%; bottom: 32px; transform: translateX(-50%); display: grid; justify-items: center; gap: 8px; font-size: 12px; background: #10151bea; padding: 10px 14px; border-radius: 12px; white-space: nowrap; }
 .mouse-state button, .image-retry { border: 1px solid #ffffff45; border-radius: 8px; padding: 8px 12px; background: #253043; }
 .product-photo .image-retry { position: absolute; top: 58%; background: #263344; color: #fff; }
-.room-hotspots .software-hotspot { width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid #ffffff3b; border-radius: 50%; background: #0c1525dd; box-shadow: 0 3px 12px #0005; transform: translate(-50%, -50%); }
-.software-hotspot img { width: 29px; height: 29px; object-fit: contain; pointer-events: none; }
-.room-hotspots .software-hotspot .hotspot-label { position: absolute; left: 50%; top: 43px; transform: translateX(-50%); opacity: 0; visibility: hidden; pointer-events: none; animation: none; z-index: 2; }
-.room-hotspots .software-hotspot:hover, .room-hotspots .software-hotspot:focus-visible { z-index: 3; background: #233d5b; border-color: #e9d4b3; }
-.room-hotspots .software-hotspot:hover .hotspot-label, .room-hotspots .software-hotspot:focus-visible .hotspot-label { opacity: 1; visibility: visible; }
-#software-detail { display: flex; flex-direction: column; gap: 22px; padding-block: 20px; }
-#software-icon { object-fit: contain; }
-.directory-projects, .directory-personal-skills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
-.directory-projects a, .directory-personal-skills article { border: 1px solid #ffffff1c; border-radius: 10px; padding: 15px; background: #1a2430; }
-.directory-projects strong, .directory-personal-skills strong { display: block; font-size: 12px; margin-bottom: 7px; }
-.directory-projects span, .directory-personal-skills span { display: block; font-size: 10px; color: #aeb9c9; line-height: 1.5; }
+.directory-projects { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
+.directory-projects a { border: 1px solid #ffffff1c; border-radius: 10px; padding: 15px; background: #1a2430; }
+.directory-projects strong { display: block; font-size: 12px; margin-bottom: 7px; }
+.directory-projects span { display: block; font-size: 10px; color: #aeb9c9; line-height: 1.5; }
 .directory-projects a:hover { border-color: #ecdab970; }
-@media (max-width: 760px), (max-height: 520px) { #enter-room { font-size: clamp(30px, 6.2vw, 48px); max-width: 88vw; } .room-hotspots .software-hotspot { width: 34px; height: 34px; } .software-hotspot img { width: 26px; height: 26px; } .product-link { font-size: 16px; } .directory-sections { flex-wrap: wrap; } }
-@media (max-width: 420px) { .directory-projects, .directory-personal-skills { grid-template-columns: 1fr; } }
+@media (max-width: 760px), (max-height: 520px) { #enter-room { font-size: clamp(30px, 6.2vw, 48px); max-width: 88vw; } .product-link { font-size: 16px; } .directory-sections { flex-wrap: wrap; } }
+@media (max-width: 420px) { .directory-projects { grid-template-columns: 1fr; } }
 
-.room-hotspots .software-hotspot { width: var(--software-size, 34px); height: var(--software-size, 34px); }
-.software-hotspot img { width: 78%; height: 78%; }
 
 .brand-links { display: flex; align-items: baseline; gap: 15px; }
 .room-header .portfolio-link { color: #aba9a5; font-size: 12px; font-weight: 400; }
