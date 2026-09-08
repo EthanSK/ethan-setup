@@ -69,9 +69,9 @@ Open [localhost:8842](http://127.0.0.1:8842/). Keep the server running while usi
 
 - **Hardware and hotspot positions:** edit `docs/gear.json`; coordinates run from 0 to 1 across the room image. Keep this README’s inventory consistent.
 - **Room and interactions:** `docs/index.html`, `docs/beta.css` and `docs/beta.mjs`.
-- **Screens in the room photo:** `docs/assets/room.svg` places the edited work screen, OBS screen and laptop wallpaper over the original `room.webp`, preserving the person and room. After replacing `room-screens.webp`, `room-laptop.webp` or adjusting the screen outlines, run `python3 scripts/build-room-image.py`, then rebuild. See [source notes](SOURCES.md) for the screenshot references and privacy edits.
+- **Room picture:** `docs/assets/room.svg` combines the corrected face, work screen, OBS screen and laptop wallpaper with the original `room.webp`. The body, clothes, sausage legs and surrounding room remain from that original. After replacing `room-screens.webp`, `room-details.webp` or adjusting the region outlines, run `python3 scripts/build-room-image.py`, then rebuild. See [source notes](SOURCES.md) for the screenshot references and privacy edits.
 - **Share preview:** `docs/assets/sausage-legs-social.jpg` uses the original sausage-leg photo; Open Graph and large-image card metadata in `docs/index.html` point to that image. Keep its dimensions and alt text in sync when replacing it.
-- **Product geometry:** `docs/product-models.mjs`; reference notes are in `PRODUCT-MODELS.md`.
+- **Product geometry:** `docs/product-models.mjs`; reference notes are in `PRODUCT-MODELS.md`. The MacBook uses the actual Tahoe rocks-and-water wallpaper in `docs/assets/macbook-wallpaper.webp`, cropped proportionally.
 - **OBS example:** `docs/obs.html`, `docs/obs.css` and `docs/obs.mjs`.
 - **Mouse modes, HUD, mouse models or icon:** change the canonical Agentic Mouse repository, publish it, then run `python3 scripts/sync-sources.py` here. The published native export chooses the source commit; this site does not maintain another button map.
 - **Desktop, Dock or apps:** change the response-preferences public demo. The Dell embeds that site directly; the sync script refreshes this site’s app directory.
