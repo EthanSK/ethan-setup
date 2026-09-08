@@ -70,7 +70,7 @@
       "18 inputs / 8 outputs"
     ],
     "evidence": "eBay purchase, May 2023",
-    "description": "My Focusrite Scarlett 18i8 third generation audio interface, under the DJ deck."
+    "description": "My Focusrite Scarlett 18i8 third generation audio interface."
   },
   {
     "id": "flx4",
@@ -92,12 +92,14 @@
     "label": "Mac mini",
     "x": 0.169,
     "y": 0.54,
-    "url": "https://www.apple.com/uk/mac-mini/",
+    "url": "https://support.apple.com/en-gb/121555",
     "specs": [
-      "Under the left speaker"
+      "Apple M4",
+      "16 GB memory",
+      "Silver"
     ],
-    "evidence": "User confirmed; generation not verified",
-    "description": "A Mac Mini tucked under the left HS8."
+    "evidence": "Live Mac mini hardware identification confirms M4 and 16 GB; Apple specifies the 2024 silver enclosure",
+    "description": ""
   },
   {
     "id": "akai",
@@ -139,7 +141,7 @@
       "3440 × 1440",
       "Curved ultrawide"
     ],
-    "evidence": "Prior host display identification; model recheck pending",
+    "evidence": "Host display inventory from July 2026 identifies DELL S3422DW at 3440 × 1440 and 100 Hz; current capture device obscures its identity",
     "description": "My 34-inch Dell ultrawide, the main display."
   },
   {

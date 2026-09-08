@@ -51,10 +51,9 @@ export async function createProductViewer(canvas, productId) {
     group.position.sub(center); // Rotate about the true centre of the hardware so it never swings out of frame.
     pivot.add(group);
     const radius = boundingRadius(group);
-    const height = bounds.max.y - bounds.min.y;
     const pose = { yaw: view.yaw, pitch: view.pitch };
     const shadow = contactShadow(bounds.max.x - bounds.min.x, bounds.max.z - bounds.min.z);
-    shadow.position.y = -height / 2 - radius * .004;
+    const rotatedBounds = new THREE.Box3();
     scene.add(shadow);
 
     let width = 0, viewHeight = 0;
@@ -78,6 +77,7 @@ export async function createProductViewer(canvas, productId) {
     function draw() {
       if (!fit()) return;
       pivot.rotation.set(pose.pitch, pose.yaw, 0, "XYZ"); // Yaw spins the hardware on its own axis first, then pitch tilts the turntable toward the camera.
+      shadow.position.y = rotatedBounds.setFromObject(pivot).min.y - radius * .004; // A fixed shadow plane sliced through tilted products; keep it below the current rotation's lowest point.
       shadow.material.opacity = .55 * Math.max(0, 1 - Math.abs(pose.pitch - view.pitch) * 1.4);
       renderer.render(scene, camera);
     }
@@ -360,6 +360,7 @@ const builders = {
   bigknob: buildBigKnob,
   drive: buildDrive,
   macbook: buildMacBook,
+  macmini: buildMacMini,
   dell: buildDell,
   samsung: buildSamsung,
   desk: buildDesk,
@@ -943,6 +944,53 @@ function buildMacBook() {
   group.add(lid);
   feet(group, W, D, 22, 5, 1.6);
   return { group, view: { yaw: .5, pitch: .3 } };
+}
+
+/** M4 Mac mini: the verified 2024 silver 127 × 127 × 50 mm enclosure, including front and rear ports. */
+function buildMacMini() {
+  const group = new THREE.Group();
+  const silver = std(0xbfc1c4, .4, .72), black = std(0x111214, .7), hole = std(0x020203, .9), contacts = std(0x616367, .45, .7);
+  const shell = new THREE.ExtrudeGeometry(roundedRect(125.4, 125.4, 28), { depth: 42.4, bevelEnabled: true, bevelThickness: .8, bevelSize: .8, bevelSegments: 3, curveSegments: 20 });
+  shell.translate(0, 0, -21.2);
+  group.add(at(new THREE.Mesh(shell, silver), 0, 28, 0, -Math.PI / 2)); // Round the horizontal corners separately from the shallow lid edge; a rounded cube gives the wrong enclosure.
+  group.add(at(plate(108, 108, 6, 24, black), 0, 3, 0, -Math.PI / 2));
+  for (const side of [-1, 1]) for (let x = -39; x <= 39; x += 2.5) {
+    group.add(at(box(.8, 4.6, .35, contacts), x, 3.4, side * 54.1, 0, 0, -.25));
+    group.add(at(box(.35, 4.6, .8, contacts), side * 54.1, 3.4, x, .25));
+  }
+  const front = new THREE.Group();
+  front.position.z = 63.55;
+  for (const x of [-37, -22]) {
+    front.add(at(plate(2.9, 8.6, .25, 1.4, hole), x, 22));
+    front.add(at(plate(.65, 5.7, .3, .3, contacts), x, 22, .2));
+  }
+  front.add(at(cyl(1.95, 1.95, .35, black, 24, "z"), 36, 22));
+  front.add(at(cyl(1.6, 1.6, .4, hole, 24, "z"), 36, 22, .2));
+  front.add(at(cyl(.7, .7, .25, std(0xf6f5e9, .4, 0, { emissive: 0xffffff, emissiveIntensity: .8 }), 16, "z"), 24, 22));
+  group.add(front);
+  const rear = new THREE.Group();
+  rear.position.z = -63.55; rear.rotation.y = Math.PI;
+  rear.add(at(plate(19.5, 11.8, .35, 5.9, black), -33, 22));
+  for (const x of [-37.1, -28.9]) {
+    rear.add(at(cyl(3.65, 3.65, .4, hole, 24, "z"), x, 22, .2));
+    rear.add(at(cyl(.85, .85, .5, contacts, 16, "z"), x, 22, .45));
+  }
+  rear.add(at(plate(12.4, 10.7, .3, .8, hole), -11, 22));
+  for (let i = 0; i < 8; i++) rear.add(at(box(.55, 3.5, .25, contacts), -14.1 + i * .9, 19.5, .2));
+  rear.add(at(plate(14.5, 5.8, .3, 1.7, hole), 8, 22));
+  rear.add(at(plate(11.8, .8, .35, .35, contacts), 8, 22, .2));
+  for (const x of [22.5, 31, 39.5]) {
+    rear.add(at(plate(2.9, 8.6, .3, 1.4, hole), x, 22));
+    rear.add(at(plate(.65, 5.7, .35, .3, contacts), x, 22, .2));
+  }
+  group.add(rear);
+  group.add(at(decal(52, 52, (ctx, w, h) => {
+    ctx.translate(w / 2 - 30, h / 2 - 30); ctx.scale(2.5, 2.5);
+    ctx.fillStyle = "#18191b";
+    ctx.fill(new Path2D("M16.9 12.7c0-2 1.6-3 1.7-3.1-1-1.5-2.5-1.7-3.1-1.7-1.3-.1-2.4.8-3.1.8-.6 0-1.6-.8-2.7-.8-1.4 0-2.6.8-3.3 2-1.4 2.4-.4 6.1.9 8 .6.9 1.3 1.9 2.3 1.8.9 0 1.3-.6 2.5-.6s1.6.6 2.6.6c1.1 0 1.7-.9 2.3-1.8.7-1 1-2 1-2.1-.1 0-3.1-1.2-3.1-3.1zM15 6.7c.5-.7.9-1.5.8-2.4-.8 0-1.8.6-2.4 1.3-.5.6-1 1.5-.9 2.3.9.1 1.8-.4 2.5-1.2z")); // Reuse the Apple outline from the canonical desktop's menu icon.
+  }, { pxPerMM: 8 }), 0, 50.05, 0, -Math.PI / 2));
+  group.add(at(cyl(3.8, 3.8, .3, black, 32), -42, 5.6, -41)); // The M4 power button is underneath, not on the rear panel.
+  return { group, view: { yaw: .48, pitch: .38 } };
 }
 
 /** Dell S3422DW: 34" 1800R curved 21:9 panel, 808 × 364.5 mm, black bezel and slim silver stand. */
