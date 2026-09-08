@@ -96,7 +96,7 @@ function draw(now = 0) {
 function render() { if (!frame && !document.hidden) { lastFrame = performance.now(); frame = requestAnimationFrame(draw); } }
 function zoom(value) {
   target.zoom = Math.max(0, Math.min(1.35, value));
-  if (target.zoom < .15) { target.panX = width < 760 ? 3.4 : 0; target.panY = 0; }
+  if (target.zoom < .15) { target.panX = width < 760 ? 3.4 : 0; target.panY = Math.max(0, (roomHeight - roomWidth * stage.clientHeight / stage.clientWidth) / 2); } // Keep the full upper monitor in the wide-screen starting crop.
   stage.classList.toggle("room-entered", target.zoom > .15);
   document.querySelector('[data-view="desk"]').setAttribute("aria-pressed", String(target.zoom > .15));
   if (!renderer) {
@@ -118,7 +118,7 @@ async function createRoom() {
     scene.add(photo); // A restrained camera over the original photo gives depth without distorting Ethan's face or inventing unseen parts of the room.
     new ResizeObserver(() => {
       width = stage.clientWidth; height = stage.clientHeight;
-      if (target.zoom === 0) target.panX = width < 760 ? 3.4 : 0; // The portrait crop starts on Ethan instead of cutting his face off at the right edge.
+      if (target.zoom === 0) { target.panX = width < 760 ? 3.4 : 0; target.panY = Math.max(0, (roomHeight - roomWidth * height / width) / 2); } // Start on Ethan in portrait and keep the upper monitor inside the wide-screen crop.
       hotspots.forEach(button => hotspotWidths.set(button, button.querySelector(".hotspot-label").offsetWidth)); // Measure labels once per resize, not between style writes on every animation frame.
       camera.aspect = width / height; camera.updateProjectionMatrix();
       renderer.setSize(width, height, false); render();
