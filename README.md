@@ -24,7 +24,7 @@ The website lets you try those controls and the app’s HUD without installing a
 - Open the Dell for its rotatable monitor model, specs and product link. The nearby **Codex** hotspot opens the interactive desktop, Dock, menu bar and Codex example. Samsung opens its monitor product; the separate **OBS** hotspot opens the silent recording demo and my setup details.
 - Open **Everything I use** for the hardware, apps, public skills and project links.
 
-The room is a photograph with a Three.js camera, not a scan of the entire room. The sausage legs are intentional. Product models are reference-based illustrations, not manufacturer CAD or dimensionally certified replicas.
+The room is a photograph with a Three.js camera, not a scan of the entire room. The sausage legs are intentional; their hotspot has a Tesco Finest product link and my joke subtitle. Product models are reference-based illustrations, not manufacturer CAD or dimensionally certified replicas.
 
 ## On my desk
 
