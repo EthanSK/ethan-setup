@@ -32,7 +32,7 @@ The room is a photograph with a Three.js camera, not a scan of the entire room. 
 | --- | --- |
 | [Corsair Scimitar Elite Wireless SE](https://www.corsair.com/uk/en/p/gaming-mouse/ch-9314415-ww/scimitar-elite-wireless-se-mmo-gaming-mouse-black-yellow-ch-9314415-ww) | Right-handed · 12 thumb buttons · Black / yellow |
 | [Razer Naga Left-Handed Edition](https://www.razer.com/gb-en/gaming-mice/razer-naga-left-handed-edition) | Left-handed · 12 mirrored controls · Black |
-| [MacBook Pro](https://www.apple.com/uk/macbook-pro/) | 16-inch · M5 Max · 64 GB unified memory |
+| [MacBook Pro](https://support.apple.com/en-gb/126319) | 16-inch · M5 Max · 18-core CPU / 40-core GPU · 64 GB unified memory · 2 TB SSD |
 | [Yamaha HS8](https://usa.yamaha.com/products/proaudio/speakers/hs_series/) | White pair · 8-inch studio monitors |
 | [Focusrite Scarlett 18i8](https://us.focusrite.com/products/scarlett-18i8-3rd-gen) | 3rd generation · 18 inputs / 8 outputs |
 | [Pioneer DDJ-FLX4](https://www.pioneerdj.com/en/product/dj-controllers/ddj-flx4/) | Black · 2-channel DJ controller |
@@ -40,6 +40,7 @@ The room is a photograph with a Three.js camera, not a scan of the entire room. 
 | [Akai MPK mini Plus](https://www.akaipro.com/discover/mpk) | 37 keys · 8 MPC pads |
 | [Shure SM7B](https://www.shure.com/en-GB/products/microphones/sm7b) | Dynamic microphone · Dictation and recording |
 | [Dell S3422DW](https://www.dell.com/support/home/en-uk/product-support/product/dell-s3422dw-monitor/overview) | 34-inch · 3440 × 1440 · Curved ultrawide |
+| [Canon EOS M50 Mark II](https://www.canon.co.uk/cameras/eos-m50-mark-ii/specifications/) | Black · 24.1MP APS-C · EF-M mount |
 | [Samsung S80UA](https://www.samsung.com/pt/monitors/high-resolution/s80ua-27-inch-ips-uhd-4k-ls27a800ujpxen/) | 27-inch · 4K · S27A800U |
 | [Mackie Big Knob Passive](https://mackie.com/en/products/accessories/big_knob_passive.html) | Passive monitor controller · Volume / mono / mute / dim |
 | [WD Elements Desktop](https://www.westerndigital.com/products/external-drives/wd-elements-desktop-usb-3-0-hdd?sku=WDBWLG0140HBK-EESN) | 14 TB · Black · USB 3.0 |
@@ -72,7 +73,7 @@ Open [localhost:8842](http://127.0.0.1:8842/). Keep the server running while usi
 
 - **Hardware and hotspot positions:** edit `docs/gear.json`; coordinates run from 0 to 1 across the room image. Keep this README’s inventory consistent.
 - **Room and interactions:** `docs/index.html`, `docs/beta.css` and `docs/beta.mjs`.
-- **Room picture:** `docs/assets/room.svg` combines the corrected face, work screen, OBS screen and laptop wallpaper with the original `room.webp`. The body, clothes, sausage legs and surrounding room remain from that original. After replacing `room-screens.webp`, `room-details.webp` or adjusting the region outlines, run `python3 scripts/build-room-image.py`, then rebuild. See [source notes](SOURCES.md) for the screenshot references and privacy edits.
+- **Room picture:** `docs/assets/room.svg` combines the corrected face, work screen, OBS screen, laptop wallpaper and small Canon camera patch with the original `room.webp`. The body, clothes, sausage legs and surrounding room remain from that original. After replacing `room-screens.webp`, `room-details.webp`, `room-camera.webp` or adjusting the region outlines, run `python3 scripts/build-room-image.py`, then rebuild. See [source notes](SOURCES.md) for references and privacy edits.
 - **Share preview:** `docs/assets/sausage-legs-social.jpg` uses the original sausage-leg photo; Open Graph and large-image card metadata in `docs/index.html` point to that image. Keep its dimensions and alt text in sync when replacing it.
 - **Product geometry:** `docs/product-models.mjs`; reference notes are in `PRODUCT-MODELS.md`. The MacBook uses the actual Tahoe rocks-and-water wallpaper in `docs/assets/macbook-wallpaper.webp`, cropped proportionally.
 - **OBS example and setup details:** `docs/obs.html`, `docs/obs.css` and `docs/obs.mjs`. Keep the dated settings consistent with the [OBS++ setup guide](https://github.com/EthanSK/obs-plus-plus/blob/master/SETUP.md); do not present the example as live telemetry.
