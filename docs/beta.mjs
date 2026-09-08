@@ -238,7 +238,7 @@ const topics = {
   chair: ["My desk setup", "Lean back without reaching for a keyboard", "I use thumb controls and dictation with the footrest out, switching hands whenever I want."],
 };
 let returnFocus, returnView, productViewer, productRequest = 0;
-function openTopic(topic, trigger) {
+function openTopic(topic, trigger, hardwareView = false) {
   const item = gearById.get(topic);
   const copy = topics[topic] || (item && ["My setup", item.name, item.description]);
   if (!copy) return;
@@ -257,8 +257,9 @@ function openTopic(topic, trigger) {
   document.querySelector("#detail-kicker").textContent = topic === "desk" || topic === "chair" ? item.name : copy[0];
   document.querySelector("#detail-title").textContent = copy[1];
   document.querySelector("#detail-description").textContent = copy[2];
+  document.querySelector("#detail-description").hidden = !copy[2];
   const mouse = topic === "razer" || topic === "corsair";
-  const panel = mouse ? "mouse" : topic === "code" || topic === "voice" ? topic : topic === "dell" || topic === "samsung" ? "screen" : "hardware";
+  const panel = mouse ? "mouse" : topic === "code" || topic === "voice" ? topic : !hardwareView && (topic === "dell" || topic === "samsung") ? "screen" : "hardware";
   for (const name of ["mouse", "code", "voice", "hardware", "screen"]) document.querySelector(`#${name}-detail`).hidden = name !== panel;
   if (mouse) {
     if (simulator) { simulator.chooseHand(topic); updateMouse(); }
@@ -421,10 +422,6 @@ async function showHardware(id) {
   demo.onclick = () => id === "shure" ? openTopic("voice", demo) : showScreen(id);
   const status = document.querySelector("#product-state"); status.hidden = false; status.textContent = "Loading 3D view…";
   const productCanvas = document.querySelector("#product-canvas"); productCanvas.hidden = false;
-  const knownModel = id !== "macmini"; // Its generation is unconfirmed, so do not show an invented Mac mini enclosure.
-  document.querySelector(".product-stage").hidden = !knownModel;
-  document.querySelector(".product-info .detail-note").hidden = !knownModel;
-  if (!knownModel) { status.hidden = true; return; }
   try {
     const {createProductViewer} = await import("./product-models.mjs?v=__SITE_VERSION__");
     if (request !== productRequest) return;
@@ -441,10 +438,7 @@ function showScreen(id) {
   document.querySelector("#hardware-detail").hidden = true; document.querySelector("#screen-detail").hidden = false;
   const frame = document.querySelector("#desktop-frame");
   frame.src = id === "samsung" ? "./obs.html?v=__SITE_VERSION__" : "https://ethansk.github.io/response-preferences/";
-  document.querySelector("#screen-source").hidden = id === "samsung";
-  document.querySelector("#screen-desktop").textContent = id === "samsung" ? "OBS" : "Desktop";
-  document.querySelector("#screen-desktop").onclick = () => showScreen(id);
-  document.querySelector("#screen-product").onclick = () => showHardware(id);
+  frame.title = id === "samsung" ? "OBS — demo" : "Interactive example of Ethan’s desktop";
 }
 const directory = document.querySelector("#setup-directory");
 let directoryTrigger;
@@ -457,7 +451,7 @@ for (const item of gear) {
   const button = document.createElement("button"); button.type = "button";
   const name = document.createElement("strong"); name.textContent = item.name;
   const specs = document.createElement("span"); specs.textContent = item.specs.join(" · ");
-  button.append(name, specs); button.addEventListener("click", () => { directory.close(); openTopic(item.id, document.querySelector("#show-directory")); });
+  button.append(name, specs); button.addEventListener("click", () => { directory.close(); openTopic(item.id, document.querySelector("#show-directory"), true); }); // Hardware entries keep the monitor models available without adding controls above the desktop.
   document.querySelector(".directory-gear").append(button);
 }
 const apps = await fetch(new URL("./apps.json?v=__SITE_VERSION__", import.meta.url)).then(response => response.json());
