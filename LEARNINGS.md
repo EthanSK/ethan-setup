@@ -18,6 +18,8 @@ The Dell room hotspot opens its rotatable monitor model, specs and product link.
 
 Screenshots requested for the main room picture must actually appear inside its photographed displays. Using them only as layout references for click-open demos leaves the reported blur unchanged. Apply the safe screen content to the main image and inspect the screen edges and head occlusion at close zoom. Keep the approved original photo outside those regions so another screen edit cannot change Ethan’s face or body. Preserving an older generated face does not prove its likeness: when Ethan requests a face correction, inspect and reuse his original real portrait, then isolate the corrected head so the rest of the person is not regenerated. His MacBook wallpaper means Apple’s Tahoe rocks in clear water; use the actual reference in both the room photo and rotatable model, not invented dry pebbles.
 
+A request to shorten the sausage legs needs a separate lower-body mask, including the newly exposed footrest. Keep the previous corrected portrait and other screen layers; image generation can change their pixels even when the prompt says to preserve them. Inspect the output visually rather than assuming the requested length percentage was followed.
+
 ## Hardware identification
 
 When purchase search cannot identify a paired computer, read its hardware model and chip through the existing diagnostic connection. Publish only the relevant specs, never its connection details or identifiers. Match the confirmed generation to official dimensions and photographs before building its enclosure.
