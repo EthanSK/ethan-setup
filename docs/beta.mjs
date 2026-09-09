@@ -32,7 +32,7 @@ const point = new THREE.Vector3();
 /** Share the visible photo scale between drawing and gestures, including a finger lift before the next frame. */
 function roomProjection(zoomLevel = view.zoom) {
   const aspect = width / height;
-  const visibleHeight = Math.min(roomHeight, roomWidth / aspect) * (1 - zoomLevel * .56); // Cover the viewport without stretching the photo or introducing letterbox bars.
+  const visibleHeight = roomHeight * (1 - zoomLevel * .56); // Fit the full photo height at minimum zoom; covering wide windows cropped it and allowed unwanted vertical panning (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
   const limitX = Math.max(0, (roomWidth - visibleHeight * aspect) / 2);
   const limitY = Math.max(0, (roomHeight - visibleHeight) / 2);
   return {
@@ -107,7 +107,7 @@ function render() { if (!frame && !document.hidden) { lastFrame = performance.no
 function zoom(value) {
   target.zoom = Math.max(0, Math.min(1.35, value));
   canvas.classList.toggle("at-zoom-limit", target.zoom === 1.35);
-  if (target.zoom < .15) { target.panX = width < 760 ? 3.4 : 0; target.panY = Math.max(0, (roomHeight - roomWidth * stage.clientHeight / stage.clientWidth) / 2); } // Keep the full upper monitor in the wide-screen starting crop.
+  if (target.zoom < .15) { target.panX = width < 760 ? 3.4 : 0; target.panY = 0; } // The complete photo height is visible at the start; portrait windows still begin on Ethan.
   stage.classList.toggle("room-entered", target.zoom > .15);
   document.querySelector('[data-view="desk"]').setAttribute("aria-pressed", String(target.zoom > .15));
   if (!renderer) {
@@ -142,7 +142,7 @@ async function createRoom() {
     new ResizeObserver(() => {
       cancelRoomGesture(); // Rotation or a resized viewport invalidates the active fingers' screen coordinates.
       width = stage.clientWidth; height = stage.clientHeight;
-      if (target.zoom === 0) { target.panX = width < 760 ? 3.4 : 0; target.panY = Math.max(0, (roomHeight - roomWidth * height / width) / 2); } // Start on Ethan in portrait and keep the upper monitor inside the wide-screen crop.
+      if (target.zoom === 0) { target.panX = width < 760 ? 3.4 : 0; target.panY = 0; } // Start on Ethan in portrait while keeping the full photo height visible after a resize.
       hotspots.forEach(button => hotspotWidths.set(button, button.querySelector(".hotspot-label").offsetWidth)); // Measure labels once per resize, not between style writes on every animation frame.
       camera.aspect = width / height; camera.updateProjectionMatrix();
       renderer.setSize(width, height, false); render();
