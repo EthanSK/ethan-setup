@@ -349,3 +349,95 @@
 .room-detail:has(#screen-detail:not([hidden])) .detail-heading { padding: 0 24px 0 8px; }
 .room-detail:has(#screen-detail:not([hidden])) #detail-tools { margin: 6px 0 10px; }
 @media (max-width: 600px) { #detail-tools a { font-size: 14px; padding: 9px 11px; gap: 8px; } }
+
+/* VS Code walkthrough: explicit slide tabs, distinct from the round arrows that switch desk items. */
+.room-detail[data-topic="vscode"] { width: min(980px, calc(100% - 72px)); }
+.slide-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 18px; }
+.slide-tabs [role="tab"] { display: inline-flex; align-items: center; gap: 8px; padding: 8px 13px 8px 8px; border: 1px solid #ffffff25; border-radius: 10px; background: #1a212c; color: #dfe4ee; font-size: 12px; font-weight: 600; }
+.slide-tabs .slide-number { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 6px; background: #ffffff14; font-size: 11px; color: #c5ccd8; }
+.slide-tabs [role="tab"]:hover { border-color: #ecdab9; background: #242c38; }
+.slide-tabs [role="tab"][aria-selected="true"] { background: #ecdab9; border-color: #ecdab9; color: #221c14; }
+.slide-tabs [role="tab"][aria-selected="true"] .slide-number { background: #22201c22; color: #221c14; }
+.slide-tabs [role="tab"]:focus-visible { outline: 2px solid #ecdab9; outline-offset: 3px; }
+.slide { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+.slide-copy h2 { margin: 0 0 12px; font-size: 22px; font-weight: 650; letter-spacing: -.03em; line-height: 1.2; }
+.slide-copy p { margin: 0 0 12px; font-size: 13px; line-height: 1.65; color: #c2cbdc; }
+.slide-copy code { font: 12px ui-monospace, monospace; color: #f3e9d4; background: #ffffff12; padding: 1px 5px; border-radius: 5px; overflow-wrap: anywhere; }
+.slide-copy .detail-link { margin-top: 6px; }
+.slide-copy-wide { grid-column: 1 / -1; }
+.slide-copy-wide h2 { margin-bottom: 8px; }
+.stack-summary { display: flex; flex-wrap: wrap; gap: 6px; }
+.stack-summary span { padding: 5px 9px; border: 1px solid #ecdab945; border-radius: 8px; font-size: 12px; color: #f3e9d4; }
+.slide-steps { display: flex; justify-content: space-between; gap: 12px; margin-top: 22px; padding-top: 16px; border-top: 1px solid #ffffff18; }
+.slide-steps button { border: 1px solid #ffffff25; border-radius: 9px; background: #1a212c; padding: 9px 13px; font-size: 12px; color: #e7e2d6; }
+.slide-steps button:hover:not(:disabled) { border-color: #ecdab9; background: #242c38; }
+.slide-steps button:disabled { opacity: .35; cursor: default; }
+.vscode-window { margin: 0; border: 1px solid #ffffff25; border-radius: 12px; overflow: hidden; background: #1f1f1f; color: #cccccc; font: 11px/1.5 ui-sans-serif, system-ui, sans-serif; }
+.vscode-titlebar { display: flex; align-items: center; gap: 12px; padding: 8px 12px; background: #181818; border-bottom: 1px solid #2b2b2b; font-size: 10px; color: #9d9d9d; }
+.vscode-titlebar .window-lights { letter-spacing: 2px; color: #5b5b5b; }
+.vscode-titlebar em { margin-left: auto; font-style: normal; color: #d7c5a9; }
+.vscode-body { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
+.vscode-sidebar { padding: 10px 0 12px; background: #181818; border-right: 1px solid #2b2b2b; min-width: 0; }
+.vscode-sidebar h3 { margin: 0 14px 8px; font-size: 10px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: #bbbbbb; }
+.tree-head { display: flex; gap: 8px; margin: 8px 14px 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; color: #a8a8a8; }
+.tree-head::before { content: "▾"; color: #8a8a8a; }
+.tree-head span { margin-left: auto; padding: 0 6px; border-radius: 9px; background: #3a3a3a; font-weight: 500; text-transform: none; color: #ddd; }
+.repo-list, .change-list { list-style: none; margin: 0; padding: 0; }
+.repo-list li, .change-list li { display: flex; align-items: baseline; gap: 8px; padding: 4px 14px 4px 24px; min-width: 0; }
+.repo-list strong { font-weight: 600; color: #e6e6e6; overflow-wrap: anywhere; }
+.repo-list span { color: #8f9ba8; font-size: 10px; overflow-wrap: anywhere; }
+.repo-list em { margin-left: auto; flex-shrink: 0; font-style: normal; font-size: 9px; color: #7fb3e6; }
+.repo-list .is-selected { background: #04395e; color: #fff; }
+.change-list span { color: #e6e6e6; overflow-wrap: anywhere; }
+.change-list small { color: #7f7f7f; font-size: 9px; overflow-wrap: anywhere; }
+.change-list b { margin-left: auto; flex-shrink: 0; font-weight: 600; color: #e2c08d; }
+.change-list .is-current { background: #37373d; outline: 1px solid #007fd4; outline-offset: -1px; }
+.vscode-editor { margin: 0; padding: 0 14px 14px; font: 11px/1.9 ui-monospace, monospace; white-space: pre-wrap; overflow-wrap: anywhere; color: #d4d4d4; }
+.editor-tab { display: inline-block; margin: 0 0 6px -14px; padding: 6px 14px; background: #1f1f1f; border-bottom: 1px solid #007fd4; font: 10px ui-sans-serif, system-ui, sans-serif; color: #fff; }
+.vscode-editor del, .vscode-editor ins, .review-strip del, .review-strip ins { display: inline-block; width: 100%; vertical-align: top; text-decoration: none; } /* Full-width inline boxes keep the preserved newlines as the only line breaks. */
+.vscode-editor del, .review-strip del { background: #4b1818; color: #ffb3b3; }
+.vscode-editor ins, .review-strip ins { background: #1d3b23; color: #b8f0c2; }
+.vscode-statusbar { display: flex; justify-content: space-between; gap: 12px; padding: 4px 12px; background: #181818; border-top: 1px solid #2b2b2b; font-size: 10px; color: #9d9d9d; }
+.vscode-statusbar span:first-child { color: #fff; background: #0078d4; margin: -4px 0 -4px -12px; padding: 4px 10px; }
+.stack-diagram { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 6px 0 16px; }
+.stack-diagram > section { padding: 14px; border: 1px solid #ffffff25; border-radius: 12px; background: #0b0e14; min-width: 0; }
+.stack-diagram h3 { margin: 0 0 10px; font-size: 14px; font-weight: 650; }
+.stack-diagram h3 span { margin-left: 8px; font-size: 11px; font-weight: 500; color: #a3adbf; }
+.stack-diagram ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.stack-diagram > section > ul > li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; padding: 9px 11px; border: 1px solid #ffffff20; border-radius: 8px; background: #1a212c; font-size: 12px; }
+.stack-diagram li strong { font-weight: 600; }
+.stack-diagram li span { font: 12px ui-monospace, monospace; color: #f3e9d4; }
+.stack-diagram li small { margin-left: auto; font-size: 10px; color: #a3adbf; }
+.stack-backend { margin-top: 6px; padding: 11px; border: 1px solid #ffffff20; border-radius: 8px; }
+.stack-backend ul { gap: 4px; font-size: 12px; }
+.stack-backend p { margin: 8px 0 0; font-size: 10px; color: #a3adbf; line-height: 1.5; }
+.stack-backend.is-docker { border: 1px dashed #63a8e6; background: #0f1a2b; }
+.stack-backend .docker-label { margin: 0 0 7px; font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #8dc2f2; }
+.review-strip { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; margin: 0; padding: 14px; border: 1px solid #ffffff25; border-radius: 12px; background: #0b0e14; }
+.review-strip pre { margin: 0; font: 11px/1.9 ui-monospace, monospace; white-space: pre-wrap; overflow-wrap: anywhere; color: #d4d4d4; min-width: 0; }
+.review-key { display: grid; justify-items: center; gap: 4px; text-align: center; }
+.review-key b { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid #c4b49c55; border-bottom-width: 4px; border-radius: 10px; background: #25252d; color: #ebdec4; font-size: 20px; }
+.review-key span { font-size: 9px; color: #a3adbf; max-width: 60px; line-height: 1.3; }
+.review-strip figcaption { grid-column: 1 / -1; font-size: 11px; color: #a5d8b1; text-align: center; }
+.land-steps { list-style: none; counter-reset: land; margin: 0; padding: 0; display: grid; gap: 8px; }
+.land-steps li { counter-increment: land; display: flex; align-items: baseline; gap: 12px; padding: 11px 13px; border: 1px solid #ffffff20; border-radius: 10px; background: #0b0e14; font-size: 13px; }
+.land-steps li::before { content: counter(land); flex-shrink: 0; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 7px; background: #ecdab9; color: #221c14; font-size: 12px; font-weight: 700; align-self: center; }
+.land-steps strong { font-weight: 650; }
+.land-steps span { color: #c2cbdc; }
+@media (max-width: 760px), (max-height: 520px) {
+ .room-detail[data-topic="vscode"] { width: calc(100% - 24px); }
+ .slide, .stack-diagram { grid-template-columns: 1fr; }
+ .slide { gap: 18px; }
+ .slide-copy h2 { font-size: 19px; }
+ .vscode-body { grid-template-columns: 1fr; }
+ .vscode-editor { border-top: 1px solid #2b2b2b; }
+ .review-strip { grid-template-columns: 1fr; }
+ .review-key { grid-auto-flow: column; justify-content: start; align-items: center; text-align: left; }
+ .review-key span { max-width: none; }
+ .slide-tabs [role="tab"] { font-size: 11px; padding: 7px 10px 7px 7px; }
+}
+@media (max-width: 360px) {
+ .slide-tabs [role="tab"] { padding: 6px 8px; gap: 6px; }
+ .slide-tabs .slide-number { width: 18px; height: 18px; font-size: 10px; }
+ .repo-list li, .change-list li { flex-wrap: wrap; }
+}

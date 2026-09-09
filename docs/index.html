@@ -54,6 +54,7 @@
     <div class="room-hotspots" aria-label="Explore my setup">
       <button type="button" data-topic="obs" data-x="0.80" data-y="0.20" aria-label="OBS"><span class="hotspot-dot" aria-hidden="true"></span><span class="hotspot-label">OBS</span></button>
       <button type="button" data-topic="codex" data-x="0.43" data-y="0.34" aria-label="Codex"><span class="hotspot-dot" aria-hidden="true"></span><span class="hotspot-label">Codex</span></button>
+      <button type="button" data-topic="vscode" data-x="0.465" data-y="0.425" aria-label="VS Code"><span class="hotspot-dot" aria-hidden="true"></span><span class="hotspot-label">VS Code</span></button>
       <button type="button" data-topic="sausages" data-x="0.385" data-y="0.86" aria-label="Sausage legs"><span class="hotspot-dot" aria-hidden="true"></span><span class="hotspot-label">Sausage legs</span></button>
     </div>
     <div class="room-zoom" role="group" aria-label="Room camera">
@@ -67,7 +68,7 @@
       <button type="button" data-topic="corsair">Right mouse</button>
       <button type="button" data-topic="code">Review code</button>
       <button type="button" data-topic="voice">Dictation</button>
-      <button type="button" data-topic="codex">Codex</button><button type="button" data-topic="obs">OBS</button><button type="button" data-directory>Everything I use</button>
+      <button type="button" data-topic="codex">Codex</button><button type="button" data-topic="vscode">VS Code</button><button type="button" data-topic="obs">OBS</button><button type="button" data-directory>Everything I use</button>
     </nav>
     <p class="room-caption">AI scene from my photos · <a href="https://www.linkedin.com/in/ethansk/">Follow me on LinkedIn ↗</a></p>
     <p class="room-loading" role="status">Loading the room…</p>
@@ -127,6 +128,105 @@
     </div>
     <div id="screen-detail" hidden>
       <iframe id="desktop-frame" title="Interactive example of Ethan’s desktop" loading="eager" allow="" referrerpolicy="no-referrer"></iframe>
+    </div>
+    <div id="vscode-detail" hidden>
+      <div class="slide-tabs" role="tablist" aria-label="VS Code walkthrough">
+        <button type="button" role="tab" id="vscode-tab-worktrees" aria-controls="vscode-slide-worktrees" aria-selected="true"><span class="slide-number" aria-hidden="true">1</span><span>Worktrees</span></button>
+        <button type="button" role="tab" id="vscode-tab-stacks" aria-controls="vscode-slide-stacks" aria-selected="false" tabindex="-1"><span class="slide-number" aria-hidden="true">2</span><span>Dev stacks</span></button>
+        <button type="button" role="tab" id="vscode-tab-review" aria-controls="vscode-slide-review" aria-selected="false" tabindex="-1"><span class="slide-number" aria-hidden="true">3</span><span>Review</span></button>
+        <button type="button" role="tab" id="vscode-tab-land" aria-controls="vscode-slide-land" aria-selected="false" tabindex="-1"><span class="slide-number" aria-hidden="true">4</span><span>Land</span></button>
+      </div>
+      <section class="slide" role="tabpanel" id="vscode-slide-worktrees" aria-labelledby="vscode-tab-worktrees">
+        <figure class="vscode-window">
+          <figcaption class="vscode-titlebar"><span class="window-lights" aria-hidden="true">● ● ●</span><span>ai-music-video-studio (Workspace)</span><em>Example names</em></figcaption>
+          <div class="vscode-body">
+            <div class="vscode-sidebar">
+              <h3>Source Control</h3>
+              <p class="tree-head">Repositories</p>
+              <ul class="repo-list">
+                <li><strong>ai-music-video-studio</strong><span>main</span><em>stack 0</em></li>
+                <li class="is-selected"><strong>aimvs1-review</strong><span>codex/review</span><em>stack 1</em></li>
+                <li><strong>aimvs2-upload</strong><span>codex/upload</span><em>stack 2</em></li>
+                <li><strong>aimvs3-captions</strong><span>codex/captions</span><em>stack 3</em></li>
+              </ul>
+              <p class="tree-head">aimvs1-review · Staged Changes <span>1</span></p>
+              <ul class="change-list">
+                <li><span>review.service.spec.ts</span><small>apps/api</small><b>M</b></li>
+              </ul>
+              <p class="tree-head">Changes <span>2</span></p>
+              <ul class="change-list">
+                <li class="is-current"><span>review.component.ts</span><small>apps/frontend</small><b>M</b></li>
+                <li><span>review.component.html</span><small>apps/frontend</small><b>M</b></li>
+              </ul>
+            </div>
+            <pre class="vscode-editor"><span class="editor-tab">review.component.ts (Working Tree)</span>
+  readonly canStage = computed(() =>
+<del>−   this.changes().length > 0,</del>
+<ins>+   this.changes().some(change => !change.staged),</ins>
+  );</pre>
+          </div>
+          <div class="vscode-statusbar"><span>⑂ codex/review</span><span>aimvs1-review · :4201</span></div>
+        </figure>
+        <div class="slide-copy">
+          <h2>One worktree per agent task</h2>
+          <p>Codex creates <code>aimvs&lt;N&gt;-&lt;task-slug&gt;</code> on <code>codex/&lt;task-slug&gt;</code> and adds it to my open workspace. <code>N</code> reserves that worktree’s dev stack until it is removed.</p>
+          <p>Stack 0 is my main checkout and is never an agent test target. Several agents work at once, each in its own folder.</p>
+          <a class="detail-link" href="https://github.com/EthanSK/aimvs-dev-skill/blob/main/references/worktree-lifecycle.md">Worktree lifecycle ↗</a>
+        </div>
+      </section>
+      <section class="slide" role="tabpanel" id="vscode-slide-stacks" aria-labelledby="vscode-tab-stacks" hidden>
+        <div class="slide-copy slide-copy-wide">
+          <h2>Each worktree runs its own stack</h2>
+          <p class="stack-summary"><span>Angular</span><span>NestJS</span><span>Firebase Auth, Firestore and Storage</span><span>Nx monorepo</span><span>Docker</span></p>
+        </div>
+        <div class="stack-diagram">
+          <section><h3>Stack 0 <span>mine</span></h3>
+            <ul><li><strong>Angular frontend</strong><span>:4200</span></li><li><strong>NestJS API</strong><span>:3000</span></li></ul>
+            <div class="stack-backend"><ul><li>Firebase emulators</li><li>MinIO</li><li>Download Assets Worker</li></ul><p>My main services</p></div>
+          </section>
+          <section><h3>Stack N <span>one per agent worktree</span></h3>
+            <ul><li><strong>Angular frontend</strong><span>:4200+N</span><small>native watcher</small></li><li><strong>NestJS API</strong><span>:3000+N</span><small>native watcher</small></li></ul>
+            <div class="stack-backend is-docker"><p class="docker-label">Docker</p><ul><li>Firebase emulators</li><li>MinIO</li><li>Download Assets Worker</li></ul><p>Private containers; volumes survive stop and removal</p></div>
+          </section>
+        </div>
+        <div class="slide-copy slide-copy-wide">
+          <p>Frontend and API are native watchers; the API swaps in each good build. Only the backend runs in Docker. Each stack gets its own test browser: Safari, Firefox or Opera, then Codex’s in-app browser. Firebase Auth still uses staging Auth.</p>
+          <a class="detail-link" href="https://github.com/EthanSK/aimvs-dev-skill/blob/main/references/stack-lifecycle.md#ports-per-stack">Stack lifecycle ↗</a>
+        </div>
+      </section>
+      <section class="slide" role="tabpanel" id="vscode-slide-review" aria-labelledby="vscode-tab-review" hidden>
+        <figure class="review-strip">
+          <div class="review-key"><b>5</b><span>Previous change</span></div>
+          <pre>  hold(direction) {
+<del>−   jumpToChange(direction);</del>
+<ins>+   stageCurrentFile();</ins>
+<ins>+   jumpToChange(direction);</ins>
+  }</pre>
+          <div class="review-key"><b>8</b><span>Next change</span></div>
+          <figcaption>Hold 300 ms and release: stage this file, then jump</figcaption>
+        </figure>
+        <div class="slide-copy">
+          <h2>Review each worktree in place</h2>
+          <p>Better Git: press 5 or 8 to jump to the previous or next change. Hold 300 ms and release to stage the current file and jump.</p>
+          <p>I stage what I’ve reviewed; agents commit when I ask. Their own test files and project instructions have separate staging rules.</p>
+          <a class="detail-link" href="https://github.com/EthanSK/aimvs-dev-skill/blob/main/references/git-state-and-code-review.md">Git state and code review ↗</a>
+        </div>
+      </section>
+      <section class="slide" role="tabpanel" id="vscode-slide-land" aria-labelledby="vscode-tab-land" hidden>
+        <ol class="land-steps">
+          <li><strong>Check</strong><span>the staged snapshot and conflicts with main</span></li>
+          <li><strong>Stop</strong><span>export and stop the stack; volumes stay</span></li>
+          <li><strong>Land</strong><span>commit and merge the approved snapshot into local main</span></li>
+          <li><strong>Remove</strong><span>the VS Code folder and Git worktree</span></li>
+          <li><strong>Release</strong><span>stack number N</span></li>
+        </ol>
+        <div class="slide-copy">
+          <h2>One message lands it</h2>
+          <p>Once everything is staged, I ask for <code>mmcdw</code>. Conflicts pause landing for a rebase and review; it never pushes or deletes branches or volumes.</p>
+          <a class="detail-link" href="https://github.com/EthanSK/aimvs-dev-skill/blob/main/references/worktree-lifecycle.md#land-and-remove-a-completed-worktree">Land and remove a worktree ↗</a>
+        </div>
+      </section>
+      <div class="slide-steps"><button type="button" data-slide-step="-1">← Previous</button><button type="button" data-slide-step="1">Next →</button></div>
     </div>
     <div id="sausages-detail" hidden><a class="detail-link" href="https://www.tesco.com/shop/en-GB/products/280002982">View product ↗</a></div>
     </div>
