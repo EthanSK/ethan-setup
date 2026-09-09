@@ -159,7 +159,6 @@
 
 /* The room photograph is the interface; keep navigation quiet and readable over it. */
 .room-poster { object-fit: cover; }
-@media (min-aspect-ratio: 1586 / 992) { .room-poster { object-fit: contain; } } /* Match the full-height Three.js opening view on wide windows before the canvas loads. */
 .room-header { padding: 22px 28px; align-items: start; pointer-events: none; }
 .room-header a { pointer-events: auto; }
 .setup-brand { font-size: 21px; letter-spacing: -.045em; color: #f5ebda; text-shadow: 0 2px 18px #000; }

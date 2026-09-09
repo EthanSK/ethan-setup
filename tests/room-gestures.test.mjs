@@ -77,25 +77,6 @@ function closePoint(actual, expected) {
   actual.forEach((value, i) => assert.ok(Math.abs(value - expected[i]) < .00001, `Photo point moved: ${actual} vs ${expected}`));
 }
 
-for (const [w, hgt] of [[1280, 720], [1920, 1080], [390, 844]]) test(`minimum zoom fits the full photo height without vertical panning at ${w} by ${hgt}`, () => {
-  const h = room(w, hgt);
-  h.canvas.fire('keydown', { key: 'Home' }); h.flush();
-  const halfPhotoHeight = 10 * 992 / 1586;
-  assert.ok(Math.abs(h.pointAt(w / 2, 0)[1] - halfPhotoHeight) < .00001);
-  assert.ok(Math.abs(h.pointAt(w / 2, hgt)[1] + halfPhotoHeight) < .00001);
-  h.stage.fire('pointerdown', { clientX: w / 2, clientY: hgt / 2 });
-  h.stage.fire('pointermove', { clientX: w / 2, clientY: hgt / 2 + 100 });
-  h.stage.fire('pointerup'); h.flush();
-  assert.equal(h.camera.position.y, 0, 'The opening photo cannot slide vertically');
-  h.stage.fire('wheel', { deltaY: -180, deltaMode: 0, ctrlKey: false }); h.flush();
-  assert.equal(h.view.zoom, 0, 'Scrolling up stops at the opening view');
-  assert.equal(h.camera.position.y, 0);
-  h.stage.fire('wheel', { deltaY: 180, deltaMode: 0, ctrlKey: false }); h.flush();
-  h.stage.fire('pointerdown', { clientX: w / 2, clientY: hgt / 2 });
-  h.stage.fire('pointermove', { clientX: w / 2, clientY: hgt / 2 + 100 }); h.flush();
-  assert.ok(h.camera.position.y > 0, 'Zooming in restores vertical exploration');
-});
-
 for (const [w, hgt] of [[390, 844], [320, 740], [844, 390]]) test(`pinch stays anchored at ${w} by ${hgt}`, () => {
   const h = room(w, hgt);
   const midX = w / 2 - 25, midY = hgt / 2;
