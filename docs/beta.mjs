@@ -107,7 +107,7 @@ function render() { if (!frame && !document.hidden) { lastFrame = performance.no
 function zoom(value) {
   target.zoom = Math.max(0, Math.min(1.35, value));
   canvas.classList.toggle("at-zoom-limit", target.zoom === 1.35);
-  if (target.zoom < .15) { target.panX = width < 760 ? 3.4 : 0; target.panY = Math.max(0, (roomHeight - roomWidth * stage.clientHeight / stage.clientWidth) / 2); } // Keep the full upper monitor in the wide-screen starting crop.
+  if (target.zoom < .15) { target.panX = width < 760 ? 3.4 : 0; target.panY = -Math.max(0, (roomHeight - roomWidth * stage.clientHeight / stage.clientWidth) / 2); } // Start at the photo bottom when returning to the opening view, as Ethan requested.
   stage.classList.toggle("room-entered", target.zoom > .15);
   document.querySelector('[data-view="desk"]').setAttribute("aria-pressed", String(target.zoom > .15));
   if (!renderer) {
@@ -142,7 +142,7 @@ async function createRoom() {
     new ResizeObserver(() => {
       cancelRoomGesture(); // Rotation or a resized viewport invalidates the active fingers' screen coordinates.
       width = stage.clientWidth; height = stage.clientHeight;
-      if (target.zoom === 0) { target.panX = width < 760 ? 3.4 : 0; target.panY = Math.max(0, (roomHeight - roomWidth * height / width) / 2); } // Start on Ethan in portrait and keep the upper monitor inside the wide-screen crop.
+      if (target.zoom === 0) { target.panX = width < 760 ? 3.4 : 0; target.panY = -Math.max(0, (roomHeight - roomWidth * height / width) / 2); } // Start on Ethan in portrait and align the photo bottom in the wide-screen crop.
       hotspots.forEach(button => hotspotWidths.set(button, button.querySelector(".hotspot-label").offsetWidth)); // Measure labels once per resize, not between style writes on every animation frame.
       camera.aspect = width / height; camera.updateProjectionMatrix();
       renderer.setSize(width, height, false); render();
