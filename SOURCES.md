@@ -54,11 +54,11 @@ The model pass used the existing official multi-angle gallery captures, then add
 
 ## Room image and screens
 
-The active `docs/assets/room.svg` restores the complete scene from commit `1fd97ec`, immediately before the Dell timeline/VS Code edit. Its original face, room, shirt, shorts, body, hands, two desk mice, chair and sausage legs remain unchanged. That version already includes the portrait-reference correction, the actual Tahoe rocks-in-clear-water wallpaper on the MacBook, the Samsung OBS/CPU/GPU screen and the small Canon camera patch.
+The active `docs/assets/room.svg` uses the complete scene from commit `c220035`, the earlier reference Ethan selected after comparing the saved pictures. Its original face, room, shirt, shorts, body, hands, two desk mice, chair and sausage legs remain unchanged. That version already includes the portrait-reference correction, the actual Tahoe rocks-in-clear-water wallpaper on the MacBook and the Samsung OBS/CPU/GPU screen; it predates the small Canon camera patch.
 
 Only the Dell's screen interior is updated, using the already generated `room-dell-legs.webp` through its exact screen polygon. The left half references the 00:53 timeline frame from Ethan's Y Combinator AIMVS/Vibideo demo; the right references his supplied VS Code diff screenshot. These are generated screenshot inserts, with private conversation/account/workspace details removed, not pixel-exact captures. The later leg shortening and full-room reconstruction are not applied.
 
-`scripts/build-room-image.py` preserves the earlier composition and applies only this Dell overlay. A lossless render comparison against `1fd97ec` found zero changed pixels outside the Dell screen. The same self-contained SVG serves the room, fallback and OBS example; its proportional 1586 × 992 JPEG export supplies the social card. Historical generated assets and prompts remain as provenance and must not be mistaken for the active image.
+`scripts/build-room-image.py` preserves the selected composition and applies only this Dell overlay. A lossless render comparison against `c220035` found zero changed pixels outside the Dell screen. The same self-contained SVG serves the room, fallback and OBS example; its proportional 1586 × 992 JPEG export supplies the social card. Historical generated assets and prompts remain as provenance and must not be mistaken for the active image.
 
 The rotatable MacBook separately uses `docs/assets/macbook-wallpaper.webp`, exported proportionally from Apple's installed Tahoe wallpaper. Apple retains its wallpaper rights. Product-gallery provenance is listed above; the room and generated equipment remain illustrations, not an untouched portrait, measured room scan or manufacturer CAD.
 
@@ -90,7 +90,7 @@ The OBS view records a safe settings snapshot checked on 8 September 2026 agains
 
 ## September 2026 interface audit
 
-The expanded project directory uses public repository metadata checked without authentication on 8 September 2026; `docs/projects.json` records the selected repository URLs. The software hotspots derive the same synced `apps.json` as the app directory; Codex and OBS keep their separate screen views. Personal skill cards contain short capability descriptions, without private paths or unpublished repository links.
+The expanded project directory uses public repository metadata checked without authentication on 8 September 2026; `docs/projects.json` records the selected repository URLs. The app directory uses the synced `apps.json`; Codex and OBS keep their separate screen views. Personal skill cards contain short capability descriptions, without private paths or unpublished repository links.
 
 The wide Scroll to zoom heading uses the same Microgramma D Extended Bold font asset as Ethan's AIMVS heading, at his request. The included font is third-party artwork and is not covered by this repository's MIT code licence.
 
