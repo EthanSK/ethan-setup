@@ -16,6 +16,8 @@ The website lets you try those controls and the app’s HUD without installing a
 
 ## Look around
 
+Matching software and skills appear as prominent links at the top of each relevant dialog: Agentic Mouse on both mice, VoiceInk++ for dictation, Better Git VS Code and Response Preferences on the Dell, and OBS++ / Aitum++ on the recording setup. Each opens its public website or repository in a new browser page.
+
 - The room photo fills the window without stretching and starts aligned to the bottom. You can pan across the cropped area, including in the opening view.
 - Click the background to zoom in around that point and reveal nearby items, or drag to move around.
 - Scroll down to zoom in and up to zoom out. Spread two fingers to zoom in and pinch them together to zoom out; the photo stays under the midpoint of your fingers. You can start on an item label and keep dragging with one finger after lifting the other.

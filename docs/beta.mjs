@@ -283,6 +283,20 @@ const topics = {
   desk: ["My desk setup", "Both mice stay on the desk", "High sensitivity keeps movement small, and I sometimes use both mice to click through code review faster."],
   chair: ["My desk setup", "Lean back without reaching for a keyboard", "I use thumb controls and dictation with the footrest out, switching hands whenever I want."],
 };
+const relatedTools = {
+  mouse: { name: "Agentic Mouse", url: "https://ethansk.github.io/agentic-mouse/", icon: "./agentic-mouse-mark.svg?v=__SITE_VERSION__" },
+  voice: { name: "VoiceInk++", url: apps.find(app => app.id === "voiceinkplusplus").url, icon: new URL(apps.find(app => app.id === "voiceinkplusplus").icon, "https://ethansk.github.io/response-preferences/").href },
+  code: { name: "Better Git VS Code", url: "https://marketplace.visualstudio.com/items?itemName=EthanSK.better-git-vscode", icon: "./assets/apps/vsCode.png" },
+  replies: { name: "Response Preferences", url: "https://ethansk.github.io/response-preferences/", icon: "./assets/apps/codex.png" },
+  obs: { name: "OBS++", url: apps.find(app => app.id === "obs").url, icon: new URL(apps.find(app => app.id === "obs").icon, "https://ethansk.github.io/response-preferences/").href },
+  aitum: { name: "Aitum++", url: "https://github.com/EthanSK/obs-aitum-stream-suite" },
+};
+const topicTools = {
+  corsair: ["mouse", "voice", "code"], razer: ["mouse", "voice", "code"],
+  shure: ["voice", "obs"], scarlett: ["obs"], canon: ["obs"],
+  dell: ["code", "replies"], samsung: ["obs", "aitum"],
+  code: ["code", "mouse"], voice: ["voice", "mouse"], codex: ["replies"], obs: ["obs", "aitum"],
+}; // Link the tools documented for each item; keep hardware product links and separate room hotspots intact.
 /** Follow nearby photo anchors once around the desk, keeping related demos beside their hardware. */
 function buildDialogRoute() {
   const remaining = [...hotspots];
@@ -340,9 +354,22 @@ function openTopic(topic, trigger) {
   const mouse = topic === "razer" || topic === "corsair";
   const panel = mouse ? "mouse" : topic === "code" || topic === "voice" || topic === "sausages" ? topic : (topic === "codex" || topic === "obs") ? "screen" : "hardware"; // Hardware opens its product; separate nearby Codex and OBS hotspots own the software views, never combined monitor/software labels (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
   for (const name of ["mouse", "code", "voice", "hardware", "screen", "sausages"]) document.querySelector(`#${name}-detail`).hidden = name !== panel;
+  const toolLinks = document.querySelector("#detail-tools");
+  toolLinks.replaceChildren();
+  for (const id of topicTools[topic] || []) {
+    const tool = relatedTools[id];
+    const link = document.createElement("a"); link.href = tool.url; link.target = "_blank"; link.rel = "noopener noreferrer";
+    if (tool.icon) {
+      const icon = document.createElement("img"); icon.src = tool.icon; icon.alt = ""; icon.width = 26; icon.height = 26;
+      link.append(icon);
+    }
+    const name = document.createElement("span"); name.textContent = `${tool.name} ↗`;
+    link.append(name); toolLinks.append(link);
+  }
+  toolLinks.hidden = !toolLinks.childElementCount;
   const productLink = document.querySelector("#product-link");
   if (topic === "scarlett") document.querySelector(".product-info").prepend(description); // Keep Ethan's Scarlett explanation beside its image without duplicating it in the heading.
-  else document.querySelector(".detail-heading").insertBefore(description, productLink);
+  else document.querySelector(".detail-heading").insertBefore(description, toolLinks);
   productLink.hidden = !item;
   if (item) productLink.href = item.url;
   if (mouse) {
