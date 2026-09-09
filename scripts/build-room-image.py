@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Restore the pre-timeline room with only the requested screen content changed."""
+"""Preserve the selected pre-camera room with only the Dell screen updated."""
 import base64
 from pathlib import Path
 
@@ -7,11 +7,10 @@ ASSETS = Path(__file__).resolve().parents[1] / 'docs' / 'assets'
 
 
 def room_image():
-    """Preserve the original room outside the corrected head, screens and small Canon region."""
+    """Assemble the selected room's existing portrait and screens with the Dell insert."""
     original = base64.b64encode((ASSETS / 'room.webp').read_bytes()).decode('ascii')
     screens = base64.b64encode((ASSETS / 'room-screens.webp').read_bytes()).decode('ascii')
     details = base64.b64encode((ASSETS / 'room-details.webp').read_bytes()).decode('ascii')
-    camera = base64.b64encode((ASSETS / 'room-camera.webp').read_bytes()).decode('ascii')
     dell = base64.b64encode((ASSETS / 'room-dell-legs.webp').read_bytes()).decode('ascii')
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="1586" height="992" viewBox="0 0 1586 992">
   <title>Ethan's setup with his work screen and OBS layout</title>
@@ -31,20 +30,16 @@ def room_image():
     <clipPath id="laptop">
       <polygon points="26,433 235,428 253,535 57,560"/>
     </clipPath>
-    <mask id="camera" maskUnits="userSpaceOnUse" x="779" y="113" width="148" height="115">
-      <rect x="782" y="116" width="142" height="109" rx="2" fill="white" filter="url(#portrait-edge)"/>
-    </mask>
   </defs>
   <image width="1586" height="992" href="data:image/webp;base64,{original}"/>
   <image width="1586" height="992" href="data:image/webp;base64,{screens}" clip-path="url(#screens)"/>
   <image width="1586" height="992" href="data:image/webp;base64,{dell}" clip-path="url(#dell)"/>
   <use href="#details" clip-path="url(#laptop)"/>
   <use href="#details" mask="url(#portrait)"/>
-  <image x="779" y="113" width="148" height="115" href="data:image/webp;base64,{camera}" mask="url(#camera)"/>
 </svg>
-'''  # Ethan rejected both later room/leg revisions: keep the exact 1fd97ec portrait, body, legs and room; use the later image only inside the Dell screen and never reintroduce full-frame regeneration (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
+'''  # Ethan selected the c220035 reference: preserve its exact portrait, body, sausage legs and room; only update the Dell screen, without reintroducing the later camera patch or full-frame regeneration (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
 
 
 if __name__ == '__main__':
     (ASSETS / 'room.svg').write_text(room_image())
-    print('Restored the pre-timeline room; only the Dell screen differs from 1fd97ec, which already includes the water wallpaper.')
+    print('Preserved the selected c220035 room; only the Dell screen differs, with the existing water wallpaper retained.')
