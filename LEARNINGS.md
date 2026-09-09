@@ -16,6 +16,8 @@ The room needs a plain background-click action as well as drag handling. Increas
 
 ## Monitor views
 
+Keep corresponding software and skill links clear at the top of relevant dialogs, including both mice. Use public project websites where available and Ethan’s public forks otherwise; do not send OBS fork links to the upstream OBS site. Hide the link group for unrelated hardware, and keep each product link and hotspot separate. Screen demos retain a compact link row without restoring their removed title/subtitle chrome.
+
 The Dell room hotspot opens its rotatable monitor model, specs and product link. A separate nearby Codex hotspot opens the full-height desktop embed; do not route the Dell product click to that website again. The Samsung hotspot also opens its monitor product; a nearby OBS hotspot owns the recording demo and setup details. Do not combine distinct hardware/software identities in one label or click action. Do not reintroduce duplicate headings, subtitles or a Desktop / 3D monitor toolbar above the embedded screen. Keep its accessible name, close control and outside-click dismissal.
 
 Screenshots requested for the main room picture must appear inside its photographed displays, not only in click-open demos. Inspect the screen edges, readable layout and head occlusion at close zoom. Ethan's MacBook wallpaper means the actual Apple Tahoe rocks in clear water, not dry pebbles or blurred editor windows.
