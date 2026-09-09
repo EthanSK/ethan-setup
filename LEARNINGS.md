@@ -10,7 +10,7 @@ A ground shadow placed below the unrotated model can cut through its lower half 
 
 ## Background navigation
 
-The opening view fits the photo's full height, so minimum zoom cannot move it vertically. Filling wide windows cropped the photo and left unwanted vertical travel; keep the height fit, including in the loading poster, and allow panning inside the cropped area after zooming in. Portrait windows still start on Ethan and can move sideways. Keep Scroll to zoom at the earlier compact size (25–35px, 27px on narrow screens); the larger Microgramma override covered too much of the photo.
+The opening photo fills the viewport without stretching. Ethan preferred its immersive crop and panning to the full-height version's side margins; do not restore the height-fit framing. Portrait windows still start on Ethan and can move sideways. Keep Scroll to zoom at the earlier compact size (25–35px, 27px on narrow screens); the larger Microgramma override covered too much of the photo.
 
 The room needs a plain background-click action as well as drag handling. Increase zoom around the clicked photo point using the currently visible camera scale, and retain the drag/pinch click suppression so releasing a gesture cannot also zoom. Anchor only after the photo viewport is measured; a click can arrive during image loading. Give visible objects label space before distant edge arrows. Verify actual clicks at different coordinates, unchanged scale after dragging, drag-cursor release, wheel direction, and product/backdrop clicks in the built-in browser.
 
