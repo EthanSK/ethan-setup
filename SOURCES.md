@@ -84,6 +84,12 @@ App icons and the public desktop’s artwork retain their original owners’ rig
 
 Ethan’s photo and likeness are published for this personal setup showcase. Reusing the source code does not grant permission to impersonate him or reuse his photographs as your own setup.
 
+## VS Code walkthrough
+
+The VS Code hotspot's four slides summarise the workflow documented in the public [AIMVS dev skill](https://github.com/EthanSK/aimvs-dev-skill). On 10 September 2026 its published commit `d6def1abbe9808587b975f92e5b59adc36f9dd9e` had tree `224c637bde8a1c166f22b4ee8cee58ff8b888959`, identical to the committed skill folder in the private AIMVS repository, including the new stack overview in its README. The slide links point at the same text the skill's own routing uses: `worktree-lifecycle.md` for naming, reservation and landing, `stack-lifecycle.md` for the port table and native-versus-Docker split, and `git-state-and-code-review.md` for the staging rules and the `mmcdw` sequence. The Angular, NestJS, Nx, Firebase and Docker summary was checked against the AIMVS root `package.json`, `nx.json` and Compose files; no dependency versions are published.
+
+The Source Control view, worktree names (`aimvs1-review`, `aimvs2-upload`, `aimvs3-captions`), branch names, file names and diff lines are drawn examples chosen for the website, not captures of real tasks. Ethan's supplied VS Code screenshot contained private source and is not published; the Dell screen insert in the room photo remains the earlier generated image. Better Git's press and hold behaviour repeats the existing code-review copy. The private AIMVS app repository is not linked anywhere on the site.
+
 ## OBS setup details
 
 The OBS view records a safe settings snapshot checked on 8 September 2026 against the installed OBS++ 32.2.2 bundle, Aitum++ 1.2.1 log entry, current profile settings and recording log. Desk and laptop profiles are identified separately. The website never exports raw profiles, stream keys, private browser dock addresses or device IDs. The Aitum canvas size and Apple H.264 encoder alignment are different values and are labelled separately. The public forks own their change notes and build instructions: [OBS++](https://github.com/EthanSK/obs-plus-plus) and [Aitum++](https://github.com/EthanSK/obs-aitum-stream-suite). Neither currently publishes a binary installer; the example is a simulation, not native-runtime verification.

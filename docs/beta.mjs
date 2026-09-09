@@ -276,6 +276,7 @@ const topics = {
   corsair: ["Right hand · Agentic Mouse", "Corsair Scimitar", "Twelve thumb controls for working with agents, with the top button for VoiceInk++ dictation."],
   razer: ["Left hand · Agentic Mouse", "Razer Naga", "The same controls mirrored for my left hand, so I can switch whenever I want."],
   codex: ["", "Codex", ""],
+  vscode: ["Vibedio development", "My VS Code setup", "Every agent task gets its own worktree and dev stack; I review them all in one VS Code window."],
   obs: ["", "OBS", ""],
   sausages: ["", "Tesco Finest sausages", "(This is a joke, I only eat M&S, Waitrose, or Deliveroo sausages.)"],
   code: ["Great for Agentic Engineers", "Review code without moving your hand", "Quick press to jump to a change, or hold and release to stage the current file and jump in that direction."],
@@ -288,6 +289,7 @@ const relatedTools = {
   voice: { name: "VoiceInk++", url: apps.find(app => app.id === "voiceinkplusplus").url, icon: new URL(apps.find(app => app.id === "voiceinkplusplus").icon, "https://ethansk.github.io/response-preferences/").href },
   code: { name: "Better Git VS Code", url: "https://marketplace.visualstudio.com/items?itemName=EthanSK.better-git-vscode", icon: "./assets/apps/vsCode.png" },
   replies: { name: "Response Preferences", url: "https://ethansk.github.io/response-preferences/", icon: "./assets/apps/codex.png" },
+  skill: { name: "AIMVS dev skill", url: "https://github.com/EthanSK/aimvs-dev-skill", icon: "./assets/apps/codex.png" }, // The public mirror of the Codex skill; the private AIMVS app repository is never linked.
   obs: { name: "OBS++", url: apps.find(app => app.id === "obs").url, icon: new URL(apps.find(app => app.id === "obs").icon, "https://ethansk.github.io/response-preferences/").href },
   aitum: { name: "Aitum++", url: "https://github.com/EthanSK/obs-aitum-stream-suite" },
 };
@@ -295,7 +297,7 @@ const topicTools = {
   corsair: ["mouse", "voice", "code"], razer: ["mouse", "voice", "code"],
   shure: ["voice", "obs"], scarlett: ["obs"], canon: ["obs"],
   dell: ["code", "replies"], samsung: ["obs", "aitum"],
-  code: ["code", "mouse"], voice: ["voice", "mouse"], codex: ["replies"], obs: ["obs", "aitum"],
+  code: ["code", "mouse"], voice: ["voice", "mouse"], codex: ["replies"], vscode: ["skill", "code"], obs: ["obs", "aitum"],
 }; // Link the tools documented for each item; keep hardware product links and separate room hotspots intact.
 /** Follow nearby photo anchors once around the desk, keeping related demos beside their hardware. */
 function buildDialogRoute() {
@@ -352,8 +354,8 @@ function openTopic(topic, trigger) {
   description.textContent = copy[2];
   description.hidden = !copy[2];
   const mouse = topic === "razer" || topic === "corsair";
-  const panel = mouse ? "mouse" : topic === "code" || topic === "voice" || topic === "sausages" ? topic : (topic === "codex" || topic === "obs") ? "screen" : "hardware"; // Hardware opens its product; separate nearby Codex and OBS hotspots own the software views, never combined monitor/software labels (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
-  for (const name of ["mouse", "code", "voice", "hardware", "screen", "sausages"]) document.querySelector(`#${name}-detail`).hidden = name !== panel;
+  const panel = mouse ? "mouse" : ["code", "voice", "vscode", "sausages"].includes(topic) ? topic : (topic === "codex" || topic === "obs") ? "screen" : "hardware"; // Hardware opens its product; separate nearby Codex, VS Code and OBS hotspots own the software views, never combined monitor/software labels (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
+  for (const name of ["mouse", "code", "voice", "vscode", "hardware", "screen", "sausages"]) document.querySelector(`#${name}-detail`).hidden = name !== panel;
   const toolLinks = document.querySelector("#detail-tools");
   toolLinks.replaceChildren();
   for (const id of topicTools[topic] || []) {
@@ -379,6 +381,7 @@ function openTopic(topic, trigger) {
   }
   if (topic === "code") updateReview();
   if (topic === "voice") updateVoice();
+  if (topic === "vscode") showSlide(0); // Start the walkthrough from its first slide on every opening, like the product galleries.
   if (panel === "hardware") showHardware(topic);
   if (panel === "screen") showScreen(topic);
   if (item) disposeGallery = createProductGallery(document.querySelector(mouse ? ".mouse-media" : ".product-media"), document.querySelector(mouse ? ".beta-mice" : ".product-stage"), item);
@@ -523,6 +526,38 @@ document.querySelector("#dictate").addEventListener("click", () => {
   }
   updateVoice();
 });
+
+const slideTabs = [...document.querySelectorAll('#vscode-detail [role="tab"]')];
+const slidePanels = slideTabs.map(tab => document.getElementById(tab.getAttribute("aria-controls")));
+const slideSteps = [...document.querySelectorAll("[data-slide-step]")];
+let slideIndex = 0;
+/** Show one walkthrough slide; the tabs, panels and step buttons follow the same index, with no autoplay. */
+function showSlide(index, focusTab = false) {
+  slideIndex = Math.max(0, Math.min(slideTabs.length - 1, index));
+  slideTabs.forEach((tab, i) => {
+    const active = i === slideIndex;
+    tab.setAttribute("aria-selected", String(active));
+    tab.tabIndex = active ? 0 : -1; // Roving focus: arrow keys move between slides, Tab leaves the strip.
+    slidePanels[i].hidden = !active;
+  });
+  for (const button of slideSteps) {
+    const step = Number(button.dataset.slideStep);
+    const destination = slideTabs[slideIndex + step];
+    button.disabled = !destination;
+    button.textContent = step < 0 ? `← ${destination ? destination.lastElementChild.textContent : "Previous"}` : `${destination ? destination.lastElementChild.textContent : "Next"} →`; // Name the destination so these differ from the outer arrows that switch desk items.
+  }
+  if (focusTab) slideTabs[slideIndex].focus(); // Bring the selected tab back into view after a mobile reader reaches the bottom of a long slide.
+}
+slideTabs.forEach((tab, i) => {
+  tab.addEventListener("click", () => showSlide(i));
+  tab.addEventListener("keydown", event => {
+    const next = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: slideTabs.length - 1 }[event.key];
+    if (next === undefined) return;
+    event.preventDefault();
+    showSlide(next, true);
+  });
+});
+for (const button of slideSteps) button.addEventListener("click", () => showSlide(slideIndex + Number(button.dataset.slideStep), true));
 
 /** Keep clicks inside a dialog intact; a press and release on its backdrop dismiss it. */
 function dismissOutside(dialog) {
