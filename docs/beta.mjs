@@ -198,8 +198,8 @@ function startRoomGesture() {
 stage.addEventListener("pointerdown", event => {
   if (event.button !== 0 || detail.open || directory.open) return;
   if (!roomPointers.size) dragged = false;
-  const hotspotTouch = event.pointerType === "touch" && event.target.closest(".room-hotspots button");
-  if (!hotspotTouch && event.target.closest("button:not(#enter-room), a")) return; // Fingers can start a room pinch on an item label; toolbar buttons and links keep their own input.
+  const hotspot = event.target.closest(".room-hotspots button");
+  if (!hotspot && event.target.closest("button:not(#enter-room), a")) return; // Room labels share drag/pinch input for mouse, pen and touch; toolbar buttons and links keep their own input.
   roomPointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
   startRoomGesture();
 });
