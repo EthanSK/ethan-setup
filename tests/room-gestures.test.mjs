@@ -77,6 +77,12 @@ function closePoint(actual, expected) {
   actual.forEach((value, i) => assert.ok(Math.abs(value - expected[i]) < .00001, `Photo point moved: ${actual} vs ${expected}`));
 }
 
+for (const [w, hgt] of [[1280, 720], [844, 390], [390, 844]]) test(`opening view aligns the photo bottom at ${w} by ${hgt}`, () => {
+  const h = room(w, hgt);
+  h.canvas.fire('keydown', { key: 'Home' }); h.flush();
+  assert.ok(Math.abs(h.pointAt(w / 2, hgt)[1] + 10 * 992 / 1586) < .00001, 'The bottom edge of the photo meets the viewport bottom');
+});
+
 for (const [w, hgt] of [[390, 844], [320, 740], [844, 390]]) test(`pinch stays anchored at ${w} by ${hgt}`, () => {
   const h = room(w, hgt);
   const midX = w / 2 - 25, midY = hgt / 2;

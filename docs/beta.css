@@ -158,7 +158,7 @@
 }
 
 /* The room photograph is the interface; keep navigation quiet and readable over it. */
-.room-poster { object-fit: cover; }
+.room-poster { object-fit: cover; object-position: center bottom; }
 .room-header { padding: 22px 28px; align-items: start; pointer-events: none; }
 .room-header a { pointer-events: auto; }
 .setup-brand { font-size: 21px; letter-spacing: -.045em; color: #f5ebda; text-shadow: 0 2px 18px #000; }
@@ -305,7 +305,7 @@
  body:has(.room-entered) .project-rail a, body:has(.room-entered) .project-rail button { padding:7px; }
 }
 
-@media(max-width:759px){.room-poster{object-position:67% center}}
+@media(max-width:759px){.room-poster{object-position:67% bottom}}
 
 #product-movement { position: absolute; left: 12px; bottom: 12px; right: 110px; display: flex; gap: 6px; align-items: center; }
 #product-movement[hidden] { display: none; }
