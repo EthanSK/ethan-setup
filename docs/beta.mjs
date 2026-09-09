@@ -352,7 +352,7 @@ function openTopic(topic, trigger) {
   description.textContent = copy[2];
   description.hidden = !copy[2];
   const mouse = topic === "razer" || topic === "corsair";
-  const panel = mouse ? "mouse" : topic === "code" || topic === "voice" || topic === "sausages" ? topic : (topic === "codex" || topic === "obs") ? "screen" : "hardware"; // Hardware opens its product; separate nearby Codex and OBS hotspots own the software views, never combined monitor/software labels (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
+  const panel = mouse ? "mouse" : ["code", "voice", "sausages"].includes(topic) ? topic : (topic === "codex" || topic === "obs") ? "screen" : "hardware"; // Hardware opens its product; separate nearby Codex, VS Code and OBS hotspots own the software views, never combined monitor/software labels (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
   for (const name of ["mouse", "code", "voice", "hardware", "screen", "sausages"]) document.querySelector(`#${name}-detail`).hidden = name !== panel;
   const toolLinks = document.querySelector("#detail-tools");
   toolLinks.replaceChildren();
@@ -523,6 +523,7 @@ document.querySelector("#dictate").addEventListener("click", () => {
   }
   updateVoice();
 });
+
 
 /** Keep clicks inside a dialog intact; a press and release on its backdrop dismiss it. */
 function dismissOutside(dialog) {
