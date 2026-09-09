@@ -16,6 +16,7 @@ The website lets you try those controls and the app’s HUD without installing a
 
 ## Look around
 
+- The opening view fits the photo's full height, with side margins on wide windows. Vertical panning starts after zooming in; narrow windows can still move sideways across the room.
 - Click the background to zoom in around that point and reveal nearby items, or drag to move around.
 - Scroll down to zoom in and up to zoom out. Spread two fingers to zoom in and pinch them together to zoom out; the photo stays under the midpoint of your fingers. You can start on an item label and keep dragging with one finger after lifting the other.
 - Click a mouse, screen or hardware label to move closer and open it. Edge arrows point to items outside the view.

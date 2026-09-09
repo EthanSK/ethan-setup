@@ -159,6 +159,7 @@
 
 /* The room photograph is the interface; keep navigation quiet and readable over it. */
 .room-poster { object-fit: cover; }
+@media (min-aspect-ratio: 1586 / 992) { .room-poster { object-fit: contain; } } /* Match the full-height Three.js opening view on wide windows before the canvas loads. */
 .room-header { padding: 22px 28px; align-items: start; pointer-events: none; }
 .room-header a { pointer-events: auto; }
 .setup-brand { font-size: 21px; letter-spacing: -.045em; color: #f5ebda; text-shadow: 0 2px 18px #000; }
@@ -315,7 +316,7 @@
 @media (max-width: 600px) { #product-movement { right: 12px; bottom: 48px; } #product-movement select { flex: 1; } }
 
 @font-face { font-family: Microgramma; src: url("./assets/fonts/microgramma-bold.otf?v=__SITE_VERSION__") format("opentype"); font-style: normal; font-weight: 700; font-display: swap; }
-#enter-room { max-width: 88vw; font-family: Microgramma, sans-serif; font-size: clamp(36px, 5.4vw, 78px); font-weight: 700; letter-spacing: .025em; line-height: 1.15; }
+#enter-room { max-width: 88vw; font-family: Microgramma, sans-serif; font-weight: 700; letter-spacing: .025em; line-height: 1.15; } /* Keep the earlier compact size rules; Ethan rejected the oversized prompt covering the photo (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70). */
 #enter-room span { font-size: 1em; }
 .room-header .room-classic { display: flex; align-items: center; gap: 9px; }
 .room-classic svg { width: 21px; height: 21px; }
@@ -330,7 +331,7 @@
 .directory-projects strong { display: block; font-size: 12px; margin-bottom: 7px; }
 .directory-projects span { display: block; font-size: 10px; color: #aeb9c9; line-height: 1.5; }
 .directory-projects a:hover { border-color: #ecdab970; }
-@media (max-width: 760px), (max-height: 520px) { #enter-room { font-size: clamp(30px, 6.2vw, 48px); max-width: 88vw; } .product-link { font-size: 16px; } .directory-sections { flex-wrap: wrap; } }
+@media (max-width: 760px), (max-height: 520px) { .product-link { font-size: 16px; } .directory-sections { flex-wrap: wrap; } }
 @media (max-width: 420px) { .directory-projects { grid-template-columns: 1fr; } }
 
 
