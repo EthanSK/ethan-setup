@@ -113,6 +113,44 @@ test('a pinch can begin over an item without opening it on release', () => {
   assert.equal(h.stage.fire('click', { target: hotspot }).defaultPrevented, true);
 });
 
+for (const pointerType of ['mouse', 'pen', 'touch']) test(`${pointerType} dragging from a floating label pans without opening or zooming`, () => {
+  const h = room(), hotspot = new h.Element(), label = new h.Element();
+  label.closest = selector => selector.includes('.room-hotspots') || selector.includes('button') ? hotspot : null;
+  const input = { target: label, pointerType, clientX: 100, clientY: 400 };
+  const anchor = h.pointAt(100, 400), initialZoom = h.view.zoom;
+  h.stage.fire('pointerdown', input);
+  h.stage.fire('pointermove', { ...input, clientX: 170, clientY: 430 });
+  h.flush();
+  closePoint(h.pointAt(170, 430), anchor);
+  assert.equal(h.stage.captured.has(1), true, 'The room owns the pointer once the label press becomes a drag');
+  h.stage.fire('pointerup', { ...input, clientX: 170, clientY: 430 });
+  assert.equal(h.stage.fire('click', input).defaultPrevented, true, 'Releasing over the label cannot open its dialog');
+  assert.equal(h.stage.fire('click').defaultPrevented, true, 'Releasing over the room cannot also zoom');
+  assert.equal(h.target.zoom, initialZoom);
+  const released = { ...h.view };
+  h.stage.fire('pointermove', { ...input, buttons: 0, clientX: 200 });
+  assert.deepEqual({ ...h.view }, released, 'The room stops moving after release');
+  assert.equal(h.stage.captured.size, 0);
+  assert.equal(h.canvas.classes.has('is-dragging'), false);
+  h.stage.fire('pointerdown', input);
+  h.stage.fire('pointermove', { ...input, clientX: 102 });
+  h.stage.fire('pointerup', { ...input, clientX: 102 });
+  assert.equal(h.stage.fire('click', input).defaultPrevented, false, 'A subsequent click with slight hand movement still opens the item');
+});
+
+test('toolbar buttons and links do not start a room drag', () => {
+  for (const controlType of ['button', 'a']) {
+    const h = room(), control = new h.Element(), before = { ...h.view };
+    control.closest = selector => !selector.includes('.room-hotspots') && selector.includes(controlType) ? control : null;
+    const input = { target: control, pointerType: 'mouse' };
+    h.stage.fire('pointerdown', input);
+    h.stage.fire('pointermove', { ...input, clientX: 200 });
+    assert.equal(h.pointers.size, 0);
+    assert.deepEqual({ ...h.view }, before);
+    assert.equal(h.stage.fire('click', input).defaultPrevented, false);
+  }
+});
+
 test('two-finger contact suppresses both release clicks; the next deliberate tap works', () => {
   const h = room();
   h.stage.fire('pointerdown', { pointerId: 1 });
