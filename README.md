@@ -1,6 +1,6 @@
-# Ethan’s setup
+# [Ethan’s setup ↗](https://ethansk.github.io/ethan-setup/)
 
-[Explore my setup](https://ethansk.github.io/ethan-setup/) · [GitHub](https://github.com/EthanSK) · [Agentic Mouse](https://ethansk.github.io/agentic-mouse/) · [LinkedIn](https://www.linkedin.com/in/ethansk/)
+[GitHub](https://github.com/EthanSK) · [Agentic Mouse](https://ethansk.github.io/agentic-mouse/) · [LinkedIn](https://www.linkedin.com/in/ethansk/)
 
 My desk, apps and mouse controls for working with agents, recording and making music.
 
@@ -10,13 +10,15 @@ My desk, apps and mouse controls for working with agents, recording and making m
 
 I use twelve thumb controls mirrored across a right-handed Corsair and a left-handed Razer. High sensitivity keeps hand movement small; I can switch hands or occasionally use both to work through a review faster.
 
-In Better Git VS Code, a quick press of button **5 or 8** jumps to the previous or next change. Hold for 300 ms and release to stage the current file and jump in that direction. The button under the scroll wheel starts VoiceInk++ dictation; the YouTube bridge pauses my video while I talk and resumes only a video it paused.
+In Better Git VS Code, a quick press of button **5 or 8** jumps to the previous or next change. Hold for 300 ms and release to stage the current file and jump in that direction.
+
+The button under the scroll wheel starts VoiceInk++ dictation; the YouTube bridge pauses my video while I talk and resumes only a video it paused.
 
 The website lets you try those controls and the app’s HUD without installing anything. All actions stay in the demo.
 
 ## Look around
 
-Matching software and skills appear as prominent links at the top of each relevant dialog: Agentic Mouse on both mice, VoiceInk++ for dictation, Better Git VS Code and Response Preferences on the Dell, and OBS++ / Aitum++ on the recording setup. Each opens its public website or repository in a new browser page.
+Matching software and skills appear as prominent links at the top of each relevant dialog: Agentic Mouse on both mice, VoiceInk++ for dictation, Better Git VS Code and Response Preferences on the Dell, and OBS++ / Aitum++ on the recording setup. Each opens its public website, extension listing or repository in a new browser page.
 
 - The room photo fills the window without stretching and starts aligned to the bottom. You can pan across the cropped area, including in the opening view.
 - Click the background to zoom in around that point and reveal nearby items, or drag to move around.
@@ -28,12 +30,16 @@ Matching software and skills appear as prominent links at the top of each releva
 - Use the floating left/right arrows to switch between nearby desk items without closing the dialog. Hover for the destination; the route keeps related demos beside their hardware and wraps around at either end. The arrows stay centred while the content scrolls.
 - Click outside a dialog or press Escape to return to the room and the exact camera position where you started.
 - Open the Dell for its rotatable monitor model, specs and product link. The nearby **Codex** hotspot opens the interactive desktop, Dock, menu bar and Codex example. Samsung opens its monitor product; the separate **OBS** hotspot opens the silent recording demo and my setup details.
-- The room keeps its hardware labels and separate Codex and OBS hotspots; software links live in the sidebar and directory.
+- The room keeps its hardware labels and separate Codex and OBS hotspots; software links also appear in the sidebar, directory and matching dialogs.
 - Open **Everything I use** for hardware, apps, nine public skills, five personal skill descriptions and 18 public projects, ordered roughly from most used to least used within each section. All external links open a separate browser page; my [Portosaurus portfolio](https://portosaurus.github.io/ethansk/) is linked beside the site name and embedded below the project list.
 - **View product** appears beside each hardware heading. Models and gallery images report failed loads and offer a retry; a failed model does not hide its official photographs.
 - The Scarlett's larger explanation sits beside its model or photo, above the specs; on a narrow screen it moves below the image gallery.
 
-The room is a photograph with a Three.js camera, not a scan of the entire room. 3D views require WebGL 2; product photographs and links remain available if the device cannot create a renderer. Models render at up to 30 fps with pixel density capped at 1.5, pause when hidden, and load on demand; they have not been tested on every device. The sausage legs are intentional; their hotspot has a Tesco Finest product link and my joke subtitle. Product models are reference-based illustrations, not manufacturer CAD or dimensionally certified replicas.
+The room is a photograph with a Three.js camera, not a scan of the entire room. 3D views require WebGL 2; product photographs and links remain available if the device cannot create a renderer.
+
+Models render at up to 30 fps with pixel density capped at 1.5, pause when hidden, and load on demand; they have not been tested on every device.
+
+The sausage legs are intentional; their hotspot has a Tesco Finest product link and my joke subtitle. Product models are reference-based illustrations, not manufacturer CAD or dimensionally certified replicas.
 
 ## On my desk
 
@@ -83,6 +89,7 @@ Open [localhost:8842](http://127.0.0.1:8842/). Keep the server running while usi
 ## Update the setup
 
 - **Hardware and hotspot positions:** edit `docs/gear.json`; coordinates run from 0 to 1 across the room image. Keep this README’s inventory consistent.
+- **Dialog software links:** `relatedTools` in `docs/beta.mjs` defines each public destination and icon; `topicTools` maps desk items and walkthroughs to those links. Keep the manufacturer’s **View product** link separate. Use the project’s own public website or extension listing, or Ethan’s public fork when there is no dedicated site.
 - **Room and interactions:** `docs/index.html`, `docs/beta.css` and `docs/beta.mjs`.
 - **Room picture:** `docs/assets/room.svg` preserves my selected earlier reference (`c220035`), including its face, shirt, shorts, chair and sausage legs. The existing Tahoe wallpaper stays on the MacBook; only the Dell screen uses `room-dell-legs.webp`, showing AIMVS on the left and VS Code on the right. This reference predates the Canon patch; the shorter legs and later full-room rebuild are also not applied. Run `python3 scripts/build-room-image.py` after a screen-asset change, then rebuild; never replace the rest of the photo as part of a screen edit.
 - **Share preview:** `docs/assets/sausage-legs-social.jpg` is a proportional JPEG export of that same restored composite at 1586 × 992.
@@ -97,7 +104,7 @@ Open [localhost:8842](http://127.0.0.1:8842/). Keep the server running while usi
 
 `sources.lock.json` records the actual source revision and file hashes. A daily GitHub Actions run refreshes the published mouse runtime and app directory, checks the result, saves changes and deploys them. Manual workflow dispatch does the same. Ordinary pushes build the committed snapshot. An upstream refresh that fails checks stops before deployment.
 
-Before pushing a UI change, manually test the final build in Codex’s built-in browser: enter, wheel both ways, drag and release, edge arrows, dialogs, models, both mice, code review, dictation, desktop and OBS. Check a narrow mobile viewport, keyboard controls, reduced motion and browser errors. Test actual two-touch pinch when the browser tool supports it; report that check as unverified otherwise. Do not open or focus personal Chrome for testing. Automated checks do not prove visual quality or physical touch behavior. The room gesture tests send two-pointer sequences to the actual camera and input handlers, covering pinch direction and anchoring, labels, release suppression, finger handoff and cancellation; they do not emulate Safari or a phone touchscreen.
+Before pushing a UI change, manually test the final build in Codex’s built-in browser: enter, wheel both ways, drag and release, edge arrows, dialogs, models, both mice, code review, dictation, desktop and OBS. Check a narrow mobile viewport, keyboard controls, reduced motion and browser errors. Test actual two-touch pinch when the browser tool supports it; report that check as unverified otherwise. Do not open or focus personal Chrome for testing. Automated checks do not prove visual quality or physical touch behavior. The room gesture tests send two-pointer sequences to the actual camera and input handlers, covering bottom-aligned starting positions, pinch direction and anchoring, labels, release suppression, finger handoff and cancellation; they do not emulate Safari or a phone touchscreen.
 
 For gallery changes, open all 16 hardware dialogs, inspect every photo, return to 3D and rotate it, then reopen to confirm the default. Check thumbnails, previous/next, keyboard navigation and the horizontally scrolling strip in a narrow viewport; confirm both mouse HUDs still respond after returning from a photo.
 
