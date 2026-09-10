@@ -54,6 +54,8 @@ Bob and Brad purchase records distinguish the black D6 Pro (not Pro Plus) and th
 
 Small equipment corrections should retain only the generated object's local patch in the SVG composite. Keep the existing face and screen layers identical; do not replace the full room with another generated frame. Verify the composite in the built-in browser: ImageMagick's internal SVG renderer misrenders these embedded-image masks and cannot prove their visual appearance.
 
+The CuPiLo purchase ASIN identifies CPL-5555RC (black 5555RC_UK); a listing’s updated marketing year does not establish the purchased revision. Its manual limits saved kneading, compression and heat settings to remaining plugged in. The two-machine quantity and one-foot-per-machine arrangement come from Ethan; retain both foot openings in each model.
+
 ## Product galleries
 
 Keep the existing canvas and mouse simulator mounted when showing a product photo. Hiding their preview lets the existing intersection observers stop rendering; returning to 3D retains the orientation and HUD mode. Reset the gallery selection on every dialog opening and dispose its DOM when changing topic or closing. Only scroll the thumbnail strip during selection; scrolling its ancestors can move the whole dialog. Check the strip at 390px, including wheel, keyboard, previous/next and returning to the model.

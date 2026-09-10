@@ -490,6 +490,31 @@
     ]
   },
   {
+    "id": "cupilo",
+    "name": "2× CuPiLo CPL-5555RC",
+    "label": "2× foot massagers",
+    "x": 0.39,
+    "y": 0.76,
+    "url": "https://www.amazon.co.uk/dp/B0DWVXM7QZ",
+    "specs": [
+      "One foot in each machine",
+      "Black · UK version",
+      "3 heat levels",
+      "3 kneading speeds · 5 compression levels",
+      "15 / 20 / 30 minute auto-off",
+      "Remembers kneading, compression and heat while plugged in"
+    ],
+    "description": "I use two, one foot in each, so I can move my legs around. The heating is great, and they remember my settings after auto-off while plugged in, unlike other ones I've had. Comfort, posture and health are a big part of my setup.",
+    "evidence": "Amazon purchase November 2025 identifies ASIN B0DWVXM7QZ; product page identifies black 5555RC_UK. Ethan confirms two units, used one per foot. Features and plugged-in memory verified in the manufacturer CPL-5555RC manual.",
+    "images": [
+      {
+        "src": "assets/products/cupilo-front.webp",
+        "angle": "Front three-quarter view",
+        "source": "https://m.media-amazon.com/images/I/81XRAo51ZHL._AC_SL1500_.jpg"
+      }
+    ]
+  },
+  {
     "id": "d6pro",
     "name": "Bob and Brad D6 Pro",
     "label": "D6 Pro",
