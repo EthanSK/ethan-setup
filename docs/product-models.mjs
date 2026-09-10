@@ -452,7 +452,95 @@ const builders = {
   chair: buildChair,
   d6pro: buildD6Pro,
   q2mini: buildQ2Mini,
+  cupilo: buildCuPiLo,
 };
+
+/** Two complete CPL-5555RC machines, each with its original two foot openings; Ethan uses one foot per machine. */
+function buildCuPiLo() {
+  const group = new THREE.Group();
+  const shell = std(0x27282a, .86), base = std(0x141517, .8), fabric = std(0x101113, .98);
+  const weave = canvasTexture(32, 32, (ctx) => {
+    ctx.fillStyle = "#777"; ctx.fillRect(0, 0, 32, 32);
+    for (let y = 0; y < 32; y += 2) for (let x = 0; x < 32; x += 2) {
+      ctx.fillStyle = (x + y) % 4 ? "#aaa" : "#555"; ctx.fillRect(x, y, 1, 2);
+    }
+  }, 2);
+  weave.wrapS = weave.wrapT = THREE.RepeatWrapping; weave.repeat.set(8, 6);
+  shell.bumpMap = weave; shell.bumpScale = .3;
+  const unit = new THREE.Group();
+  const perimeter = (a, w, d) => [Math.sign(Math.cos(a)) * Math.abs(Math.cos(a)) ** .78 * w / 2, Math.sign(Math.sin(a)) * Math.abs(Math.sin(a)) ** .78 * d / 2];
+  const outline = new THREE.Shape();
+  for (let i = 0; i <= 96; i++) {
+    const [x, z] = perimeter(i * Math.PI * 2 / 96, 370, 276);
+    if (i === 0) outline.moveTo(x, z); else outline.lineTo(x, z);
+  }
+  const bodyPositions = [], bodyUV = [], bodyIndices = [];
+  const levels = [[0, 328, 254], [9, 370, 288], [38, 400, 310], [65, 401, 310], [100, 394, 302], [129, 381, 288], [142, 370, 276]];
+  for (const [j, [y, w, d]] of levels.entries()) {
+    for (let i = 0; i <= 96; i++) {
+      const [x, z] = perimeter(i * Math.PI * 2 / 96, w, d);
+      bodyPositions.push(x, y, z); bodyUV.push(i / 96, y / 142);
+      if (j && i) { const k = j * 97 + i; bodyIndices.push(k - 98, k - 1, k, k - 98, k, k - 97); }
+    }
+  }
+  const body = new THREE.BufferGeometry();
+  body.setAttribute("position", new THREE.Float32BufferAttribute(bodyPositions, 3));
+  body.setAttribute("uv", new THREE.Float32BufferAttribute(bodyUV, 2));
+  body.setIndex(bodyIndices); body.computeVertexNormals();
+  unit.add(new THREE.Mesh(body, shell));
+  const bottom = new THREE.Mesh(new THREE.ShapeGeometry(outline), base);
+  bottom.scale.set(328 / 370, 254 / 276, 1);
+  bottom.rotation.x = Math.PI / 2; bottom.position.y = 1; unit.add(bottom);
+  for (const x of [-91, 91]) {
+    const opening = new THREE.Path(); opening.absellipse(x, -38, 57, 76, 0, Math.PI * 2, true);
+    outline.holes.push(opening);
+    const cuff = new THREE.Mesh(new THREE.TorusGeometry(61, 10, 12, 64), fabric);
+    cuff.scale.y = 1.3; cuff.rotation.x = -Math.PI / 2; cuff.position.set(x, 158, 38); unit.add(cuff);
+    const sleeve = cyl(57, 43, 104, fabric, 64, "y", true);
+    sleeve.scale.z = 1.33; sleeve.material = fabric.clone(); sleeve.material.side = THREE.DoubleSide;
+    unit.add(at(sleeve, x, 102, 38));
+    const sole = new THREE.Mesh(new THREE.SphereGeometry(1, 32, 16), fabric);
+    sole.scale.set(43, 12, 63); unit.add(at(sole, x, 44, 38));
+  }
+  const topGeometry = new THREE.ShapeGeometry(outline, 64);
+  const topPositions = topGeometry.attributes.position, topUV = topGeometry.attributes.uv;
+  for (let i = 0; i < topPositions.count; i++) {
+    const x = topPositions.getX(i), z = topPositions.getY(i);
+    const radius = (Math.abs(x / 185) ** (2 / .78) + Math.abs(z / 138) ** (2 / .78)) ** (.78 / 2);
+    topPositions.setZ(i, 16 * Math.max(0, 1 - radius * radius)); // The fabric shell rises between the sleeves; a flat lid made the reference's curved enclosure look like a box.
+    topUV.setXY(i, x / 370 + .5, z / 276 + .5);
+  }
+  topGeometry.computeVertexNormals();
+  const top = new THREE.Mesh(topGeometry, shell);
+  unit.add(at(top, 0, 142, 0, -Math.PI / 2));
+  const seam = new THREE.CatmullRomCurve3(Array.from({length: 96}, (_, i) => {
+    const [x, z] = perimeter(i * Math.PI * 2 / 96, 400, 310); return new THREE.Vector3(x, 44, z);
+  }), true);
+  unit.add(new THREE.Mesh(new THREE.TubeGeometry(seam, 128, 2.2, 6, true), base));
+  const panel = new THREE.Group(); panel.rotation.x = -Math.PI / 2; panel.position.set(0, 159, -67);
+  panel.add(plate(246, 48, 4, 9, std(0x090a0c, .34)));
+  panel.add(at(decal(235, 42, (ctx, w) => {
+    for (const [i, label] of ["Timer", "Knead", "Power", "Compress", "Heat"].entries()) {
+      const x = 23 + i * 47;
+      ctx.strokeStyle = i === 2 ? "#c83939" : "#c6c9cb"; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.arc(x, 20, 7.5, 0, Math.PI * 2); ctx.stroke();
+      text(ctx, i === 2 ? "⏻" : ["◷", "≋", "", "≋", "♨"][i], x, 20, 9, i === 2 ? "#c83939" : "#c6c9cb");
+      text(ctx, label, x, 34, 5.7, "#bfc1c4", 500);
+      ctx.fillStyle = i === 2 ? "#d04747" : "#507ed5"; ctx.beginPath(); ctx.arc(x, 5, 1.4, 0, Math.PI * 2); ctx.fill();
+    }
+  }), 0, 0, 2.2));
+  unit.add(panel);
+  unit.add(at(decal(85, 17, (ctx, w, h) => text(ctx, "CUPILO", w / 2, h / 2, 13, "#dbdddf")), 0, 150, -113, -Math.PI / 2));
+  feet(unit, 330, 235, 20, 9, 5);
+  const remote = new THREE.Group();
+  remote.add(box(36, 13, 125, base, 6));
+  for (let i = 0; i < 6; i++) remote.add(at(cyl(i ? 5 : 8, i ? 5 : 8, 1.5, shell, 24), 0, 7, -43 + i * 16));
+  unit.add(at(remote, 221, 7, 19, 0, -.1));
+  for (const [x, z, yaw] of [[-255, -30, -.12], [255, 35, .12]]) {
+    group.add(at(unit.clone(true), x, 0, z, 0, yaw)); // Shared geometry keeps the pair inexpensive; the viewer releases them when the dialog closes.
+  }
+  return {group, view: {yaw: .12, pitch: .82}};
+}
 
 /** Black D6 Pro: open loop grip, side motor vents and an independently pivoting percussion arm, proportioned from the manufacturer's photos. */
 function buildD6Pro() {

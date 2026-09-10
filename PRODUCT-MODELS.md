@@ -85,8 +85,14 @@ The red Q2 Mini uses the manufacturer's [red variant gallery](https://store.boba
 
 ## Verification
 
-Run `node scripts/check-model-geometry.mjs` for all 16 builders and 42 adjustment sweeps. It uses the bundled Three.js geometry and samples independent reset behavior, finite coordinates and containment throughout each movement. Canvas painting and image decoding require the browser checks; the test does not prove appearance or mechanical collision clearance.
+Run `node scripts/check-model-geometry.mjs` for all 17 builders and 42 adjustment sweeps. It uses the bundled Three.js geometry and samples independent reset behavior, finite coordinates and containment throughout each movement. Canvas painting and image decoding require the browser checks; the test does not prove appearance or mechanical collision clearance.
 
 Before publishing, inspect the exact built version in Codex’s built-in browser: compare front/side/rear silhouettes with the galleries, exercise adjustment selection and pause/play, rotate and release, reset, change photo and return, and switch products. Check narrow layouts and browser errors. Actual two-touch pinch remains unverified when the browser tool does not supply two-touch input.
 
 Reference photographs remain available underneath the default 3D view; see `SOURCES.md` and each gallery entry for provenance. The models are photo-based illustrations, not manufacturer CAD.
+
+## CuPiLo CPL-5555RC pair
+
+Purchase-matched [Amazon ASIN B0DWVXM7QZ](https://www.amazon.co.uk/dp/B0DWVXM7QZ), black style 5555RC_UK, and the [manufacturer’s manual](https://cdn.shopify.com/s/files/1/0729/7279/6225/files/CPL-5555RC.pdf?v=1785809606). The main product view, seated-use side view and manufacturer cutaway were inspected for the curved textile shell, base seam, two deep fabric sleeves, five-button panel and separate remote. The model shows two complete machines, each retaining both openings; Ethan uses one foot in each. Both instances share geometry and materials.
+
+The approximate 401 × 310 mm footprint and 180 mm overall height follow the manual’s 15.8 × 12.2 × 7.1-inch enclosure, with visual estimates for cuff, panel and remote geometry. The Amazon listing gives a conflicting dimension order and size; these are reference-based illustrations, not certified CAD. No internal mechanism, heat glow, leg motion or medical effect is simulated. Each pair can be rotated and zoomed using the existing viewer.

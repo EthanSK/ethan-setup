@@ -26,6 +26,7 @@ Matching software and skills appear as prominent links at the top of each releva
 - Click a mouse, screen or hardware label to move closer and open it. Edge arrows point to items outside the view.
 - Rotate product models by dragging and scroll down to zoom in or up to zoom out. Use arrow keys to rotate and Home or Reset view to restore the original framing.
 - Moving parts animate back and forth: the desk lifts, the chair adjusts, screens tilt and music controls move. Choose an adjustment or pause it; dragging pauses the adjustment for six seconds. Reduced motion starts paused.
+- **2× foot massagers** opens the pair of black CuPiLo CPL-5555RC machines under the desk: one foot in each lets me position my legs independently. The dialog includes a rotatable pair, the official product photo and the heating/settings details. Kneading, compression and heat settings survive auto-off while each machine stays plugged in.
 - The D6 Pro and red Q2 Mini have separate floating labels below the right speaker, a subtle insert behind my arm, rotatable models and official product photos. The D6 arm adjusts and both heads show their stroke in slow motion.
 - Every hardware dialog opens in 3D, with official product photos underneath. Click a thumbnail or use the arrows, scroll the strip to see more, and select **3D** to return to the model.
 - Use the floating left/right arrows to switch between nearby desk items without closing the dialog. Hover for the destination; the route keeps related demos beside their hardware and wraps around at either end. The arrows stay centred while the content scrolls.
@@ -64,6 +65,7 @@ The sausage legs are intentional; their hotspot has a Tesco Finest product link 
 | [Mackie Big Knob Passive](https://mackie.com/en/products/accessories/big_knob_passive.html) | Passive monitor controller · Volume / mono / mute / dim |
 | [WD Elements Desktop](https://www.westerndigital.com/products/external-drives/wd-elements-desktop-usb-3-0-hdd?sku=WDBWLG0140HBK-EESN) | 14 TB · Black · USB 3.0 |
 | [FlexiSpot E7 Pro](https://flexispot.co.uk/next-generation-standing-desk-e7-pro) | 2025 model · Bamboo · 180 × 80 cm · Black frame |
+| [2× CuPiLo CPL-5555RC](https://www.amazon.co.uk/dp/B0DWVXM7QZ) | Black UK version · One foot per machine · Heat and saved settings |
 | [Bob and Brad D6 Pro](https://www.amazon.co.uk/dp/B0BG56G526) | Black · Adjustable arm and loop handle · 16 mm stroke |
 | [Bob and Brad Q2 Mini](https://www.amazon.co.uk/dp/B0BXPGTZLL) | Red · Pocket-sized · USB-C |
 | [Hbada E3 Pro](https://www.hbada.uk/products/hbada-e3-pro-ergonomic-office-chair?variant=57072259858807) | 2026 edition · Grey · With footrest |
@@ -117,7 +119,7 @@ Open [localhost:8842](http://127.0.0.1:8842/). Keep the server running while usi
 
 Before pushing a UI change, manually test the final build in Codex’s built-in browser: enter, wheel both ways, drag and release, edge arrows, dialogs, models, both mice, code review, dictation, desktop, the VS Code slides and OBS. Check a narrow mobile viewport, keyboard controls, reduced motion and browser errors. Test actual two-touch pinch when the browser tool supports it; report that check as unverified otherwise. Do not open or focus personal Chrome for testing. Automated checks do not prove visual quality or physical touch behavior. The room gesture tests send two-pointer sequences to the actual camera and input handlers, covering bottom-aligned starting positions, pinch direction and anchoring, labels, release suppression, finger handoff and cancellation; they do not emulate Safari or a phone touchscreen.
 
-For gallery changes, open all 16 hardware dialogs, inspect every photo, return to 3D and rotate it, then reopen to confirm the default. Check thumbnails, previous/next, keyboard navigation and the horizontally scrolling strip in a narrow viewport; confirm both mouse HUDs still respond after returning from a photo.
+For gallery changes, open every hardware dialog, inspect every photo, return to 3D and rotate it, then reopen to confirm the default. Check thumbnails, previous/next, keyboard navigation and the horizontally scrolling strip in a narrow viewport; confirm both mouse HUDs still respond after returning from a photo.
 
 [AGENTS.md](AGENTS.md) describes ownership and verification requirements for agents. [SOURCES.md](SOURCES.md) covers provenance, privacy and licensing.
 
