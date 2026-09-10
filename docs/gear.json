@@ -488,5 +488,61 @@
         "source": "https://www.pioneerdj.com/product-images/559/30daed79-91f3-4453-b23b-e57f0f2cd855/ddj-flx4_4.png"
       }
     ]
+  },
+  {
+    "id": "d6pro",
+    "name": "Bob and Brad D6 Pro",
+    "label": "D6 Pro",
+    "x": 0.513,
+    "y": 0.53,
+    "url": "https://www.amazon.co.uk/dp/B0BG56G526",
+    "specs": [
+      "Black",
+      "16 mm stroke",
+      "Adjustable arm and loop handle",
+      "6 speeds · 1500–2500 rpm"
+    ],
+    "evidence": "Amazon purchase confirmed July 2024; manufacturer D6 Pro photographs and specifications, not the later Pro Plus",
+    "description": "My full-size massage gun, with an adjustable arm and loop handle.",
+    "images": [
+      {
+        "src": "assets/products/d6pro-kit.webp",
+        "angle": "Gun and attachments",
+        "source": "https://cdn.shopify.com/s/files/1/0080/5260/4994/files/Untitleddesign-2023-10-03T104743.281.png?v=1696348209"
+      },
+      {
+        "src": "assets/products/d6pro-controls.webp",
+        "angle": "Controls",
+        "source": "https://cdn.shopify.com/s/files/1/0080/5260/4994/files/Untitleddesign-2023-10-03T104810.729.png?v=1696348209"
+      },
+      {
+        "src": "assets/products/d6pro-grips.webp",
+        "angle": "Grip positions",
+        "source": "https://cdn.shopify.com/s/files/1/0080/5260/4994/files/Untitleddesign-2023-10-03T104752.609.png?v=1696348209"
+      }
+    ]
+  },
+  {
+    "id": "q2mini",
+    "name": "Bob and Brad Q2 Mini",
+    "label": "Q2 Mini",
+    "x": 0.568,
+    "y": 0.54,
+    "url": "https://www.amazon.co.uk/dp/B0BXPGTZLL",
+    "specs": [
+      "Red",
+      "Pocket-sized massage gun",
+      "5 speeds · 1800–3000 rpm",
+      "USB-C charging"
+    ],
+    "evidence": "Amazon purchase confirmed June 2024 explicitly names the red Q2 Mini; standard Mini, not Q2 Pro, Max or Ultra",
+    "description": "My compact massage gun, small enough to carry around.",
+    "images": [
+      {
+        "src": "assets/products/q2mini-red-kit.webp",
+        "angle": "Red gun and attachments",
+        "source": "https://cdn.shopify.com/s/files/1/0080/5260/4994/files/7175-Nw2KBL._AC_SL1500.jpg?v=1760990240"
+      }
+    ]
   }
 ]

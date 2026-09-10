@@ -1,0 +1,8 @@
+Built-in image generation, 10 September 2026.
+
+Edit target: the published sausage-legs-social.jpg composition.
+References: manufacturer D6 Pro kit image and red Q2 Mini kit image, recorded in docs/gear.json.
+
+Prompt: Keep the room, person, face, arm, sausage legs and all screens unchanged. Add only the black D6 Pro and smaller red Q2 Mini, with ball heads, on the desk below the right white Yamaha speaker and partly behind the forearm using the mouse. Keep them small, subtle and grounded with contact shadows matching the dim warm room. No cases or loose accessories, labels, enlarged product placement or changes elsewhere.
+
+Integration: retain only the 180 × 110 patch at x750 y480, clipped around the existing forearm through scripts/build-room-image.py. Do not use the regenerated full frame. The original portrait and screen layers remain unchanged. The matching social card is rendered from the final SVG.
