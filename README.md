@@ -2,7 +2,7 @@
 
 [GitHub](https://github.com/EthanSK) · [Agentic Mouse](https://ethansk.github.io/agentic-mouse/) · [LinkedIn](https://www.linkedin.com/in/ethansk/)
 
-My desk, apps and mouse controls for working with agents, recording and making music.
+My desk, apps and mouse controls for working with agents.
 
 ![My desk](docs/assets/room.svg)
 
@@ -32,8 +32,9 @@ Matching software and skills appear as prominent links at the top of each releva
 - Click outside a dialog or press Escape to return to the room and the exact camera position where you started.
 - Open the Dell for its rotatable monitor model, specs and product link. The nearby **Codex** hotspot opens the interactive desktop, Dock, menu bar and Codex example. Samsung opens its monitor product; the separate **OBS** hotspot opens the silent recording demo and my setup details.
 - The separate **VS Code** hotspot on the right half of the Dell opens a four-slide walkthrough of my AIMVS workflow: one worktree per agent task, an isolated dev stack per worktree, review with Better Git, and the one message that lands it. Use the numbered slide tabs, the named previous/next buttons below the slide, or arrow keys on the tabs; each slide links to the matching reference in the public AIMVS dev skill. The worktree and file names on the slides are illustrative examples.
-- The room keeps its hardware labels and separate Codex, VS Code and OBS hotspots; software links also appear in the sidebar, directory and matching dialogs.
-- Open **Everything I use** for hardware, apps, nine public skills, five personal skill descriptions and 18 public projects, ordered roughly from most used to least used within each section. All external links open a separate browser page; my [Portosaurus portfolio](https://portosaurus.github.io/ethansk/) is linked beside the site name and embedded below the project list.
+- The separate **Stats Widget** hotspot by the MacBook opens my seven-widget layout for Claude and four ChatGPT logins, with setup steps and a link to the public app. The percentages are examples; labels, sparklines, small text widgets and the configured 30-minute refresh interval reflect my setup. Stats Widget also appears in the Software sidebar and the MacBook, Dell and Codex links.
+- The room keeps its hardware labels and separate Codex, VS Code, Stats Widget and OBS hotspots; software links also appear in the sidebar, directory and matching dialogs.
+- Open **Everything I use** for hardware, apps, nine public skills, five personal skill descriptions and 19 public projects, ordered roughly from most used to least used within each section. All external links open a separate browser page; my [Portosaurus portfolio](https://portosaurus.github.io/ethansk/) is linked beside the site name and embedded below the project list.
 - **View product** appears beside each hardware heading. Models and gallery images report failed loads and offer a retry; a failed model does not hide its official photographs.
 - The Scarlett's larger explanation sits beside its model or photo, above the specs; on a narrow screen it moves below the image gallery.
 
@@ -70,9 +71,11 @@ The Mac mini identifies itself as an M4 with 16 GB memory. The Dell S3422DW iden
 
 ## Apps and skills
 
-Start with [Agentic Mouse](https://github.com/EthanSK/agentic-mouse), [VoiceInk++](https://ethansk.github.io/VoiceInkPlusPlus/), [Better Git VS Code](https://github.com/EthanSK/better-git-vscode), [OBS++](https://github.com/EthanSK/obs-plus-plus), and [Response Preferences](https://ethansk.github.io/response-preferences/).
+Start with [Agentic Mouse](https://github.com/EthanSK/agentic-mouse), [VoiceInk++](https://ethansk.github.io/VoiceInkPlusPlus/), [Better Git VS Code](https://github.com/EthanSK/better-git-vscode), [Stats Widget](https://ethansk.github.io/stats-widget-from-website/), and [Response Preferences](https://ethansk.github.io/response-preferences/).
 
 The Software sidebar links only public repositories. The full app directory comes from the public [response-preferences desktop inventory](https://ethansk.github.io/response-preferences/desktop/apps.json). The skills section includes the separately published AIMVS dev skill. Ordering is a recent-use snapshot, not live analytics; the [source notes](SOURCES.md) explain its limits.
+
+The OBS dialog also links [Restream Channel Switcher](https://github.com/EthanSK/restream-channel-switcher), which can switch configured groups of Restream destinations from a scene hook.
 
 Each project has its own setup instructions; this repository does not install or configure the native apps.
 
@@ -101,6 +104,7 @@ Open [localhost:8842](http://127.0.0.1:8842/). Keep the server running while usi
 - **Product geometry:** `docs/product-models.mjs`; geometry and movement references are in [PRODUCT-MODELS.md](PRODUCT-MODELS.md). The MacBook uses the actual Tahoe rocks-and-water wallpaper in `docs/assets/macbook-wallpaper.webp`, cropped proportionally.
 - **Product galleries:** `docs/product-gallery.mjs` reads each item's `images` in `docs/gear.json`: local WebP `src`, a concise `angle`, and its official image `source`. Keep images proportional under `docs/assets/products/`, verify the actual model and colour, and document their origin in `SOURCES.md`. The 3D option remains first and is selected again whenever a dialog opens.
 - **OBS example and setup details:** `docs/obs.html`, `docs/obs.css` and `docs/obs.mjs`. Keep the dated settings consistent with the [OBS++ setup guide](https://github.com/EthanSK/obs-plus-plus/blob/master/SETUP.md); do not present the example as live telemetry.
+- **Stats Widget view:** `#stats-detail` in `docs/index.html` shows an illustrated seven-widget desktop with example percentages; `docs/beta.css` owns its layout. Keep the safe setup summary in [SOURCES.md](SOURCES.md) current without copying account IDs, login profiles, selectors, raw configuration or usage history.
 - **VS Code walkthrough:** the slides are static markup under `#vscode-detail` in `docs/index.html`, switched by the small `showSlide` block in `docs/beta.mjs`. Keep the worktree, branch and file names illustrative, keep every link public, and check the ports and rules against the [AIMVS dev skill](https://github.com/EthanSK/aimvs-dev-skill) references the slides link to; the private app repository is never linked. `tests/vscode-walkthrough.test.mjs` checks the slide controls, hotspot placement and link targets.
 - **Mouse modes, HUD, mouse models or icon:** change the canonical Agentic Mouse repository, publish it, then run `python3 scripts/sync-sources.py` here. The published native export chooses the source commit; this site does not maintain another button map.
 - **Directory order:** `docs/gear.json` and `docs/projects.json` use display order; `appUseOrder` and the combined `skills` list in `docs/beta.mjs` rank apps and skills. Keep the app order here, separate from the synced inventory, so daily source refreshes preserve it. Newly synced apps appear last until ranked; Trash is omitted because it is a desktop action. Public and personal skills share one order.

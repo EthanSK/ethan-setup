@@ -278,6 +278,7 @@ const topics = {
   codex: ["", "Codex", ""],
   vscode: ["Vibedio development", "My VS Code setup", "Every agent task gets its own worktree and dev stack; I review them all in one VS Code window."],
   obs: ["", "OBS", ""],
+  stats: ["", "Stats Widget", "My Claude and ChatGPT usage sits on the desktop as small text widgets."],
   sausages: ["", "Tesco Finest sausages", "(This is a joke, I only eat M&S, Waitrose, or Deliveroo sausages.)"],
   code: ["Great for Agentic Engineers", "Review code without moving your hand", "Quick press to jump to a change, or hold and release to stage the current file and jump in that direction."],
   voice: ["VoiceInk++", "YouTube pauses when I start talking", "I use a top mouse button to dictate instead of typing, and my video resumes when I finish if my setup paused it."],
@@ -291,13 +292,15 @@ const relatedTools = {
   replies: { name: "Response Preferences", url: "https://ethansk.github.io/response-preferences/", icon: "./assets/apps/codex.png" },
   skill: { name: "AIMVS dev skill", url: "https://github.com/EthanSK/aimvs-dev-skill", icon: "./assets/apps/codex.png" }, // The public mirror of the Codex skill; the private AIMVS app repository is never linked.
   obs: { name: "OBS++", url: apps.find(app => app.id === "obs").url, icon: new URL(apps.find(app => app.id === "obs").icon, "https://ethansk.github.io/response-preferences/").href },
+  stats: { name: "Stats Widget", url: apps.find(app => app.id === "stats-widget-from-website").url, icon: new URL(apps.find(app => app.id === "stats-widget-from-website").icon, "https://ethansk.github.io/response-preferences/").href },
+  restream: { name: "Restream Channel Switcher", url: "https://github.com/EthanSK/restream-channel-switcher" },
   aitum: { name: "Aitum++", url: "https://github.com/EthanSK/obs-aitum-stream-suite" },
 };
 const topicTools = {
   corsair: ["mouse", "voice", "code"], razer: ["mouse", "voice", "code"],
   shure: ["voice", "obs"], scarlett: ["obs"], canon: ["obs"],
-  dell: ["code", "replies"], samsung: ["obs", "aitum"],
-  code: ["code", "mouse"], voice: ["voice", "mouse"], codex: ["replies"], vscode: ["skill", "code"], obs: ["obs", "aitum"],
+  macbook: ["stats", "replies"], dell: ["code", "replies", "stats"], samsung: ["obs", "aitum"],
+  code: ["code", "mouse"], voice: ["voice", "mouse"], codex: ["replies", "stats"], stats: ["stats"], vscode: ["skill", "code"], obs: ["obs", "aitum", "restream"],
 }; // Link the tools documented for each item; keep hardware product links and separate room hotspots intact.
 /** Follow nearby photo anchors once around the desk, keeping related demos beside their hardware. */
 function buildDialogRoute() {
@@ -354,8 +357,8 @@ function openTopic(topic, trigger) {
   description.textContent = copy[2];
   description.hidden = !copy[2];
   const mouse = topic === "razer" || topic === "corsair";
-  const panel = mouse ? "mouse" : ["code", "voice", "vscode", "sausages"].includes(topic) ? topic : (topic === "codex" || topic === "obs") ? "screen" : "hardware"; // Hardware opens its product; separate nearby Codex, VS Code and OBS hotspots own the software views, never combined monitor/software labels (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
-  for (const name of ["mouse", "code", "voice", "vscode", "hardware", "screen", "sausages"]) document.querySelector(`#${name}-detail`).hidden = name !== panel;
+  const panel = mouse ? "mouse" : ["code", "voice", "vscode", "stats", "sausages"].includes(topic) ? topic : (topic === "codex" || topic === "obs") ? "screen" : "hardware"; // Hardware opens its product; separate nearby Codex, VS Code and OBS hotspots own the software views, never combined monitor/software labels (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
+  for (const name of ["mouse", "code", "voice", "vscode", "stats", "hardware", "screen", "sausages"]) document.querySelector(`#${name}-detail`).hidden = name !== panel;
   const toolLinks = document.querySelector("#detail-tools");
   toolLinks.replaceChildren();
   for (const id of topicTools[topic] || []) {
@@ -626,14 +629,14 @@ for (const item of gear) {
 }
 
 const appUseOrder = new Map([
-  "chatgpt", "agenticmouse", "voiceinkplusplus", "google-chrome", "visual-studio-code", "obs",
+  "chatgpt", "agenticmouse", "voiceinkplusplus", "google-chrome", "visual-studio-code", "stats-widget-from-website", "obs",
   "spotify", "mail", "notion", "restream-chat-plus-plus", "finder", "iterm", "opera", "telegram",
   "activity-monitor", "claude", "safari", "firefox", "terminal", "surfshark", "obscene",
-  "karabiner-elements", "docker-desktop", "menu-bar-dock", "stats-widget-from-website", "lghub",
+  "karabiner-elements", "docker-desktop", "menu-bar-dock", "lghub",
   "xcode", "system-settings", "unity-hub", "music", "preview", "textedit", "reminders", "icue",
   "focusrite-control", "razer", "karabiner-eventviewer", "rekordbox", "producer-player", "aiwallpaper",
   "opencode", "magnet", "amphetamine", "stay", "ableton-live-12-suite", "adobe-photoshop-2026",
-].map((id, index) => [id, index])); // Recent macOS use, with the daily mouse/dictation tools near the top; keep this local order separate from the synced desktop inventory.
+].map((id, index) => [id, index])); // Recent macOS use, with the daily mouse/dictation tools and configured desktop widgets near the top; keep this local order separate from the synced desktop inventory.
 for (const app of apps.filter(app => app.url && app.id !== "trash").sort((a, b) => (appUseOrder.get(a.id) ?? appUseOrder.size) - (appUseOrder.get(b.id) ?? appUseOrder.size))) { // A newly synced app stays visible at the end until its usage is ranked; Trash is a desktop action, not an app.
   const link = document.createElement("a"); link.href = app.url; link.target = "_blank"; link.rel = "noopener";
   const icon = document.createElement("img"); icon.src = app.id === "agenticmouse" ? "./agentic-mouse-mark.svg?v=__SITE_VERSION__" : new URL(app.icon, "https://ethansk.github.io/response-preferences/").href; icon.alt = ""; icon.width = 30; icon.height = 30; icon.loading = "lazy"; // Use the canonical synced mouse artwork; the desktop inventory still has the old blank application icon.

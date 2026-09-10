@@ -40,6 +40,7 @@
     <a aria-label="Agentic Mouse" href="https://github.com/EthanSK/agentic-mouse"><img src="./agentic-mouse-mark.svg?v=__SITE_VERSION__" width="28" height="28" alt=""/><span>Agentic Mouse</span></a>
     <a aria-label="VoiceInk++" href="https://github.com/EthanSK/VoiceInkPlusPlus"><img src="https://ethansk.github.io/response-preferences/desktop/icons/voiceinkplusplus.png" width="28" height="28" alt=""/><span>VoiceInk++</span></a>
     <a aria-label="Better Git VS Code" href="https://github.com/EthanSK/better-git-vscode"><img src="./assets/apps/vsCode.png" width="28" height="28" alt=""/><span>Better Git VS Code</span></a>
+    <a aria-label="Stats Widget" href="https://github.com/EthanSK/stats-widget-from-website"><img src="https://ethansk.github.io/response-preferences/desktop/icons/stats-widget-from-website.png" width="28" height="28" alt=""/><span>Stats Widget</span></a>
     <a aria-label="Response Preferences" href="https://github.com/EthanSK/response-preferences"><img src="./assets/apps/codex.png" width="28" height="28" alt=""/><span>Response Preferences</span></a>
     <button type="button" id="show-directory" aria-label="Everything I use"><span class="rail-symbol" aria-hidden="true">⋯</span><span>Everything I use</span></button>
   </nav>
@@ -54,6 +55,7 @@
     <div class="room-hotspots" aria-label="Explore my setup">
       <button type="button" data-topic="obs" data-x="0.80" data-y="0.20" aria-label="OBS"><span class="hotspot-dot" aria-hidden="true"></span><span class="hotspot-label">OBS</span></button>
       <button type="button" data-topic="codex" data-x="0.43" data-y="0.34" aria-label="Codex"><span class="hotspot-dot" aria-hidden="true"></span><span class="hotspot-label">Codex</span></button>
+      <button type="button" data-topic="stats" data-x="0.125" data-y="0.425" aria-label="Stats Widget"><span class="hotspot-dot" aria-hidden="true"></span><span class="hotspot-label">Stats Widget</span></button>
       <button type="button" data-topic="vscode" data-x="0.465" data-y="0.425" aria-label="VS Code"><span class="hotspot-dot" aria-hidden="true"></span><span class="hotspot-label">VS Code</span></button>
       <button type="button" data-topic="sausages" data-x="0.385" data-y="0.86" aria-label="Sausage legs"><span class="hotspot-dot" aria-hidden="true"></span><span class="hotspot-label">Sausage legs</span></button>
     </div>
@@ -68,7 +70,7 @@
       <button type="button" data-topic="corsair">Right mouse</button>
       <button type="button" data-topic="code">Review code</button>
       <button type="button" data-topic="voice">Dictation</button>
-      <button type="button" data-topic="codex">Codex</button><button type="button" data-topic="vscode">VS Code</button><button type="button" data-topic="obs">OBS</button><button type="button" data-directory>Everything I use</button>
+      <button type="button" data-topic="codex">Codex</button><button type="button" data-topic="vscode">VS Code</button><button type="button" data-topic="stats">Stats Widget</button><button type="button" data-topic="obs">OBS</button><button type="button" data-directory>Everything I use</button>
     </nav>
     <p class="room-caption">AI scene from my photos · <a href="https://www.linkedin.com/in/ethansk/">Follow me on LinkedIn ↗</a></p>
     <p class="room-loading" role="status">Loading the room…</p>
@@ -128,6 +130,30 @@
     </div>
     <div id="screen-detail" hidden>
       <iframe id="desktop-frame" title="Interactive example of Ethan’s desktop" loading="eager" allow="" referrerpolicy="no-referrer"></iframe>
+    </div>
+    <div id="stats-detail" hidden>
+      <figure class="stats-desktop">
+        <div class="stats-widgets">
+          <article class="stats-widget"><h2>Claude · Weekly</h2><strong>42<span>% used</span></strong><svg viewBox="0 0 120 26" aria-hidden="true"><path d="M1 25 16 23 28 23 40 19 52 20 64 13 77 14 88 8 100 9 119 2"/></svg></article>
+          <article class="stats-widget"><h2>Claude · Session</h2><strong>18<span>% used</span></strong><svg viewBox="0 0 120 26" aria-hidden="true"><path d="M1 25 16 23 28 23 40 19 52 20 64 13 77 14 88 8 100 9 119 2"/></svg></article>
+          <article class="stats-widget"><h2>ChatGPT · Weekly</h2><strong>64<span>% used</span></strong><svg viewBox="0 0 120 26" aria-hidden="true"><path d="M1 25 16 23 28 23 40 19 52 20 64 13 77 14 88 8 100 9 119 2"/></svg></article>
+          <article class="stats-widget"><h2>ChatGPT · Session</h2><strong>27<span>% used</span></strong><svg viewBox="0 0 120 26" aria-hidden="true"><path d="M1 25 16 23 28 23 40 19 52 20 64 13 77 14 88 8 100 9 119 2"/></svg></article>
+          <article class="stats-widget"><h2>ChatGPT 2 · Weekly</h2><strong>36<span>% used</span></strong><svg viewBox="0 0 120 26" aria-hidden="true"><path d="M1 25 16 23 28 23 40 19 52 20 64 13 77 14 88 8 100 9 119 2"/></svg></article>
+          <article class="stats-widget"><h2>ChatGPT 3 · Weekly</h2><strong>12<span>% used</span></strong><svg viewBox="0 0 120 26" aria-hidden="true"><path d="M1 25 16 23 28 23 40 19 52 20 64 13 77 14 88 8 100 9 119 2"/></svg></article>
+          <article class="stats-widget"><h2>ChatGPT 4 · Weekly</h2><strong>51<span>% used</span></strong><svg viewBox="0 0 120 26" aria-hidden="true"><path d="M1 25 16 23 28 23 40 19 52 20 64 13 77 14 88 8 100 9 119 2"/></svg></article>
+        </div>
+        <figcaption>Example percentages, not my actual usage.</figcaption>
+      </figure>
+      <div class="stats-setup">
+        <h2>My setup</h2>
+        <p>Seven small widgets for Claude and four ChatGPT logins, with labels and sparklines.</p>
+        <ol>
+          <li><h3>Add a Website Login</h3><p>Sign in to the site you want to track in the app’s Website Logins.</p></li>
+          <li><h3>Select a Tracked Value</h3><p>Pick the usage number on the page for the app to read.</p></li>
+          <li><h3>Add Desktop Widgets</h3><p>I use Text mode, the small single big number layout, labels and sparklines, with a 30-minute refresh interval.</p></li>
+        </ol>
+        <a class="detail-link" href="https://github.com/EthanSK/stats-widget-from-website#setup-walkthrough">Setup instructions ↗</a>
+      </div>
     </div>
     <div id="vscode-detail" hidden>
       <div class="slide-tabs" role="tablist" aria-label="VS Code walkthrough">
