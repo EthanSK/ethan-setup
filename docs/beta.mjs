@@ -3,10 +3,12 @@ import { MouseSimulator } from "./simulator.mjs?v=__SITE_VERSION__";
 import { createNativeHUD } from "./native-hud.mjs?v=__SITE_VERSION__";
 import { createHeroMouse } from "./hero-mice.mjs?v=__SITE_VERSION__";
 import { createProductGallery } from "./product-gallery.mjs?v=__SITE_VERSION__";
+import { createFrameView } from "./frame-view.mjs?v=__SITE_VERSION__";
 
 const stage = document.querySelector("#room-stage");
 const canvas = document.querySelector("#room-canvas");
 const detail = document.querySelector("#room-detail");
+const screenView = createFrameView(document.querySelector("#screen-detail"), "desktop-frame");
 const reduced = matchMedia("(prefers-reduced-motion: reduce)");
 const gear = await fetch(new URL("./gear.json?v=__SITE_VERSION__", import.meta.url)).then(response => { if (!response.ok) throw new Error("Hardware data did not load"); return response.json(); });
 const apps = await fetch(new URL("./apps.json?v=__SITE_VERSION__", import.meta.url)).then(response => { if (!response.ok) throw new Error("App data did not load"); return response.json(); });
@@ -341,7 +343,7 @@ function openTopic(topic, trigger) {
   disposeGallery?.(); disposeGallery = null;
   productLoad?.abort();
   productViewer?.dispose(); productViewer = null; productRequest++;
-  document.querySelector("#desktop-frame").removeAttribute("src");
+  screenView.clear();
   if (!detail.open) { returnFocus = trigger; returnView = { ...target }; }
   const anchor = hotspots.find(button => button.dataset.topic === (topic === "code" ? "dell" : topic === "voice" ? "shure" : topic));
   const zoomLevel = 1.2;
@@ -401,7 +403,7 @@ detail.addEventListener("close", () => {
   disposeGallery?.(); disposeGallery = null;
   productLoad?.abort();
   productViewer?.dispose(); productViewer = null; productRequest++;
-  document.querySelector("#desktop-frame").removeAttribute("src");
+  screenView.clear();
   Object.assign(target, returnView); // Closing a feature returns to the exact zoom and pan from which it was opened.
   stage.classList.remove("room-focused");
   render();
@@ -578,7 +580,7 @@ async function showHardware(id) {
   const signal = AbortSignal.any([productLoad.signal, AbortSignal.timeout(20000)]);
   document.querySelector("#hardware-detail").hidden = false;
   document.querySelector("#screen-detail").hidden = true;
-  document.querySelector("#desktop-frame").removeAttribute("src"); // Stop the embedded desktop while its hardware model is shown.
+  screenView.clear(); // Stop the embedded desktop while its hardware model is shown.
   const specs = document.querySelector("#product-specs"); specs.replaceChildren();
   for (const spec of item.specs) { const li = document.createElement("li"); li.textContent = spec; specs.append(li); }
   const link = document.querySelector("#product-link"); link.href = item.url;
@@ -609,11 +611,21 @@ function showScreen(id) {
   productLoad?.abort();
   productViewer?.dispose(); productViewer = null; productRequest++;
   document.querySelector("#hardware-detail").hidden = true; document.querySelector("#screen-detail").hidden = false;
-  const frame = document.querySelector("#desktop-frame");
-  frame.src = id === "obs" ? "./obs.html?v=__SITE_VERSION__" : "https://ethansk.github.io/response-preferences/";
-  frame.title = id === "obs" ? "OBS — demo" : "Interactive example of Ethan’s desktop";
+  screenView.load(
+    id === "obs" ? "./obs.html?v=__SITE_VERSION__" : "https://ethansk.github.io/response-preferences/",
+    id === "obs" ? "OBS" : "Response Preferences",
+    id === "obs" ? "OBS — demo" : "Interactive example of Ethan’s desktop",
+  );
 }
 const directory = document.querySelector("#setup-directory");
+const portfolioContainer = document.querySelector("#portfolio-frame");
+const portfolioView = createFrameView(portfolioContainer);
+const portfolioObserver = new IntersectionObserver(entries => {
+  if (!entries.some(entry => entry.isIntersecting)) return;
+  portfolioView.load("https://portosaurus.github.io/ethansk/", "Portfolio", "Ethan SK portfolio");
+  portfolioObserver.disconnect();
+}, { root: directory, rootMargin: "300px" }); // Begin the loading timer only when the portfolio is near view, not while a lazy iframe is waiting offscreen.
+portfolioObserver.observe(portfolioContainer);
 let directoryTrigger;
 function openDirectory(trigger) { directoryTrigger = trigger; directory.showModal(); }
 for (const button of document.querySelectorAll("#show-directory, [data-directory]")) button.addEventListener("click", () => openDirectory(button));
@@ -668,7 +680,7 @@ for (const [name,repo,description] of skills) {
 }
 
 window.addEventListener("message", event => {
-  if (event.origin === location.origin && event.source === document.querySelector("#desktop-frame").contentWindow && event.data === "close-setup-screen" && detail.open) detail.close(); // Accept Escape only from this site's embedded OBS demo.
+  if (event.origin === location.origin && event.source === document.querySelector("#desktop-frame")?.contentWindow && event.data === "close-setup-screen" && detail.open) detail.close(); // Accept Escape only from this site's embedded OBS demo.
 });
 
 for (const link of document.querySelectorAll('a[href^="https://"]')) { link.target = "_blank"; link.rel = "noopener noreferrer"; }
