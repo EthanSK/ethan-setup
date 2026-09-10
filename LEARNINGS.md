@@ -93,3 +93,9 @@ Build one route from the photographed item positions, with related demos inserte
 ## Background software coverage
 
 Foreground app time undercounts desktop widgets and other background tools. Cross-check the installed apps and their safe current configuration before treating a directory entry as a complete showcase; a listed app can still lack its own room view and setup explanation. Keep the ranking separate from the synced inventory. A repository or PR proves a tool exists, not that it is installed, used daily or ready to recommend.
+
+## Embedded page loading
+
+Use a fresh iframe when opening or retrying a page; clearing and reusing its src can deliver an unrelated about:blank load. Only the current iframe may dismiss its indicator. Preserve its layout dimensions while hiding unfinished content, and cancel pending timers/pages on dialog close or topic change. Start a lazy portfolio's timer near visibility so time spent offscreen is not reported as slow loading.
+
+An iframe load event is a browser milestone, not proof that a remote app succeeded internally. A timer can truthfully show “Still loading” and offer retry without claiming failure. Verify immediate feedback, a delayed response, retry, close/switch cleanup and real embeds separately; local delayed fixtures must never enter the published files.
