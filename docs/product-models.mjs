@@ -450,7 +450,85 @@ const builders = {
   samsung: buildSamsung,
   desk: buildDesk,
   chair: buildChair,
+  d6pro: buildD6Pro,
+  q2mini: buildQ2Mini,
 };
+
+/** Black D6 Pro: open loop grip, side motor vents and an independently pivoting percussion arm, proportioned from the manufacturer's photos. */
+function buildD6Pro() {
+  const group = new THREE.Group();
+  const rubber = std(0x242528, .7), edge = std(0x111214, .48), gloss = std(0x090a0d, .22), silver = std(0x9ca0a4, .28, .8);
+  const outline = new THREE.Shape();
+  outline.moveTo(-40, 218); outline.bezierCurveTo(-47, 255, -4, 270, 32, 252);
+  outline.bezierCurveTo(56, 240, 63, 224, 77, 197); outline.lineTo(144, 59);
+  outline.bezierCurveTo(159, 26, 142, 8, 118, 8); outline.lineTo(46, 8);
+  outline.bezierCurveTo(20, 8, 9, 23, -1, 45); outline.lineTo(-42, 159); outline.closePath();
+  const opening = new THREE.Path();
+  opening.moveTo(19, 185); opening.bezierCurveTo(20, 219, 30, 222, 42, 199);
+  opening.lineTo(103, 74); opening.quadraticCurveTo(112, 55, 98, 53); opening.lineTo(62, 53);
+  opening.quadraticCurveTo(46, 53, 40, 73); opening.lineTo(19, 151); opening.closePath();
+  outline.holes.push(opening);
+  const geometry = new THREE.ExtrudeGeometry(outline, {depth: 48, bevelEnabled: true, bevelThickness: 8, bevelSize: 7, bevelSegments: 5, curveSegments: 28});
+  geometry.translate(0, 0, -24);
+  geometry.translate(24, -211, 0); geometry.scale(1.12, .88, 1); geometry.translate(-24, 211, 0); // Keep the motor pivot fixed while matching the broader, shorter loop in the side photographs.
+  group.add(new THREE.Mesh(geometry, rubber));
+  group.add(at(cyl(46, 46, 77, gloss, 64, "z"), -24, 211));
+  for (const side of [-1, 1]) {
+    const face = new THREE.Group(); face.position.set(-24, 211, side * 41); face.rotation.y = side < 0 ? Math.PI : 0;
+    face.add(cyl(45, 45, 4, rubber, 64, "z"));
+    face.add(at(cyl(21, 21, .7, edge, 48, "z"), 0, 0, 2.5));
+    for (let i = 0; i < 30; i++) {
+      const a = i * Math.PI * 2 / 30;
+      face.add(at(box(1.15, 16, .8, gloss, .5), Math.sin(a) * 33, Math.cos(a) * 33, 2.7, 0, 0, -a));
+    }
+    face.add(at(decal(36, 32, (ctx, w) => { text(ctx, "Bob", w / 2, 8, 10); text(ctx, "AND", w / 2, 16, 4); text(ctx, "Brad", w / 2, 24, 10); }), 0, 0, 3));
+    group.add(face);
+  }
+  const controls = new THREE.Group(); controls.position.set(105, 153, 33); controls.rotation.z = .51;
+  controls.add(plate(22, 87, 1.4, 10, gloss));
+  controls.add(at(decal(18, 43, (ctx, w) => {
+    text(ctx, "▰", w / 2, 5, 7, "#cddada"); text(ctx, "2500", w / 2, 22, 7, "#e3eeee"); text(ctx, "M1", w / 2, 36, 5, "#b0bfc2");
+  }), 0, 16, 1));
+  for (const y of [-13, -31]) controls.add(at(cyl(6.5, 6.5, 1.2, edge, 32, "z"), 0, y, 1.5));
+  group.add(controls);
+  const arm = new THREE.Group(); arm.position.set(-24, 211, 0); arm.rotation.z = .45;
+  arm.add(at(cyl(19, 22, 72, gloss, 48, "x"), -59, 0));
+  arm.add(at(cyl(12, 12, 22, silver, 40, "x"), -103, 0));
+  const head = new THREE.Group(); head.position.x = -120;
+  head.add(at(cyl(10, 10, 20, edge, 32, "x"), -2, 0));
+  head.add(at(new THREE.Mesh(new THREE.SphereGeometry(25, 40, 28), std(0x141517, .95)), -30, 0));
+  arm.add(head); group.add(arm);
+  return {group, view: {yaw: -.4, pitch: .13}, movements: [
+    {name: "Adjustable arm", apply: t => { arm.rotation.z = .45 - t * .85; }}, // The photo-based arc illustrates the adjustable joint; it is not a certified mechanical range.
+    {name: "Head stroke", duration: 2, apply: t => { head.position.x = -120 - t * 16; }}, // Show the published 16 mm stroke slowly so its movement stays readable, not at the real percussion frequency.
+  ]};
+}
+
+/** Red Q2 Mini: rounded vertical grip, glossy top and T-shaped barrel with the purchased round foam head. */
+function buildQ2Mini() {
+  const group = new THREE.Group();
+  const red = std(0xa62b39, .6), black = std(0x08090c, .23), rubber = std(0x161719, .87);
+  const grip = lathe([[0,0],[12,0],[19,3],[22,9],[23,18],[23,121],[22,132],[19,139],[10,143],[0,143]], red, 64);
+  grip.scale.z = .88; group.add(grip);
+  const cap = lathe([[0,0],[20,0],[22,3],[21,8],[18,12],[10,15],[0,16]], black, 64);
+  cap.scale.z = .88; group.add(at(cap, 0, 133));
+  const foot = lathe([[0,0],[13,0],[19,3],[21,7],[21,10],[0,10]], black, 64);
+  foot.scale.z = .88; group.add(at(foot, 0, -2));
+  const collar = new THREE.Mesh(new THREE.SphereGeometry(1, 48, 32), black); collar.scale.set(28, 29, 22); group.add(at(collar, -8, 99)); // The glossy neck wraps into the red grip instead of meeting it as a plain tube.
+  const stem = at(cyl(16, 21, 57, black, 64, "x"), -31, 97); group.add(stem);
+  group.add(at(cyl(10, 10, 12, rubber, 40, "x"), -65, 97));
+  group.add(at(decal(43, 15, (ctx, w) => text(ctx, "Bob AND Brad", w / 2, 7.5, 5.3, "#eee", 600)), -29, 97, 17.8));
+  const head = new THREE.Group(); head.position.set(-72, 97, 0);
+  head.add(at(cyl(8, 8, 14, rubber, 32, "x"), -3, 0));
+  head.add(at(new THREE.Mesh(new THREE.SphereGeometry(22, 40, 28), std(0x161719, .98)), -28, 0));
+  group.add(head);
+  group.add(at(box(9, 3.4, .9, rubber, 1.5), 0, 13, 19.5)); // The USB-C socket sits low on the grip, separate from the speed button at its top.
+  group.add(at(cyl(6, 6, .7, rubber, 32), 0, 149.1));
+  for (let i = 0; i < 5; i++) group.add(at(cyl(.85, .85, .6, std(0xb8d2ef, .45), 12), -5 + i * 2.5, 147.8, 9));
+  return {group, view: {yaw: -.4, pitch: .12}, movements: [
+    {name: "Head stroke", duration: 2, apply: t => { head.position.x = -72 - t * 7; }}, // A slow illustration of the 7 mm head travel, not the real 1800–3000 rpm vibration.
+  ]};
+}
 
 /** Canon EOS M50 Mark II: 116.3 × 88.1 × 58.7 mm body, with a representative compact EF-M lens and articulated screen. */
 function buildCanon() {

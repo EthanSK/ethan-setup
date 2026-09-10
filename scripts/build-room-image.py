@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Preserve the selected pre-camera room with only the Dell screen updated."""
+"""Preserve the selected room, with the Dell screen and a small massage-gun insert."""
 import base64
 from pathlib import Path
 
@@ -7,11 +7,12 @@ ASSETS = Path(__file__).resolve().parents[1] / 'docs' / 'assets'
 
 
 def room_image():
-    """Assemble the selected room's existing portrait and screens with the Dell insert."""
+    """Preserve the selected portrait and screens while inserting the Dell view and massage guns."""
     original = base64.b64encode((ASSETS / 'room.webp').read_bytes()).decode('ascii')
     screens = base64.b64encode((ASSETS / 'room-screens.webp').read_bytes()).decode('ascii')
     details = base64.b64encode((ASSETS / 'room-details.webp').read_bytes()).decode('ascii')
     dell = base64.b64encode((ASSETS / 'room-dell-legs.webp').read_bytes()).decode('ascii')
+    massage = base64.b64encode((ASSETS / 'room-massage-guns.webp').read_bytes()).decode('ascii')
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="1586" height="992" viewBox="0 0 1586 992">
   <title>Ethan's setup with his work screen and OBS layout</title>
   <defs>
@@ -30,16 +31,20 @@ def room_image():
     <clipPath id="laptop">
       <polygon points="26,433 235,428 253,535 57,560"/>
     </clipPath>
+    <clipPath id="massage-guns">
+      <path d="M750 480 H882 V501 H925 V540 L912 549 L894 561 L869 574 L843 583 H750 Z"/>
+    </clipPath>
   </defs>
   <image width="1586" height="992" href="data:image/webp;base64,{original}"/>
   <image width="1586" height="992" href="data:image/webp;base64,{screens}" clip-path="url(#screens)"/>
   <image width="1586" height="992" href="data:image/webp;base64,{dell}" clip-path="url(#dell)"/>
   <use href="#details" clip-path="url(#laptop)"/>
   <use href="#details" mask="url(#portrait)"/>
+  <image x="750" y="480" width="180" height="110" href="data:image/webp;base64,{massage}" clip-path="url(#massage-guns)"/>
 </svg>
-'''  # Ethan selected the c220035 reference: preserve its exact portrait, body, sausage legs and room; only update the Dell screen, without reintroducing the later camera patch or full-frame regeneration (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
+'''  # Ethan selected the c220035 reference: preserve its exact portrait, body, sausage legs and room outside the requested Dell screen and local massage-gun inserts; do not reintroduce the later camera patch or full-frame regeneration (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
 
 
 if __name__ == '__main__':
     (ASSETS / 'room.svg').write_text(room_image())
-    print('Preserved the selected c220035 room; only the Dell screen differs, with the existing water wallpaper retained.')
+    print('Preserved the selected room, face and screens; added the Dell insert and small massage-gun patch behind the arm.')

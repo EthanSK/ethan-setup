@@ -50,6 +50,8 @@ The MacBook's full specs come from its live CPU/GPU, memory and internal storage
 
 The AI wording disclaimer belongs once in the Everything I use footer. Putting it in the shared product dialog repeats it for every device and makes it appear to be part of embedded apps.
 
+Bob and Brad purchase records distinguish the black D6 Pro (not Pro Plus) and the red Q2 Mini (not Pro, Max or Ultra). The current Q2 manufacturer page mixes variants in its description; use the exact purchased ASIN and red-variant image rather than inheriting its heat/cold attachment claims.
+
 Small equipment corrections should retain only the generated object's local patch in the SVG composite. Keep the existing face and screen layers identical; do not replace the full room with another generated frame. Verify the composite in the built-in browser: ImageMagick's internal SVG renderer misrenders these embedded-image masks and cannot prove their visual appearance.
 
 ## Product galleries

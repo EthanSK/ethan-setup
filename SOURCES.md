@@ -32,19 +32,23 @@ Public product links and exact selected configurations are in `docs/gear.json`. 
 | Canon EOS M50 Mark II, black | Ethan's identification and original desk photograph, corroborated by historical model correspondence; [Canon specifications](https://www.canon.co.uk/cameras/eos-m50-mark-ii/specifications/) and product photographs. The currently fitted lens has not been verified |
 | Samsung S80UA / S27A800U | Live display name LS27A800U; regional suffix unconfirmed |
 | Mac mini M4, 16 GB, silver | Direct hardware identification on 8 September 2026 confirms Mac mini, M4 and 16 GB; [Apple's 2024 specifications](https://support.apple.com/en-gb/121555) confirm the silver 127 × 127 × 50 mm enclosure |
+| Bob and Brad D6 Pro, black | Amazon purchase July 2024; exact product ASIN B0BG56G526. [Manufacturer D6 Pro page](https://www.bobandbrad.com/products/bob-and-brad-d6-pro-deep-tissue-massage-gun); the later Pro Plus is a different model |
+| Bob and Brad Q2 Mini, red | Amazon purchase June 2024 explicitly names Red, ASIN B0BXPGTZLL; manufacturer gallery confirms the red variant. Q2 Pro, Max and Ultra are different variants |
 | Corsair and Razer mice | Existing published Agentic Mouse setup and authored models |
 
 Product links can lead to a current shop configuration, regional equivalent or support page after a model is discontinued. The configured desk size, chair colour and drive capacity above are the purchased setup, not a claim about a store’s default selection.
 
 ## Official product galleries
 
-The 43 gallery photographs and illustrations under `docs/assets/products/` were selected from manufacturer pages on 8 September 2026. Each `images` entry in `docs/gear.json` records its original URL; the photo links back to that source. Files are resized proportionally, with empty outer padding removed from product cutouts, stripped of metadata and stored locally as WebP, so opening a gallery does not depend on a manufacturer's image server.
+The original 43 gallery photographs and illustrations under `docs/assets/products/` were selected from manufacturer pages on 8 September 2026. Each `images` entry in `docs/gear.json` records its original URL; the photo links back to that source. Files are resized proportionally, with empty outer padding removed from product cutouts, stripped of metadata and stored locally as WebP, so opening a gallery does not depend on a manufacturer's image server.
 
 Corsair and Razer photos show the black/yellow Scimitar Elite Wireless SE and black left-handed Naga. Yamaha images show white HS8 monitors; Focusrite shows the third-generation 18i8; Apple shows the Space Black MacBook Pro enclosure and silver M4 Mac mini. Canon photographs depict the black EOS M50 Mark II, including Canon's pictured kit lens; the currently fitted lens remains unverified. Hbada shows the grey 2026 E3 Pro with footrest.
 
 The Akai images come from the [MPK mini Plus product gallery](https://www.akaipro.com/mpk-mini-plus/). Pioneer, Samsung, Mackie and Western Digital images come from their respective product pages linked in the inventory. Shure's photos show the SM7B in manufacturer recording setups. The Dell angled photo comes from its official S3422DW gallery; the front image is extracted from a [Dell-authored S3422DW brochure](https://cdn.e-misija.si/pdf/S3422DW.pdf) hosted by a distributor, because several images on Dell's older CDN currently return errors. That brochure image retains its original 400 × 235 resolution.
 
 FlexiSpot now offers a newer frame at the UK product URL. Its gallery therefore uses a black E7 Pro frame-detail photograph from the manufacturer's 2025 US page and the UK bamboo-finish sample, labelled as such; it does not substitute a complete 2026 desk or a different desktop for Ethan's purchased 2025 configuration. Mackie supplies one isolated product image in the selected official gallery; no second angle is invented.
+
+Four additional Bob and Brad images were selected on 10 September 2026 from the manufacturer’s D6 Pro and Q2 Mini galleries: the D6 kit, control panel and grip positions, and the purchased red Q2 kit. The current Q2 shop description mixes standard Mini and Max claims, so the purchase-confirmed model and red-variant photograph take priority; no heat or cold head is claimed.
 
 These are manufacturer-owned product assets, not generated photographs or MIT-licensed project artwork. Source links identify provenance and do not imply manufacturer endorsement or a general right to redistribute the assets elsewhere.
 
@@ -58,7 +62,9 @@ The active `docs/assets/room.svg` uses the complete scene from commit `c220035`,
 
 Only the Dell's screen interior is updated, using the already generated `room-dell-legs.webp` through its exact screen polygon. The left half references the 00:53 timeline frame from Ethan's Y Combinator AIMVS/Vibideo demo; the right references his supplied VS Code diff screenshot. These are generated screenshot inserts, with private conversation/account/workspace details removed, not pixel-exact captures. The later leg shortening and full-room reconstruction are not applied.
 
-`scripts/build-room-image.py` preserves the selected composition and applies only this Dell overlay. A lossless render comparison against `c220035` found zero changed pixels outside the Dell screen. The same self-contained SVG serves the room, fallback and OBS example; its proportional 1586 × 992 JPEG export supplies the social card. Historical generated assets and prompts remain as provenance and must not be mistaken for the active image.
+`scripts/build-room-image.py` preserves the selected composition with this Dell overlay and the local massage-gun patch described below. Before the massage-gun addition, a lossless render comparison against `c220035` found zero changed pixels outside the Dell screen. The same self-contained SVG serves the room, fallback and OBS example; its proportional 1586 × 992 JPEG export supplies the social card. Historical generated assets and prompts remain as provenance and must not be mistaken for the active image.
+
+On 10 September 2026, a built-in image-generation edit used that published room and the exact manufacturer D6 Pro and red Q2 Mini photos to add the guns. Only a 180 × 110 pixel local patch is retained in `room-massage-guns.webp`, clipped around the existing forearm; none of the regenerated face or screen pixels is used. A lossless compositor comparison found zero changes outside this patch. The social card uses the updated composition. The placement is an illustration requested by Ethan, not photographic evidence of where the guns were stored.
 
 The rotatable MacBook separately uses `docs/assets/macbook-wallpaper.webp`, exported proportionally from Apple's installed Tahoe wallpaper. Apple retains its wallpaper rights. Product-gallery provenance is listed above; the room and generated equipment remain illustrations, not an untouched portrait, measured room scan or manufacturer CAD.
 

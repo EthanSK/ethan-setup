@@ -17,7 +17,7 @@ viewer.dispose(); // stop rendering, drop listeners/observers and free GPU resou
 `movementControls` contains a labelled `<select>` and a play/pause `<button>`; the viewer hides it for fixed enclosures.
 
 - Product ids match `docs/gear.json`: `hs8`, `scarlett`, `flx4`, `akai`, `shure`, `bigknob`, `drive`, `macbook`,
-  `macmini`, `dell`, `canon`, `samsung`, `desk`, `chair`. The two mice use the original Agentic Mouse GLB files and their native button mapping.
+  `macmini`, `dell`, `canon`, `samsung`, `desk`, `chair`, `d6pro`, `q2mini`. The two mice use the original Agentic Mouse GLB files and their native button mapping.
 - Drag rotates directly under the pointer (yaw and pitch), the pointer is captured only once a drag has started, a
   mostly vertical touch is left to scroll, and release leaves the model exactly where it is (no inertia). Arrow keys
   rotate and Home resets. Fixed products slowly turn until the first interaction. Moving products sway near their initial viewing angle,
@@ -77,9 +77,15 @@ The Mac mini and WD enclosure remain fixed objects with the existing slow turnta
 - Hbada’s page contradicts itself on seat lift: 85 mm in the feature text versus 18.1–20.4 inches in the dimensions. The demo uses the smaller 58 mm span; it does not claim a certified full stroke.
 - Footrest extension and folding, upholstery contours, swivel demonstration and linkage offsets are estimated from photos. These models illustrate adjustments and cannot establish ergonomic fit, clearances or load ratings.
 
+## Massage guns
+
+The black D6 Pro follows the manufacturer's [kit, motor, controls and grip photographs](https://store.bobandbrad.com/products/bob-and-brad-d6-pro-massage-gun): a broad open loop, circular vented motor ends, glossy adjustable arm and separate foam ball. The loop proportions are estimated from those photos; they are not measured CAD. Its arm arc is illustrative, and the published 16 mm stroke is shown slowly rather than at 1500–2500 rpm.
+
+The red Q2 Mini uses the manufacturer's [red variant gallery](https://store.bobandbrad.com/products/bob-and-brad-q2-mini-massage-gun?variant=40464450027586), matching the purchase record rather than the default shop colour or newer Pro/Max/Ultra products. Its red rounded grip, black cap and T-shaped neck carry a foam ball. The 7 mm head stroke is a slow mechanical illustration, with overall proportions estimated from the reference. Neither demo simulates force, therapeutic effects or real operating frequency; both reuse the existing pause, adjustment, rotation and wheel controls.
+
 ## Verification
 
-Run `node scripts/check-model-geometry.mjs` for all 14 builders and 39 adjustment sweeps. It uses the bundled Three.js geometry and samples independent reset behavior, finite coordinates and containment throughout each movement. Canvas painting and image decoding require the browser checks; the test does not prove appearance or mechanical collision clearance.
+Run `node scripts/check-model-geometry.mjs` for all 16 builders and 42 adjustment sweeps. It uses the bundled Three.js geometry and samples independent reset behavior, finite coordinates and containment throughout each movement. Canvas painting and image decoding require the browser checks; the test does not prove appearance or mechanical collision clearance.
 
 Before publishing, inspect the exact built version in Codex’s built-in browser: compare front/side/rear silhouettes with the galleries, exercise adjustment selection and pause/play, rotate and release, reset, change photo and return, and switch products. Check narrow layouts and browser errors. Actual two-touch pinch remains unverified when the browser tool does not supply two-touch input.
 
