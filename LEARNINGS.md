@@ -89,3 +89,7 @@ Gallery thumbnails belong to the currently opened product and should load eagerl
 Keep the floating previous/next controls outside the dialog's scrolling body, inside the same modal top layer. Centring them on that shell keeps their vertical position stable across short software cards, tall hardware content and full-height screen embeds. Mobile controls must remain inside the viewport, including at 320px and in landscape; keep the close control outside the scroller too.
 
 Build one route from the photographed item positions, with related demos inserted beside their hardware. Computing an independent nearest destination on every click can bounce between two items and makes Previous fail to undo Next. Switching topics reuses the existing open/cleanup path and preserves the initial room camera and return focus; cancel held review buttons and active dictation on topic changes as well as close. Verify a full loop, reverse navigation, model/gallery transitions, repeated keyboard activation and backdrop dismissal.
+
+## Background software coverage
+
+Foreground app time undercounts desktop widgets and other background tools. Cross-check the installed apps and their safe current configuration before treating a directory entry as a complete showcase; a listed app can still lack its own room view and setup explanation. Keep the ranking separate from the synced inventory. A repository or PR proves a tool exists, not that it is installed, used daily or ready to recommend.
