@@ -13,6 +13,7 @@ I use twelve thumb controls mirrored across a right-handed Corsair and a left-ha
 In Better Git VS Code, a quick press of button **5 or 8** jumps to the previous or next change. Hold for 300 ms and release to stage the current file and jump in that direction.
 
 The button under the scroll wheel starts VoiceInk++ dictation; the YouTube bridge pauses my video while I talk and resumes only a video it paused.
+In my current installed VoiceInk++ build, highlighting Codex text while I speak adds a short XML selection reference between the words before and after the highlight. The public VoiceInk++ source build does not include this feature yet.
 
 The website lets you try those controls and the app’s HUD without installing anything. All actions stay in the demo.
 
