@@ -77,7 +77,7 @@ The Mac mini identifies itself as an M4 with 16 GB memory. The Dell S3422DW iden
 
 Start with [Agentic Mouse](https://github.com/EthanSK/agentic-mouse), [VoiceInk++](https://ethansk.github.io/VoiceInkPlusPlus/), [Better Git VS Code](https://github.com/EthanSK/better-git-vscode), [Stats Widget](https://ethansk.github.io/stats-widget-from-website/), and [Response Preferences](https://ethansk.github.io/response-preferences/).
 
-The Software sidebar links only public repositories. The full app directory comes from the public [response-preferences desktop inventory](https://ethansk.github.io/response-preferences/desktop/apps.json). The skills section includes the separately published AIMVS dev skill. Ordering is a recent-use snapshot, not live analytics; the [source notes](SOURCES.md) explain its limits.
+The Software sidebar links only public projects, using each project's website when available. The full app directory comes from the public [response-preferences desktop inventory](https://ethansk.github.io/response-preferences/desktop/apps.json). The skills section includes the separately published AIMVS dev skill. Ordering is a recent-use snapshot, not live analytics; the [source notes](SOURCES.md) explain its limits.
 
 The OBS dialog also links [Restream Channel Switcher](https://github.com/EthanSK/restream-channel-switcher), which can switch configured groups of Restream destinations from a scene hook.
 
