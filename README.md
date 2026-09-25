@@ -12,14 +12,14 @@ I use twelve thumb controls mirrored across a right-handed Corsair and a left-ha
 
 In Better Git VS Code, a quick press of button **5 or 8** jumps to the previous or next change. Hold for 300 ms and release to stage the current file and jump in that direction.
 
-The button under the scroll wheel starts VoiceInk++ dictation; the YouTube bridge pauses my video while I talk and resumes only a video it paused.
-In my current installed VoiceInk++ build, highlighting Codex text while I speak adds a short XML selection reference between the words before and after the highlight. The public VoiceInk++ source build does not include this feature yet.
+The button under the scroll wheel starts AgentFlow dictation; the YouTube bridge pauses my video while I talk and resumes only a video it paused.
+AgentFlow combines live speech, highlighted text and screenshot paths into a timed context trail. Codex highlights can identify the task; other app selections are best effort when macOS exposes them.
 
 The website lets you try those controls and the app’s HUD without installing anything. All actions stay in the demo.
 
 ## Look around
 
-Matching software and skills appear as prominent links at the top of each relevant dialog: Agentic Mouse on both mice, VoiceInk++ for dictation, Better Git VS Code and Response Preferences on the Dell, the public AIMVS dev skill and Better Git on the VS Code walkthrough, and OBS++ / Aitum++ on the recording setup. Each opens its public website, extension listing or repository in a new browser page.
+Matching software and skills appear as prominent links at the top of each relevant dialog: Agentic Mouse on both mice, AgentFlow for dictation, Better Git VS Code and Response Preferences on the Dell, the public AIMVS dev skill and Better Git on the VS Code walkthrough, and OBS++ / Aitum++ on the recording setup. Each opens its public website, extension listing or repository in a new browser page.
 
 - The room photo fills the window without stretching and starts aligned to the bottom. You can pan across the cropped area, including in the opening view.
 - Click the background to zoom in around that point and reveal nearby items, or drag the background or any floating item label to move around. Clicking a label still opens its item; releasing a drag does not open it or zoom again.
@@ -75,7 +75,7 @@ The Mac mini identifies itself as an M4 with 16 GB memory. The Dell S3422DW iden
 
 ## Apps and skills
 
-Start with [Agentic Mouse](https://github.com/EthanSK/agentic-mouse), [VoiceInk++](https://ethansk.github.io/VoiceInkPlusPlus/), [Better Git VS Code](https://github.com/EthanSK/better-git-vscode), [Stats Widget](https://ethansk.github.io/stats-widget-from-website/), and [Response Preferences](https://ethansk.github.io/response-preferences/).
+Start with [Agentic Mouse](https://github.com/EthanSK/agentic-mouse), [AgentFlow](https://ethansk.github.io/AgentFlow/), [Better Git VS Code](https://github.com/EthanSK/better-git-vscode), [Stats Widget](https://ethansk.github.io/stats-widget-from-website/), and [Response Preferences](https://ethansk.github.io/response-preferences/).
 
 The Software sidebar links only public projects, using each project's website when available. The full app directory comes from the public [response-preferences desktop inventory](https://ethansk.github.io/response-preferences/desktop/apps.json). The skills section includes the separately published AIMVS dev skill. Ordering is a recent-use snapshot, not live analytics; the [source notes](SOURCES.md) explain its limits.
 

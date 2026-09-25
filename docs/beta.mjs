@@ -12,6 +12,16 @@ const screenView = createFrameView(document.querySelector("#screen-detail"), "de
 const reduced = matchMedia("(prefers-reduced-motion: reduce)");
 const gear = await fetch(new URL("./gear.json?v=__SITE_VERSION__", import.meta.url)).then(response => { if (!response.ok) throw new Error("Hardware data did not load"); return response.json(); });
 const apps = await fetch(new URL("./apps.json?v=__SITE_VERSION__", import.meta.url)).then(response => { if (!response.ok) throw new Error("App data did not load"); return response.json(); });
+// The desktop inventory is synced from response-preferences. Keep its stable
+// internal app ID, but show this site's current AgentFlow brand and destination
+// until that canonical inventory is published with the renamed project.
+const voiceApp = apps.find(app => app.id === "voiceinkplusplus");
+if (voiceApp) Object.assign(voiceApp, {
+  name: "AgentFlow",
+  url: "https://ethansk.github.io/AgentFlow/",
+  icon: new URL("./assets/agentflow-icon.png", import.meta.url).href,
+  note: "Ethan’s VoiceInk fork for live agent context.",
+});
 const gearById = new Map(gear.map(item => [item.id, item]));
 const hotspotContainer = document.querySelector(".room-hotspots");
 for (const item of gear) {
@@ -275,7 +285,7 @@ document.querySelectorAll("[data-view]").forEach(button => button.addEventListen
 }));
 
 const topics = {
-  corsair: ["Right hand · Agentic Mouse", "Corsair Scimitar", "Twelve thumb controls for working with agents, with the top button for VoiceInk++ dictation."],
+  corsair: ["Right hand · Agentic Mouse", "Corsair Scimitar", "Twelve thumb controls for working with agents, with the top button for AgentFlow dictation."],
   razer: ["Left hand · Agentic Mouse", "Razer Naga", "The same controls mirrored for my left hand, so I can switch whenever I want."],
   codex: ["", "Codex", ""],
   vscode: ["Vibedio development", "My VS Code setup", "Every agent task gets its own worktree and dev stack; I review them all in one VS Code window."],
@@ -283,13 +293,13 @@ const topics = {
   stats: ["", "Stats Widget", "My Claude and ChatGPT usage sits on the desktop as small text widgets."],
   sausages: ["", "Tesco Finest sausages", "(This is a joke, I only eat M&S, Waitrose, or Deliveroo sausages.)"],
   code: ["Great for Agentic Engineers", "Review code without moving your hand", "Quick press to jump to a change, or hold and release to stage the current file and jump in that direction."],
-  voice: ["VoiceInk++", "YouTube pauses when I start talking", "I use a top mouse button to dictate instead of typing, and my video resumes when I finish if my setup paused it."],
+  voice: ["AgentFlow", "YouTube pauses when I start talking", "I use a top mouse button to dictate instead of typing, and my video resumes when I finish if my setup paused it."],
   desk: ["My desk setup", "Both mice stay on the desk", "High sensitivity keeps movement small, and I sometimes use both mice to click through code review faster."],
   chair: ["My desk setup", "Lean back without reaching for a keyboard", "I use thumb controls and dictation with the footrest out, switching hands whenever I want."],
 };
 const relatedTools = {
   mouse: { name: "Agentic Mouse", url: "https://ethansk.github.io/agentic-mouse/", icon: "./agentic-mouse-mark.svg?v=__SITE_VERSION__" },
-  voice: { name: "VoiceInk++", url: apps.find(app => app.id === "voiceinkplusplus").url, icon: new URL(apps.find(app => app.id === "voiceinkplusplus").icon, "https://ethansk.github.io/response-preferences/").href },
+  voice: { name: "AgentFlow", url: "https://ethansk.github.io/AgentFlow/", icon: "./assets/agentflow-icon.png?v=__SITE_VERSION__" },
   code: { name: "Better Git VS Code", url: "https://marketplace.visualstudio.com/items?itemName=EthanSK.better-git-vscode", icon: "./assets/apps/vsCode.png" },
   replies: { name: "Response Preferences", url: "https://ethansk.github.io/response-preferences/", icon: "./assets/apps/codex.png" },
   skill: { name: "AIMVS dev skill", url: "https://github.com/EthanSK/aimvs-dev-skill", icon: "./assets/apps/codex.png" }, // The public mirror of the Codex skill; the private AIMVS app repository is never linked.
