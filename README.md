@@ -13,7 +13,7 @@ I use twelve thumb controls mirrored across a right-handed Corsair and a left-ha
 In Better Git VS Code, a quick press of button **5 or 8** jumps to the previous or next change. Hold for 300 ms and release to stage the current file and jump in that direction.
 
 The button under the scroll wheel starts Agent Flow dictation; the YouTube bridge pauses my video while I talk and resumes only a video it paused.
-Agent Flow combines live speech, highlighted text and screenshot paths into a timed context trail. Codex highlights can identify the task; other app selections are best effort when macOS exposes them.
+Agent Flow pastes my speech with mouse highlights and saved screenshot paths near what I was saying. Placement is approximate, not a precise timeline. Codex highlights can identify the task; other app selections depend on what the app exposes to macOS.
 
 The website lets you try those controls and the app’s HUD without installing anything. All actions stay in the demo.
 
