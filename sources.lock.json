@@ -1,7 +1,7 @@
 {
   "agenticMouse": {
     "repository": "https://github.com/EthanSK/agentic-mouse",
-    "revision": "bc2623216c2a25e07ef65feacc7c2c382a8c6a1c",
+    "revision": "380ada44489c71f93b55e3e4586e8d4ecfed4c50",
     "publishedMap": "https://ethansk.github.io/agentic-mouse/simulator-data.json"
   },
   "desktop": {
@@ -10,7 +10,7 @@
   },
   "sha256": {
     "agentic-mouse-mark.svg": "f6cd4cbbabe46502a6a08e8d6d51e768ad92b980c92a4f713f7c77b5b9d3f8fa",
-    "apps.json": "a6a3b274bee1c50214e3d51ccdf41fff11a69e7d9ee302deb82c5b8caf61e281",
+    "apps.json": "126625dc827ce71ea7735c65ed196a0fdee2212bd129fb0b957a267bac23c581",
     "assets/apps/chrome.png": "76d25cd7dd3e82082ebef88f911409f6148722af2f2c9df8816910b0706e35a9",
     "assets/apps/claude.png": "efc6c8fe0b934cffae7d0faa6fbc5ddab11f14a11abc6f235ca3e11d42b6228f",
     "assets/apps/codex.png": "b23bb8f29d3520b3bfed183d6ba73cff6ea3b57ce5ef5d004e1c31f06ffcd1eb",
@@ -59,7 +59,7 @@
     "mouse-motion.mjs": "6b7925159f66627523575708856ef39c7c8e4b10064ade9695a9408a036bb68c",
     "native-hud.mjs": "3891db55ae64e125dbcb05742fa9cbd8f9aedb94eeb984a25571b568136e3f4e",
     "showcase.css": "0a5f9f5e89eaa31ae9b5f2fa7478db02ccd0b5ca945f53c62c5f973973f6e333",
-    "simulator-data.json": "22a36da32837c28c25bccf471777737a2a9951744691a3d4369e4efb482db6a6",
+    "simulator-data.json": "6ed51d955bb47fe32e1309ca7999ec752182cd6cfeeed5a594c451914dbb2326",
     "simulator.mjs": "95ad64a7a27598c0f3f868d632d382555e7c100f5958a75be46279b4b5e0d1e8"
   }
 }
