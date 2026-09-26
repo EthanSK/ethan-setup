@@ -227,7 +227,7 @@
   {
     "id": "voiceinkplusplus",
     "name": "VoiceInkPlusPlus",
-    "url": "https://ethansk.github.io/VoiceInkPlusPlus/",
+    "url": "https://ethansk.github.io/AgentFlow/",
     "icon": "./desktop/icons/voiceinkplusplus.png",
     "note": "Ethan’s VoiceInk fork.",
     "dock": true,
