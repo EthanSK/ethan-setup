@@ -17,6 +17,8 @@ Agent Flow pastes my speech with mouse highlights and saved screenshot paths nea
 
 The website lets you try those controls and the app’s HUD without installing anything. All actions stay in the demo.
 
+In either mouse view, choosing **Current app** opens that app’s controls. Use **Default mode** to see the normal mapping or **App mode** to reopen the selected app’s controls. A held wheel control shows **Release selected button** so you can finish the gesture.
+
 ## Look around
 
 Matching software and skills appear as prominent links at the top of each relevant dialog: Agentic Mouse on both mice, Agent Flow for dictation, Better Git VS Code and Response Preferences on the Dell, the public AIMVS dev skill and Better Git on the VS Code walkthrough, and OBS++ / Aitum++ on the recording setup. Each opens its public website, extension listing or repository in a new browser page.
