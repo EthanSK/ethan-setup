@@ -468,17 +468,40 @@ async function loadMouse(hand) {
 document.querySelectorAll("[data-retry-mouse]").forEach(button => button.addEventListener("click", () => loadMouse(button.dataset.retryMouse)));
 function updateGestures() {
   const control = simulator.control(simulator.state.selected);
-  document.querySelector("#beta-hold").disabled = !control.wheel && !control.keypad;
+  const hold = document.querySelector("#beta-hold");
+  const held = simulator.state.held === simulator.state.selected;
+  hold.disabled = !control.wheel && !control.keypad;
+  hold.textContent = held ? "Release selected button" : "Hold selected button";
+  hold.setAttribute("aria-pressed", String(held));
   for (const id of ["beta-wheel-up", "beta-wheel-down"]) document.getElementById(id).disabled = simulator.state.held === null;
 }
 function updateMouse() {
   updateHUD?.(); updateGestures();
-  document.querySelector("#beta-feedback").textContent = simulator.state.text || simulator.state.output;
+  document.querySelector("#beta-default").setAttribute("aria-pressed", String(simulator.state.mode === "default"));
+  document.querySelector("#beta-app-mode").setAttribute("aria-pressed", String(simulator.state.mode === simulator.app));
+  document.querySelector("#beta-feedback").textContent = simulator.state.output;
   clearTimeout(pendingKeypad);
   if (simulator.state.pending) pendingKeypad = setTimeout(() => { simulator.tick(performance.now()); updateMouse(); }, 850);
 }
-document.querySelector("#beta-app").addEventListener("change", event => { if (simulator) { simulator.chooseApp(event.target.value); updateMouse(); } });
-document.querySelector("#beta-hold").addEventListener("click", () => { simulator.hold(simulator.state.selected); updateMouse(); });
+function selectMouseApp(app) {
+  const hand = simulator.hand;
+  simulator.chooseApp(app);
+  // Open the selected preview and refresh either hand already following the app, preserving other modes.
+  for (const source of Object.keys(simulator.states)) {
+    simulator.chooseHand(source);
+    if (source === hand || simulator.state.followsApp) simulator.chooseMode(app, true);
+  }
+  simulator.chooseHand(hand);
+  updateMouse();
+}
+document.querySelector("#beta-app").addEventListener("change", event => { if (simulator) selectMouseApp(event.target.value); });
+document.querySelector("#beta-default").addEventListener("click", () => { simulator.chooseMode("default"); updateMouse(); });
+document.querySelector("#beta-app-mode").addEventListener("click", () => { simulator.chooseMode(simulator.app, true); updateMouse(); });
+document.querySelector("#beta-hold").addEventListener("click", () => {
+  if (simulator.state.held === simulator.state.selected) simulator.release();
+  else simulator.hold(simulator.state.selected);
+  updateMouse();
+});
 document.querySelector("#beta-wheel-up").addEventListener("click", () => { simulator.wheel("up"); updateMouse(); });
 document.querySelector("#beta-wheel-down").addEventListener("click", () => { simulator.wheel("down"); updateMouse(); });
 document.querySelector("#beta-reset").addEventListener("click", () => { simulator.reset(); updateMouse(); });
