@@ -101,3 +101,9 @@ Foreground app time undercounts desktop widgets and other background tools. Cros
 Use a fresh iframe when opening or retrying a page; clearing and reusing its src can deliver an unrelated about:blank load. Only the current iframe may dismiss its indicator. Preserve its layout dimensions while hiding unfinished content, and cancel pending timers/pages on dialog close or topic change. Start a lazy portfolio's timer near visibility so time spent offscreen is not reported as slow loading.
 
 An iframe load event is a browser milestone, not proof that a remote app succeeded internally. A timer can truthfully show “Still loading” and offer retry without claiming failure. Verify immediate feedback, a delayed response, retry, close/switch cleanup and real embeds separately; local delayed fixtures must never enter the published files.
+
+## Mouse preview controls
+
+The canonical simulator separates the frontmost app from the current mode: `chooseApp` changes app context but leaves Default, Keys and Utility modes in place. A website selector intended to show the chosen app's controls must also open its mode with `chooseMode(app, true)`. Offer explicit Default/App preview controls, keep independent modes on the other hand, and refresh feedback for either hand already following the app. Keep all labels and actions in the synced native map and simulator; compare rendered HUD labels and ordering against `hudPresentation` for every published app on both hands.
+
+A held wheel gesture needs an explicit release action as well as hold. Reflect the selected control's held state in the button label and `aria-pressed`, and disable wheel actions after release. Render the simulator's current `output` for status feedback: saved keypad `text` alone omits a pending character and masks later mode or wheel feedback. Preserve newlines in the rendered status.

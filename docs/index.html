@@ -99,10 +99,13 @@
         </figure>
       </div></div>
       <p class="detail-hint">Drag to rotate, scroll to zoom, click a button to see it in the HUD</p>
-      <label class="beta-app">Current app <select id="beta-app"></select></label>
+      <div class="beta-controls">
+        <label class="beta-app">Current app <select id="beta-app"></select></label>
+        <div class="beta-mode" role="group" aria-label="Mouse mode"><button type="button" id="beta-default" aria-pressed="true">Default mode</button><button type="button" id="beta-app-mode" aria-pressed="false">App mode</button></div>
+      </div>
       <div id="beta-hud"></div>
       <p id="beta-feedback" role="status">Loading the mouse controls…</p>
-      <div class="beta-gestures"><button type="button" id="beta-hold">Hold selected button</button><button type="button" id="beta-wheel-up">Wheel up ↑</button><button type="button" id="beta-wheel-down">Wheel down ↓</button><button type="button" id="beta-reset">Reset demo</button></div>
+      <div class="beta-gestures"><button type="button" id="beta-hold" aria-pressed="false">Hold selected button</button><button type="button" id="beta-wheel-up">Wheel up ↑</button><button type="button" id="beta-wheel-down">Wheel down ↓</button><button type="button" id="beta-reset">Reset demo</button></div>
       <p class="detail-note">This demo follows the published app mapping and only controls this page.</p>
       <a class="detail-link" href="https://ethansk.github.io/agentic-mouse/mouse-map.html">See every button and mode ↗</a>
     </div>
