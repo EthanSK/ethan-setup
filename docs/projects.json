@@ -10,6 +10,12 @@
     "url": "https://ethansk.github.io/AgentFlow/"
   },
   {
+    "name": "Magic Wand",
+    "repository": "EthanSK/magic-wand",
+    "url": "https://ethansk.github.io/magic-wand/",
+    "description": "Point, click, scroll and dictate with a wand"
+  },
+  {
     "name": "Better Git VS Code",
     "repository": "EthanSK/better-git-vscode",
     "url": "https://github.com/EthanSK/better-git-vscode"
