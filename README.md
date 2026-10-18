@@ -133,3 +133,7 @@ The two external monitors in the main photo show edited versions of my work-scre
 Code is MIT licensed; third-party code retains its notices. Ethan’s photographs and likeness, app artwork, manufacturer images and trademarks are not a general-purpose asset pack. Replace them with your own content when adapting this site.
 
 All the wording on this website is AI generated, so sorry if it’s cringe.
+
+## Hey Chat support pages
+
+The [Hey Chat information page](https://ethansk.github.io/ethan-setup/hey-chat/), [privacy policy](https://ethansk.github.io/ethan-setup/hey-chat/privacy.html) and [terms](https://ethansk.github.io/ethan-setup/hey-chat/terms.html) describe the separate personal macOS utility and its optional Google Drive backup. These pages support Google OAuth configuration; they do not distribute the app, expose recordings or connect this website to the local recorder.
