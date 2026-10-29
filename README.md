@@ -38,7 +38,8 @@ Matching software and skills appear as prominent links at the top of each releva
 - The separate **VS Code** hotspot on the right half of the Dell opens a four-slide walkthrough of my AIMVS workflow: one worktree per agent task, an isolated dev stack per worktree, review with Better Git, and the one message that lands it. Use the numbered slide tabs, the named previous/next buttons below the slide, or arrow keys on the tabs; each slide links to the matching reference in the public AIMVS dev skill. The worktree and file names on the slides are illustrative examples.
 - The separate **Stats Widget** hotspot by the MacBook opens my seven-widget layout for Claude and four ChatGPT logins, with setup steps and a link to the public app. The percentages are examples; labels, sparklines, small text widgets and the configured 30-minute refresh interval reflect my setup. Stats Widget also appears in the Software sidebar and the MacBook, Dell and Codex links.
 - The room keeps its hardware labels and separate Codex, VS Code, Stats Widget and OBS hotspots; software links also appear in the sidebar, directory and matching dialogs.
-- Open **Everything I use** for hardware, apps, nine public skills, five personal skill descriptions and 20 public projects, ordered roughly from most used to least used within each section. All external links open a separate browser page; my [Portosaurus portfolio](https://portosaurus.github.io/ethansk/) is linked beside the site name and embedded below the project list.
+- **Buy my setup** opens the buying list from the same hardware inventory. It shows quantities, exact-model gaps and retailer links; shops take payment and deliver separately. The Magic Wand remains a prototype. Amazon links gain an Ad label and the required disclosure only after a current issued tracking ID is configured; programme applications alone do not make links earn.
+- Open **Everything I use** for hardware, apps, eight public skills, six personal skill descriptions and 20 public projects, ordered roughly from most used to least used within each section. All external links open a separate browser page; my [Portosaurus portfolio](https://portosaurus.github.io/ethansk/) is linked beside the site name and embedded below the project list.
 - Embedded pages show a spinner while loading, with **Try again** after 12 seconds and a link to open the page separately. The portfolio starts loading near its section; closing a desktop or OBS dialog cancels its pending view.
 - **View product** appears beside each hardware heading. Models and gallery images report failed loads and offer a retry; a failed model does not hide its official photographs.
 - The Scarlett's larger explanation sits beside its model or photo, above the specs; on a narrow screen it moves below the image gallery.
@@ -94,13 +95,14 @@ python3 scripts/build.py
 python3 scripts/check.py
 node --test tests/*.test.mjs
 node scripts/check-model-geometry.mjs
-python3 -m http.server 8842 --bind 127.0.0.1 --directory .build/site
+python3 -m http.server 8842 --bind 127.0.0.1 --directory .build.noindex/site
 ```
 
-Open [localhost:8842](http://127.0.0.1:8842/). Keep the server running while using the preview: product models load when opened, so a cached room cannot load them after the server stops. Rebuild after editing `docs/`, then reload the browser. Use the [published website](https://ethansk.github.io/ethan-setup/) for a preview that remains available after closing the terminal. GitHub Pages serves the generated `.build/site` artifact.
+Open [localhost:8842](http://127.0.0.1:8842/). Keep the server running while using the preview: product models load when opened, so a cached room cannot load them after the server stops. Rebuild after editing `docs/`, then reload the browser. Use the [published website](https://ethansk.github.io/ethan-setup/) for a preview that remains available after closing the terminal. GitHub Pages serves the generated `.build.noindex/site` artifact.
 
 ## Update the setup
 
+- **Buying links:** each hardware entry’s `purchase` in `docs/gear.json` owns its quantity, retailer, URL and variant/availability note. Keep support/specification links in `url` separate. Never silently substitute a generation or colour, treat a speaker pair as two pairs, or promise one checkout across retailers. `amazonAssociateTag` in `docs/beta.mjs` must remain null until the current UK programme issues a tracking ID; no prior closed account tag is valid.
 - **Hardware and hotspot positions:** edit `docs/gear.json`; coordinates run from 0 to 1 across the room image. Keep this README’s inventory consistent.
 - **Dialog software links:** `relatedTools` in `docs/beta.mjs` defines each public destination and icon; `topicTools` maps desk items and walkthroughs to those links. Keep the manufacturer’s **View product** link separate. Use the project’s own public website or extension listing, or Ethan’s public fork when there is no dedicated site.
 - **Room and interactions:** `docs/index.html`, `docs/beta.css` and `docs/beta.mjs`.

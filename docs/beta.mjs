@@ -673,6 +673,39 @@ for (const item of gear) {
   document.querySelector(".directory-gear").append(button);
 }
 
+const shopping = document.querySelector("#setup-shopping");
+const shoppingTrigger = document.querySelector("#show-shopping");
+const amazonAssociateTag = null; // Set only to the tracking ID issued by the current UK Associates account; the old account was closed.
+for (const item of gear) {
+  const purchase = item.purchase; // Ethan's “setup bundle” uses this same hardware inventory, so names, models and quantities cannot drift into a second list.
+  const row = document.createElement("article"); row.className = "shopping-item"; row.dataset.product = item.id;
+  const image = document.createElement("img"); image.src = item.images[0].src; image.alt = ""; image.width = 76; image.height = 76;
+  const info = document.createElement("div");
+  const name = document.createElement("h2"); name.textContent = item.name.startsWith(`${purchase.quantity}× `) ? item.name : `${purchase.quantity} × ${item.name}`;
+  const specs = document.createElement("p"); specs.className = "shopping-specs"; specs.textContent = item.specs.slice(0, 3).join(" · ");
+  const note = document.createElement("p"); note.textContent = purchase.note;
+  info.append(name, specs, note);
+  const link = document.createElement("a"); link.target = "_blank"; link.rel = "noopener noreferrer";
+  if (purchase.url) {
+    const url = new URL(purchase.url);
+    const affiliate = url.hostname === "www.amazon.co.uk" && amazonAssociateTag !== null;
+    if (affiliate) { url.searchParams.set("tag", amazonAssociateTag); link.rel += " sponsored"; }
+    link.href = url.href; link.textContent = `${purchase.retailer} ↗${affiliate ? " · Ad" : ""}`;
+  } else {
+    link.href = item.url; link.textContent = "Product details ↗"; row.classList.add("shopping-unavailable"); // A support page or a different revision must never masquerade as a verified buying link.
+  }
+  row.append(image, info, link); document.querySelector(".shopping-list").append(row);
+}
+document.querySelector("#shopping-disclosure").hidden = amazonAssociateTag === null;
+shoppingTrigger.disabled = false;
+shoppingTrigger.addEventListener("click", () => { shopping.showModal(); shopping.scrollTop = 0; });
+document.querySelector(".shopping-close").addEventListener("click", () => shopping.close());
+shopping.addEventListener("close", () => shoppingTrigger.focus({preventScroll:true}));
+dismissOutside(shopping);
+document.querySelector("#shopping-software").addEventListener("click", () => {
+  shopping.close(); openDirectory(shoppingTrigger); document.querySelector("#directory-apps").scrollIntoView({block:"start"});
+});
+
 const appUseOrder = new Map([
   "chatgpt", "agenticmouse", "voiceinkplusplus", "google-chrome", "visual-studio-code", "stats-widget-from-website", "obs",
   "spotify", "mail", "notion", "restream-chat-plus-plus", "finder", "iterm", "opera", "telegram",
@@ -697,7 +730,7 @@ const skills = [
  ["UI wording", null, "Write UI text in my voice"],
  ["Outstanding Items", "outstanding-items", "Keep track of unfinished work"],
  ["Front-end design", null, "Design the front end"],
- ["Submit ChatGPT Feedback", "submit-chatgpt-feedback", "Report problems from the current task"],
+ ["Submit ChatGPT Feedback", null, "Report problems from the current task"],
  ["Local Web Debug Mode", "local-web-debug-mode", "Debug a local website with an agent"],
  ["Skill self-reload", "claude-skill-self-reload-plugins-mac", "Reload changed Claude skills on macOS"],
  ["Pre-Commit Codex Review", "pre-commit-codex-review", "Review changes before committing"],
@@ -716,7 +749,7 @@ window.addEventListener("message", event => {
   if (event.origin === location.origin && event.source === document.querySelector("#desktop-frame")?.contentWindow && event.data === "close-setup-screen" && detail.open) detail.close(); // Accept Escape only from this site's embedded OBS demo.
 });
 
-for (const link of document.querySelectorAll('a[href^="https://"]')) { link.target = "_blank"; link.rel = "noopener noreferrer"; }
+for (const link of document.querySelectorAll('a[href^="https://"]')) { link.target = "_blank"; link.relList.add("noopener", "noreferrer"); }
 
 const projects = await fetch(new URL("./projects.json?v=__SITE_VERSION__", import.meta.url)).then(response => response.json());
 for (const project of projects) {

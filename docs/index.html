@@ -33,7 +33,8 @@
 <body class="room-beta">
   <header class="room-header">
     <div class="brand-links"><a class="setup-brand" href="./">Ethan’s setup</a><a class="portfolio-link" href="https://portosaurus.github.io/ethansk/" target="_blank" rel="noopener noreferrer">Portfolio</a></div>
-    <a class="room-classic" href="https://github.com/EthanSK" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.76-.24.76-.54v-2.1c-3.12.68-3.78-1.32-3.78-1.32-.51-1.29-1.24-1.63-1.24-1.63-1.02-.7.08-.68.08-.68 1.12.08 1.71 1.15 1.71 1.15 1 1.71 2.62 1.22 3.26.94.1-.72.39-1.22.71-1.5-2.49-.29-5.11-1.25-5.11-5.54 0-1.22.44-2.22 1.15-3-.12-.29-.5-1.43.11-2.97 0 0 .94-.3 3.08 1.15a10.7 10.7 0 0 1 5.6 0c2.14-1.45 3.08-1.15 3.08-1.15.61 1.54.23 2.68.11 2.97.71.78 1.15 1.78 1.15 3 0 4.3-2.63 5.25-5.13 5.53.4.35.76 1.03.76 2.07v3.08c0 .3.2.65.77.54A11.2 11.2 0 0 0 12 .8Z"/></svg>GitHub ↗</a>
+    <div class="room-header-actions"><button type="button" class="setup-buy" id="show-shopping" disabled>Buy my setup</button>
+    <a class="room-classic" href="https://github.com/EthanSK" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.76-.24.76-.54v-2.1c-3.12.68-3.78-1.32-3.78-1.32-.51-1.29-1.24-1.63-1.24-1.63-1.02-.7.08-.68.08-.68 1.12.08 1.71 1.15 1.71 1.15 1 1.71 2.62 1.22 3.26.94.1-.72.39-1.22.71-1.5-2.49-.29-5.11-1.25-5.11-5.54 0-1.22.44-2.22 1.15-3-.12-.29-.5-1.43.11-2.97 0 0 .94-.3 3.08 1.15a10.7 10.7 0 0 1 5.6 0c2.14-1.45 3.08-1.15 3.08-1.15.61 1.54.23 2.68.11 2.97.71.78 1.15 1.78 1.15 3 0 4.3-2.63 5.25-5.13 5.53.4.35.76 1.03.76 2.07v3.08c0 .3.2.65.77.54A11.2 11.2 0 0 0 12 .8Z"/></svg>GitHub ↗</a></div>
   </header>
   <nav class="project-rail" aria-labelledby="software-title">
     <h2 id="software-title">Software</h2>
@@ -270,6 +271,17 @@
     <section class="portfolio-section" id="directory-portfolio"><h2><a href="https://portosaurus.github.io/ethansk/" target="_blank" rel="noopener noreferrer">Portfolio ↗</a></h2><div id="portfolio-frame" class="frame-view"></div></section>
     <section class="setup-follow"><a class="linkedin-logo" href="https://www.linkedin.com/in/ethansk/" aria-label="Ethan SK on LinkedIn">in</a><div><h2>Follow me on LinkedIn</h2><p>Tips on the agentic future.</p><a href="https://www.linkedin.com/in/ethansk/">Follow Ethan SK ↗</a> · <a href="https://www.linkedin.com/in/ethansk/recent-activity/all/">Recent posts ↗</a></div></section>
     <p class="beta-disclaimer">All the wording on this website is AI generated, so sorry if it’s cringe.</p>
+  </dialog>
+  <dialog class="setup-directory setup-shopping" id="setup-shopping" aria-labelledby="shopping-title">
+    <button type="button" class="shopping-close directory-close" aria-label="Back to the room">×</button>
+    <h1 id="shopping-title">Buy My Setup</h1>
+    <p class="shopping-intro">Choose what you need. Each retailer takes payment and delivers separately.</p>
+    <p id="shopping-disclosure" hidden>Ad links · As an Amazon Associate I earn from qualifying purchases.</p>
+    <p class="shopping-note">Some exact models are no longer sold. Check the colour, generation and delivery at the retailer.</p>
+    <p class="shopping-note">Buying links checked 29 October 2026. Stock and variants can change.</p>
+    <div class="shopping-list"></div>
+    <section class="shopping-wand"><h2>Magic Wand</h2><p>My wand is still a prototype, with no finished unit for sale.</p><a href="https://ethansk.github.io/magic-wand/" target="_blank" rel="noopener noreferrer">Magic Wand project ↗</a></section>
+    <section class="shopping-software"><h2>Apps and Skills</h2><p>Install software separately. Many of my tools and skills are free; paid apps have their own plans.</p><button type="button" id="shopping-software">Apps and skills</button></section>
   </dialog>
   <noscript><p class="beta-no-js">The interactive room needs JavaScript. <a href="https://ethansk.github.io/agentic-mouse/">Explore the main website instead.</a></p></noscript>
   <script type="module" src="./beta.mjs?v=__SITE_VERSION__"></script>

@@ -35,7 +35,13 @@
         "angle": "Right side",
         "source": "https://www.apple.com/v/macbook-pro/ax/images/overview/connectivity/connections_hw_2__eqo5i1a1v4ya_large.jpg"
       }
-    ]
+    ],
+    "purchase": {
+      "quantity": 1,
+      "retailer": null,
+      "url": null,
+      "note": "Exact M5 Max 18-core CPU / 40-core GPU, 64 GB, 2 TB configuration. A matching UK buying link is still being checked."
+    }
   },
   {
     "id": "corsair",
@@ -67,7 +73,13 @@
         "angle": "Side buttons",
         "source": "https://assets.corsair.com/image/upload/c_pad,q_auto,h_1024,w_1024,f_auto/products/Gaming-Mice/CH-9314415-WW/gallery/SCIMITAR_ELITE_SE_BLK-YLO_11.webp"
       }
-    ]
+    ],
+    "purchase": {
+      "quantity": 1,
+      "retailer": "Corsair",
+      "url": "https://www.corsair.com/uk/en/p/gaming-mouse/CH-9314415-WW/scimitar-elite-wireless-se-mmo-gaming-mouse-black-%26-yellow-ch-9314415-ww",
+      "note": "Black / yellow · CH-9314415-WW. Check current stock."
+    }
   },
   {
     "id": "razer",
@@ -99,7 +111,13 @@
         "angle": "Desk view",
         "source": "https://medias-p1.phoenix.razer.com/sys-master-phoenix-images-container/hff/h63/9081450889246/Razer-Naga-Left-Handed-Edition-Gallery0.jpg"
       }
-    ]
+    ],
+    "purchase": {
+      "quantity": 1,
+      "retailer": "Razer",
+      "url": "https://www.razer.com/gb-en/gaming-mice/razer-naga-left-handed-edition",
+      "note": "Left-handed edition · Black. Check current stock."
+    }
   },
   {
     "id": "dell",
@@ -126,7 +144,13 @@
         "angle": "Front",
         "source": "https://cdn.e-misija.si/pdf/S3422DW.pdf"
       }
-    ]
+    ],
+    "purchase": {
+      "quantity": 1,
+      "retailer": null,
+      "url": null,
+      "note": "Dell currently lists this exact S3422DW as unavailable."
+    }
   },
   {
     "id": "chair",
@@ -158,7 +182,13 @@
         "angle": "Reclined",
         "source": "https://www.hbada.uk/cdn/shop/files/E3_Pro_2026_Gray_with_footrest_ergonomic_office_chair_tilt.png?v=1778028843&width=1280"
       }
-    ]
+    ],
+    "purchase": {
+      "quantity": 1,
+      "retailer": "Hbada",
+      "url": "https://www.hbada.uk/products/hbada-e3-pro-ergonomic-office-chair?variant=57072259858807",
+      "note": "2026 edition · Grey · Footrest. Confirm the selected options and stock."
+    }
   },
   {
     "id": "desk",
@@ -185,7 +215,13 @@
         "angle": "Bamboo finish",
         "source": "https://s3.springbeetle.eu/prod-eu-s3/NaturalBamboo_20260903_Ds3bJcmg.jpg"
       }
-    ]
+    ],
+    "purchase": {
+      "quantity": 1,
+      "retailer": null,
+      "url": null,
+      "note": "My 2025 frame with a 180 × 80 cm bamboo top is no longer the version shown in the current shop."
+    }
   },
   {
     "id": "shure",
@@ -211,7 +247,13 @@
         "angle": "Studio setup",
         "source": "https://products.shureweb.eu/shure_product_db/generic_product_images/files/ab1/dbc/c9-/original/e47dab6714636784660838eb9e21a67d.jpg"
       }
-    ]
+    ],
+    "purchase": {
+      "quantity": 1,
+      "retailer": "Gear4music",
+      "url": "https://www.gear4music.com/Recording-and-Computers/Shure-SM7B-Dynamic-Studio-Microphone/G6X",
+      "note": "SM7B, not SM7dB. Check current stock and delivery."
+    }
   },
   {
     "id": "scarlett",
@@ -242,7 +284,13 @@
         "angle": "Back",
         "source": "https://cdn11.bigcommerce.com/s-7exlzlf13h/images/stencil/1280x1280/products/242/443/Scarlett18i8-rear-2400-2400__12758.1685463567.jpg?c=3"
       }
-    ]
+    ],
+    "purchase": {
+      "quantity": 1,
+      "retailer": null,
+      "url": null,
+      "note": "The third-generation 18i8 is a legacy model; a new unit is not currently verified for sale."
+    }
   },
   {
     "id": "hs8",
@@ -273,7 +321,13 @@
         "angle": "Back",
         "source": "https://usa.yamaha.com/files/photoviewer_speakers_hs8w_rear_e35550b5acbe667ab42d081d17dc8ba0.jpg"
       }
-    ]
+    ],
+    "purchase": {
+      "quantity": 2,
+      "retailer": "Gear4music",
+      "url": "https://www.gear4music.com/Recording-and-Computers/Yamaha-HS8-Full-Range-Studio-Monitor-Pair-White/6V1G",
+      "note": "White pair. This listing includes both speakers; order one pair."
+    }
   },
   {
     "id": "samsung",
@@ -305,7 +359,13 @@
         "angle": "Angled view",
         "source": "https://images.samsung.com/is/image/samsung/p6pim/pt/ls27a800ujpxen/gallery/pt-s80ua-477507-ls27a800ujpxen-538170917?$1164_776_PNG$"
       }
-    ]
+    ],
+    "purchase": {
+      "quantity": 1,
+      "retailer": null,
+      "url": null,
+      "note": "S80UA / S27A800U. The UK listing checked is out of stock; my full regional model code remains unconfirmed."
+    }
   },
   {
     "id": "canon",
@@ -340,7 +400,13 @@
         "angle": "Top",
         "source": "https://cdn.media.amplience.net/i/canon/eos-m50-mark-ii-black-top-body_gallery-images_05_dc44fe4f7b2e4398b1f257309cd77f38?w=1200&qlt=85&fmt=png"
       }
-    ]
+    ],
+    "purchase": {
+      "quantity": 1,
+      "retailer": "MPB",
+      "url": "https://www.mpb.com/en-uk/product/canon-eos-m50-ii",
+      "note": "Used black camera body. Lens sold separately; my fitted lens is unconfirmed."
+    }
   },
   {
     "id": "bigknob",
@@ -361,7 +427,13 @@
         "angle": "Angled view",
         "source": "https://mackie.com/img/pic_hero_desktop/2047800-00_BigKnobPassive_Web.png"
       }
-    ]
+    ],
+    "purchase": {
+      "quantity": 1,
+      "retailer": "Gear4music",
+      "url": "https://www.gear4music.com/Recording-and-Computers/Mackie-Big-Knob-Passive-Monitor-Controller/1TVO",
+      "note": "Passive version. Check current stock and delivery."
+    }
   },
   {
     "id": "drive",
@@ -393,7 +465,13 @@
         "angle": "Back",
         "source": "https://www.westerndigital.com/content/dam/store/en-us/assets/products/desktop/wd-elements-desktop-usb-3-0-hdd/gallery/wd-elements-desktop-rear.png"
       }
-    ]
+    ],
+    "purchase": {
+      "quantity": 1,
+      "retailer": "Scan (pre-order)",
+      "url": "https://www.scan.co.uk/products/14tb-wd-elements-desktop-wdbwlg0140hbk-eesn-35-desktop-external-hdd-usb30-pc-mac-black",
+      "note": "14 TB · WDBWLG0140HBK-EESN. Pre-order only at the time checked; no delivery date confirmed."
+    }
   },
   {
     "id": "macmini",
@@ -425,7 +503,13 @@
         "angle": "Rear connections",
         "source": "https://cdsassets.apple.com/live/7WUAS350/images/tech-specs/121555-mac-mini-2024-gb-portimage2.png"
       }
-    ]
+    ],
+    "purchase": {
+      "quantity": 1,
+      "retailer": null,
+      "url": null,
+      "note": "M4 · 16 GB · Silver. My storage capacity still needs confirming before linking an exact configuration."
+    }
   },
   {
     "id": "akai",
@@ -456,7 +540,13 @@
         "angle": "Back",
         "source": "https://cdn.builder.io/api/v1/image/assets%2F47c5d023e7b3451a86ac03602c65dce8%2F11194ceffc97496d9e58083cdc49651a"
       }
-    ]
+    ],
+    "purchase": {
+      "quantity": 1,
+      "retailer": "Gear4music",
+      "url": "https://www.gear4music.com/Recording-and-Computers/Akai-Professional-MPK-Mini-Plus-37-Key-MIDI-Keyboard/570K",
+      "note": "Original 37-key MPK mini Plus, not Plus II. Check colour, stock and delivery."
+    }
   },
   {
     "id": "flx4",
@@ -487,7 +577,13 @@
         "angle": "Front",
         "source": "https://www.pioneerdj.com/product-images/559/30daed79-91f3-4453-b23b-e57f0f2cd855/ddj-flx4_4.png"
       }
-    ]
+    ],
+    "purchase": {
+      "quantity": 1,
+      "retailer": "Gear4music",
+      "url": "https://www.gear4music.com/PA-DJ-and-Lighting/Pioneer-DDJ-FLX4-2-Channel-DJ-Controller/58H8",
+      "note": "Black · DDJ-FLX4. Check current stock and delivery."
+    }
   },
   {
     "id": "cupilo",
@@ -512,7 +608,13 @@
         "angle": "Front three-quarter view",
         "source": "https://m.media-amazon.com/images/I/81XRAo51ZHL._AC_SL1500_.jpg"
       }
-    ]
+    ],
+    "purchase": {
+      "quantity": 2,
+      "retailer": "Amazon UK",
+      "url": "https://www.amazon.co.uk/dp/B0DWVXM7QZ",
+      "note": "Buy two machines. This listing now shows a newer revision than my November 2025 model."
+    }
   },
   {
     "id": "d6pro",
@@ -545,7 +647,13 @@
         "angle": "Grip positions",
         "source": "https://cdn.shopify.com/s/files/1/0080/5260/4994/files/Untitleddesign-2023-10-03T104752.609.png?v=1696348209"
       }
-    ]
+    ],
+    "purchase": {
+      "quantity": 1,
+      "retailer": "Amazon UK",
+      "url": "https://www.amazon.co.uk/dp/B0BG56G526",
+      "note": "Black D6 Pro · 16 mm stroke. Check the selected model; Pro Plus is different."
+    }
   },
   {
     "id": "q2mini",
@@ -568,6 +676,12 @@
         "angle": "Red gun and attachments",
         "source": "https://cdn.shopify.com/s/files/1/0080/5260/4994/files/7175-Nw2KBL._AC_SL1500.jpg?v=1760990240"
       }
-    ]
+    ],
+    "purchase": {
+      "quantity": 1,
+      "retailer": "Amazon UK",
+      "url": "https://www.amazon.co.uk/dp/B0BXPGTZLL",
+      "note": "Mine is red. This listing currently offers black; the red version is not verified for sale."
+    }
   }
 ]
