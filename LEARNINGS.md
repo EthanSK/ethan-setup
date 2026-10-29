@@ -112,3 +112,7 @@ A held wheel gesture needs an explicit release action as well as hold. Reflect t
 
 - Google's current branding documentation requires homepage, privacy and terms links for external production OAuth apps. The three standalone pages under docs/hey-chat provide those disclosures without publishing the private native source, recordings, configuration or credentials. They use no scripts, analytics or cookies and cross-link their policies.
 - The existing build copies nested HTML and CSS files, so these pages require no changes to the setup room, app inventory, source-sync logic or build pipeline. Local reference, source-hash and public-text checks pass. Browser rendering could not be checked because Codex reported local browser use disabled; do not call static validation a browser test.
+
+## Setup buying links
+
+Keep buying metadata on each canonical hardware entry, separate from the manufacturer/specification `url`. A historic ASIN or product URL can retain its address while changing colour, hardware revision or capacity; verify the offered variant and explain differences. The HS8 listing is one white pair for two speakers, while the two CuPiLo machines need a quantity of two. A programme webpage or submitted application is not a personal earning link: require a current issued tracking ID and approved applicable advertiser before claiming commission. Cross-retailer shopping links do not create one checkout or a fulfilment service.

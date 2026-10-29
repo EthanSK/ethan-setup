@@ -9,7 +9,7 @@ import subprocess
 from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
-SITE = ROOT / '.build' / 'site'
+SITE = ROOT / '.build.noindex' / 'site'
 
 class References(HTMLParser):
     def __init__(self):
@@ -47,6 +47,13 @@ def check():
     for item in gear:
         assert 0 <= item['x'] <= 1 and 0 <= item['y'] <= 1
         assert item['url'].startswith('https://') and item['evidence'] and item['specs']
+        purchase = item['purchase']
+        assert isinstance(purchase['quantity'], int) and purchase['quantity'] > 0
+        assert purchase['note']
+        assert (purchase['url'] is None) == (purchase['retailer'] is None)
+        if purchase['url']:
+            assert purchase['url'].startswith('https://')
+        assert purchase['quantity'] == (2 if item['id'] in {'hs8', 'cupilo'} else 1)
         assert item['images'], f"Product gallery is empty: {item['id']}"
         assert len({image['angle'] for image in item['images']}) == len(item['images'])
         for image in item['images']:
