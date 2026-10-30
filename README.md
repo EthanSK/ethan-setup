@@ -133,10 +133,15 @@ For gallery changes, open every hardware dialog, inspect every photo, return to 
 
 The two external monitors in the main photo show edited versions of my work-screen and OBS captures. Private chats, account details and raw desktop captures are not included. The separate Codex hotspot opens the public desktop example, the Dell opens its product model, the separate VS Code hotspot opens a drawn walkthrough with example worktree names rather than a screenshot, and the separate OBS hotspot opens the OBS example. The OBS and dictation examples do not request microphone, camera or screen-recording access, and do not control the real machine. The embedded public desktop and fonts require a network connection.
 
-Covered first-party code uses [the no-sale terms](LICENSE); earlier grants and third-party terms remain in force. Ethan’s photographs and likeness, app artwork, manufacturer images and trademarks are not a general-purpose asset pack. Replace them with your own content when adapting this site.
+First-party code is source-available under [the no-sale terms](LICENSE); earlier licenses and third-party code retain their rights. Ethan’s photographs and likeness, app artwork, manufacturer images and trademarks are not a general-purpose asset pack. Replace them with your own content when adapting this site.
 
 All the wording on this website is AI generated, so sorry if it’s cringe.
 
 ## Hey Chat support pages
 
 The [Hey Chat information page](https://ethansk.github.io/ethan-setup/hey-chat/), [privacy policy](https://ethansk.github.io/ethan-setup/hey-chat/privacy.html) and [terms](https://ethansk.github.io/ethan-setup/hey-chat/terms.html) describe the separate personal macOS utility and its optional Google Drive backup. These pages support Google OAuth configuration; they do not distribute the app, expose recordings or connect this website to the local recorder.
+
+
+## License
+
+Source-available under [Ethan Source-Available No-Sale Terms 1.0](LICENSE). You can use and modify the covered code, including internally at work, and share it without charge. Selling the software, modified versions, paid access, or bundles requires a separate commercial license. Earlier licenses and third-party rights remain in force. See [scope and release policy](LICENSING.md).
