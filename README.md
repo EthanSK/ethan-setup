@@ -21,7 +21,7 @@ In either mouse view, choosing **Current app** opens that app’s controls. Use 
 
 ## Look around
 
-Matching software and skills appear as prominent links at the top of each relevant dialog: Agentic Mouse on both mice, Agent Flow for dictation, Better Git VS Code and Response Preferences on the Dell, the public AIMVS dev skill and Better Git on the VS Code walkthrough, and OBS++ / Aitum++ on the recording setup. Each opens its public website, extension listing or repository in a new browser page.
+Matching software and skills appear as prominent links at the top of each relevant dialog: Agentic Mouse on both mice, Agent Flow for dictation, Better Git VS Code and Response Preferences on the Dell, the public AIMVS dev skill and Better Git on the VS Code walkthrough, and OBS++ / Aitum++ on the recording setup. Each opens its verified project website or extension listing when available; repositories remain the destination for projects without their own site and for explicit source references.
 
 - The room photo fills the window without stretching and starts aligned to the bottom. You can pan across the cropped area, including in the opening view.
 - Click the background to zoom in around that point and reveal nearby items, or drag the background or any floating item label to move around. Clicking a label still opens its item; releasing a drag does not open it or zoom again.
@@ -78,7 +78,7 @@ The Mac mini identifies itself as an M4 with 16 GB memory. The Dell S3422DW iden
 
 ## Apps and skills
 
-Start with [Agentic Mouse](https://github.com/EthanSK/agentic-mouse), [Agent Flow](https://ethansk.github.io/AgentFlow/), [Better Git VS Code](https://github.com/EthanSK/better-git-vscode), [Stats Widget](https://ethansk.github.io/stats-widget-from-website/), and [Response Preferences](https://ethansk.github.io/response-preferences/).
+Start with [Agentic Mouse](https://ethansk.github.io/agentic-mouse/), [Agent Flow](https://ethansk.github.io/AgentFlow/), [Better Git VS Code](https://marketplace.visualstudio.com/items?itemName=EthanSK.better-git-vscode), [Stats Widget](https://ethansk.github.io/stats-widget-from-website/), and [Response Preferences](https://ethansk.github.io/response-preferences/).
 
 The Software sidebar links only public projects, using each project's website when available. Menu Bar Dock has a prominent sidebar link and appears beside the MacBook, Dell and Codex views; its name, icon and URL come from the synced app inventory. The full app directory comes from the public [response-preferences desktop inventory](https://ethansk.github.io/response-preferences/desktop/apps.json). The skills section includes the separately published AIMVS dev skill. Ordering is a recent-use snapshot, not live analytics; the [source notes](SOURCES.md) explain its limits.
 
@@ -117,6 +117,7 @@ Open [localhost:8842](http://127.0.0.1:8842/). Keep the server running while usi
 - **VS Code walkthrough:** the slides are static markup under `#vscode-detail` in `docs/index.html`, switched by the small `showSlide` block in `docs/beta.mjs`. Keep the worktree, branch and file names illustrative, keep every link public, and check the ports and rules against the [AIMVS dev skill](https://github.com/EthanSK/aimvs-dev-skill) references the slides link to; the private app repository is never linked. `tests/vscode-walkthrough.test.mjs` checks the slide controls, hotspot placement and link targets.
 - **Mouse modes, HUD, mouse models or icon:** change the canonical Agentic Mouse repository, publish it, then run `python3 scripts/sync-sources.py` here. The published native export chooses the source commit; this site does not maintain another button map.
 - **Directory order:** `docs/gear.json` and `docs/projects.json` use display order; `appUseOrder` and the combined `skills` list in `docs/beta.mjs` rank apps and skills. Keep the app order here, separate from the synced inventory, so daily source refreshes preserve it. Newly synced apps appear last until ranked; Trash is omitted because it is a desktop action. Public and personal skills share one order.
+- **Public destinations:** `docs/project-websites.json` is the shared list of verified project websites and extension listings. The build resolves static sidebar/OBS links from it; `docs/project-links.mjs` resolves Apps, Skills, Projects and related links from the same data. Keep synced app metadata intact, preserve explicit source-file/section links, and retain a repository destination only when no project site is verified.
 - **Public project cards:** edit `docs/projects.json` only after verifying each repository is public without authentication. Honest Comments analyzes YouTube criticism; Agent Swarm Management and Agent Bridge are projects, not skills. Personal skills can be described without publishing their local configuration.
 - **Desktop, Dock or apps:** change the response-preferences public demo. The Codex hotspot embeds that site directly; the sync script refreshes this site’s app directory.
 

@@ -120,3 +120,7 @@ Keep buying metadata on each canonical hardware entry, separate from the manufac
 ## Adding objects without changing the room
 
 Use a transparent object cutout as a separate SVG image in `scripts/build-room-image.py`. A real-photo cutout can preserve the current rough prototype without inventing a future enclosure; keep raw phone screenshots private. Compare lossless renders against the previous composite, clearing only the declared insert rectangle from the difference, and require the remaining difference to be empty. Keep the social JPEG proportional to that same composite. A zero-difference check does not establish visual quality: inspect the desk crop and browser view too, especially for overlap with the hands, mice and desk edge.
+
+## Project websites across every link surface
+
+A correct detail link does not prove the sidebar or directories are correct. Response Preferences had a repository sidebar link from the initial launch while its Codex detail link already used Pages. Keep the verified primary destinations in `docs/project-websites.json`, compose them into both static HTML at build time and dynamically created links at runtime, and inspect sidebar, Apps, Skills, Projects, related tools and the OBS example. Do not edit synced app metadata to fix a setup-only destination; the daily sync would overwrite it. Preserve explicit source-file and section links, and do not replace a fork with its upstream homepage merely because GitHub metadata lists that upstream site.

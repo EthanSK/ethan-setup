@@ -4,6 +4,7 @@ import { createNativeHUD } from "./native-hud.mjs?v=__SITE_VERSION__";
 import { createHeroMouse } from "./hero-mice.mjs?v=__SITE_VERSION__";
 import { createProductGallery } from "./product-gallery.mjs?v=__SITE_VERSION__";
 import { createFrameView } from "./frame-view.mjs?v=__SITE_VERSION__";
+import { projectLink } from "./project-links.mjs?v=__SITE_VERSION__";
 
 const stage = document.querySelector("#room-stage");
 const canvas = document.querySelector("#room-canvas");
@@ -12,6 +13,7 @@ const screenView = createFrameView(document.querySelector("#screen-detail"), "de
 const reduced = matchMedia("(prefers-reduced-motion: reduce)");
 const gear = await fetch(new URL("./gear.json?v=__SITE_VERSION__", import.meta.url)).then(response => { if (!response.ok) throw new Error("Hardware data did not load"); return response.json(); });
 const apps = await fetch(new URL("./apps.json?v=__SITE_VERSION__", import.meta.url)).then(response => { if (!response.ok) throw new Error("App data did not load"); return response.json(); });
+const projectWebsites = await fetch(new URL("./project-websites.json?v=__SITE_VERSION__", import.meta.url)).then(response => { if (!response.ok) throw new Error("Project websites did not load"); return response.json(); });
 // The desktop inventory is synced from response-preferences. Keep its stable
 // internal app ID, but show this site's current Agent Flow brand and destination
 // until that canonical inventory is published with the renamed project.
@@ -385,7 +387,7 @@ function openTopic(topic, trigger) {
   toolLinks.replaceChildren();
   for (const id of topicTools[topic] || []) {
     const tool = relatedTools[id];
-    const link = document.createElement("a"); link.href = tool.url; link.target = "_blank"; link.rel = "noopener noreferrer";
+    const link = document.createElement("a"); link.href = projectLink(tool.url, projectWebsites); link.target = "_blank"; link.rel = "noopener noreferrer";
     if (tool.icon) {
       const icon = document.createElement("img"); icon.src = tool.icon; icon.alt = ""; icon.width = 26; icon.height = 26;
       link.append(icon);
@@ -726,7 +728,7 @@ const appUseOrder = new Map([
   "opencode", "magnet", "amphetamine", "stay", "ableton-live-12-suite", "adobe-photoshop-2026",
 ].map((id, index) => [id, index])); // Recent macOS use, with the daily mouse/dictation tools and configured desktop widgets near the top; keep this local order separate from the synced desktop inventory.
 for (const app of apps.filter(app => app.url && app.id !== "trash").sort((a, b) => (appUseOrder.get(a.id) ?? appUseOrder.size) - (appUseOrder.get(b.id) ?? appUseOrder.size))) { // A newly synced app stays visible at the end until its usage is ranked; Trash is a desktop action, not an app.
-  const link = document.createElement("a"); link.href = app.url; link.target = "_blank"; link.rel = "noopener";
+  const link = document.createElement("a"); link.href = projectLink(app.url, projectWebsites); link.target = "_blank"; link.rel = "noopener";
   const icon = document.createElement("img"); icon.src = app.id === "agenticmouse" ? "./agentic-mouse-mark.svg?v=__SITE_VERSION__" : new URL(app.icon, "https://ethansk.github.io/response-preferences/").href; icon.alt = ""; icon.width = 30; icon.height = 30; icon.loading = "lazy"; // Use the canonical synced mouse artwork; the desktop inventory still has the old blank application icon.
   const name = document.createElement("span"); name.textContent = app.name;
   link.append(icon,name); document.querySelector(".directory-apps").append(link);
@@ -749,7 +751,7 @@ const skills = [
 ]; // Rank public and personal skills together by recent use; splitting them forced commonly used personal workflows below older published tools.
 for (const [name,repo,description] of skills) {
  const card = document.createElement(repo ? "a" : "article");
- if (repo) { card.href = `https://github.com/EthanSK/${repo}`; card.target = "_blank"; card.rel = "noopener noreferrer"; }
+ if (repo) { card.href = projectLink(`https://github.com/EthanSK/${repo}`, projectWebsites); card.target = "_blank"; card.rel = "noopener noreferrer"; }
  const title = document.createElement("strong"); title.textContent = name;
  const summary = document.createElement("span"); summary.textContent = description;
  card.append(title,summary); document.querySelector(".directory-skills").append(card);
@@ -759,12 +761,12 @@ window.addEventListener("message", event => {
   if (event.origin === location.origin && event.source === document.querySelector("#desktop-frame")?.contentWindow && event.data === "close-setup-screen" && detail.open) detail.close(); // Accept Escape only from this site's embedded OBS demo.
 });
 
-for (const link of document.querySelectorAll('a[href^="https://"]')) { link.target = "_blank"; link.relList.add("noopener", "noreferrer"); }
+for (const link of document.querySelectorAll('a[href^="https://"]')) { link.href = projectLink(link.href, projectWebsites); link.target = "_blank"; link.relList.add("noopener", "noreferrer"); }
 
 const projects = await fetch(new URL("./projects.json?v=__SITE_VERSION__", import.meta.url)).then(response => response.json());
 document.querySelector("[data-wand-website]").href = projects.find(project => project.repository === "EthanSK/magic-wand").url; // The room and project directory share the existing public website destination.
 for (const project of projects) {
-  const link = document.createElement("a"); link.href = project.url; link.target = "_blank"; link.rel = "noopener noreferrer";
+  const link = document.createElement("a"); link.href = projectLink(project.url, projectWebsites); link.target = "_blank"; link.rel = "noopener noreferrer";
   const title = document.createElement("strong"); title.textContent = project.name;
   const repository = document.createElement("span"); repository.textContent = project.description || project.repository;
   link.append(title, repository); document.querySelector(".directory-projects").append(link);
