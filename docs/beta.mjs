@@ -22,6 +22,14 @@ if (voiceApp) Object.assign(voiceApp, {
   icon: new URL("./assets/agentflow-icon.png", import.meta.url).href,
   note: "Ethan’s VoiceInk fork for live agent context.",
 });
+const menuBarDock = apps.find(app => app.id === "menu-bar-dock");
+const menuBarDockLink = document.querySelector("#menu-bar-dock-link");
+menuBarDockLink.href = menuBarDock.url; menuBarDockLink.setAttribute("aria-label", menuBarDock.name);
+const menuBarDockIcon = document.createElement("img");
+menuBarDockIcon.src = new URL(menuBarDock.icon, "https://ethansk.github.io/response-preferences/").href;
+menuBarDockIcon.width = 28; menuBarDockIcon.height = 28; menuBarDockIcon.alt = "";
+const menuBarDockName = document.createElement("span"); menuBarDockName.textContent = menuBarDock.name;
+menuBarDockLink.append(menuBarDockIcon, menuBarDockName); menuBarDockLink.hidden = false; // Keep the prominent link tied to the same canonical app metadata as Everything I use.
 const gearById = new Map(gear.map(item => [item.id, item]));
 const hotspotContainer = document.querySelector(".room-hotspots");
 for (const item of gear) {
@@ -289,6 +297,7 @@ const topics = {
   razer: ["Left hand · Agentic Mouse", "Razer Naga", "The same controls mirrored for my left hand, so I can switch whenever I want."],
   codex: ["", "Codex", ""],
   obs: ["", "OBS", ""],
+  wand: ["My current prototype", "Magic Wand", ""],
   stats: ["", "Stats Widget", "My Claude and ChatGPT usage sits on the desktop as small text widgets."],
   sausages: ["", "Tesco Finest sausages", "(This is a joke, I only eat M&S, Waitrose, or Deliveroo sausages.)"],
   code: ["Great for Agentic Engineers", "Review code without moving your hand", "Quick press to jump to a change, or hold and release to stage the current file and jump in that direction."],
@@ -303,14 +312,15 @@ const relatedTools = {
   replies: { name: "Response Preferences", url: "https://ethansk.github.io/response-preferences/", icon: "./assets/apps/codex.png" },
   obs: { name: "OBS++", url: apps.find(app => app.id === "obs").url, icon: new URL(apps.find(app => app.id === "obs").icon, "https://ethansk.github.io/response-preferences/").href },
   stats: { name: "Stats Widget", url: apps.find(app => app.id === "stats-widget-from-website").url, icon: new URL(apps.find(app => app.id === "stats-widget-from-website").icon, "https://ethansk.github.io/response-preferences/").href },
+  menuBarDock: { name: menuBarDock.name, url: menuBarDock.url, icon: menuBarDockIcon.src },
   restream: { name: "Restream Channel Switcher", url: "https://github.com/EthanSK/restream-channel-switcher" },
   aitum: { name: "Aitum++", url: "https://github.com/EthanSK/obs-aitum-stream-suite" },
 };
 const topicTools = {
   corsair: ["mouse", "voice", "code"], razer: ["mouse", "voice", "code"],
   shure: ["voice", "obs"], scarlett: ["obs"], canon: ["obs"],
-  macbook: ["stats", "replies"], dell: ["code", "replies", "stats"], samsung: ["obs", "aitum"],
-  code: ["code", "mouse"], voice: ["voice", "mouse"], codex: ["replies", "stats"], stats: ["stats"], obs: ["obs", "aitum", "restream"],
+  macbook: ["stats", "replies", "menuBarDock"], dell: ["code", "replies", "stats", "menuBarDock"], samsung: ["obs", "aitum"],
+  code: ["code", "mouse"], voice: ["voice", "mouse"], codex: ["replies", "stats", "menuBarDock"], stats: ["stats"], obs: ["obs", "aitum", "restream"],
 }; // Link the tools documented for each item; keep hardware product links and separate room hotspots intact.
 /** Follow nearby photo anchors once around the desk, keeping related demos beside their hardware. */
 function buildDialogRoute() {
@@ -367,8 +377,8 @@ function openTopic(topic, trigger) {
   description.textContent = copy[2];
   description.hidden = !copy[2];
   const mouse = topic === "razer" || topic === "corsair";
-  const panel = mouse ? "mouse" : ["code", "voice", "stats", "sausages"].includes(topic) ? topic : (topic === "codex" || topic === "obs") ? "screen" : "hardware"; // Hardware opens its product; separate nearby Codex, VS Code and OBS hotspots own the software views, never combined monitor/software labels (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
-  for (const name of ["mouse", "code", "voice", "stats", "hardware", "screen", "sausages"]) document.querySelector(`#${name}-detail`).hidden = name !== panel;
+  const panel = mouse ? "mouse" : ["code", "voice", "stats", "sausages", "wand"].includes(topic) ? topic : (topic === "codex" || topic === "obs") ? "screen" : "hardware"; // Hardware opens its product; separate nearby Codex, VS Code and OBS hotspots own the software views, never combined monitor/software labels (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
+  for (const name of ["mouse", "code", "voice", "stats", "hardware", "screen", "sausages", "wand"]) document.querySelector(`#${name}-detail`).hidden = name !== panel;
   const toolLinks = document.querySelector("#detail-tools");
   toolLinks.replaceChildren();
   for (const id of topicTools[topic] || []) {
@@ -717,6 +727,7 @@ window.addEventListener("message", event => {
 for (const link of document.querySelectorAll('a[href^="https://"]')) { link.target = "_blank"; link.relList.add("noopener", "noreferrer"); }
 
 const projects = await fetch(new URL("./projects.json?v=__SITE_VERSION__", import.meta.url)).then(response => response.json());
+document.querySelector("[data-wand-website]").href = projects.find(project => project.repository === "EthanSK/magic-wand").url; // The room and project directory share the existing public website destination.
 for (const project of projects) {
   const link = document.createElement("a"); link.href = project.url; link.target = "_blank"; link.rel = "noopener noreferrer";
   const title = document.createElement("strong"); title.textContent = project.name;

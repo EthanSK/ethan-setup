@@ -116,3 +116,7 @@ A held wheel gesture needs an explicit release action as well as hold. Reflect t
 ## Setup buying links
 
 Keep buying metadata on each canonical hardware entry, separate from the manufacturer/specification `url`. A historic ASIN or product URL can retain its address while changing colour, hardware revision or capacity; verify the offered variant and explain differences. The HS8 listing is one white pair for two speakers, while the two CuPiLo machines need a quantity of two. A programme webpage or submitted application is not a personal earning link: require a current issued tracking ID and approved applicable advertiser before claiming commission. Cross-retailer shopping links do not create one checkout or a fulfilment service.
+
+## Adding objects without changing the room
+
+Use a transparent object cutout as a separate SVG image in `scripts/build-room-image.py`. A real-photo cutout can preserve the current rough prototype without inventing a future enclosure; keep raw phone screenshots private. Compare lossless renders against the previous composite, clearing only the declared insert rectangle from the difference, and require the remaining difference to be empty. Keep the social JPEG proportional to that same composite. A zero-difference check does not establish visual quality: inspect the desk crop and browser view too, especially for overlap with the hands, mice and desk edge.
