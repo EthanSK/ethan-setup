@@ -513,3 +513,8 @@
  .room-header .room-classic { font-size: 0; }
  .room-header .room-classic svg { width: 20px; height: 20px; }
 }
+
+.wand-photo { margin: 28px 0 20px; padding: 36px 18px 24px; border-radius: 16px; background: #202934; text-align: center; }
+.wand-photo img { display: block; width: min(100%, 414px); height: auto; margin: 0 auto 24px; }
+.wand-photo figcaption { font-size: 13px; color: #b4bdcb; }
+#wand-detail > p { max-width: 640px; line-height: 1.65; }

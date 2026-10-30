@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Preserve the selected room, with the Dell screen and a small massage-gun insert."""
+"""Preserve the selected room, with the Dell screen, massage guns and a cut-out Magic Wand."""
 import base64
 from pathlib import Path
 
@@ -7,12 +7,13 @@ ASSETS = Path(__file__).resolve().parents[1] / 'docs' / 'assets'
 
 
 def room_image():
-    """Preserve the selected portrait and screens while inserting the Dell view and massage guns."""
+    """Preserve the selected portrait and screens while inserting the Dell view, massage guns and Magic Wand."""
     original = base64.b64encode((ASSETS / 'room.webp').read_bytes()).decode('ascii')
     screens = base64.b64encode((ASSETS / 'room-screens.webp').read_bytes()).decode('ascii')
     details = base64.b64encode((ASSETS / 'room-details.webp').read_bytes()).decode('ascii')
     dell = base64.b64encode((ASSETS / 'room-dell-legs.webp').read_bytes()).decode('ascii')
     massage = base64.b64encode((ASSETS / 'room-massage-guns.webp').read_bytes()).decode('ascii')
+    wand = base64.b64encode((ASSETS / 'magic-wand.png').read_bytes()).decode('ascii')
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="1586" height="992" viewBox="0 0 1586 992">
   <title>Ethan's setup with his work screen and OBS layout</title>
   <defs>
@@ -41,10 +42,11 @@ def room_image():
   <use href="#details" clip-path="url(#laptop)"/>
   <use href="#details" mask="url(#portrait)"/>
   <image x="750" y="480" width="180" height="110" href="data:image/webp;base64,{massage}" clip-path="url(#massage-guns)"/>
+  <image x="420" y="660" width="300" height="45" href="data:image/png;base64,{wand}"/>
 </svg>
 '''  # Ethan selected the c220035 reference: preserve its exact portrait, body, sausage legs and room outside the requested Dell screen and local massage-gun inserts; do not reintroduce the later camera patch or full-frame regeneration (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
 
 
 if __name__ == '__main__':
     (ASSETS / 'room.svg').write_text(room_image())
-    print('Preserved the selected room, face and screens; added the Dell insert and small massage-gun patch behind the arm.')
+    print('Preserved the selected room, face and screens; added the Dell insert, small massage-gun patch and isolated Magic Wand on the desk.')

@@ -15,12 +15,12 @@
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1586" />
   <meta property="og:image:height" content="992" />
-  <meta property="og:image:alt" content="Ethan reclining at his desk with two giant sausage legs coming out of his shorts, a Razer mouse on the left and a Corsair mouse in his right hand" />
+  <meta property="og:image:alt" content="Ethan reclining at his desk with two giant sausage legs coming out of his shorts, a Razer mouse on the left and a Corsair mouse in his right hand and the Magic Wand on the desk" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Ethan’s setup" />
   <meta name="twitter:description" content="My desk, apps and mouse controls for working with agents." />
   <meta name="twitter:image" content="https://ethansk.github.io/ethan-setup/assets/sausage-legs-social.jpg?v=__SITE_VERSION__" />
-  <meta name="twitter:image:alt" content="Ethan reclining at his desk with two giant sausage legs coming out of his shorts, a Razer mouse on the left and a Corsair mouse in his right hand" />
+  <meta name="twitter:image:alt" content="Ethan reclining at his desk with two giant sausage legs coming out of his shorts, a Razer mouse on the left and a Corsair mouse in his right hand and the Magic Wand on the desk" />
   <link rel="manifest" href="./site.webmanifest?v=__SITE_VERSION__" />
   <link rel="icon" href="./assets/ethan-head-16.png?v=__SITE_VERSION__" type="image/png" sizes="16x16" />
   <link rel="icon" href="./assets/ethan-head-32.png?v=__SITE_VERSION__" type="image/png" sizes="32x32" />
@@ -43,10 +43,11 @@
     <a aria-label="Better Git VS Code" href="https://github.com/EthanSK/better-git-vscode"><img src="./assets/apps/vsCode.png" width="28" height="28" alt=""/><span>Better Git VS Code</span></a>
     <a aria-label="Stats Widget" href="https://github.com/EthanSK/stats-widget-from-website"><img src="https://ethansk.github.io/response-preferences/desktop/icons/stats-widget-from-website.png" width="28" height="28" alt=""/><span>Stats Widget</span></a>
     <a aria-label="Response Preferences" href="https://github.com/EthanSK/response-preferences"><img src="./assets/apps/codex.png" width="28" height="28" alt=""/><span>Response Preferences</span></a>
+    <a id="menu-bar-dock-link" hidden></a>
     <button type="button" id="show-directory" aria-label="Everything I use"><span class="rail-symbol" aria-hidden="true">⋯</span><span>Everything I use</span></button>
   </nav>
   <main class="room-stage" id="room-stage">
-    <img class="room-poster" src="./assets/room.svg?v=__SITE_VERSION__" width="1586" height="992" alt="Ethan reclining at his desk with two giant sausage legs coming out of his shorts, a Razer mouse on the left and a Corsair mouse in his right hand" />
+    <img class="room-poster" src="./assets/room.svg?v=__SITE_VERSION__" width="1586" height="992" alt="Ethan reclining at his desk with two giant sausage legs coming out of his shorts, a Razer mouse on the left and a Corsair mouse in his right hand and the Magic Wand on the desk" />
     <canvas id="room-canvas" tabindex="0" aria-label="Explore the desk. Drag to look around. Scroll or pinch to zoom; use up and down arrow keys to zoom; use left and right arrow keys to move sideways."></canvas>
     <div class="room-shade" aria-hidden="true"></div>
     <div class="room-intro">
@@ -58,6 +59,7 @@
       <button type="button" data-topic="codex" data-x="0.43" data-y="0.34" aria-label="Codex"><span class="hotspot-dot" aria-hidden="true"></span><span class="hotspot-label">Codex</span></button>
       <button type="button" data-topic="stats" data-x="0.125" data-y="0.425" aria-label="Stats Widget"><span class="hotspot-dot" aria-hidden="true"></span><span class="hotspot-label">Stats Widget</span></button>
       <button type="button" data-topic="vscode" data-x="0.465" data-y="0.425" aria-label="VS Code"><span class="hotspot-dot" aria-hidden="true"></span><span class="hotspot-label">VS Code</span></button>
+      <button type="button" data-topic="wand" data-x="0.36" data-y="0.685" aria-label="Magic Wand"><span class="hotspot-dot" aria-hidden="true"></span><span class="hotspot-label">Magic Wand</span></button>
       <button type="button" data-topic="sausages" data-x="0.385" data-y="0.86" aria-label="Sausage legs"><span class="hotspot-dot" aria-hidden="true"></span><span class="hotspot-label">Sausage legs</span></button>
     </div>
     <div class="room-zoom" role="group" aria-label="Room camera">
@@ -71,6 +73,7 @@
       <button type="button" data-topic="corsair">Right mouse</button>
       <button type="button" data-topic="code">Review code</button>
       <button type="button" data-topic="voice">Dictation</button>
+      <button type="button" data-topic="wand">Magic Wand</button>
       <button type="button" data-topic="codex">Codex</button><button type="button" data-topic="vscode">VS Code</button><button type="button" data-topic="stats">Stats Widget</button><button type="button" data-topic="obs">OBS</button><button type="button" data-directory>Everything I use</button>
     </nav>
     <p class="room-caption">AI scene from my photos · <a href="https://www.linkedin.com/in/ethansk/">Follow me on LinkedIn ↗</a></p>
@@ -127,6 +130,11 @@
       <div class="transcript" id="transcript" role="status">Press Start dictation to see what happens to the video.</div>
       <p class="detail-note">An example with no microphone or audio; my setup uses Agent Flow and a separate YouTube bridge. Agent Flow pastes my speech with mouse highlights and saved screenshot paths near what I was saying. Placement is approximate, and selection capture depends on the app.</p>
       <a class="detail-link" href="https://ethansk.github.io/AgentFlow/">Get Agent Flow ↗</a>
+    </div>
+    <div id="wand-detail" hidden>
+      <figure class="wand-photo"><img src="./assets/magic-wand.png?v=__SITE_VERSION__" width="414" height="62" alt="My current Magic Wand prototype, with taped keys and a green-wrapped carbon-fibre shaft" /><figcaption>My current prototype, cut out from my photo.</figcaption></figure>
+      <p>Point, click, scroll and dictate with a wand. This is the one I’m building, with three keys taped to a carbon-fibre rod.</p>
+      <a class="detail-link" data-wand-website target="_blank" rel="noopener noreferrer">Magic Wand website ↗</a>
     </div>
     <div id="hardware-detail" hidden>
       <div class="product-media"><div class="product-stage"><canvas id="product-canvas" tabindex="0" aria-label="Drag to rotate the product; scroll to zoom; arrow keys rotate; Home resets"></canvas><div id="product-movement" hidden><select aria-label="Movement"></select><button type="button">Pause movement</button></div><button id="product-reset" type="button">Reset view ↻</button><p id="product-state" role="status">Loading 3D view…</p><button id="product-retry" type="button" hidden>Retry 3D view</button></div></div>
