@@ -87,7 +87,7 @@ Hardware and project order are qualitative, based on the current desk workflow a
 
 ## Dependencies and rights
 
-First-party website code uses [the no-sale terms](LICENSE). Code obtained under an earlier MIT grant retains that permission. Three.js, its loader utilities, Draco and three-mesh-bvh retain their vendored notices under `docs/lib/`. Any unused copied vendor files are not executed by the room.
+Covered first-party website code uses [the no-sale terms](LICENSE). Code obtained under an earlier MIT grant retains that permission. Three.js, its loader utilities, Draco and three-mesh-bvh retain their vendored notices under `docs/lib/`. Any unused copied vendor files are not executed by the room.
 
 App icons and the public desktop’s artwork retain their original owners’ rights; see [the canonical asset notes](https://github.com/EthanSK/response-preferences/blob/main/docs/desktop/ASSETS.md). Manufacturer names and product designs identify Ethan’s equipment and do not imply endorsement. Product model references and limitations are documented in `PRODUCT-MODELS.md`.
 
