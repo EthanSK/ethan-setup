@@ -1,7 +1,7 @@
 {
   "agenticMouse": {
     "repository": "https://github.com/EthanSK/agentic-mouse",
-    "revision": "c5e0f9f9f7f548cc205261f11d43f7622f1e54a8",
+    "revision": "910bf7497dc8cc975e454cebca850d95abcf8c81",
     "publishedMap": "https://ethansk.github.io/agentic-mouse/simulator-data.json"
   },
   "desktop": {
@@ -59,7 +59,7 @@
     "mouse-motion.mjs": "6b7925159f66627523575708856ef39c7c8e4b10064ade9695a9408a036bb68c",
     "native-hud.mjs": "89800d62699f7bebb290bef3086426381c7d046a41df9cb8316a636eb52c6dda",
     "showcase.css": "0a5f9f5e89eaa31ae9b5f2fa7478db02ccd0b5ca945f53c62c5f973973f6e333",
-    "simulator-data.json": "728445c5c84a19f172b6dd484fb86613be363ea6654a8bdf0edea65acc5d36da",
+    "simulator-data.json": "939a20e3c8c30aaac8000731fbe43f18c159f864d9baf7e82b695b6f02383dd3",
     "simulator.mjs": "95ad64a7a27598c0f3f868d632d382555e7c100f5958a75be46279b4b5e0d1e8"
   }
 }
