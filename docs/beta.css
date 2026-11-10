@@ -196,6 +196,7 @@
 .room-hotspots button.offscreen .hotspot-dot::after { content: '↑'; display: block; text-align: center; color: #eed2a4; font-size: 20px; line-height: 27px; transform: rotate(var(--arrow-angle)); }
 .room-hotspots button.offscreen .hotspot-label { left: 30px; font-size: 9px; background: #1b2734ed; }
 .room-hotspots button.offscreen.label-left .hotspot-label { left: auto; right: 17px; }
+.room-hotspots button[data-topic="wand"].offscreen .hotspot-label { max-width: 84px; white-space: normal; text-align: center; } /* Keep the full WIP label clear of the next edge arrow. */
 .room-hotspots button:focus-visible { outline: 2px solid #e8d4b1; outline-offset: 7px; border-radius: 12px; }
 .room-detail { background: #111721f7; }
 .room-detail[data-topic="desk"], .room-detail[data-topic="chair"] { width: min(1080px, calc(100% - 72px)); }
