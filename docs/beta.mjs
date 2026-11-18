@@ -301,7 +301,6 @@ const topics = {
   codex: ["", "Codex", ""],
   obs: ["", "OBS", ""],
   wand: ["My current prototype", "Magic Wand", ""],
-  stats: ["", "Stats Widget", "My Claude and ChatGPT usage sits on the desktop as small text widgets."],
   sausages: ["", "Tesco Finest sausages", "(This is a joke, I only eat M&S, Waitrose, or Deliveroo sausages.)"],
   code: ["Great for Agentic Engineers", "Review code without moving your hand", "Quick press to jump to a change, or hold and release to stage the current file and jump in that direction."],
   voice: ["Agent Flow", "YouTube pauses when I start talking", "I use a top mouse button to dictate instead of typing, and my video resumes when I finish if my setup paused it."],
@@ -323,7 +322,7 @@ const topicTools = {
   corsair: ["mouse", "voice", "code"], razer: ["mouse", "voice", "code"],
   shure: ["voice", "obs"], scarlett: ["obs"], canon: ["obs"],
   macbook: ["stats", "replies", "menuBarDock"], dell: ["code", "replies", "stats", "menuBarDock"], samsung: ["obs", "aitum"],
-  code: ["code", "mouse"], voice: ["voice", "mouse"], codex: ["replies", "stats", "menuBarDock"], stats: ["stats"], obs: ["obs", "aitum", "restream"],
+  code: ["code", "mouse"], voice: ["voice", "mouse"], codex: ["replies", "stats", "menuBarDock"], obs: ["obs", "aitum", "restream"],
 }; // Link the tools documented for each item; keep hardware product links and separate room hotspots intact.
 /** Follow nearby photo anchors once around the desk, keeping related demos beside their hardware. */
 function buildDialogRoute() {
@@ -380,8 +379,8 @@ function openTopic(topic, trigger) {
   description.textContent = copy[2];
   description.hidden = !copy[2];
   const mouse = topic === "razer" || topic === "corsair";
-  const panel = mouse ? "mouse" : ["code", "voice", "stats", "sausages", "wand"].includes(topic) ? topic : (topic === "codex" || topic === "obs") ? "screen" : "hardware"; // Hardware opens its product; separate nearby Codex, VS Code and OBS hotspots own the software views, never combined monitor/software labels (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
-  for (const name of ["mouse", "code", "voice", "stats", "hardware", "screen", "sausages", "wand"]) document.querySelector(`#${name}-detail`).hidden = name !== panel;
+  const panel = mouse ? "mouse" : ["code", "voice", "sausages", "wand"].includes(topic) ? topic : (topic === "codex" || topic === "obs") ? "screen" : "hardware"; // Hardware opens its product; separate nearby Codex, VS Code and OBS hotspots own the software views, never combined monitor/software labels (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
+  for (const name of ["mouse", "code", "voice", "hardware", "screen", "sausages", "wand"]) document.querySelector(`#${name}-detail`).hidden = name !== panel;
   const toolLinks = document.querySelector("#detail-tools");
   toolLinks.replaceChildren();
   for (const id of topicTools[topic] || []) {
@@ -715,13 +714,34 @@ const skills = [
  ["Emoji Consistency", "emoji-consistency", "Use consistent emoji meanings"],
  ["Deepgram dictation", "claude-code-deepgram-stt-skill", "Transcribes Telegram voice notes for Claude Code"],
 ]; // Rank public and personal skills together by recent use; splitting them forced commonly used personal workflows below older published tools.
-for (const [name,repo,description] of skills) {
- const card = document.createElement(repo ? "a" : "article");
- if (repo) { card.href = projectLink(`https://github.com/EthanSK/${repo}`, projectWebsites); card.target = "_blank"; card.rel = "noopener noreferrer"; }
- const title = document.createElement("strong"); title.textContent = name;
- const summary = document.createElement("span"); summary.textContent = description;
- card.append(title,summary); document.querySelector(".directory-skills").append(card);
+function createDirectoryCard(name, description, url) {
+  const card = document.createElement(url ? "a" : "article");
+  if (url) {
+    card.href = projectLink(url, projectWebsites);
+    card.target = "_blank";
+    card.rel = "noopener noreferrer";
+  }
+  const title = document.createElement("strong"); title.textContent = name;
+  const summary = document.createElement("span"); summary.textContent = description;
+  card.append(title, summary);
+  return card;
 }
+
+const skillCards = new Map();
+const skillsGrid = document.querySelector(".directory-skills");
+for (const [name, repo, description] of skills) {
+  const card = createDirectoryCard(name, description, repo && `https://github.com/EthanSK/${repo}`);
+  skillsGrid.append(card);
+  if (repo) skillCards.set(repo, card);
+}
+
+const [airFryingPick, ...softwarePicks] = [...document.querySelectorAll(".project-rail [data-pick-summary]")]
+  .map(link => createDirectoryCard(link.getAttribute("aria-label"), link.dataset.pickSummary, link.href));
+document.querySelector(".directory-picks .directory-card-grid").append(
+  airFryingPick,
+  ...softwarePicks,
+  skillCards.get("response-preferences").cloneNode(true),
+);
 
 window.addEventListener("message", event => {
   if (event.origin === location.origin && event.source === document.querySelector("#desktop-frame")?.contentWindow && event.data === "close-setup-screen" && detail.open) detail.close(); // Accept Escape only from this site's embedded OBS demo.

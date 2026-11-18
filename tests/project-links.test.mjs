@@ -35,5 +35,6 @@ test('the built sidebar and OBS example resolve project links before JavaScript 
   }
   const html = readFileSync(new URL('index.html', site), 'utf8');
   assert.match(html, /aria-label="Response Preferences" href="https:\/\/ethansk\.github\.io\/response-preferences\/"/);
-  assert.match(html, /href="https:\/\/github\.com\/EthanSK\/stats-widget-from-website#setup-walkthrough"/);
+  assert.match(html, /href="https:\/\/github\.com\/EthanSK\/aimvs-dev-skill\/blob\/main\/references\/stack-lifecycle\.md#ports-per-stack"/);
+  assert.doesNotMatch(html, /aria-label="Stats Widget"|data-topic="stats"/);
 });
