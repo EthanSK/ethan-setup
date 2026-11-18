@@ -738,7 +738,7 @@ const skills = [
  ["Response Preferences", "response-preferences", "How I want agents to write replies"],
  ["Development workflow", null, "Plan, build and check work"],
  ["AIMVS dev workflow", "aimvs-dev-skill", "My project workflow as a reference"],
- ["Coding in TypeScript", "coding-in-typescript", "Focused TypeScript changes, strong contracts, and evidence-based code review"],
+ ["Coding in TypeScript", "coding-in-typescript", "Public consolidation of the TypeScript guidance I use through AIMVS’s project instructions"],
  ["Repository learnings", null, "Keep what agents learn about a repo"],
  ["Browser testing", null, "Test a website in a real browser"],
  ["UI wording", null, "Write UI text in my voice"],
