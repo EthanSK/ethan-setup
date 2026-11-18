@@ -83,6 +83,8 @@ The 9 September 2026 ordering pass used local macOS app-usage records available 
 
 Hardware and project order are qualitative, based on the current desk workflow and recent use discussed in those tasks. Everyday controls and development/recording tools lead; occasional music tools and older projects follow. The page says “Roughly most used first”; it does not claim exact usage counts or live telemetry. All raw activity records, session text and local paths remain private. Display order is committed locally and is not overwritten by the upstream app refresh.
 
+The setup-only app entries use branding from the [Hello Chat site](https://ethansk.github.io/hello-chat/), [The Fleet repository](https://github.com/EthanSK/the-fleet), and [Bambu Studio repository](https://github.com/bambulab/BambuStudio). The first two belong under Apps I made. Bambu Studio belongs under Apps from others. When the desktop inventory supplies the same app ID with a link, its metadata takes precedence.
+
 [Honest Comments](https://github.com/EthanSK/honest-comments) finds useful criticism in YouTube comments. [Agent Swarm Management](https://github.com/EthanSK/agent-swarm-management) is a Mac app, and [Agent Bridge](https://github.com/EthanSK/agent-bridge) connects agent sessions. They belong in Projects, not Skills. The Deepgram skill specifically transcribes Telegram voice notes for Claude Code. The public repositories were checked without authentication; private personal skills remain descriptions without installation links.
 
 ## Dependencies and rights
