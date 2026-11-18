@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
-import { projectLink } from '../docs/project-links.mjs';
+import { projectLink } from '../.build.noindex/site/project-links.mjs';
 
 const websites = JSON.parse(readFileSync(new URL('../docs/project-websites.json', import.meta.url)));
 

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { runInNewContext } from 'node:vm';
 
-const source = readFileSync(new URL('../docs/beta.mjs', import.meta.url), 'utf8');
+const source = readFileSync(new URL('../.build.noindex/site/beta.mjs', import.meta.url), 'utf8');
 const html = readFileSync(new URL('../docs/index.html', import.meta.url), 'utf8');
 const gear = JSON.parse(readFileSync(new URL('../docs/gear.json', import.meta.url)));
 const anchors = [...html.matchAll(/data-topic="([^"]+)" data-x="([^"]+)" data-y="([^"]+)"/g)]
@@ -28,7 +28,7 @@ test('previous and next remain inverse at every item, including both ends', () =
   Object.assign(context, { detail: { dataset: {} }, dialogNavigation: buttons,
     topics: { code: ['', 'Review code'], voice: ['', 'Dictation'], ...Object.fromEntries(anchors.map(item => [item.topic, ['', item.topic]])) },
     gearById: new Map(gear.map(item => [item.id, item])) });
-  runInNewContext(source.slice(source.indexOf('function updateDialogNavigation()'), source.indexOf('let returnFocus,')), context);
+  runInNewContext(source.slice(source.indexOf('function updateDialogNavigation()'), source.indexOf('let returnFocus;')), context);
   for (const topic of route) {
     context.detail.dataset.topic = topic;
     runInNewContext('updateDialogNavigation()', context);

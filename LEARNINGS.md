@@ -36,7 +36,7 @@ Image changes must use matching hotspot coordinates and mobile framing. Restorin
 
 Ethan's “dock” described a rough location, not permission to recreate the complete installed-app Dock over the photo. He rejected that overlay. Keep the existing Software rail, directory and separate Codex/OBS room hotspots; do not reintroduce the app grid or its long detour through dialog navigation.
 
-Rank every directory section roughly by current use, with public and private-safe personal skills interleaved so publication status does not bury frequently used workflows. Preserve local app ordering across canonical inventory refreshes and place newly discovered apps at the end until reviewed. macOS foreground use undercounts background mouse/dictation utilities; recent skill reads can overcount audits and undercount renamed skills. Never label the ordering as precise live telemetry or publish raw usage records.
+Rank every directory section roughly by current use, with public and private-safe personal skills interleaved. Ethan asked for the app grids to show his curated shortlist. Keep the included IDs in the site’s app order so daily desktop inventory refreshes cannot repopulate the directory with tools he removed. macOS foreground use undercounts background mouse and dictation utilities. Never present ordering as live telemetry or publish raw usage records.
 
 Verify a repository's actual purpose before classifying it. Honest Comments analyzes YouTube criticism; it is not about code comments. Agent Swarm Management is a Mac app and Agent Bridge is a project, so neither belongs among skills. Keep their existing public project links, with no duplicate skill cards.
 

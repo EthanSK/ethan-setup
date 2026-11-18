@@ -85,6 +85,8 @@ Hardware and project order are qualitative, based on the current desk workflow a
 
 The setup-only app entries use branding from the [Hello Chat site](https://ethansk.github.io/hello-chat/), [The Fleet repository](https://github.com/EthanSK/the-fleet), and [Bambu Studio repository](https://github.com/bambulab/BambuStudio). The first two belong under Apps I made. Bambu Studio belongs under Apps from others. When the desktop inventory supplies the same app ID with a link, its metadata takes precedence.
 
+The app directory follows Ethan’s shortlist in the site source. Activity Monitor uses a local PNG of the macOS app icon, which belongs to Apple. The desktop inventory remains the source for the other synced app metadata.
+
 [Honest Comments](https://github.com/EthanSK/honest-comments) finds useful criticism in YouTube comments. [Agent Swarm Management](https://github.com/EthanSK/agent-swarm-management) is a Mac app, and [Agent Bridge](https://github.com/EthanSK/agent-bridge) connects agent sessions. They belong in Projects, not Skills. The Deepgram skill specifically transcribes Telegram voice notes for Claude Code. The public repositories were checked without authentication; private personal skills remain descriptions without installation links.
 
 ## Dependencies and rights

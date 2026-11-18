@@ -1,12 +1,15 @@
+import { requiredElement } from "./dom.mjs";
+import type { GearItem } from "./site-data.mjs";
+
 /** Put official product photos beside the existing model without replacing its controls or renderer. */
-export function createProductGallery(container, model, item) {
+export function createProductGallery(container: HTMLElement, model: HTMLElement, item: GearItem) {
   let selected = 0;
   const photo = document.createElement("figure");
   photo.className = "product-photo"; photo.hidden = true;
   photo.innerHTML = '<img decoding="async" alt=""><p role="status" hidden>Loading image…</p><button type="button" class="image-retry" hidden>Retry image</button><figcaption></figcaption><a target="_blank" rel="noopener noreferrer">Official product image ↗</a>';
-  const image = photo.querySelector("img"), error = photo.querySelector("p"), source = photo.querySelector("a"), caption = photo.querySelector("figcaption");
-  const retry = photo.querySelector("button");
-  let imageTimer;
+  const image = requiredElement("img", photo), error = requiredElement("p", photo), source = requiredElement("a", photo), caption = requiredElement("figcaption", photo);
+  const retry = requiredElement("button", photo);
+  let imageTimer: ReturnType<typeof setTimeout> | undefined;
   function failed() { clearTimeout(imageTimer); image.hidden = true; error.textContent = "This image failed to load."; error.hidden = false; retry.hidden = false; }
   image.addEventListener("load", () => { clearTimeout(imageTimer); image.hidden = false; error.hidden = true; retry.hidden = true; });
   image.addEventListener("error", failed);
@@ -34,7 +37,7 @@ export function createProductGallery(container, model, item) {
     strip.append(button); return button;
   });
   /** Select a photo or restore the same interactive model, keeping its orientation and simulator state. */
-  function select(index, reveal = true, reload = false) {
+  function select(index: number, reveal = true, reload = false) {
     clearTimeout(imageTimer);
     selected = index;
     model.hidden = index !== 0; photo.hidden = index === 0;

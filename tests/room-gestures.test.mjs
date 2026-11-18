@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { runInNewContext } from 'node:vm';
+import { requiredElement } from '../.build.noindex/site/dom.mjs';
 import * as THREE from '../docs/lib/three.module.min.js';
 
 /** Run the room's real camera and pointer handlers without a browser or native input. */
@@ -46,11 +47,12 @@ function room(viewportWidth = 390, viewportHeight = 844) {
   document.querySelectorAll = () => [];
   const callbacks = new Map();
   let frameID = 0, time = 0;
-  const source = readFileSync(new URL('../docs/beta.mjs', import.meta.url), 'utf8');
+  const source = readFileSync(new URL('../.build.noindex/site/beta.mjs', import.meta.url), 'utf8');
   const cameraCode = source.slice(source.indexOf('const view ='), source.indexOf('async function createRoom()'));
   const gestureCode = source.slice(source.indexOf('stage.addEventListener("wheel"'), source.indexOf('const topics ='));
   const context = {
-    THREE, stage, canvas, window, document, detail: { open: false }, directory: { open: false },
+    THREE, Element, stage, canvas, window, document, detail: { open: false }, directory: { open: false },
+    requiredElement: selector => requiredElement(selector, document),
     reduced: { matches: true }, hotspots: [], hotspotWidths: new Map(),
     performance: { now: () => time },
     requestAnimationFrame: callback => { callbacks.set(++frameID, callback); return frameID; },

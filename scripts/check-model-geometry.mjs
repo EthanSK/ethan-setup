@@ -19,8 +19,9 @@ globalThis.createImageBitmap = async () => ({width: 1280, height: 720, close() {
 try {
   const rounded = (await readFile(join(root, 'docs/lib/RoundedBoxGeometry.js'), 'utf8')).replace(/from 'three'/g, `from '${threeUrl}'`);
   await writeFile(join(temporary, 'rounded.mjs'), rounded);
-  const source = (await readFile(join(root, 'docs/product-models.mjs'), 'utf8'))
+  const source = (await readFile(join(root, '.build.noindex/site/product-models.mjs'), 'utf8'))
     .replace('from "three"', `from '${threeUrl}'`)
+    .replace(/from "\.\/dom\.mjs\?v=[a-f0-9]+"/, `from '${pathToFileURL(join(root, '.build.noindex/site/dom.mjs')).href}'`)
     .replace('from "./lib/RoundedBoxGeometry.js"', 'from "./rounded.mjs"');
   await writeFile(join(temporary, 'models.mjs'), source + '\nexport {builders, boundingRadius};\n');
   const {builders, boundingRadius} = await import(pathToFileURL(join(temporary, 'models.mjs')).href);
