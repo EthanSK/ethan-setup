@@ -684,20 +684,37 @@ document.querySelector("#shopping-software").addEventListener("click", () => {
   shopping.close(); openDirectory(shoppingTrigger); document.querySelector("#directory-apps").scrollIntoView({block:"start"});
 });
 
+const setupOnlyApps = [
+  { id: "hello-chat", name: "Hello Chat", url: "https://github.com/EthanSK/hello-chat", icon: "https://ethansk.github.io/hello-chat/app-icon.png" },
+  { id: "the-fleet", name: "The Fleet", url: "https://github.com/EthanSK/the-fleet", icon: "https://raw.githubusercontent.com/EthanSK/the-fleet/main/desktop/Resources/FleetShips.png" },
+  { id: "bambu-studio", name: "Bambu Studio", url: "https://github.com/bambulab/BambuStudio", icon: "https://raw.githubusercontent.com/bambulab/BambuStudio/master/resources/images/BambuStudio.png" },
+];
+const ethanAppIds = new Set([
+  "agenticmouse", "voiceinkplusplus", "hello-chat", "the-fleet", "stats-widget-from-website",
+  "obs", "restream-chat-plus-plus", "obscene", "menu-bar-dock", "producer-player", "aiwallpaper",
+]);
 const appUseOrder = new Map([
-  "chatgpt", "agenticmouse", "voiceinkplusplus", "google-chrome", "visual-studio-code", "stats-widget-from-website", "obs",
+  "chatgpt", "agenticmouse", "voiceinkplusplus", "hello-chat", "the-fleet", "google-chrome", "visual-studio-code", "stats-widget-from-website", "obs",
   "spotify", "mail", "notion", "restream-chat-plus-plus", "finder", "iterm", "opera", "telegram",
   "activity-monitor", "claude", "safari", "firefox", "terminal", "surfshark", "obscene",
   "karabiner-elements", "docker-desktop", "menu-bar-dock", "lghub",
   "xcode", "system-settings", "unity-hub", "music", "preview", "textedit", "reminders", "icue",
-  "focusrite-control", "razer", "karabiner-eventviewer", "rekordbox", "producer-player", "aiwallpaper",
+  "focusrite-control", "razer", "karabiner-eventviewer", "rekordbox", "bambu-studio", "producer-player", "aiwallpaper",
   "opencode", "magnet", "amphetamine", "stay", "ableton-live-12-suite", "adobe-photoshop-2026",
 ].map((id, index) => [id, index])); // Recent macOS use, with the daily mouse/dictation tools and configured desktop widgets near the top; keep this local order separate from the synced desktop inventory.
-for (const app of apps.filter(app => app.url && app.id !== "trash").sort((a, b) => (appUseOrder.get(a.id) ?? appUseOrder.size) - (appUseOrder.get(b.id) ?? appUseOrder.size))) { // A newly synced app stays visible at the end until its usage is ranked; Trash is a desktop action, not an app.
+const directoryAppInventory = new Map([...setupOnlyApps, ...apps.filter(app => app.url)].map(app => [app.id, app])); // Use synced metadata when it has a public link for the same app ID.
+const madeAppsGrid = document.querySelector("#apps-i-made");
+const otherAppsGrid = document.querySelector("#apps-from-others");
+const rankedApps = [...directoryAppInventory.values()]
+  .filter(app => app.id !== "trash")
+  .sort((a, b) => (appUseOrder.get(a.id) ?? appUseOrder.size) - (appUseOrder.get(b.id) ?? appUseOrder.size));
+for (const app of rankedApps) {
   const link = document.createElement("a"); link.href = projectLink(app.url, projectWebsites); link.target = "_blank"; link.rel = "noopener";
   const icon = document.createElement("img"); icon.src = app.id === "agenticmouse" ? "./agentic-mouse-mark.svg?v=__SITE_VERSION__" : new URL(app.icon, "https://ethansk.github.io/response-preferences/").href; icon.alt = ""; icon.width = 30; icon.height = 30; icon.loading = "lazy"; // Use the canonical synced mouse artwork; the desktop inventory still has the old blank application icon.
   const name = document.createElement("span"); name.textContent = app.name;
-  link.append(icon,name); document.querySelector(".directory-apps").append(link);
+  link.append(icon, name);
+  const grid = ethanAppIds.has(app.id) ? madeAppsGrid : otherAppsGrid;
+  grid.append(link);
 }
 const skills = [
  ["Response Preferences", "response-preferences", "How I want agents to write replies"],
