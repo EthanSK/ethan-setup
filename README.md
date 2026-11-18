@@ -86,7 +86,9 @@ Each project has its own setup instructions; this repository does not install or
 
 ## Run locally
 
-Requires Python 3.10+ and Node.js 22+. The locked npm dependencies provide the TypeScript compiler and Three.js types. Pages serves the compiled JavaScript and the bundled runtime assets.
+Requires Python 3.10+ and Node.js 22+. The locked npm dependencies provide the TypeScript compiler and Three.js types.
+
+Edit the site’s interactive code in [`src/`](src/). The build compiles it to browser JavaScript for GitHub Pages. The mouse simulator and HUD come from Agentic Mouse and are refreshed by the [source sync](SOURCES.md#maintained-elsewhere).
 
 ```sh
 npm ci
