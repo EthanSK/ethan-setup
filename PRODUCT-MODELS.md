@@ -1,6 +1,6 @@
 # Product models
 
-`docs/product-models.mjs` renders rotatable Three.js models of the hardware on the desk. Each model is hand-built
+`src/product-models.mts` renders rotatable Three.js models of the hardware on the desk. Each model is hand-built
 procedural geometry in millimetres from the manufacturer's published dimensions and product photography. Nothing here
 is photogrammetry or a manufacturer CAD file; the notes below say which dimensions were published, which details came from reference images and
 what is still approximate.

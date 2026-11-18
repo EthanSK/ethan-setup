@@ -3,8 +3,9 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { runInNewContext } from 'node:vm';
 import { MouseSimulator } from '../docs/simulator.mjs';
+import { requiredElement } from '../.build.noindex/site/dom.mjs';
 
-const source = readFileSync(new URL('../docs/beta.mjs', import.meta.url), 'utf8');
+const source = readFileSync(new URL('../.build.noindex/site/beta.mjs', import.meta.url), 'utf8');
 const map = JSON.parse(readFileSync(new URL('../docs/simulator-data.json', import.meta.url)));
 const handlers = source.slice(source.indexOf('function updateGestures()'), source.indexOf('const reviewFiles ='));
 
@@ -19,12 +20,13 @@ function mouseControls() {
     return elements.get(id);
   };
   const simulator = new MouseSimulator(map);
+  const document = { querySelector: selector => element(selector.slice(1)) };
   const context = { simulator, pendingKeypad: null, updateHUD() {},
-    document: { querySelector: selector => element(selector.slice(1)), getElementById: element },
+    requiredElement: selector => requiredElement(selector, document),
     clearTimeout() {}, setTimeout() { return 1; }, performance };
   runInNewContext(handlers, context);
   const click = id => element(id).listeners.click();
-  const select = app => element('beta-app').listeners.change({ target: { value: app } });
+  const select = app => { const control = element('beta-app'); control.value = app; control.listeners.change(); };
   const render = () => context.updateMouse();
   return { simulator, element, click, select, render };
 }

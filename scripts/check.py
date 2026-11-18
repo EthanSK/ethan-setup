@@ -35,7 +35,7 @@ def check():
                 path /= 'index.html'
             if not path.exists():
                 raise ValueError(f'Missing local reference: {file.name} -> {value}')
-    for file in (ROOT / 'docs').glob('*.mjs'):
+    for file in SITE.glob('*.mjs'):
         subprocess.run(['node', '--check', str(file)], check=True)
         for spec in re.findall(r'(?:from\s*|import\s*\()["\'](\./[^"\']+)', file.read_text()):
             if not (file.parent / spec.split('?')[0]).exists():

@@ -2,8 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { runInNewContext } from 'node:vm';
+import { requiredElement } from '../.build.noindex/site/dom.mjs';
 
-const source = readFileSync(new URL('../docs/frame-view.mjs', import.meta.url), 'utf8');
+const source = readFileSync(new URL('../.build.noindex/site/frame-view.mjs', import.meta.url), 'utf8');
 
 function fixture() {
   class Element extends EventTarget {
@@ -20,10 +21,11 @@ function fixture() {
   let nextTimer = 0;
   const context = {
     document: { createElement: () => new Element() },
+    requiredElement,
     setTimeout: fn => { timers.set(++nextTimer, fn); return nextTimer; },
     clearTimeout: id => timers.delete(id),
   };
-  runInNewContext(source.replace('export function', 'function'), context);
+  runInNewContext(source.slice(source.indexOf('export function')).replace('export function', 'function'), context);
   const host = new Element(), view = context.createFrameView(host, 'desktop-frame');
   const status = host.children[0];
   return {host, view, status, timers, tick() { for (const fn of timers.values()) fn(); timers.clear(); }};

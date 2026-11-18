@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { runInNewContext } from 'node:vm';
 
-const source = readFileSync(new URL('../docs/beta.mjs', import.meta.url), 'utf8');
+const source = readFileSync(new URL('../.build.noindex/site/beta.mjs', import.meta.url), 'utf8');
 const html = readFileSync(new URL('../docs/index.html', import.meta.url), 'utf8');
 const names = ['Worktrees', 'Dev stacks', 'Review', 'Land'];
 

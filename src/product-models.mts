@@ -1,9 +1,22 @@
 import * as THREE from "three";
+import { requiredElement } from "./dom.mjs";
 import { RoundedBoxGeometry } from "./lib/RoundedBoxGeometry.js";
 
 // Rotatable Three.js product viewers for the hardware on Ethan's desk. Every model is built from published dimensions and reference
 // geometry in millimetres (see PRODUCT-MODELS.md for the sources and known approximations), so the viewer
 // fits the camera from the real bounding sphere instead of per-product magic numbers.
+
+interface Movement {
+  name: string;
+  apply(progress: number): void;
+  duration?: number;
+}
+interface ProductModel {
+  group: THREE.Group;
+  view: { yaw: number; pitch: number };
+  movements?: Movement[];
+}
+type DrawTexture = (context: CanvasRenderingContext2D, width: number, height: number) => void;
 
 const reduced = matchMedia("(prefers-reduced-motion: reduce)");
 const FRAME_INTERVAL = 1000 / 30; // Product turntables never need more than 30 fps; the dialog is mostly static text.
@@ -14,7 +27,7 @@ const PITCH_MIN = -.55, PITCH_MAX = 1.35;
  * Render one product in `canvas`. Resolves to {reset, dispose}; rejects when WebGL or the model is unavailable
  * so the caller can fall back to the reference photograph and link.
  */
-export async function createProductViewer(canvas, productId, controls, loadSignal) {
+export async function createProductViewer(canvas: HTMLCanvasElement, productId: string, controls: HTMLElement, loadSignal?: AbortSignal) {
   const build = builders[productId];
   if (!build) throw new Error(`No 3D model is available for "${productId}".`);
   const { group, view, movements = [] } = await build(loadSignal);
@@ -22,13 +35,14 @@ export async function createProductViewer(canvas, productId, controls, loadSigna
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: "low-power" });
   const controller = new AbortController();
   const { signal } = controller;
-  let frame = 0, lastRender = 0, lastTick = 0, visible = true, dragging = null, autoTurn = true, disposed = false;
+  let frame = 0, lastRender = 0, lastTick = 0, visible = true, autoTurn = true, disposed = false;
+  let dragging: { id: number; x: number; y: number; yaw: number; pitch: number; touch: boolean; moved: boolean } | null = null;
   let elapsed = 0, movementTime = 0, movementIndex = 0, selectedMovement = -1, paused = reduced.matches, resumeTimer = 0;
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(30, 1, 1, 10000);
   const pivot = new THREE.Group();
   scene.add(pivot);
-  let environment;
+  let environment: THREE.Texture | undefined;
   const previousTouchAction = canvas.style.touchAction;
   try {
     renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
@@ -99,11 +113,11 @@ export async function createProductViewer(canvas, productId, controls, loadSigna
     function moving() { return movements.length > 0 && playing(); }
     function syncControls() {
       controls.hidden = movements.length === 0;
-      controls.querySelector("button").textContent = paused ? "Play movement" : "Pause movement";
+      requiredElement("button", controls).textContent = paused ? "Play movement" : "Pause movement";
       const current = movements[movementIndex]?.name;
-      if (current) controls.querySelector('option[value="-1"]').textContent = `All movements · ${current}`;
+      if (current) requiredElement('option[value="-1"]', controls).textContent = `All movements · ${current}`;
     }
-    const selector = controls.querySelector("select");
+    const selector = requiredElement("select", controls);
     selector.replaceChildren(new Option("All movements", "-1"), ...movements.map((movement, i) => new Option(movement.name, String(i))));
     selector.addEventListener("change", () => {
       movements[movementIndex]?.apply(0);
@@ -113,13 +127,13 @@ export async function createProductViewer(canvas, productId, controls, loadSigna
       clearTimeout(resumeTimer); resumeTimer = 0;
       syncControls(); render();
     }, { signal });
-    controls.querySelector("button").addEventListener("click", () => {
+    requiredElement("button", controls).addEventListener("click", () => {
       paused = !paused;
       clearTimeout(resumeTimer); resumeTimer = 0;
       syncControls(); render();
     }, { signal });
     syncControls();
-    function loop(now) {
+    function loop(now: number) {
       frame = 0;
       if (disposed) return;
       if (now - lastRender < FRAME_INTERVAL - 1) { frame = requestAnimationFrame(loop); return; }
@@ -188,7 +202,7 @@ export async function createProductViewer(canvas, productId, controls, loadSigna
       pose.pitch = THREE.MathUtils.clamp(dragging.pitch + dy * .008, PITCH_MIN, PITCH_MAX);
       render();
     }, { signal });
-    function release(event) {
+    function release(event: PointerEvent) {
       if (!dragging || event.pointerId !== dragging.id) return;
       const moved = dragging.moved;
       dragging = null; // No inertia: the model stays exactly where the hand left it.
@@ -196,7 +210,7 @@ export async function createProductViewer(canvas, productId, controls, loadSigna
       if (moved) inspect();
       render();
     }
-    for (const type of ["pointerup", "pointercancel", "lostpointercapture"]) canvas.addEventListener(type, release, { signal });
+    for (const type of ["pointerup", "pointercancel", "lostpointercapture"] as const) canvas.addEventListener(type, release, { signal });
     canvas.addEventListener("keydown", event => {
       if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home"].includes(event.key)) return;
       event.preventDefault();
@@ -243,9 +257,10 @@ export async function createProductViewer(canvas, productId, controls, loadSigna
       intersection.disconnect();
       canvas.style.touchAction = previousTouchAction;
       scene.traverse(object => {
-        object.geometry?.dispose();
-        for (const material of [].concat(object.material ?? [])) {
-          for (const value of Object.values(material)) if (value?.isTexture) value.dispose();
+        if (!(object instanceof THREE.Mesh)) return;
+        object.geometry.dispose();
+        for (const material of Array.isArray(object.material) ? object.material : [object.material]) {
+          for (const value of Object.values(material)) if (value instanceof THREE.Texture) value.dispose();
           material.dispose();
         }
       });
@@ -266,15 +281,17 @@ export async function createProductViewer(canvas, productId, controls, loadSigna
 }
 
 /** Largest distance from the group origin to any vertex, so the camera fit survives every rotation. */
-function boundingRadius(group, cornersOnly = false) {
+function boundingRadius(group: THREE.Group, cornersOnly = false) {
   group.updateMatrixWorld(true);
   const vertex = new THREE.Vector3();
   let radiusSquared = 0;
   group.traverse(object => {
-    if (!object.isMesh) return;
+    if (!(object instanceof THREE.Mesh)) return;
     if (cornersOnly) { // Per-part box corners bound animated vertices without scanning dense geometry for every sampled pose.
       if (!object.geometry.boundingBox) object.geometry.computeBoundingBox();
-      const {min, max} = object.geometry.boundingBox;
+      const bounds = object.geometry.boundingBox;
+      if (!bounds) return;
+      const {min, max} = bounds;
       for (const x of [min.x,max.x]) for (const y of [min.y,max.y]) for (const z of [min.z,max.z]) {
         vertex.set(x,y,z).applyMatrix4(object.matrixWorld); radiusSquared = Math.max(radiusSquared,vertex.lengthSq());
       }
@@ -290,7 +307,7 @@ function boundingRadius(group, cornersOnly = false) {
 }
 
 /** A soft dark ellipse under the hardware; it grounds the turntable without a shadow pass. */
-function contactShadow(width, depth) {
+function contactShadow(width: number, depth: number) {
   const texture = canvasTexture(64, 64, (ctx, w, h) => {
     const gradient = ctx.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, w / 2);
     gradient.addColorStop(0, "rgba(0,0,0,1)");
@@ -308,7 +325,7 @@ function contactShadow(width, depth) {
  * Soft studio rig baked to a PMREM: broad feathered diffusers over a dark table. This mirrors the mouse studio in
  * mouse-model.mjs but stays local so the viewer does not pull in the glTF, Draco and BVH loaders it never uses.
  */
-function studioEnvironment(renderer) {
+function studioEnvironment(renderer: THREE.WebGLRenderer) {
   const studio = new THREE.Scene();
   studio.add(backdrop(40));
   studio.add(softbox([-7, 12, 9], 18, 12, 11, [1, .97, .93]));
@@ -319,10 +336,14 @@ function studioEnvironment(renderer) {
   const pmrem = new THREE.PMREMGenerator(renderer);
   const texture = pmrem.fromScene(studio, .035).texture;
   pmrem.dispose();
-  studio.traverse(object => { object.geometry?.dispose(); object.material?.dispose(); });
+  studio.traverse(object => {
+    if (!(object instanceof THREE.Mesh)) return;
+    object.geometry.dispose();
+    for (const material of Array.isArray(object.material) ? object.material : [object.material]) material.dispose();
+  });
   return texture;
 }
-function backdrop(radius) {
+function backdrop(radius: number) {
   const geometry = new THREE.SphereGeometry(radius, 48, 32);
   const position = geometry.attributes.position;
   const colors = new Float32Array(position.count * 3);
@@ -335,7 +356,7 @@ function backdrop(radius) {
   geometry.setAttribute("color", new THREE.Float32BufferAttribute(colors, 3));
   return new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ vertexColors: true, side: THREE.BackSide }));
 }
-function softbox([x, y, z], width, height, peak, [r, g, b]) {
+function softbox([x, y, z]: [number, number, number], width: number, height: number, peak: number, [r, g, b]: [number, number, number]) {
   const geometry = new THREE.PlaneGeometry(width, height, 24, 24);
   const position = geometry.attributes.position;
   const colors = new Float32Array(position.count * 3);
@@ -354,32 +375,32 @@ function softbox([x, y, z], width, height, peak, [r, g, b]) {
 // ---------------------------------------------------------------------------------------------------------------
 // Geometry helpers. Everything is in millimetres; +z faces the user, +y is up, +x is the user's right.
 
-function std(color, roughness = .5, metalness = 0, extra = {}) {
+function std(color: THREE.ColorRepresentation, roughness = .5, metalness = 0, extra: THREE.MeshStandardMaterialParameters = {}) {
   return new THREE.MeshStandardMaterial({ color, roughness, metalness, ...extra });
 }
-function at(object, x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0) {
+function at<T extends THREE.Object3D>(object: T, x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0) {
   object.position.set(x, y, z);
   object.rotation.set(rx, ry, rz);
   return object;
 }
-function box(w, h, d, material, radius = 0, segments = 3) {
+function box<T extends THREE.Material | THREE.Material[]>(w: number, h: number, d: number, material: T, radius = 0, segments = 3) {
   return new THREE.Mesh(radius > 0 ? new RoundedBoxGeometry(w, h, d, segments, radius) : new THREE.BoxGeometry(w, h, d), material);
 }
 /** Vertical cylinder; pass `axis` "z" for one pointing at the user or "x" for one lying sideways. */
-function cyl(rTop, rBottom, h, material, segments = 40, axis = "y", openEnded = false) {
+function cyl<T extends THREE.Material>(rTop: number, rBottom: number, h: number, material: T, segments = 40, axis: "x" | "y" | "z" = "y", openEnded = false) {
   const geometry = new THREE.CylinderGeometry(rTop, rBottom, h, segments, 1, openEnded);
   if (axis === "z") geometry.rotateX(Math.PI / 2);
   if (axis === "x") geometry.rotateZ(Math.PI / 2);
   return new THREE.Mesh(geometry, material); // Bake the intrinsic axis into geometry; placement rotations previously turned microphone bodies and sockets upright again.
 }
 /** Revolve a profile around y. Outward normals need the profile to travel from the bottom to the top (Three's LatheGeometry convention). */
-function lathe(points, material, segments = 48) {
+function lathe(points: [number, number][], material: THREE.Material, segments = 48) {
   return new THREE.Mesh(new THREE.LatheGeometry(points.map(([r, y]) => new THREE.Vector2(r, y)), segments), material);
 }
-function ring(inner, outer, material, segments = 48) {
+function ring(inner: number, outer: number, material: THREE.Material, segments = 48) {
   return new THREE.Mesh(new THREE.RingGeometry(inner, outer, segments), material);
 }
-function roundedRect(w, h, r) {
+function roundedRect(w: number, h: number, r: number) {
   const shape = new THREE.Shape();
   shape.moveTo(-w / 2 + r, -h / 2);
   shape.lineTo(w / 2 - r, -h / 2);
@@ -393,16 +414,17 @@ function roundedRect(w, h, r) {
   return shape;
 }
 /** Flat rounded plate facing +z (thickness along z). */
-function plate(w, h, thickness, radius, material) {
+function plate(w: number, h: number, thickness: number, radius: number, material: THREE.Material) {
   const geometry = new THREE.ExtrudeGeometry(roundedRect(w, h, radius), { depth: thickness, bevelEnabled: false, curveSegments: 8 });
   geometry.translate(0, 0, -thickness / 2);
   return new THREE.Mesh(geometry, material);
 }
-function canvasTexture(wMM, hMM, draw, pxPerMM = 4) {
+function canvasTexture(wMM: number, hMM: number, draw: DrawTexture, pxPerMM = 4) {
   const canvas = document.createElement("canvas");
   canvas.width = Math.max(2, Math.ceil(wMM * pxPerMM));
   canvas.height = Math.max(2, Math.ceil(hMM * pxPerMM));
   const ctx = canvas.getContext("2d");
+  if (!ctx) throw new Error("Canvas texture unavailable");
   ctx.scale(pxPerMM, pxPerMM);
   draw(ctx, wMM, hMM);
   const texture = new THREE.CanvasTexture(canvas);
@@ -411,12 +433,12 @@ function canvasTexture(wMM, hMM, draw, pxPerMM = 4) {
   return texture;
 }
 /** Printed labels and screens: a plane facing +z carrying a canvas texture, sitting a hair above the surface. */
-function decal(w, h, draw, { pxPerMM = 4, emissive = 0 } = {}) {
+function decal(w: number, h: number, draw: DrawTexture, { pxPerMM = 4, emissive = 0 } = {}) {
   const map = canvasTexture(w, h, draw, pxPerMM);
   const material = new THREE.MeshStandardMaterial({ map, transparent: true, roughness: .6, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, emissive: 0xffffff, emissiveMap: emissive ? map : null, emissiveIntensity: emissive });
   return new THREE.Mesh(new THREE.PlaneGeometry(w, h), material);
 }
-function text(ctx, string, x, y, size, color = "#e8e8e8", weight = 600, align = "center") {
+function text(ctx: CanvasRenderingContext2D, string: string, x: number, y: number, size: number, color = "#e8e8e8", weight = 600, align: CanvasTextAlign = "center") {
   ctx.fillStyle = color;
   ctx.font = `${weight} ${size}px -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif`;
   ctx.textAlign = align;
@@ -424,7 +446,7 @@ function text(ctx, string, x, y, size, color = "#e8e8e8", weight = 600, align = 
   ctx.fillText(string, x, y);
 }
 /** A knob with a soft top edge and a pointer line, standing on +y. */
-function knob(r, h, material, markMaterial, segments = 40) {
+function knob(r: number, h: number, material: THREE.Material, markMaterial?: THREE.Material | null, segments = 40) {
   const group = new THREE.Group();
   const body = lathe([[0, 0], [r, 0], [r, h - r * .3], [r * .96, h - r * .12], [r * .82, h], [0, h]], material, segments);
   group.add(body);
@@ -435,7 +457,7 @@ function knob(r, h, material, markMaterial, segments = 40) {
 // ---------------------------------------------------------------------------------------------------------------
 // Product builders return {group, view}; each is fitted and centred by the viewer.
 
-const builders = {
+const builders: Record<string, ((signal?: AbortSignal) => ProductModel | Promise<ProductModel>) | undefined> = {
   hs8: buildHS8,
   scarlett: buildScarlett,
   flx4: buildFLX4,
@@ -456,7 +478,7 @@ const builders = {
 };
 
 /** Two complete CPL-5555RC machines, each with its original two foot openings; Ethan uses one foot per machine. */
-function buildCuPiLo() {
+function buildCuPiLo(): ProductModel {
   const group = new THREE.Group();
   const shell = std(0x27282a, .86), base = std(0x141517, .8), fabric = std(0x101113, .98);
   const weave = canvasTexture(32, 32, (ctx) => {
@@ -468,7 +490,7 @@ function buildCuPiLo() {
   weave.wrapS = weave.wrapT = THREE.RepeatWrapping; weave.repeat.set(8, 6);
   shell.bumpMap = weave; shell.bumpScale = .3;
   const unit = new THREE.Group();
-  const perimeter = (a, w, d) => [Math.sign(Math.cos(a)) * Math.abs(Math.cos(a)) ** .78 * w / 2, Math.sign(Math.sin(a)) * Math.abs(Math.sin(a)) ** .78 * d / 2];
+  const perimeter = (a: number, w: number, d: number) => [Math.sign(Math.cos(a)) * Math.abs(Math.cos(a)) ** .78 * w / 2, Math.sign(Math.sin(a)) * Math.abs(Math.sin(a)) ** .78 * d / 2];
   const outline = new THREE.Shape();
   for (let i = 0; i <= 96; i++) {
     const [x, z] = perimeter(i * Math.PI * 2 / 96, 370, 276);
@@ -543,7 +565,7 @@ function buildCuPiLo() {
 }
 
 /** Black D6 Pro: open loop grip, side motor vents and an independently pivoting percussion arm, proportioned from the manufacturer's photos. */
-function buildD6Pro() {
+function buildD6Pro(): ProductModel {
   const group = new THREE.Group();
   const rubber = std(0x242528, .7), edge = std(0x111214, .48), gloss = std(0x090a0d, .22), silver = std(0x9ca0a4, .28, .8);
   const outline = new THREE.Shape();
@@ -593,7 +615,7 @@ function buildD6Pro() {
 }
 
 /** Red Q2 Mini: rounded vertical grip, glossy top and T-shaped barrel with the purchased round foam head. */
-function buildQ2Mini() {
+function buildQ2Mini(): ProductModel {
   const group = new THREE.Group();
   const red = std(0xa62b39, .6), black = std(0x08090c, .23), rubber = std(0x161719, .87);
   const grip = lathe([[0,0],[12,0],[19,3],[22,9],[23,18],[23,121],[22,132],[19,139],[10,143],[0,143]], red, 64);
@@ -619,7 +641,7 @@ function buildQ2Mini() {
 }
 
 /** Canon EOS M50 Mark II: 116.3 × 88.1 × 58.7 mm body, with a representative compact EF-M lens and articulated screen. */
-function buildCanon() {
+function buildCanon(): ProductModel {
   const group = new THREE.Group();
   const shell = std(0x18191c, .58), grip = std(0x101113, .86), trim = std(0x292b2e, .42), black = std(0x050608, .64), silver = std(0x95989b, .3, .85);
   group.add(at(box(108, 62, 40, shell, 5, 5), 4, 33, 0));
@@ -690,19 +712,19 @@ function buildCanon() {
 }
 
 /** Four soft rubber feet under a chassis whose underside is at y = 0. */
-function feet(group, w, d, inset = 18, r = 6, h = 3) {
+function feet(group: THREE.Group, w: number, d: number, inset = 18, r = 6, h = 3) {
   const rubber = std(0x101010, .9);
   for (const sx of [-1, 1]) for (const sz of [-1, 1]) group.add(at(cyl(r, r, h, rubber, 20), sx * (w / 2 - inset), -h / 2, sz * (d / 2 - inset)));
 }
 /** A ¼" or 3.5 mm socket: dark ring with a black hole, facing +z. */
-function socket(r, ringMaterial, holeMaterial, depth = 6) {
+function socket(r: number, ringMaterial: THREE.Material, holeMaterial: THREE.Material, depth = 6) {
   const group = new THREE.Group();
   group.add(cyl(r + 1.8, r + 1.8, 1.4, ringMaterial, 32, "z"));
   group.add(at(cyl(r, r, depth, holeMaterial, 24, "z"), 0, 0, -depth / 2 + .85)); // The hole's cap sits just proud of the ring face so the two never z-fight.
   return group;
 }
 /** XLR/TRS combo socket facing +z: satin ring, black insert with the jack hole and three pin holes. */
-function comboSocket(materials) {
+function comboSocket(materials: { satin: THREE.Material; insert: THREE.Material; hole: THREE.Material }) {
   const group = new THREE.Group();
   group.add(cyl(11.8, 11.8, 2.4, materials.satin, 40, "z"));
   group.add(at(cyl(9.8, 9.8, 1.2, materials.insert, 40, "z"), 0, 0, 1.6));
@@ -715,7 +737,7 @@ function comboSocket(materials) {
 }
 
 /** Yamaha HS8 (white). Cabinet 250 × 390 × 334 mm, 8" woofer, 1" dome in a waveguide, rear port and amp plate. */
-function buildHS8() {
+function buildHS8(): ProductModel {
   const group = new THREE.Group();
   const white = std(0xf2f1ec, .42), cone = std(0xf7f7f3, .62), rubber = std(0x0c0c0d, .88), dark = std(0x1a1a1c, .55);
   const plateMaterial = std(0x141416, .5, .35), metal = std(0x8e9094, .35, .85), dome = std(0x232326, .38, .55);
@@ -802,7 +824,7 @@ function buildHS8() {
 }
 
 /** Focusrite Scarlett 18i8 3rd Gen: red anodised shell 241 × 61 × 159.5 mm, black front and rear panels. */
-function buildScarlett() {
+function buildScarlett(): ProductModel {
   const group = new THREE.Group();
   const red = std(0xb1121a, .46, .55), black = std(0x131315, .55), satin = std(0x2b2b2e, .4, .7), insert = std(0x0f0f10, .7);
   const hole = std(0x000000, 1), silver = std(0xc9cacc, .32, .9), white = std(0xf0f0f0, .5), halo = new THREE.MeshStandardMaterial({ color: 0x1a4d22, emissive: 0x3ce65a, emissiveIntensity: 1.1, roughness: .4 });
@@ -873,11 +895,11 @@ function buildScarlett() {
 }
 
 /** Small rounded button; callers stand it on the surface at y = surface + h / 2. */
-function button(w, d, h, material) {
+function button(w: number, d: number, h: number, material: THREE.Material) {
   return box(w, h, d, material, Math.min(w, d, h) * .25, 2);
 }
 /** A fader: dark slot with a raised cap at `t` (0 at the +z end, 1 at the -z end). Lies on +y along z. */
-function fader(length, t, slotMaterial, capMaterial, capW = 12, capD = 22) {
+function fader(length: number, t: number, slotMaterial: THREE.Material, capMaterial: THREE.Material, capW = 12, capD = 22) {
   const group = new THREE.Group();
   group.add(at(box(3, .6, length, slotMaterial), 0, .3, 0));
   group.add(at(box(capW, 7, capD, capMaterial, 1.5), 0, 3.5, length / 2 - t * length));
@@ -886,11 +908,11 @@ function fader(length, t, slotMaterial, capMaterial, capW = 12, capD = 22) {
 }
 
 /** Pioneer DDJ-FLX4: 482 × 59.2 × 272.8 mm two-deck controller with 111.6 mm jog wheels and a central 2-channel mixer. */
-function buildFLX4() {
-  const group = new THREE.Group(), jogs = [];
+function buildFLX4(): ProductModel {
+  const group = new THREE.Group(), jogs: THREE.Group[] = [];
   const body = std(0x141415, .58), panel = std(0x111112, .6), rubber = std(0x1f1f21, .82), pad = std(0x2c2c2e, .85);
   const platter = std(0x252527, .58, .15), bronze = std(0x343436, .58, .15), white = std(0xe9e9e9, .5), slot = std(0x050505, .9);
-  const led = (colour) => new THREE.MeshStandardMaterial({ color: colour, emissive: colour, emissiveIntensity: 1.4, roughness: .5 });
+  const led = (colour: THREE.ColorRepresentation) => new THREE.MeshStandardMaterial({ color: colour, emissive: colour, emissiveIntensity: 1.4, roughness: .5 });
   const W = 482, H = 48, D = 272.8, top = H;
   const chassis = box(W, H, D, body, 4.5, 4);
   chassis.position.y = H / 2;
@@ -898,8 +920,8 @@ function buildFLX4() {
   group.add(at(box(W - 6, .8, D - 6, panel), 0, top - .2, 0));
   const orange = led(0xf79a30); // The official FLX4 gallery shows orange pad outlines and dark jogs, not RGB pad faces or silver platters.
 
-  const knobAt = (x, z, r = 6, h = 9, cap = white) => group.add(at(knob(r, h, rubber, cap), x, top, z));
-  const buttonAt = (x, z, w, d, material = rubber, h = 3) => group.add(at(button(w, d, h, material), x, top + h / 2, z));
+  const knobAt = (x: number, z: number, r = 6, h = 9, cap = white) => group.add(at(knob(r, h, rubber, cap), x, top, z));
+  const buttonAt = (x: number, z: number, w: number, d: number, material = rubber, h = 3) => group.add(at(button(w, d, h, material), x, top + h / 2, z));
 
   for (const side of [-1, 1]) {
     const jx = side * 158, jz = -20;
@@ -953,7 +975,7 @@ function buildFLX4() {
   // Printed panel text; the chassis silkscreen keeps the layout readable once the knobs are on top.
   group.add(at(decal(W - 6, D - 6, (ctx, w, h) => {
     const cx = w / 2, cz = h / 2;
-    const label = (x, z, string, size = 2.4, weight = 600) => text(ctx, string, cx + x, cz + z, size, "#cfcfcf", weight);
+    const label = (x: number, z: number, string: string, size = 2.4, weight = 600) => text(ctx, string, cx + x, cz + z, size, "#cfcfcf", weight);
     for (const side of [-1, 1]) {
       const jx = side * 158;
       ["HOT CUE", "PAD FX", "BEAT JUMP", "SAMPLER"].forEach((name, col) => label(jx - 33 + col * 22, 58, name, 1.8));
@@ -986,8 +1008,8 @@ function buildFLX4() {
 }
 
 /** AKAI MPK mini Plus: 451 × 52 × 180 mm, 37 mini keys, wheels + joystick, 8 pads, 8 encoders, OLED and transport. */
-function buildAkai() {
-  const group = new THREE.Group(), keys = [], wheels = [], encoders = [];
+function buildAkai(): ProductModel {
+  const group = new THREE.Group(), keys: THREE.Group[] = [], wheels: THREE.Group[] = [], encoders: THREE.Group[] = [];
   const black = std(0x161617, .6), red = std(0xb5121f, .48), whiteKey = std(0xf3f3ef, .38), blackKey = std(0x111111, .55);
   const rubber = std(0x1d1d1f, .85), white = std(0xededed, .5), glass = std(0x060608, .2, .1);
   const W = 451.1, H = 40, D = 180, top = H, keyZ0 = 4, keyLength = 84;
@@ -1016,7 +1038,7 @@ function buildAkai() {
   group.add(at(cyl(11,11,2,rubber,32),-137,top+1,-74));
   group.add(at(cyl(3,3,6,rubber,24),-137,top+5,-74));
   group.add(at(cyl(8.5,10,4,std(0xd4362e,.45),40),-137,top+9,-74));
-  const buttonAt=(x,z,w,d)=>group.add(at(button(w,d,2.5,rubber),x,top+1.25,z));
+  const buttonAt=(x: number,z: number,w: number,d: number)=>group.add(at(button(w,d,2.5,rubber),x,top+1.25,z));
   for(const z of [-47,-33,-19]) for(const x of [-144,-126])buttonAt(x,z,13,7);
   const colours=[0x9144b4,0x28b66b,0x2b93bc,0xb5a536,0x68b239,0xc24766,0xe4a444,0x9236a3];
   for(let row=0;row<2;row++)for(let col=0;col<4;col++){
@@ -1059,7 +1081,7 @@ function buildAkai() {
 }
 
 /** Shure SM7B: black dynamic microphone, thick foam windscreen, rear switch plate and the yoke with its stand nut. */
-function buildShure() {
+function buildShure(): ProductModel {
   const group = new THREE.Group(), mic = new THREE.Group();
   const paint = std(0x3b3c3f, .54, .3), band = std(0x242527, .46, .45), dark = std(0x101113, .85), metal = std(0x86898d, .4, .75);
   const pores = canvasTexture(24, 24, (ctx, w, h) => {
@@ -1109,7 +1131,7 @@ function buildShure() {
 }
 
 /** Mackie Big Knob Passive: grey steel wedge 137 × 79 × 142 mm with the 60 mm silver dial, three buttons and two selectors. */
-function buildBigKnob() {
+function buildBigKnob(): ProductModel {
   const group = new THREE.Group();
   const steel = std(0x34363b, .62, .35), silver = std(0xbfc1c5, .34, .83), dark = std(0x121315, .7);
   const W=137,D=142,frontH=22,rearH=74;
@@ -1145,7 +1167,7 @@ function buildBigKnob() {
 }
 
 /** WD Elements Desktop 14 TB: upright black enclosure 48 × 165.8 × 135 mm with the WD wordmark, LED and rear ports. */
-function buildDrive() {
+function buildDrive(): ProductModel {
   const group = new THREE.Group();
   const shell = std(0x141416, .55), gloss = std(0x0d0d0f, .22, .1), satin = std(0x2c2c2f, .4, .7), hole = std(0, 1);
   const W = 48, H = 165.8, D = 135;
@@ -1170,12 +1192,12 @@ function buildDrive() {
 }
 
 /** Deterministic pseudo-random stream so surface details look identical on every visit. */
-function seeded(seed) {
+function seeded(seed: number) {
   let state = seed >>> 0;
   return () => { state = (state * 1664525 + 1013904223) >>> 0; return state / 4294967296; };
 }
 /** Abstract desktop: dark gradient, translucent menu strip, a couple of window rectangles and a dock of muted tiles. */
-function drawDesktop(ctx, w, h, windows, tint = [18, 22, 32]) {
+function drawDesktop(ctx: CanvasRenderingContext2D, w: number, h: number, windows: [number, number, number, number][], tint = [18, 22, 32]) {
   const background = ctx.createLinearGradient(0, 0, w, h);
   background.addColorStop(0, `rgb(${tint[0] + 8},${tint[1] + 10},${tint[2] + 16})`);
   background.addColorStop(1, `rgb(${tint[0]},${tint[1]},${tint[2]})`);
@@ -1204,7 +1226,7 @@ function drawDesktop(ctx, w, h, windows, tint = [18, 22, 32]) {
   });
 }
 /** Fit the actual Tahoe wallpaper without stretching it, then draw the MacBook's desktop chrome. */
-function drawMacBookDesktop(ctx, w, h, wallpaper) {
+function drawMacBookDesktop(ctx: CanvasRenderingContext2D, w: number, h: number, wallpaper: ImageBitmap) {
   const scale = Math.max(w / wallpaper.width, h / wallpaper.height);
   const width = wallpaper.width * scale, height = wallpaper.height * scale;
   ctx.drawImage(wallpaper, (w - width) / 2, (h - height) / 2, width, height); // Ethan meant Apple's rocks-and-water wallpaper, not generated dry pebbles; do not restore the procedural substitute (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
@@ -1225,7 +1247,7 @@ function drawMacBookDesktop(ctx, w, h, wallpaper) {
 }
 
 /** 16-inch MacBook Pro (space black), lid open 105°: 355.7 × 248.1 mm base, 16:10 display with notch, keys and trackpad. */
-async function buildMacBook(signal) {
+async function buildMacBook(signal?: AbortSignal): Promise<ProductModel> {
   const response = await fetch(new URL("./assets/macbook-wallpaper.webp?v=__SITE_VERSION__", import.meta.url), { signal });
   if (!response.ok) throw new Error(`Wallpaper download failed (${response.status})`);
   const wallpaper = await createImageBitmap(await response.blob());
@@ -1238,8 +1260,8 @@ async function buildMacBook(signal) {
   group.add(at(box(279, 1.4, 112, well), 0, baseH - .5, -52));
   // Magic Keyboard: half-height function row, four alphanumeric rows and the bottom row with an inverted-T arrow cluster.
   const unit = 19.05, cap = unit - 1.9, keyH = 1.5;
-  const key = (x, z, w, d) => group.add(at(box(w, keyH, d, keycap, .8, 2), x, baseH + keyH / 2 - .1, z));
-  const rows = [
+  const key = (x: number, z: number, w: number, d: number) => group.add(at(box(w, keyH, d, keycap, .8, 2), x, baseH + keyH / 2 - .1, z));
+  const rows: [z: number, depth: number, units: number[]][] = [
     [-101, 7.6, [1.5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]],
     [-87.5, cap, [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.5]],
     [-68.5, cap, [1.5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]],
@@ -1281,7 +1303,7 @@ async function buildMacBook(signal) {
 }
 
 /** M4 Mac mini: the verified 2024 silver 127 × 127 × 50 mm enclosure, including front and rear ports. */
-function buildMacMini() {
+function buildMacMini(): ProductModel {
   const group = new THREE.Group();
   const silver = std(0xbfc1c4, .4, .72), black = std(0x111214, .7), hole = std(0x020203, .9), contacts = std(0x616367, .45, .7);
   const shell = new THREE.ExtrudeGeometry(roundedRect(125.4, 125.4, 28), { depth: 42.4, bevelEnabled: true, bevelThickness: .8, bevelSize: .8, bevelSegments: 3, curveSegments: 20 });
@@ -1328,7 +1350,7 @@ function buildMacMini() {
 }
 
 /** Dell S3422DW: 34" 1800R curved 21:9 panel, 808 × 364.5 mm, black bezel and slim silver stand. */
-function buildDell() {
+function buildDell(): ProductModel {
   const group = new THREE.Group(), panel = new THREE.Group();
   const black = std(0x151517, .55), rear = std(0xc3c5c7, .52, .15), silver = std(0xb9bbbf, .36, .85);
   const R = 1800, W = 808, H = 364.5, screenW = 797.2, screenH = 333.7, bottomBezel = 22, thickness = 18, lift = 25;
@@ -1374,7 +1396,7 @@ function buildDell() {
 }
 
 /** Samsung S80UA 27" 4K: 615.5 × 368.2 mm flat panel with slim bezels and the thin metal stand. */
-function buildSamsung() {
+function buildSamsung(): ProductModel {
   const group = new THREE.Group(), panel = new THREE.Group();
   const black = std(0x141416, .55), rear = std(0x1c1c1f, .6), metal = std(0x2d2e32, .4, .8);
   const W = 615.5, H = 368.2, screenW = 596.7, screenH = 335.7, bottomBezel = 23, thickness = 16, lift = 63.7;
@@ -1399,8 +1421,8 @@ function buildSamsung() {
 }
 
 /** FlexiSpot E7 Pro (2025), 180 × 80 cm bamboo top on the black C-frame with rear-set three-stage columns. */
-function buildDesk() {
-  const group = new THREE.Group(), top = new THREE.Group(), middles = [], inners = [];
+function buildDesk(): ProductModel {
+  const group = new THREE.Group(), top = new THREE.Group(), middles: THREE.Mesh[] = [], inners: THREE.Mesh[] = [];
   const frame = std(0x26272a, .5, .4), black = std(0x111214, .65), trim = std(0x37383c, .5);
   const W = 1800, D = 800, T = 20;
   const bamboo = canvasTexture(W, D, (ctx, w, h) => {
@@ -1455,7 +1477,7 @@ function buildDesk() {
 }
 
 /** Hbada E3 Pro 2026: grey mesh, open frame and the actual independent adjustment axes from Hbada's 2026 specification. */
-function buildChair() {
+function buildChair(): ProductModel {
   const group = new THREE.Group();
   const plastic = std(0x9da3aa, .55, .08), alu = std(0xb9bdc1, .35, .8), black = std(0x1b1c1e, .7), armPad = std(0x484c51, .88);
   const weave = canvasTexture(8, 8, (ctx, w, h) => {
@@ -1466,11 +1488,11 @@ function buildChair() {
     for (let y = .7; y < 8; y++) for (let x = .7; x < 8; x++) ctx.fillRect(x, y, .45, .45);
   }, 12);
   /** A thin woven membrane inside an open moulded frame, bowed across its width and tapered toward its upper edge. */
-  function panel(w, h, radius, bow, taper = 0) {
+  function panel(w: number, h: number, radius: number, bow: number, taper = 0) {
     const part = new THREE.Group(), frameShape = roundedRect(w, h, radius);
     const opening = roundedRect(w - 50, h - 50, Math.max(8, radius - 22)); frameShape.holes.push(opening);
     const frameGeometry = new THREE.ExtrudeGeometry(frameShape, {depth: 24, bevelEnabled: true, bevelSize: 3, bevelThickness: 2, bevelSegments: 2, curveSegments: 16});
-    function bend(geometry) {
+    function bend(geometry: THREE.BufferGeometry) {
       const vertices = geometry.attributes.position;
       for (let i = 0; i < vertices.count; i++) {
         const x = vertices.getX(i), y = vertices.getY(i);
@@ -1539,7 +1561,7 @@ function buildChair() {
   lumbar.add(at(box(85, 76, 70, plastic, 15), 0, 0, -23));
   const lumbarAdaptive = new THREE.Group(); lumbar.add(lumbarAdaptive);
   lumbarAdaptive.add(at(panel(282, 188, 58, 12, 0), 0, 0, 24));
-  const wings = [];
+  const wings: THREE.Group[] = [];
   for (const side of [-1, 1]) {
     const wing = new THREE.Group(); wing.position.set(side * 129, 2, 25); wing.rotation.y = side * -.18;
     wing.add(at(box(127, 195, 44, std(0x8b929b, .88), 22, 6), side * 51, 0, 15)); lumbarAdaptive.add(wing); wings.push(wing);
@@ -1552,7 +1574,7 @@ function buildChair() {
   const headPad = new THREE.Group(); headPad.position.set(0, 62, 0); headStem.add(headPad);
   headPad.add(at(cyl(13, 13, 83, alu, 32, "x"), 0, 0, 0));
   headPad.add(at(panel(342, 161, 62, 23, 0), 0, 0, 16));
-  const arms = [];
+  const arms: { arm: THREE.Group; height: THREE.Group; stem: THREE.Group; tilt: THREE.Group; slide: THREE.Group; pad: THREE.Group }[] = [];
   for (const side of [-1, 1]) {
     const arm = new THREE.Group(); arm.position.set(side * 218, 431, -103); swivel.add(arm);
     const rail = new THREE.CatmullRomCurve3([new THREE.Vector3(0,0,0),new THREE.Vector3(side*39,17,8),new THREE.Vector3(side*61,46,30),new THREE.Vector3(side*61,95,55)]);

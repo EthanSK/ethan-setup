@@ -1,17 +1,16 @@
+import { requiredElement } from "./dom.mjs";
+
 /** Give an embedded page visible progress and a fresh browsing context on every retry. */
-export function createFrameView(/** @type {HTMLElement} */ container, frameId = "") {
+export function createFrameView(container: HTMLElement, frameId = "") {
   const status = document.createElement("div");
   status.className = "frame-loading";
   status.hidden = true;
   status.innerHTML = '<span class="frame-spinner" aria-hidden="true"></span><p role="status" aria-live="polite"></p><div class="frame-actions"><button type="button" hidden>Try again</button><a target="_blank" rel="noopener noreferrer">Open in new tab ↗</a></div>';
   container.append(status);
-  const message = status.querySelector("p"), retry = status.querySelector("button"), external = status.querySelector("a");
-  /** @type {HTMLIFrameElement | undefined} */
-  let frame;
-  /** @type {ReturnType<typeof setTimeout> | undefined} */
-  let timer;
-  /** @type {(() => void) | undefined} */
-  let reload;
+  const message = requiredElement("p", status), retry = requiredElement("button", status), external = requiredElement("a", status);
+  let frame: HTMLIFrameElement | undefined;
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  let reload: (() => void) | undefined;
   retry.addEventListener("click", () => reload?.());
 
   /** Stop pending page work when the dialog closes or changes to another item. */
@@ -23,7 +22,7 @@ export function createFrameView(/** @type {HTMLElement} */ container, frameId = 
   }
 
   /** Show progress until the iframe load event; a slow response stays retryable without being declared failed. */
-  function load(/** @type {string} */ url, /** @type {string} */ pageName, title = pageName) {
+  function load(url: string, pageName: string, title = pageName) {
     clear();
     reload = () => load(url, pageName, title);
     const next = document.createElement("iframe"); // Reusing an iframe after removing src can deliver a stale about:blank load and hide the new page's indicator early.

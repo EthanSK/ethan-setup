@@ -1,5 +1,5 @@
 /** Use the verified website for a project entry; keep source files and section links intact. */
-export function projectLink(url, websites) {
+export function projectLink(url: string, websites: Readonly<Record<string, string>>) {
   const parsed = new URL(url);
   if (parsed.hostname !== "github.com" || parsed.hash || parsed.search) return url;
   const repository = parsed.pathname.replace(/^\//, "").replace(/\/$/, "");
