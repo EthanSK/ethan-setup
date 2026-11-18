@@ -37,7 +37,6 @@
 .room-dock button { border: 0; background: none; padding: 13px 16px; border-radius: 12px; font-size: 12px; white-space: nowrap; }
 .room-dock button:hover, .room-dock button[aria-pressed="true"] { background: #ead8b6; color: #221c14; }
 .room-caption { position: absolute; bottom: 16px; inset-inline: 20px; text-align: center; font-size: 10px; color: #aaa8a1; pointer-events: none; }
-.room-loading { position: absolute; top: 112px; left: 36px; font-size: 12px; color: #ddd0b8; }
 .room-detail { position: fixed; margin: 16px 16px 16px auto; inset: 0; width: min(700px, calc(100% - 32px)); height: calc(100svh - 32px); max-height: none; padding: 36px; border: 1px solid #ffffff25; border-radius: 26px; background: #11151def; color: #eff1f8; backdrop-filter: blur(28px); box-shadow: -20px 0 120px #0008; overflow: auto; overscroll-behavior: contain; }
 .room-detail::backdrop { background: #02040a55; backdrop-filter: blur(3px); }
 .detail-close { position: sticky; float: right; top: 0; z-index: 8; width: 38px; height: 38px; border-radius: 50%; background: #252c39; border: 1px solid #ffffff20; font-size: 26px; line-height: 1; }

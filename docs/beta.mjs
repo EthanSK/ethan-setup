@@ -8,6 +8,7 @@ import { projectLink } from "./project-links.mjs?v=__SITE_VERSION__";
 
 const stage = document.querySelector("#room-stage");
 const canvas = document.querySelector("#room-canvas");
+const roomStatus = document.querySelector("#room-status");
 const detail = document.querySelector("#room-detail");
 const screenView = createFrameView(document.querySelector("#screen-detail"), "desktop-frame");
 const reduced = matchMedia("(prefers-reduced-motion: reduce)");
@@ -170,11 +171,11 @@ async function createRoom() {
       renderer.setSize(width, height, false); render();
     }).observe(stage);
     stage.classList.add("room-ready");
-    document.querySelector(".room-loading").hidden = true;
+    roomStatus.textContent = "Drag to look around";
   } catch (error) {
     if (renderer) { renderer.dispose(); renderer = null; }
     canvas.hidden = true;
-    document.querySelector(".room-loading").textContent = "Photo view · use the buttons to explore";
+    roomStatus.textContent = "Photo view · use the buttons to explore";
     console.warn("The room uses its photograph when WebGL is unavailable.", error);
   }
 }
