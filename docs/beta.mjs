@@ -742,7 +742,6 @@ const skills = [
  ["UI wording", null, "Write UI text in my voice"],
  ["Outstanding Items", "outstanding-items", "Keep track of unfinished work"],
  ["Front-end design", null, "Design the front end"],
- ["Air Frying", "air-frying", "Plan meals and coordinate both air fryer drawers"],
  ["Submit ChatGPT Feedback", null, "Report problems from the current task"],
  ["Local Web Debug Mode", "local-web-debug-mode", "Debug a local website with an agent"],
  ["Skill self-reload", "claude-skill-self-reload-plugins-mac", "Reload changed Claude skills on macOS"],

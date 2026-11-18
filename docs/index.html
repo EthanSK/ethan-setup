@@ -36,16 +36,24 @@
     <div class="room-header-actions"><button type="button" class="setup-buy" id="show-shopping" disabled>Buy my setup</button>
     <a class="room-classic" href="https://github.com/EthanSK" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.76-.24.76-.54v-2.1c-3.12.68-3.78-1.32-3.78-1.32-.51-1.29-1.24-1.63-1.24-1.63-1.02-.7.08-.68.08-.68 1.12.08 1.71 1.15 1.71 1.15 1 1.71 2.62 1.22 3.26.94.1-.72.39-1.22.71-1.5-2.49-.29-5.11-1.25-5.11-5.54 0-1.22.44-2.22 1.15-3-.12-.29-.5-1.43.11-2.97 0 0 .94-.3 3.08 1.15a10.7 10.7 0 0 1 5.6 0c2.14-1.45 3.08-1.15 3.08-1.15.61 1.54.23 2.68.11 2.97.71.78 1.15 1.78 1.15 3 0 4.3-2.63 5.25-5.13 5.53.4.35.76 1.03.76 2.07v3.08c0 .3.2.65.77.54A11.2 11.2 0 0 0 12 .8Z"/></svg>GitHub ↗</a></div>
   </header>
-  <nav class="project-rail" aria-labelledby="software-title">
-    <h2 id="software-title">Software</h2>
-    <a aria-label="Agentic Mouse" href="https://github.com/EthanSK/agentic-mouse"><img src="./agentic-mouse-mark.svg?v=__SITE_VERSION__" width="28" height="28" alt=""/><span>Agentic Mouse</span></a>
-    <a aria-label="Agent Flow" href="https://ethansk.github.io/AgentFlow/"><img src="./assets/agentflow-icon.png" width="28" height="28" alt=""/><span>Agent Flow</span></a>
-    <a aria-label="Better Git VS Code" href="https://github.com/EthanSK/better-git-vscode"><img src="./assets/apps/vsCode.png" width="28" height="28" alt=""/><span>Better Git VS Code</span></a>
-    <a aria-label="Stats Widget" href="https://github.com/EthanSK/stats-widget-from-website"><img src="https://ethansk.github.io/response-preferences/desktop/icons/stats-widget-from-website.png" width="28" height="28" alt=""/><span>Stats Widget</span></a>
-    <a aria-label="Response Preferences" href="https://github.com/EthanSK/response-preferences"><img src="./assets/apps/codex.png" width="28" height="28" alt=""/><span>Response Preferences</span></a>
-    <a id="menu-bar-dock-link" hidden></a>
-    <button type="button" id="show-directory" aria-label="Everything I use"><span class="rail-symbol" aria-hidden="true">⋯</span><span>Everything I use</span></button>
-  </nav>
+  <div class="project-rail">
+    <aside aria-label="Featured project">
+      <a class="featured-air-frying rail-feature" href="https://github.com/EthanSK/air-frying" target="_blank" rel="noopener noreferrer">
+        <img src="https://ethansk.github.io/air-frying/assets/icon.png" width="28" height="28" alt="" />
+        <strong>Air Frying</strong><span aria-hidden="true">↗</span>
+      </a>
+    </aside>
+    <nav class="software-rail" aria-labelledby="software-title">
+      <h2 id="software-title">Software</h2>
+      <a aria-label="Agentic Mouse" href="https://github.com/EthanSK/agentic-mouse"><img src="./agentic-mouse-mark.svg?v=__SITE_VERSION__" width="28" height="28" alt=""/><span>Agentic Mouse</span></a>
+      <a aria-label="Agent Flow" href="https://ethansk.github.io/AgentFlow/"><img src="./assets/agentflow-icon.png" width="28" height="28" alt=""/><span>Agent Flow</span></a>
+      <a aria-label="Better Git VS Code" href="https://github.com/EthanSK/better-git-vscode"><img src="./assets/apps/vsCode.png" width="28" height="28" alt=""/><span>Better Git VS Code</span></a>
+      <a aria-label="Stats Widget" href="https://github.com/EthanSK/stats-widget-from-website"><img src="https://ethansk.github.io/response-preferences/desktop/icons/stats-widget-from-website.png" width="28" height="28" alt=""/><span>Stats Widget</span></a>
+      <a aria-label="Response Preferences" href="https://github.com/EthanSK/response-preferences"><img src="./assets/apps/codex.png" width="28" height="28" alt=""/><span>Response Preferences</span></a>
+      <a id="menu-bar-dock-link" hidden></a>
+      <button type="button" id="show-directory" aria-label="Everything I use"><span class="rail-symbol" aria-hidden="true">⋯</span><span>Everything I use</span></button>
+    </nav>
+  </div>
   <main class="room-stage" id="room-stage">
     <img class="room-poster" src="./assets/room.svg?v=__SITE_VERSION__" width="1586" height="992" alt="Ethan reclining at his desk with two giant sausage legs coming out of his shorts, a Razer mouse on the left and a Corsair mouse in his right hand and the Magic Wand on the desk" />
     <canvas id="room-canvas" tabindex="0" aria-label="Explore the desk. Drag to look around. Scroll or pinch to zoom; use up and down arrow keys to zoom; use left and right arrow keys to move sideways."></canvas>
@@ -270,6 +278,14 @@
   <dialog class="setup-directory" id="setup-directory" aria-labelledby="directory-title">
     <button type="button" class="directory-close" aria-label="Back to the room">×</button>
     <h1 id="directory-title">Everything I use</h1>
+    <a class="featured-air-frying directory-feature" href="https://github.com/EthanSK/air-frying" target="_blank" rel="noopener noreferrer">
+      <div>
+        <h2>Air Frying</h2>
+        <p>Plan meals and coordinate both air fryer drawers.</p>
+        <span>Visit website <span aria-hidden="true">↗</span></span>
+      </div>
+      <img src="https://ethansk.github.io/air-frying/assets/salmon-potato-slices.webp" width="960" height="769" alt="" loading="lazy" />
+    </a>
     <p class="directory-order">Roughly most used first</p>
     <nav class="directory-sections" aria-label="Setup sections"><a href="#directory-gear">Hardware</a><a href="#directory-apps">Apps</a><a href="#directory-skills">Skills</a><a href="#directory-projects">Projects</a><a href="#directory-portfolio">Portfolio</a></nav>
     <h2 id="directory-gear">On my desk</h2><div class="directory-gear"></div>
