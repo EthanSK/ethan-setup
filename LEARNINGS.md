@@ -14,6 +14,8 @@ The opening photo fills the viewport without stretching and starts aligned to th
 
 The room needs a plain background-click action as well as drag handling. Increase zoom around the clicked photo point using the currently visible camera scale, and retain the drag/pinch click suppression so releasing a gesture cannot also zoom. Anchor only after the photo viewport is measured; a click can arrive during image loading. Give visible objects label space before distant edge arrows. Verify actual clicks at different coordinates, unchanged scale after dragging, drag-cursor release, wheel direction, and product/backdrop clicks in the built-in browser.
 
+Keep the room's loading and photo fallback messages in the existing room hint. An independently positioned loading message overlapped the featured Agentic Air Frying button before WebGL was ready. Check the startup view with the room module held back as well as the settled view.
+
 ## Monitor views
 
 Keep corresponding software and skill links clear at the top of relevant dialogs, including both mice. Use public project websites where available and Ethan’s public forks otherwise; do not send OBS fork links to the upstream OBS site. Hide the link group for unrelated hardware, and keep each product link and hotspot separate. Screen demos retain a compact link row without restoring their removed title/subtitle chrome.
