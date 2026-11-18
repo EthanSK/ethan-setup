@@ -259,7 +259,8 @@
 .setup-directory h1 { font-size: 34px; letter-spacing: -.045em; margin: 0 0 18px; }
 .directory-order { color: #aeb9c9; font-size: 12px; margin: -7px 0 18px; }
 .setup-directory h2 { font-size: 19px; margin: 35px 0 15px; }
-.directory-featured + .directory-order { margin-top: 20px; }
+.setup-directory .directory-picks h2 { margin: 0 0 12px; }
+.directory-picks + .directory-order { margin-top: 20px; }
 .directory-sections { display: flex; gap: 18px; font-size: 12px; color: #d7c5a9; }
 .directory-gear, .directory-card-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 9px; }
 .directory-gear button, .directory-card-grid > :is(a, article) { text-align: left; border: 1px solid #ffffff1c; border-radius: 10px; padding: 15px; background: #1a2430; font: inherit; }
@@ -467,24 +468,6 @@
  .slide-tabs .slide-number { width: 18px; height: 18px; font-size: 10px; }
  .repo-list li, .change-list li { flex-wrap: wrap; }
 }
-
-#stats-detail { display: grid; grid-template-columns: 1.25fr 1fr; gap: 32px; margin-top: 24px; align-items: start; }
-.stats-desktop { margin: 0; padding: 24px; border-radius: 20px; background: linear-gradient(#10263733, #06152399), url("./assets/macbook-wallpaper.webp") center / cover; }
-.stats-widgets { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
-.stats-widget { min-width: 0; padding: 12px; border: 1px solid #ffffff38; border-radius: 17px; background: #112b34e8; color: #edfff9; box-shadow: 0 6px 20px #0002; }
-.stats-widget h2 { font-size: 11px; line-height: 1.4; font-weight: 500; min-height: 31px; margin: 0 0 8px; }
-.stats-widget strong { display: block; font-size: clamp(27px, 3vw, 36px); font-weight: 600; line-height: 1; letter-spacing: -.05em; }
-.stats-widget strong span { display: block; font-size: 10px; letter-spacing: 0; font-weight: 400; margin-top: 5px; color: #bfddd4; }
-.stats-widget svg { display: block; width: 100%; height: 20px; margin-top: 10px; fill: none; stroke: #a7e8d5; stroke-width: 2; }
-.stats-desktop figcaption { font-size: 12px; line-height: 1.5; margin-top: 20px; padding: 8px 12px; background: #091c26e8; border-radius: 8px; width: fit-content; }
-.stats-setup h2 { margin: 0 0 10px; font-size: 23px; }
-.stats-setup > p, .stats-setup li p { color: #bfcbd7; font-size: 14px; line-height: 1.65; margin: 6px 0; }
-.stats-setup ol { padding-left: 22px; margin: 22px 0; }
-.stats-setup li { padding-left: 5px; margin-bottom: 18px; }
-.stats-setup li::marker { color: #ddc6a3; }
-.stats-setup h3 { font-size: 15px; font-weight: 600; margin: 0; }
-@media (max-width: 1000px) { #stats-detail { grid-template-columns: 1fr; } }
-@media (max-width: 600px) { .stats-desktop { padding: 14px; } .stats-widgets { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; } .stats-widget { padding: 12px; } }
 
 .room-header-actions { display: flex; align-items: center; gap: 12px; }
 .setup-buy { pointer-events: auto; min-height: 56px; padding: 14px 28px; border: 1px solid #ead8b6; border-radius: 30px; background: #ead8b6; color: #221c14; font-size: 17px; font-weight: 750; white-space: nowrap; box-shadow: 0 5px 24px #0004; }
