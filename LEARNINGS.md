@@ -34,7 +34,7 @@ Image changes must use matching hotspot coordinates and mobile framing. Restorin
 
 ## Directory relevance
 
-Ethan’s “floating thing” is the **Software I use** shortcut near the Dell. It opens the same directory software section as the rail and the MacBook shortcut. Keep these shortcuts separate from the hardware and demo navigation route.
+Ethan’s “floating thing” is the **Software I use** shortcut near the Dell. It opens the software section, as does the MacBook shortcut. The sidebar’s **Everything I use** button opens the directory from the top. Keep these shortcuts separate from the hardware and demo navigation route. User-corrected — 2026-11-19.
 
 Rank every directory section roughly by current use, with public and private-safe personal skills interleaved. Ethan asked for the app grids to show his curated shortlist. Keep the included IDs in the site’s app order so daily desktop inventory refreshes cannot repopulate the directory with tools he removed. macOS foreground use undercounts background mouse and dictation utilities. Never present ordering as live telemetry or publish raw usage records.
 
