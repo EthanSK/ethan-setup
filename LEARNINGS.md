@@ -18,7 +18,7 @@ Keep the room's loading and photo fallback messages in the existing room hint. A
 
 ## Monitor views
 
-Keep corresponding software and skill links clear at the top of relevant dialogs, including both mice. Use public project websites where available and Ethan’s public forks otherwise; do not send OBS fork links to the upstream OBS site. Hide the link group for unrelated hardware, and keep each product link and hotspot separate. Screen demos retain a compact link row without restoring their removed title/subtitle chrome.
+Keep software links tied to what the dialog shows or what Ethan uses with that item. Use public project websites and Ethan’s public forks. The MacBook opens the software directory, the Dell provides shortcuts to Codex and VS Code, and the Codex demonstration links to its source, Response Preferences. Stats Widget belongs in the directory. Keep hardware product links and room hotspots separate.
 
 The Dell room hotspot opens its rotatable monitor model, specs and product link. A separate nearby Codex hotspot opens the full-height desktop embed; do not route the Dell product click to that website again. The Samsung hotspot also opens its monitor product; a nearby OBS hotspot owns the recording demo and setup details. Do not combine distinct hardware/software identities in one label or click action. Do not reintroduce duplicate headings, subtitles or a Desktop / 3D monitor toolbar above the embedded screen. Keep its accessible name, close control and outside-click dismissal.
 
@@ -34,7 +34,7 @@ Image changes must use matching hotspot coordinates and mobile framing. Restorin
 
 ## Directory relevance
 
-Ethan's “dock” described a rough location, not permission to recreate the complete installed-app Dock over the photo. He rejected that overlay. Keep the existing Software rail, directory and separate Codex/OBS room hotspots; do not reintroduce the app grid or its long detour through dialog navigation.
+Ethan’s “floating thing” is the **Software I use** shortcut near the Dell. It opens the same directory software section as the rail and the MacBook shortcut. Keep these shortcuts separate from the hardware and demo navigation route.
 
 Rank every directory section roughly by current use, with public and private-safe personal skills interleaved. Ethan asked for the app grids to show his curated shortlist. Keep the included IDs in the site’s app order so daily desktop inventory refreshes cannot repopulate the directory with tools he removed. macOS foreground use undercounts background mouse and dictation utilities. Never present ordering as live telemetry or publish raw usage records.
 
@@ -90,7 +90,7 @@ Gallery thumbnails belong to the currently opened product and should load eagerl
 
 ## Dialog navigation
 
-Keep the floating previous/next controls outside the dialog's scrolling body, inside the same modal top layer. Centring them on that shell keeps their vertical position stable across short software cards, tall hardware content and full-height screen embeds. Mobile controls must remain inside the viewport, including at 320px and in landscape; keep the close control outside the scroller too.
+Anchor the previous, next and close controls to the viewport inside the modal top layer. Short product cards and full-height screen embeds use different bounds. A shell transform, including a completed animation that retains `scale(1)`, changes the containing block for fixed controls. Animate the scrollable content and test repeated clicks at exactly the same coordinates across the full route. On narrow or short screens, keep room for the arrows at the bottom.
 
 Build one route from the photographed item positions, with related demos inserted beside their hardware. Computing an independent nearest destination on every click can bounce between two items and makes Previous fail to undo Next. Switching topics reuses the existing open/cleanup path and preserves the initial room camera and return focus; cancel held review buttons and active dictation on topic changes as well as close. Verify a full loop, reverse navigation, model/gallery transitions, repeated keyboard activation and backdrop dismissal.
 

@@ -36,4 +36,5 @@ export interface ProjectEntry {
   repository: string;
   url: string;
   description?: string;
+  icon?: string;
 }

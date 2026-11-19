@@ -53,7 +53,7 @@ for (const item of gear) {
   const label = document.createElement("span"); label.className = "hotspot-label"; label.textContent = item.label;
   button.append(dot, label); hotspotContainer.append(button);
 }
-const hotspots = [...hotspotContainer.querySelectorAll<HTMLButtonElement>("button")]; // Ethan rejected the full app-dock overlay: keep apps in the Software rail and directory, not a second grid over the photo (task 01a07944-b48e-7e43-8c2f-34b9cfe3df70).
+const hotspots = [...hotspotContainer.querySelectorAll<HTMLButtonElement>("button")]; // The Software I use shortcut opens the directory from the monitor without adding apps to the photo or the desk-item route.
 const hotspotWidths = new Map<HTMLElement, number>();
 const view = { zoom: 0, panX: 0, panY: 0 };
 const target = { zoom: 0, panX: 0, panY: 0 };
@@ -327,27 +327,25 @@ const topics: Record<string, [string, string, string] | undefined> = {
   chair: ["My desk setup", "Lean back without reaching for a keyboard", "I use thumb controls and dictation with the footrest out, switching hands whenever I want."],
 };
 const obsApp = linkedApp("obs");
-const statsApp = linkedApp("stats-widget-from-website");
+const railIcon = (name: string) => requiredElement<HTMLImageElement>(`.software-rail a[aria-label="${name}"] img`).getAttribute("src") ?? undefined;
 const relatedTools: Record<string, { name: string; url: string; icon?: string }> = {
   mouse: { name: "Agentic Mouse", url: "https://ethansk.github.io/agentic-mouse/", icon: "./agentic-mouse-mark.svg?v=__SITE_VERSION__" },
   voice: { name: "Agent Flow", url: "https://ethansk.github.io/AgentFlow/", icon: "./assets/agentflow-icon.png?v=__SITE_VERSION__" },
-  code: { name: "Better Git VS Code", url: "https://marketplace.visualstudio.com/items?itemName=EthanSK.better-git-vscode", icon: "./assets/apps/vsCode.png" },
-  replies: { name: "Response Preferences", url: "https://ethansk.github.io/response-preferences/", icon: "./assets/apps/codex.png" },
+  code: { name: "Better Git VS Code", url: "https://marketplace.visualstudio.com/items?itemName=EthanSK.better-git-vscode", icon: railIcon("Better Git VS Code") },
+  replies: { name: "Response Preferences", url: "https://ethansk.github.io/response-preferences/", icon: railIcon("Response Preferences") },
   obs: { name: "OBS++", url: obsApp.url, icon: new URL(obsApp.icon, "https://ethansk.github.io/response-preferences/").href },
-  stats: { name: "Stats Widget", url: statsApp.url, icon: new URL(statsApp.icon, "https://ethansk.github.io/response-preferences/").href },
-  menuBarDock: { name: menuBarDock.name, url: menuBarDock.url, icon: menuBarDockIcon.src },
   restream: { name: "Restream Channel Switcher", url: "https://github.com/EthanSK/restream-channel-switcher" },
   aitum: { name: "Aitum++", url: "https://github.com/EthanSK/obs-aitum-stream-suite" },
 };
 const topicTools: Record<string, string[] | undefined> = {
   corsair: ["mouse", "voice", "code"], razer: ["mouse", "voice", "code"],
   shure: ["voice", "obs"], scarlett: ["obs"], canon: ["obs"],
-  macbook: ["stats", "replies", "menuBarDock"], dell: ["code", "replies", "stats", "menuBarDock"], samsung: ["obs", "aitum"],
-  code: ["code", "mouse"], voice: ["voice", "mouse"], codex: ["replies", "stats", "menuBarDock"], obs: ["obs", "aitum", "restream"],
+  samsung: ["obs", "aitum"],
+  code: ["code", "mouse"], voice: ["voice", "mouse"], codex: ["replies"], obs: ["obs", "aitum", "restream"],
 }; // Link the tools documented for each item; keep hardware product links and separate room hotspots intact.
 /** Follow nearby photo anchors once around the desk, keeping related demos beside their hardware. */
 function buildDialogRoute() {
-  const remaining = [...hotspots];
+  const remaining = hotspots.filter(button => button.dataset.topic);
   const ordered: string[] = [];
   let current: HTMLButtonElement | null = remaining.reduce((left, button) => Number(button.dataset.x) < Number(left.dataset.x) ? button : left);
   while (current) {
@@ -384,7 +382,7 @@ let disposeGallery: (() => void) | null = null;
 function openTopic(topic: string | undefined, trigger?: HTMLElement) {
   if (!topic) return;
   const item = gearById.get(topic);
-  const copy = topics[topic] || (item && ["My setup", item.name, item.description]);
+  const copy = topics[topic] || (item && ["", item.name, item.description]);
   if (!copy) return;
   const anchor = hotspots.find(button => button.dataset.topic === (topic === "code" ? "dell" : topic === "voice" ? "shure" : topic));
   if (!anchor) return;
@@ -402,7 +400,9 @@ function openTopic(topic: string | undefined, trigger?: HTMLElement) {
   stage.classList.add("room-focused");
   detail.dataset.topic = topic;
   render();
-  requiredElement("#detail-kicker").textContent = (topic === "desk" || topic === "chair") && item ? item.name : copy[0];
+  const kicker = requiredElement("#detail-kicker");
+  kicker.textContent = (topic === "desk" || topic === "chair") && item ? item.name : copy[0];
+  kicker.hidden = !kicker.textContent;
   requiredElement("#detail-title").textContent = copy[1];
   const description = requiredElement("#detail-description");
   description.textContent = copy[2];
@@ -412,6 +412,26 @@ function openTopic(topic: string | undefined, trigger?: HTMLElement) {
   for (const name of ["mouse", "code", "voice", "hardware", "screen", "sausages", "wand"]) requiredElement(`#${name}-detail`).hidden = name !== panel;
   const toolLinks = requiredElement("#detail-tools");
   toolLinks.replaceChildren();
+  if (topic === "macbook") {
+    const software = document.createElement("button");
+    software.type = "button";
+    software.textContent = "Software I use";
+    software.addEventListener("click", () => {
+      const directoryOpener = returnFocus ?? requiredElement("#show-directory");
+      detail.close();
+      openDirectory(directoryOpener, true);
+    });
+    toolLinks.append(software);
+  }
+  if (topic === "dell") {
+    for (const [destination, name] of [["codex", "Codex desktop"]]) {
+      const view = document.createElement("button");
+      view.type = "button";
+      view.textContent = name;
+      view.addEventListener("click", () => openTopic(destination, view));
+      toolLinks.append(view);
+    }
+  }
   for (const id of topicTools[topic] || []) {
     const tool = relatedTools[id];
     const link = document.createElement("a"); link.href = projectLink(tool.url, projectWebsites); link.target = "_blank"; link.rel = "noopener noreferrer";
@@ -664,6 +684,41 @@ function showScreen(id: string) {
     id === "obs" ? "OBS — demo" : "Interactive example of Ethan’s desktop",
   );
 }
+
+function populateDirectoryCard(card: HTMLElement, name: string, description: string, artwork?: string) {
+  card.className = "directory-card";
+  const art = document.createElement("span");
+  art.className = "directory-card-art";
+  art.setAttribute("aria-hidden", "true");
+  const mark = document.createElement("span");
+  mark.className = "directory-card-mark";
+  mark.textContent = name.split(/\s+/).slice(0, 2).map(part => part[0]).join("").toUpperCase();
+  art.append(mark);
+  if (artwork) {
+    const image = document.createElement("img");
+    image.alt = "";
+    image.loading = "lazy";
+    image.decoding = "async";
+    image.referrerPolicy = "no-referrer";
+    image.addEventListener("load", () => art.classList.add("has-image"), { once: true });
+    image.addEventListener("error", () => image.remove(), { once: true });
+    image.src = artwork;
+    art.append(image);
+  }
+  card.append(art);
+  const copy = document.createElement("span");
+  copy.className = "directory-card-copy";
+  const title = document.createElement("strong");
+  title.textContent = name;
+  copy.append(title);
+  if (description) {
+    const summary = document.createElement("span");
+    summary.textContent = description;
+    copy.append(summary);
+  }
+  card.append(copy);
+}
+
 const directory = requiredElement<HTMLDialogElement>("#setup-directory");
 const portfolioContainer = requiredElement("#portfolio-frame");
 const portfolioView = createFrameView(portfolioContainer);
@@ -674,16 +729,30 @@ const portfolioObserver = new IntersectionObserver(entries => {
 }, { root: directory, rootMargin: "300px" }); // Begin the loading timer only when the portfolio is near view, not while a lazy iframe is waiting offscreen.
 portfolioObserver.observe(portfolioContainer);
 let directoryTrigger: HTMLElement | undefined;
-function openDirectory(trigger: HTMLElement) { directoryTrigger = trigger; directory.showModal(); }
-for (const button of document.querySelectorAll<HTMLElement>("#show-directory, [data-directory]")) button.addEventListener("click", () => openDirectory(button));
+function openDirectory(trigger: HTMLElement, showSoftware = false) {
+  directoryTrigger = trigger;
+  directory.showModal();
+  directory.scrollTop = 0;
+  if (!showSoftware) return;
+  const heading = requiredElement("#directory-apps");
+  heading.focus({ preventScroll: true });
+  heading.scrollIntoView({ block: "start" });
+}
+for (const button of document.querySelectorAll<HTMLElement>("#show-directory, [data-directory]")) {
+  button.addEventListener("click", () => openDirectory(button, button.dataset.directory === "software"));
+}
 requiredElement(".directory-close").addEventListener("click", () => directory.close());
 directory.addEventListener("close", () => directoryTrigger?.focus({preventScroll:true}));
 dismissOutside(directory);
 for (const item of gear) {
   const button = document.createElement("button"); button.type = "button";
-  const name = document.createElement("strong"); name.textContent = item.name;
-  const specs = document.createElement("span"); specs.textContent = item.specs.slice(0, 3).join(" · "); // Keep directory cards short; each product dialog shows the complete specification list.
-  button.append(name, specs); button.addEventListener("click", () => { directory.close(); openTopic(item.id, requiredElement("#show-directory")); }); // Hardware entries always open product models; software has separate room hotspots.
+  const description = topics[item.id]?.[2] || item.description || item.specs.slice(0, 3).join(" · ");
+  populateDirectoryCard(button, item.name, description, item.images[0].src);
+  button.addEventListener("click", () => {
+    const trigger = directoryTrigger ?? requiredElement("#show-directory");
+    directory.close();
+    openTopic(item.id, trigger);
+  }); // Hardware entries open product models; software has separate room hotspots.
   requiredElement(".directory-gear").append(button);
 }
 
@@ -717,11 +786,11 @@ requiredElement(".shopping-close").addEventListener("click", () => shopping.clos
 shopping.addEventListener("close", () => shoppingTrigger.focus({preventScroll:true}));
 dismissOutside(shopping);
 requiredElement("#shopping-software").addEventListener("click", () => {
-  shopping.close(); openDirectory(shoppingTrigger); requiredElement("#directory-apps").scrollIntoView({block:"start"});
+  shopping.close(); openDirectory(shoppingTrigger, true);
 });
 
 const setupOnlyApps = [
-  { id: "hello-chat", name: "Hello Chat", url: "https://github.com/EthanSK/hello-chat", icon: "https://ethansk.github.io/hello-chat/app-icon.png" },
+  { id: "hello-chat", name: "Hello Chat", url: "https://github.com/EthanSK/hello-chat", icon: railIcon("Hello Chat") ?? "" },
   { id: "the-fleet", name: "The Fleet", url: "https://github.com/EthanSK/the-fleet", icon: "https://raw.githubusercontent.com/EthanSK/the-fleet/main/desktop/Resources/FleetShips.png" },
   { id: "bambu-studio", name: "Bambu Studio", url: "https://github.com/bambulab/BambuStudio", icon: "https://raw.githubusercontent.com/bambulab/BambuStudio/master/resources/images/BambuStudio.png" },
 ];
@@ -742,6 +811,50 @@ const directoryAppIcons: Record<string, string | undefined> = {
   agenticmouse: "./agentic-mouse-mark.svg?v=__SITE_VERSION__",
   "activity-monitor": "./assets/activity-monitor.png?v=__SITE_VERSION__",
 };
+const appUseNotes: Record<string, string | undefined> = {
+  chatgpt: "Work with coding agents and review what they change.",
+  agenticmouse: "Run app shortcuts and review code with either hand.",
+  voiceinkplusplus: "Dictate to an agent with screenshots and selected text.",
+  "hello-chat": "Start and stop Codex Voice with a wake phrase.",
+  "the-fleet": "Use my other Macs for agent work and builds.",
+  "google-chrome": "Browse and test websites.",
+  "visual-studio-code": "Read and review code across agent worktrees.",
+  "stats-widget-from-website": "Put selected values from websites in desktop widgets.",
+  obs: "Record my screen and Canon camera together.",
+  spotify: "Listen to music at my desk.",
+  mail: "Read email and look up receipts.",
+  notion: "Keep project boards and working notes.",
+  "restream-chat-plus-plus": "Read chat while streaming.",
+  finder: "Browse projects, downloads and files.",
+  telegram: "Send messages and voice notes.",
+  "activity-monitor": "Check which processes are using CPU or memory.",
+  claude: "Get a second take on designs and code.",
+  terminal: "Run commands and inspect local tools.",
+  surfshark: "Connect to a VPN.",
+  obscene: "Set up recording scenes in OBS.",
+  "karabiner-elements": "Remap keyboard and input controls.",
+  "docker-desktop": "Run the services for local development stacks.",
+  "menu-bar-dock": "Switch and manage apps from the menu bar.",
+  xcode: "Build and sign Mac apps.",
+  "unity-hub": "Open and manage Unity game projects.",
+  preview: "Read PDFs and inspect images.",
+  icue: "Configure the right-handed Corsair mouse.",
+  "focusrite-control": "Set up input and output on the Scarlett.",
+  razer: "Configure the left-handed Razer mouse.",
+  "karabiner-eventviewer": "Check which input events my controls generate.",
+  rekordbox: "Prepare playlists and export DJ sets.",
+  "bambu-studio": "Slice and send prints to my Bambu Lab A1 mini.",
+  "producer-player": "Play and compare music drafts.",
+  aiwallpaper: "Make desktop wallpapers from a prompt.",
+  magnet: "Tile windows while I work.",
+  amphetamine: "Keep my Mac awake for long tasks.",
+  stay: "Restore my window layout across displays.",
+  "ableton-live-12-suite": "Produce and edit music.",
+  "adobe-photoshop-2026": "Edit images and artwork.",
+};
+function directoryAppIcon(app: AppEntry) {
+  return directoryAppIcons[app.id] ?? new URL(app.icon, "https://ethansk.github.io/response-preferences/").href;
+}
 const directoryAppInventory = new Map([...setupOnlyApps, ...apps.filter((app): app is AppEntry & { url: string } => !!app.url)].map(app => [app.id, app])); // Use synced metadata when it has a public link for the same app ID.
 const madeAppsGrid = requiredElement("#apps-i-made");
 const otherAppsGrid = requiredElement("#apps-from-others");
@@ -749,23 +862,17 @@ const rankedApps = [...directoryAppInventory.values()]
   .filter(app => appUseOrder.has(app.id))
   .sort((a, b) => (appUseOrder.get(a.id) ?? appUseOrder.size) - (appUseOrder.get(b.id) ?? appUseOrder.size));
 for (const app of rankedApps) {
-  const link = document.createElement("a"); link.href = projectLink(app.url, projectWebsites); link.target = "_blank"; link.rel = "noopener";
-  const icon = document.createElement("img");
-  const localIcon = directoryAppIcons[app.id];
-  icon.src = localIcon ?? new URL(app.icon, "https://ethansk.github.io/response-preferences/").href;
-  icon.alt = ""; icon.width = 30; icon.height = 30; icon.loading = "lazy";
-  const name = document.createElement("span"); name.textContent = app.name;
-  link.append(icon, name);
+  const link = createDirectoryCard(app.name, appUseNotes[app.id] || "", app.url, directoryAppIcon(app));
   const grid = ethanAppIds.has(app.id) ? madeAppsGrid : otherAppsGrid;
   grid.append(link);
 }
-const skills: [name: string, repo: string | null, description: string][] = [
- ["Response Preferences", "response-preferences", "How I want agents to write replies"],
+const skills: [name: string, repo: string | null, description: string, icon?: string][] = [
+ ["Response Preferences", "response-preferences", "How I want agents to write replies", relatedTools.replies.icon],
  ["Development workflow", null, "Plan, build and check work"],
  ["Repository learnings", null, "Keep what agents learn about a repo"],
  ["Browser testing", null, "Test a website in a real browser"],
  ["UI wording", null, "Write UI text in my voice"],
- ["Outstanding Items", "outstanding-items", "Keep track of unfinished work"],
+ ["Outstanding Items", "outstanding-items", "Keep track of unfinished work", "https://ethansk.github.io/outstanding-items/assets/favicon.svg"],
  ["Front-end design", null, "Design the front end"],
  ["Submit ChatGPT Feedback", null, "Report problems from the current task"],
  ["Local Web Debug Mode", "local-web-debug-mode", "Debug a local website with an agent"],
@@ -774,28 +881,26 @@ const skills: [name: string, repo: string | null, description: string][] = [
  ["Emoji Consistency", "emoji-consistency", "Use consistent emoji meanings"],
  ["Deepgram dictation", "claude-code-deepgram-stt-skill", "Transcribes Telegram voice notes for Claude Code"],
 ]; // Rank public and personal skills together by recent use; splitting them forced commonly used personal workflows below older published tools.
-function createDirectoryCard(name: string, description: string, url: string | null) {
+function createDirectoryCard(name: string, description: string, url: string | null, artwork?: string) {
   const card = url ? Object.assign(document.createElement("a"), {
     href: projectLink(url, projectWebsites),
     target: "_blank",
     rel: "noopener noreferrer",
   }) : document.createElement("article");
-  const title = document.createElement("strong"); title.textContent = name;
-  const summary = document.createElement("span"); summary.textContent = description;
-  card.append(title, summary);
+  populateDirectoryCard(card, name, description, artwork);
   return card;
 }
 
 const skillCards = new Map<string, HTMLElement>();
 const skillsGrid = requiredElement(".directory-skills");
-for (const [name, repo, description] of skills) {
-  const card = createDirectoryCard(name, description, repo && `https://github.com/EthanSK/${repo}`);
+for (const [name, repo, description, icon] of skills) {
+  const card = createDirectoryCard(name, description, repo && `https://github.com/EthanSK/${repo}`, icon);
   skillsGrid.append(card);
   if (repo) skillCards.set(repo, card);
 }
 
 const [airFryingPick, ...softwarePicks] = [...document.querySelectorAll<HTMLAnchorElement>(".project-rail [data-pick-summary]")]
-  .map(link => createDirectoryCard(link.getAttribute("aria-label") ?? "", link.dataset.pickSummary ?? "", link.href));
+  .map(link => createDirectoryCard(link.getAttribute("aria-label") ?? "", link.dataset.pickSummary ?? "", link.href, link.querySelector("img")?.src));
 const repliesPick = skillCards.get("response-preferences");
 if (!repliesPick) throw new Error("Special Picks skills are missing");
 requiredElement(".directory-picks .directory-card-grid").append(
@@ -810,12 +915,20 @@ window.addEventListener("message", event => {
 
 for (const link of document.querySelectorAll<HTMLAnchorElement>('a[href^="https://"]')) { link.href = projectLink(link.href, projectWebsites); link.target = "_blank"; link.relList.add("noopener", "noreferrer"); }
 
-const projects: ProjectEntry[] = await fetch(new URL("./projects.json?v=__SITE_VERSION__", import.meta.url)).then(response => response.json());
+const projects: ProjectEntry[] = await fetch(new URL("./projects.json?v=__SITE_VERSION__", import.meta.url)).then(response => {
+  if (!response.ok) throw new Error("Project data did not load");
+  return response.json();
+});
 const wandProject = projects.find(project => project.repository === "EthanSK/magic-wand");
 if (wandProject) requiredElement<HTMLAnchorElement>("[data-wand-website]").href = wandProject.url; // The room and project directory share the existing public website destination.
+const appsByWebsite = new Map(rankedApps.map(app => [projectLink(app.url, projectWebsites), app]));
+const railArtwork = new Map([...document.querySelectorAll<HTMLAnchorElement>(".software-rail a")]
+  .filter(link => link.href)
+  .map(link => [projectLink(link.href, projectWebsites), link.querySelector("img")?.getAttribute("src") ?? undefined]));
 for (const project of projects) {
-  const link = document.createElement("a"); link.href = projectLink(project.url, projectWebsites); link.target = "_blank"; link.rel = "noopener noreferrer";
-  const title = document.createElement("strong"); title.textContent = project.name;
-  const repository = document.createElement("span"); repository.textContent = project.description || project.repository;
-  link.append(title, repository); requiredElement(".directory-projects").append(link);
+  const website = projectLink(project.url, projectWebsites);
+  const app = appsByWebsite.get(website);
+  const icon = project.icon ?? railArtwork.get(website) ?? (app && directoryAppIcon(app));
+  const card = createDirectoryCard(project.name, project.description || "", project.url, icon);
+  requiredElement(".directory-projects").append(card);
 }

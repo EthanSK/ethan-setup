@@ -12,14 +12,21 @@ test('the curated app grids keep the selected apps and use a local Activity Moni
   const browserCode = read('beta.mjs');
   const grid = () => ({ links: [], append(link) { this.links.push(link); } });
   const grids = { '#apps-i-made': grid(), '#apps-from-others': grid() };
-  const document = { createElement: () => ({ append(...children) { this.children = children; } }) };
+  const document = {
+    createElement: () => ({ children: [], append(...children) { this.children.push(...children); }, setAttribute() {}, addEventListener() {} }),
+  };
   const requiredElement = selector => grids[selector];
-  runInNewContext(browserCode.slice(browserCode.indexOf('const setupOnlyApps ='), browserCode.indexOf('const skills =')), {
+  const cardContent = browserCode.slice(browserCode.indexOf('function populateDirectoryCard'), browserCode.indexOf('const directory ='));
+  const cardLink = browserCode.slice(browserCode.indexOf('function createDirectoryCard'), browserCode.indexOf('const skillCards ='));
+  const appDirectory = browserCode.slice(browserCode.indexOf('const setupOnlyApps ='), browserCode.indexOf('const skills ='));
+  runInNewContext(cardContent + cardLink + appDirectory, {
     apps, projectWebsites, projectLink, requiredElement, document, URL,
+    railIcon: () => 'https://ethansk.github.io/hello-chat/app-icon.png',
   });
 
-  const appsMade = grids['#apps-i-made'].links.map(link => link.children[1].textContent);
-  const otherApps = new Map(grids['#apps-from-others'].links.map(link => [link.children[1].textContent, link]));
+  const name = link => link.children[1].children[0].textContent;
+  const appsMade = grids['#apps-i-made'].links.map(name);
+  const otherApps = new Map(grids['#apps-from-others'].links.map(link => [name(link), link]));
   for (const name of ['Hello Chat', 'The Fleet']) assert.ok(appsMade.includes(name), name);
   for (const name of ['Amphetamine', 'Adobe Photoshop 2026', 'Ableton Live 12 Suite', 'Stay', 'iCUE', 'Focusrite Control', 'Razer', 'Unity Hub', 'Bambu Studio']) {
     assert.ok(otherApps.has(name), name);
@@ -27,5 +34,8 @@ test('the curated app grids keep the selected apps and use a local Activity Moni
   for (const name of ['Safari', 'iTerm', 'Logitech G HUB', 'OpenCode', 'TextEdit', 'Reminders', 'Music', 'System Settings', 'Firefox', 'Opera']) {
     assert.ok(!otherApps.has(name) && !appsMade.includes(name), name);
   }
-  assert.match(otherApps.get('Activity Monitor').children[0].src, /^\.\/assets\/activity-monitor\.png\?v=[a-f0-9]+$/);
+  assert.match(otherApps.get('Activity Monitor').children[0].children[1].src, /^\.\/assets\/activity-monitor\.png\?v=[a-f0-9]+$/);
+  assert.deepEqual(otherApps.get('Visual Studio Code').children[1].children.map(child => child.textContent), [
+    'Visual Studio Code', 'Read and review code across agent worktrees.',
+  ]);
 });

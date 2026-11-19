@@ -34,6 +34,7 @@
   <header class="room-header">
     <div class="brand-links"><a class="setup-brand" href="./">Ethan’s setup</a><a class="portfolio-link" href="https://portosaurus.github.io/ethansk/" target="_blank" rel="noopener noreferrer">Portfolio</a></div>
     <div class="room-header-actions"><button type="button" class="setup-buy" id="show-shopping" disabled>Buy my setup</button>
+    <a class="room-classic room-linkedin" href="https://www.linkedin.com/in/ethansk/" aria-label="Ethan SK on LinkedIn" target="_blank" rel="noopener noreferrer"><span class="linkedin-mark" aria-hidden="true">in</span>LinkedIn ↗</a>
     <a class="room-classic" href="https://github.com/EthanSK" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.76-.24.76-.54v-2.1c-3.12.68-3.78-1.32-3.78-1.32-.51-1.29-1.24-1.63-1.24-1.63-1.02-.7.08-.68.08-.68 1.12.08 1.71 1.15 1.71 1.15 1 1.71 2.62 1.22 3.26.94.1-.72.39-1.22.71-1.5-2.49-.29-5.11-1.25-5.11-5.54 0-1.22.44-2.22 1.15-3-.12-.29-.5-1.43.11-2.97 0 0 .94-.3 3.08 1.15a10.7 10.7 0 0 1 5.6 0c2.14-1.45 3.08-1.15 3.08-1.15.61 1.54.23 2.68.11 2.97.71.78 1.15 1.78 1.15 3 0 4.3-2.63 5.25-5.13 5.53.4.35.76 1.03.76 2.07v3.08c0 .3.2.65.77.54A11.2 11.2 0 0 0 12 .8Z"/></svg>GitHub ↗</a></div>
   </header>
   <div class="project-rail">
@@ -47,10 +48,11 @@
       <h2 id="software-title">Software</h2>
       <a aria-label="Agentic Mouse" data-pick-summary="Control apps and work with agents from the mouse." href="https://github.com/EthanSK/agentic-mouse"><img src="./agentic-mouse-mark.svg?v=__SITE_VERSION__" width="28" height="28" alt=""/><span>Agentic Mouse</span></a>
       <a aria-label="Agent Flow" data-pick-summary="Dictate to agents with screenshots and selected text." href="https://ethansk.github.io/AgentFlow/"><img src="./assets/agentflow-icon.png" width="28" height="28" alt=""/><span>Agent Flow</span></a>
-      <a aria-label="Better Git VS Code" data-pick-summary="Review and stage Git changes in VS Code." href="https://github.com/EthanSK/better-git-vscode"><img src="./assets/apps/vsCode.png" width="28" height="28" alt=""/><span>Better Git VS Code</span></a>
-      <a aria-label="Response Preferences" href="https://github.com/EthanSK/response-preferences"><img src="./assets/apps/codex.png" width="28" height="28" alt=""/><span>Response Preferences</span></a>
+      <a aria-label="Better Git VS Code" data-pick-summary="Review and stage Git changes in VS Code." href="https://github.com/EthanSK/better-git-vscode"><img src="https://EthanSK.gallery.vsassets.io/_apis/public/gallery/publisher/EthanSK/extension/better-git-vscode/latest/assetbyname/Microsoft.VisualStudio.Services.Icons.Default" width="28" height="28" alt=""/><span>Better Git VS Code</span></a>
+      <a aria-label="Response Preferences" href="https://github.com/EthanSK/response-preferences"><img src="https://ethansk.github.io/response-preferences/mark.svg" width="28" height="28" alt=""/><span>Response Preferences</span></a>
+      <a aria-label="Hello Chat" href="https://github.com/EthanSK/hello-chat"><img src="https://ethansk.github.io/hello-chat/app-icon.png" width="28" height="28" alt=""/><span>Hello Chat</span></a>
       <a id="menu-bar-dock-link" hidden></a>
-      <button type="button" id="show-directory" aria-label="Everything I use"><span class="rail-symbol" aria-hidden="true">⋯</span><span>Everything I use</span></button>
+      <button type="button" id="show-directory" data-directory="software" aria-label="All my software"><span class="rail-symbol" aria-hidden="true">⋯</span><span>All my software</span></button>
     </nav>
   </div>
   <main class="room-stage" id="room-stage">
@@ -62,6 +64,7 @@
       <p id="room-status" role="status">Loading the room…</p>
     </div>
     <div class="room-hotspots" aria-label="Explore my setup">
+      <button type="button" data-directory="software" data-x="0.32" data-y="0.35" aria-label="Software I use"><span class="hotspot-dot" aria-hidden="true"></span><span class="hotspot-label">Software I use</span></button>
       <button type="button" data-topic="obs" data-x="0.80" data-y="0.20" aria-label="OBS"><span class="hotspot-dot" aria-hidden="true"></span><span class="hotspot-label">OBS</span></button>
       <button type="button" data-topic="codex" data-x="0.43" data-y="0.34" aria-label="Codex"><span class="hotspot-dot" aria-hidden="true"></span><span class="hotspot-label">Codex</span></button>
       
@@ -82,10 +85,10 @@
       <button type="button" data-topic="wand">Magic Wand (WIP)</button>
       <button type="button" data-topic="codex">Codex</button><button type="button" data-topic="obs">OBS</button><button type="button" data-directory>Everything I use</button>
     </nav>
-    <p class="room-caption">AI scene from my photos · <a href="https://www.linkedin.com/in/ethansk/">Follow me on LinkedIn ↗</a></p>
+    <p class="room-caption">AI scene from my photos</p>
   </main>
   <dialog class="room-detail" id="room-detail" aria-labelledby="detail-title">
-    <button type="button" class="detail-close" aria-label="Back to the room">×</button>
+    <button type="button" class="detail-close dialog-close" aria-label="Back to the room"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/></svg></button>
     <button type="button" class="detail-nav detail-prev" data-step="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
     <button type="button" class="detail-nav detail-next" data-step="1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button>
     <div class="detail-body">
@@ -151,25 +154,23 @@
     </div>
   </dialog>
   <dialog class="setup-directory" id="setup-directory" aria-labelledby="directory-title">
-    <button type="button" class="directory-close" aria-label="Back to the room">×</button>
+    <button type="button" class="directory-close dialog-close" aria-label="Back to the room"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/></svg></button>
     <h1 id="directory-title">Everything I use</h1>
     <section class="directory-picks" aria-labelledby="directory-picks-title">
       <h2 id="directory-picks-title">Special Picks</h2>
       <div class="directory-card-grid"></div>
     </section>
-    <p class="directory-order">Roughly most used first</p>
-    <nav class="directory-sections" aria-label="Setup sections"><a href="#directory-gear">Hardware</a><a href="#directory-apps">Apps</a><a href="#directory-skills">Skills</a><a href="#directory-projects">Projects</a><a href="#directory-portfolio">Portfolio</a></nav>
-    <h2 id="directory-gear">On my desk</h2><div class="directory-gear"></div>
-    <h2 id="directory-apps">Apps I made</h2><div class="directory-apps" id="apps-i-made"></div>
-    <h2>Apps from others</h2><div class="directory-apps" id="apps-from-others"></div>
+    <h2 id="directory-gear">On my desk</h2><div class="directory-gear directory-card-grid"></div>
+    <h2 id="directory-apps" tabindex="-1">Apps I made</h2><div class="directory-apps directory-card-grid" id="apps-i-made"></div>
+    <h2>Apps from others</h2><div class="directory-apps directory-card-grid" id="apps-from-others"></div>
     <h2 id="directory-skills">Skills I use with agents</h2><div class="directory-skills directory-card-grid"></div>
-    <h2 id="directory-projects">Projects</h2><div class="directory-projects"></div>
+    <h2 id="directory-projects">Projects</h2><div class="directory-projects directory-card-grid"></div>
     <section class="portfolio-section" id="directory-portfolio"><h2><a href="https://portosaurus.github.io/ethansk/" target="_blank" rel="noopener noreferrer">Portfolio ↗</a></h2><div id="portfolio-frame" class="frame-view"></div></section>
     <section class="setup-follow"><a class="linkedin-logo" href="https://www.linkedin.com/in/ethansk/" aria-label="Ethan SK on LinkedIn">in</a><div><h2>Follow me on LinkedIn</h2><p>Tips on the agentic future.</p><a href="https://www.linkedin.com/in/ethansk/">Follow Ethan SK ↗</a> · <a href="https://www.linkedin.com/in/ethansk/recent-activity/all/">Recent posts ↗</a></div></section>
     <p class="beta-disclaimer">All the wording on this website is AI generated, so sorry if it’s cringe.</p>
   </dialog>
   <dialog class="setup-directory setup-shopping" id="setup-shopping" aria-labelledby="shopping-title">
-    <button type="button" class="shopping-close directory-close" aria-label="Back to the room">×</button>
+    <button type="button" class="shopping-close directory-close dialog-close" aria-label="Back to the room"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/></svg></button>
     <h1 id="shopping-title">Buy My Setup</h1>
     <p class="shopping-intro">Choose what you need. Each retailer takes payment and delivers separately.</p>
     <p id="shopping-disclosure" hidden>Ad links · As an Amazon Associate I earn from qualifying purchases.</p>

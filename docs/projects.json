@@ -2,107 +2,127 @@
   {
     "name": "Agentic Mouse",
     "repository": "EthanSK/agentic-mouse",
-    "url": "https://github.com/EthanSK/agentic-mouse"
+    "url": "https://github.com/EthanSK/agentic-mouse",
+    "description": "Use either mouse to control apps and review changes."
   },
   {
     "name": "Agent Flow",
     "repository": "EthanSK/AgentFlow",
-    "url": "https://ethansk.github.io/AgentFlow/"
+    "url": "https://ethansk.github.io/AgentFlow/",
+    "description": "Dictate to agents with screenshots and selected text."
   },
   {
     "name": "Magic Wand",
     "repository": "EthanSK/magic-wand",
     "url": "https://ethansk.github.io/magic-wand/",
-    "description": "Point, click, scroll and dictate with a wand"
+    "description": "Point, click, scroll and dictate with a wand.",
+    "icon": "https://ethansk.github.io/magic-wand/icon.svg"
   },
   {
     "name": "Better Git VS Code",
     "repository": "EthanSK/better-git-vscode",
-    "url": "https://github.com/EthanSK/better-git-vscode"
+    "url": "https://github.com/EthanSK/better-git-vscode",
+    "description": "Review and stage Git changes with my mouse controls."
   },
   {
     "name": "Stats Widget from Website",
     "repository": "EthanSK/stats-widget-from-website",
     "url": "https://github.com/EthanSK/stats-widget-from-website",
-    "description": "Track website values in desktop widgets"
+    "description": "Track website values in desktop widgets."
   },
   {
     "name": "Agent Swarm Management",
     "repository": "EthanSK/agent-swarm-management",
     "url": "https://github.com/EthanSK/agent-swarm-management",
-    "description": "Manage agent projects, tasks and follow-ups on Mac"
+    "description": "Manage agent projects, tasks and follow-ups on Mac.",
+    "icon": "https://raw.githubusercontent.com/EthanSK/agent-swarm-management/main/Resources/AppIcon.iconset/icon_128x128.png"
   },
   {
     "name": "Agent Bridge",
     "repository": "EthanSK/agent-bridge",
     "url": "https://github.com/EthanSK/agent-bridge",
-    "description": "Connect agent sessions across machines"
+    "description": "Connect agent sessions across my machines.",
+    "icon": "https://ethansk.github.io/agent-bridge/assets/favicon.svg"
   },
   {
     "name": "Restore Terminals",
     "repository": "EthanSK/restore-terminals-vscode",
-    "url": "https://github.com/EthanSK/restore-terminals-vscode"
+    "url": "https://github.com/EthanSK/restore-terminals-vscode",
+    "description": "Restore each worktree’s terminal layout and commands.",
+    "icon": "https://EthanSK.gallery.vsassets.io/_apis/public/gallery/publisher/EthanSK/extension/restore-terminals/latest/assetbyname/Microsoft.VisualStudio.Services.Icons.Default"
   },
   {
     "name": "Menu Bar Dock",
     "repository": "EthanSK/Menu-Bar-Dock",
-    "url": "https://github.com/EthanSK/Menu-Bar-Dock"
+    "url": "https://github.com/EthanSK/Menu-Bar-Dock",
+    "description": "Switch apps from the Mac menu bar."
   },
   {
     "name": "OBS++",
     "repository": "EthanSK/obs-plus-plus",
-    "url": "https://github.com/EthanSK/obs-plus-plus"
+    "url": "https://github.com/EthanSK/obs-plus-plus",
+    "description": "Record my screen, camera and audio together."
   },
   {
     "name": "Restream Chat Plus Plus",
     "repository": "EthanSK/restream-chat-plus-plus",
-    "url": "https://github.com/EthanSK/restream-chat-plus-plus"
+    "url": "https://github.com/EthanSK/restream-chat-plus-plus",
+    "description": "Read and organise chat during streams."
   },
   {
     "name": "OBScene",
     "repository": "EthanSK/OBScene",
-    "url": "https://github.com/EthanSK/OBScene"
+    "url": "https://github.com/EthanSK/OBScene",
+    "description": "Build and manage OBS scenes."
   },
   {
-    "name": "Aitum Stream Suite",
+    "name": "Aitum++",
     "repository": "EthanSK/obs-aitum-stream-suite",
-    "url": "https://github.com/EthanSK/obs-aitum-stream-suite"
+    "url": "https://github.com/EthanSK/obs-aitum-stream-suite",
+    "description": "Manage OBS multistream outputs and workspaces."
   },
   {
     "name": "Restream Channel Switcher",
     "repository": "EthanSK/restream-channel-switcher",
     "url": "https://github.com/EthanSK/restream-channel-switcher",
-    "description": "Switch groups of Restream destinations from the command line"
+    "description": "Switch groups of Restream destinations from an OBS scene hook."
   },
   {
     "name": "AI Wallpaper Generator",
     "repository": "EthanSK/AI-Wallpaper-Generator",
-    "url": "https://github.com/EthanSK/AI-Wallpaper-Generator"
+    "url": "https://github.com/EthanSK/AI-Wallpaper-Generator",
+    "description": "Make desktop wallpapers from a prompt."
   },
   {
     "name": "Ye Olde Meme Game 2",
     "repository": "EthanSK/Ye-Olde-Meme-Game-2-Public",
-    "url": "https://github.com/EthanSK/Ye-Olde-Meme-Game-2-Public"
+    "url": "https://github.com/EthanSK/Ye-Olde-Meme-Game-2-Public",
+    "description": "Publish and share mods for my game.",
+    "icon": "https://mods.yomg2.etggames.com/img/favicon.ico"
   },
   {
     "name": "Producer Player",
     "repository": "EthanSK/producer-player",
-    "url": "https://github.com/EthanSK/producer-player"
+    "url": "https://github.com/EthanSK/producer-player",
+    "description": "Listen to and compare music drafts."
   },
   {
     "name": "YouTube Word Finder",
     "repository": "EthanSK/Youtube-Word-Finder",
-    "url": "https://github.com/EthanSK/Youtube-Word-Finder"
+    "url": "https://github.com/EthanSK/Youtube-Word-Finder",
+    "description": "Find a spoken word or phrase in YouTube videos.",
+    "icon": "https://static.wixstatic.com/media/24cc30_5b5b0024e8d94f4ba3ac6d970f263a63~mv2.png"
   },
   {
     "name": "Honest Comments",
     "repository": "EthanSK/honest-comments",
     "url": "https://github.com/EthanSK/honest-comments",
-    "description": "Find useful criticism in YouTube comments"
+    "description": "Find useful criticism in YouTube comments."
   },
   {
     "name": "C to MIPS Compiler",
     "repository": "EthanSK/C-to-MIPS-Compiler",
-    "url": "https://github.com/EthanSK/C-to-MIPS-Compiler"
+    "url": "https://github.com/EthanSK/C-to-MIPS-Compiler",
+    "description": "Compile C90 programs to MIPS assembly."
   }
 ]
