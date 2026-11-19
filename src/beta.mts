@@ -43,6 +43,20 @@ menuBarDockIcon.src = new URL(menuBarDock.icon, "https://ethansk.github.io/respo
 menuBarDockIcon.width = 28; menuBarDockIcon.height = 28; menuBarDockIcon.alt = "";
 const menuBarDockName = document.createElement("span"); menuBarDockName.textContent = menuBarDock.name;
 menuBarDockLink.append(menuBarDockIcon, menuBarDockName); menuBarDockLink.hidden = false; // Keep the prominent link tied to the same canonical app metadata as Everything I use.
+for (const link of document.querySelectorAll<HTMLAnchorElement>(".project-rail a[aria-label]")) {
+  const icon = link.querySelector("img");
+  if (!icon) continue;
+  const showInitials = () => {
+    const mark = document.createElement("b");
+    mark.className = "rail-symbol rail-initials";
+    mark.setAttribute("aria-hidden", "true");
+    mark.textContent = artworkInitials(link.ariaLabel ?? "");
+    icon.hidden = true; // Keep the source available to the directory cards, which have their own fallback.
+    icon.after(mark);
+  };
+  if (icon.complete && !icon.naturalWidth) showInitials();
+  else icon.addEventListener("error", showInitials, { once: true });
+}
 const gearById = new Map(gear.map(item => [item.id, item]));
 const hotspotContainer = requiredElement(".room-hotspots");
 for (const item of gear) {
@@ -720,6 +734,10 @@ function showScreen(id: string) {
   );
 }
 
+function artworkInitials(name: string) {
+  return name.split(/\s+/).slice(0, 2).map(part => part[0]).join("").toUpperCase();
+}
+
 function populateDirectoryCard(card: HTMLElement, name: string, description: string, artwork?: string) {
   card.className = "directory-card";
   const art = document.createElement("span");
@@ -727,7 +745,7 @@ function populateDirectoryCard(card: HTMLElement, name: string, description: str
   art.setAttribute("aria-hidden", "true");
   const mark = document.createElement("span");
   mark.className = "directory-card-mark";
-  mark.textContent = name.split(/\s+/).slice(0, 2).map(part => part[0]).join("").toUpperCase();
+  mark.textContent = artworkInitials(name);
   art.append(mark);
   if (artwork) {
     const image = document.createElement("img");
