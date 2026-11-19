@@ -179,7 +179,9 @@
 .software-rail a, .software-rail button { display: flex; align-items: center; gap: 9px; width: max-content; max-width: 185px; color: #eeeae2; border: 1px solid #ffffff1b; border-radius: 11px; background: #14171cde; padding: 7px 10px 7px 7px; font-size: 10px; text-align: left; box-shadow: 0 3px 14px #0003; }
 .software-rail a:hover, .software-rail button:hover { border-color: #dfc599; background: #232a31; }
 .software-rail img { flex-shrink: 0; object-fit: contain; border-radius: 6px; }
+.project-rail img[hidden] { display: none; }
 .rail-symbol { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 7px; background: #343a45; font: 21px ui-sans-serif, system-ui; }
+.project-rail .rail-initials { flex: none; color: #f3dec0; font: 700 11px/1 system-ui, sans-serif; }
 .voice-symbol { background: #cf5b59; color: white; font-size: 15px; }
 .room-intro { left: 28px; bottom: 104px; padding: 18px 22px; border: 1px solid #e1ceb133; border-radius: 16px; background: #11151bd9; }
 #enter-room { font-size: clamp(25px, 2.5vw, 35px); letter-spacing: -.045em; margin: 0 0 7px; }
@@ -494,7 +496,7 @@
 }
 @media (max-width: 580px) {
  .room-header { gap: 8px; padding: 14px 12px; }
- .room-header .room-classic { padding: 10px 8px; }
+ .room-header .room-classic { min-width: 44px; justify-content: center; gap: 0; padding: 10px 8px; }
  .setup-buy { padding-inline: 12px; }
  .project-rail { top: 84px; }
  .brand-links { flex-direction: column; align-items: start; gap: 4px; }
@@ -502,10 +504,14 @@
  .room-header .room-classic { font-size: 0; }
  .room-header .room-classic svg { width: 20px; height: 20px; }
 }
+@media (max-width: 420px) {
+ .room-header-actions { display: grid; grid-template-columns: repeat(3, auto); gap: 6px; }
+ .room-header-actions .setup-buy { grid-column: 1 / -1; justify-self: end; }
+ .project-rail { top: 122px; }
+}
 @media (max-width: 360px) {
  .room-header .setup-brand { font-size: 15px; white-space: nowrap; }
  .room-header .setup-buy { padding-inline: 8px; font-size: 11px; }
- .room-header-actions { gap: 6px; }
 }
 
 .wand-photo { margin: 28px 0 20px; padding: 36px 18px 24px; border-radius: 16px; background: #202934; text-align: center; }

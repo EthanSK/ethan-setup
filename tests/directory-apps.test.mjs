@@ -16,7 +16,7 @@ test('the curated app grids keep the selected apps and use a local Activity Moni
     createElement: () => ({ children: [], append(...children) { this.children.push(...children); }, setAttribute() {}, addEventListener() {} }),
   };
   const requiredElement = selector => grids[selector];
-  const cardContent = browserCode.slice(browserCode.indexOf('function populateDirectoryCard'), browserCode.indexOf('const directory ='));
+  const cardContent = browserCode.slice(browserCode.indexOf('function artworkInitials'), browserCode.indexOf('const directory ='));
   const cardLink = browserCode.slice(browserCode.indexOf('function createDirectoryCard'), browserCode.indexOf('const skillCards ='));
   const appDirectory = browserCode.slice(browserCode.indexOf('const setupOnlyApps ='), browserCode.indexOf('const skills ='));
   runInNewContext(cardContent + cardLink + appDirectory, {
