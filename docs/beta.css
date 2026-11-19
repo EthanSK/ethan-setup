@@ -39,7 +39,10 @@
 .room-caption { position: absolute; bottom: 16px; inset-inline: 20px; text-align: center; font-size: 10px; color: #aaa8a1; pointer-events: none; }
 .room-detail { position: fixed; margin: 16px 16px 16px auto; inset: 0; width: min(700px, calc(100% - 32px)); height: calc(100svh - 32px); max-height: none; padding: 36px; border: 1px solid #ffffff25; border-radius: 26px; background: #11151def; color: #eff1f8; backdrop-filter: blur(28px); box-shadow: -20px 0 120px #0008; overflow: auto; overscroll-behavior: contain; }
 .room-detail::backdrop { background: #02040a55; backdrop-filter: blur(3px); }
-.detail-close { position: sticky; float: right; top: 0; z-index: 8; width: 38px; height: 38px; border-radius: 50%; background: #252c39; border: 1px solid #ffffff20; font-size: 26px; line-height: 1; }
+.dialog-close { position: fixed; top: max(14px, env(safe-area-inset-top)); right: max(10px, env(safe-area-inset-right)); z-index: 10; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid #ffffff35; border-radius: 50%; background: #171f2a; color: #eff1f8; box-shadow: 0 4px 18px #0006; }
+.dialog-close svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
+.dialog-close:hover { background: #303a49; border-color: #ded0a9; }
+.dialog-close:focus-visible { outline: 2px solid #ded0a9; outline-offset: 3px; }
 .detail-heading { padding-right: 28px; }
 .detail-heading h1 { margin: 14px 0; font-size: clamp(30px, 3vw, 43px); font-weight: 650; line-height: 1.12; letter-spacing: -.05em; }
 .detail-heading > p:last-child { font-size: 13px; color: #b5bdce; }
@@ -121,17 +124,16 @@
 .room-hotspots button > span:last-child, .room-dock { backdrop-filter: none; }
 .room-detail { margin: auto; width: min(1080px, calc(100% - 72px)); height: fit-content; max-height: calc(100svh - 100px); padding: 0; overflow: visible; border-radius: 22px; background: #10141bf5; backdrop-filter: none; box-shadow: 0 30px 130px #0009; }
 .detail-body { max-height: inherit; padding: 32px 38px; border-radius: inherit; overflow: auto; overscroll-behavior: contain; } /* Only the content scrolls; the modal shell keeps its floating arrows centred and unclipped. */
-.room-detail > .detail-close { position: absolute; top: 24px; right: 24px; float: none; }
 .detail-heading { padding-right: 40px; }
-.detail-nav { position: absolute; z-index: 9; top: 50%; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid #ffffff35; border-radius: 50%; background: #171f2a; color: #eff1f8; box-shadow: 0 4px 18px #0006; touch-action: manipulation; }
-.detail-prev { left: 0; transform: translate(-50%, -50%); }
-.detail-next { right: 0; transform: translate(50%, -50%); }
+.detail-nav { position: fixed; z-index: 9; top: 50%; transform: translateY(-50%); display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid #ffffff35; border-radius: 50%; background: #171f2a; color: #eff1f8; box-shadow: 0 4px 18px #0006; touch-action: manipulation; }
+.detail-prev { left: max(10px, env(safe-area-inset-left)); }
+.detail-next { right: max(10px, env(safe-area-inset-right)); }
 .detail-nav svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .detail-nav:hover { background: #303a49; border-color: #ded0a9; }
 .detail-nav:focus-visible { outline: 2px solid #ded0a9; outline-offset: 3px; }
 .room-detail::backdrop { background: #02040a66; backdrop-filter: none; }
-.room-detail[open] { animation: feature-expand 280ms 120ms both cubic-bezier(.2,.8,.2,1); }
-@keyframes feature-expand { from { opacity: 0; transform: scale(.7); } to { opacity: 1; transform: scale(1); } }
+.room-detail[open] .detail-body { animation: feature-expand 220ms ease-out; } /* Animate only the content so the fixed arrows use the viewport even while the dialog opens. */
+@keyframes feature-expand { from { opacity: 0; } to { opacity: 1; } }
 .detail-heading h1 { max-width: 780px; font-size: clamp(28px, 3vw, 40px); }
 .detail-heading > p:last-child { max-width: 720px; }
 #code-detail { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); column-gap: 30px; align-items: start; }
@@ -224,8 +226,8 @@
 .product-photo > a { position: absolute; bottom: 12px; right: 16px; color: #505457; font-size: 10px; text-underline-offset: 3px; }
 .product-photo > figcaption { position: absolute; bottom: 12px; left: 16px; color: #505457; font-size: 10px; }
 .product-photo > p { color: #505457; font-size: 13px; }
-.product-gallery { display: flex; align-items: center; gap: 8px; margin-top: 12px; min-width: 0; }
-.gallery-strip { display: flex; flex: 1; gap: 8px; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin; scrollbar-color: #ffffff40 transparent; padding: 3px 1px 7px; }
+.product-gallery { display: flex; align-items: center; gap: 8px; margin-top: 12px; width: fit-content; max-width: 100%; }
+.gallery-strip { display: flex; flex: 0 1 auto; min-width: 0; gap: 8px; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin; scrollbar-color: #ffffff40 transparent; padding: 3px 1px 7px; }
 .gallery-strip > button { flex: 0 0 78px; height: 62px; display: flex; align-items: center; justify-content: center; gap: 4px; border: 1px solid #ffffff25; border-radius: 9px; background: #ffffff08; padding: 5px; overflow: hidden; }
 .gallery-strip > button[aria-pressed="true"] { border-color: #ded0a9; box-shadow: inset 0 0 0 1px #ded0a9; }
 .gallery-strip > button:has(img) { background: #fff; }
@@ -239,7 +241,6 @@
 #hardware-detail:has(.product-photo:not([hidden])) .detail-note { visibility: hidden; }
 .room-detail:has(#screen-detail:not([hidden])) { width: min(1600px, calc(100% - 48px)); height: calc(100svh - 32px); max-height: none; padding: 0; border-radius: 16px; overflow: visible; } /* Ethan removed the monitor headings and mode tags so the desktop gets the full dialog height. */
 .room-detail:has(#screen-detail:not([hidden])) .detail-heading > :not(#detail-tools) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; } /* Keep the dialog's accessible name without a second visible title above the embedded app. */
-.room-detail:has(#screen-detail:not([hidden])) .detail-close { position: absolute; top: -12px; right: -12px; width: 32px; height: 32px; font-size: 22px; box-shadow: 0 2px 12px #0008; }
 .room-detail:has(#screen-detail:not([hidden])) .detail-body { height: 100%; padding: 6px; overflow: hidden; display: flex; flex-direction: column; }
 #screen-detail { flex: 1; min-height: 0; }
 .frame-view { position: relative; background: #11151d; border: 1px solid #ffffff25; border-radius: 10px; overflow: hidden; }
@@ -255,22 +256,24 @@
 @keyframes frame-spin { to { transform: rotate(360deg); } }
 .setup-directory { position: fixed; inset: 0; margin: auto; width: min(1100px, calc(100% - 60px)); max-height: calc(100svh - 70px); padding: 36px; background: #111821; color: #edf0f5; border: 1px solid #ffffff35; border-radius: 22px; overflow: auto; overscroll-behavior: contain; }
 .setup-directory::backdrop { background: #01030ab3; }
-.directory-close { position: sticky; float: right; top: 0; z-index: 3; width: 35px; height: 35px; border-radius: 50%; background: #2a3442; border: 1px solid #ffffff25; font-size: 24px; }
 .setup-directory h1 { font-size: 34px; letter-spacing: -.045em; margin: 0 0 18px; }
-.directory-order { color: #aeb9c9; font-size: 12px; margin: -7px 0 18px; }
 .setup-directory h2 { font-size: 19px; margin: 35px 0 15px; }
 .setup-directory .directory-picks h2 { margin: 0 0 12px; }
-.directory-picks + .directory-order { margin-top: 20px; }
-.directory-sections { display: flex; gap: 18px; font-size: 12px; color: #d7c5a9; }
-.directory-gear, .directory-card-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 9px; }
-.directory-gear button, .directory-card-grid > :is(a, article) { text-align: left; border: 1px solid #ffffff1c; border-radius: 10px; padding: 15px; background: #1a2430; font: inherit; }
-.directory-gear strong, .directory-card-grid strong { display: block; font-size: 12px; margin-bottom: 7px; }
-.directory-gear span, .directory-card-grid span { display: block; font-size: 10px; color: #aeb9c9; line-height: 1.5; }
-.directory-apps { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 8px; }
-.directory-apps a { display: flex; align-items: center; gap: 10px; padding: 8px; border-radius: 8px; border: 1px solid #ffffff15; font-size: 11px; }
-.directory-apps img { object-fit: contain; flex-shrink: 0; }
-.directory-apps span { min-width: 0; overflow-wrap: anywhere; }
-.directory-gear button:hover, .directory-card-grid > a:hover, .directory-apps a:hover { border-color: #dec59d; background: #25323f; }
+.directory-card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 255px), 1fr)); gap: 10px; }
+.directory-card { display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: 12px; align-items: center; min-height: 80px; text-align: left; color: inherit; border: 1px solid #ffffff22; border-radius: 12px; padding: 12px; background: #1a2430; font: inherit; }
+.directory-card:is(a, button):hover { border-color: #dec59d; background: #25323f; }
+.directory-card:focus-visible { outline: 2px solid #ead8b6; outline-offset: 2px; }
+.directory-card-art { position: relative; display: grid; place-items: center; width: 46px; height: 46px; overflow: hidden; border-radius: 9px; }
+.directory-card-art > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; }
+.directory-card-art.has-image > img { opacity: 1; }
+.directory-gear .directory-card-art.has-image { background: #fff; }
+.directory-gear .directory-card-art > img { padding: 4px; }
+.directory-card-mark { display: grid; place-items: center; width: 100%; height: 100%; background: #313d4c; color: #f3dec0; font-weight: 700; font-size: 13px; letter-spacing: .04em; }
+.directory-card-art.has-image .directory-card-mark { visibility: hidden; }
+.directory-card-copy { overflow-wrap: anywhere; }
+.directory-card strong { display: block; font-size: 13px; line-height: 1.3; }
+.directory-card-copy > span { display: block; margin-top: 4px; font-size: 11px; color: #bfcadc; line-height: 1.45; }
+#directory-apps { scroll-margin-top: 16px; }
 .setup-follow { margin-top: 40px; padding: 32px; border: 1px solid #87b5dc55; border-radius: 16px; display: flex; align-items: center; gap: 30px; background: #152b40; }
 .setup-follow .linkedin-logo { width: 100px; height: 100px; display: grid; place-items: center; flex-shrink: 0; border-radius: 18px; background: #0a66c2; color: white; font: bold 78px Arial,sans-serif; letter-spacing: -5px; padding-right: 5px; }
 .setup-follow h2 { margin: 0; font-size: 27px; letter-spacing: -.04em; }
@@ -281,7 +284,6 @@
  .software-rail a, .software-rail button { padding: 7px; }
  .software-rail a:hover span:not(.rail-symbol), .software-rail button:hover span:not(.rail-symbol) { display: block; }
  .room-dock { max-width: calc(100% - 150px); overflow-x: auto; }
- .directory-apps { grid-template-columns: repeat(3, minmax(0,1fr)); }
 }
 @media (min-width: 761px) and (min-height: 521px) and (max-height: 710px) {
  .room-intro { left: 226px; }
@@ -311,15 +313,10 @@
  #product-specs li { padding: 8px 0; font-size: 12px; }
  .room-detail:has(#screen-detail:not([hidden])) { padding: 0; width: calc(100% - 24px); height: calc(100svh - 28px); }
  .room-detail:has(#screen-detail:not([hidden])) .detail-body { padding: 4px; }
- .room-detail:has(#screen-detail:not([hidden])) .detail-close { top: -10px; right: -10px; }
  .room-detail[data-topic] { width: calc(100% - 24px); }
  .detail-body { padding: 24px 28px; }
- .room-detail > .detail-close { top: 14px; right: 14px; }
- .detail-prev { left: 10px; }
- .detail-next { right: 10px; }
  .setup-directory { width: calc(100% - 22px); max-height: calc(100svh - 36px); padding: 24px 18px; }
  .setup-directory h1 { font-size: 28px; }
- .directory-gear, .directory-card-grid, .directory-apps { grid-template-columns: repeat(2, minmax(0,1fr)); }
  .setup-follow { padding: 20px; gap: 18px; }
  .setup-follow .linkedin-logo { width: 62px; height: 62px; font-size: 48px; border-radius: 11px; letter-spacing: -3px; }
  .setup-follow h2 { font-size: 23px; }
@@ -352,13 +349,7 @@
 .mouse-state { position: absolute; z-index: 3; left: 50%; bottom: 32px; transform: translateX(-50%); display: grid; justify-items: center; gap: 8px; font-size: 12px; background: #10151bea; padding: 10px 14px; border-radius: 12px; white-space: nowrap; }
 .mouse-state button, .image-retry { border: 1px solid #ffffff45; border-radius: 8px; padding: 8px 12px; background: #253043; }
 .product-photo .image-retry { position: absolute; top: 58%; background: #263344; color: #fff; }
-.directory-projects { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
-.directory-projects a { border: 1px solid #ffffff1c; border-radius: 10px; padding: 15px; background: #1a2430; }
-.directory-projects strong { display: block; font-size: 12px; margin-bottom: 7px; }
-.directory-projects span { display: block; font-size: 10px; color: #aeb9c9; line-height: 1.5; }
-.directory-projects a:hover { border-color: #ecdab970; }
-@media (max-width: 760px), (max-height: 520px) { .product-link { font-size: 16px; } .directory-sections { flex-wrap: wrap; } }
-@media (max-width: 420px) { .directory-projects { grid-template-columns: 1fr; } }
+@media (max-width: 760px), (max-height: 520px) { .product-link { font-size: 16px; } }
 
 
 .brand-links { display: flex; align-items: baseline; gap: 15px; }
@@ -369,13 +360,13 @@
 
 #detail-tools { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; }
 #detail-tools[hidden] { display: none; }
-#detail-tools a { display: inline-flex; align-items: center; gap: 10px; min-height: 46px; max-width: 100%; padding: 10px 14px; border: 1px solid #ecdab960; border-radius: 12px; background: #ecdab914; color: #fff2d9; font-size: 16px; font-weight: 650; text-decoration: none; line-height: 1.3; }
+#detail-tools :is(a, button) { display: inline-flex; align-items: center; gap: 10px; min-height: 46px; max-width: 100%; padding: 10px 14px; border: 1px solid #ecdab960; border-radius: 12px; background: #ecdab914; color: #fff2d9; font-size: 16px; font-weight: 650; text-decoration: none; line-height: 1.3; }
 #detail-tools img { flex: 0 0 26px; object-fit: contain; border-radius: 5px; }
-#detail-tools a:hover { background: #ecdab928; border-color: #ecdab9; }
-#detail-tools a:focus-visible { outline: 2px solid #ecdab9; outline-offset: 3px; }
+#detail-tools :is(a, button):hover { background: #ecdab928; border-color: #ecdab9; }
+#detail-tools :is(a, button):focus-visible { outline: 2px solid #ecdab9; outline-offset: 3px; }
 .room-detail:has(#screen-detail:not([hidden])) .detail-heading { padding: 0 24px 0 8px; }
 .room-detail:has(#screen-detail:not([hidden])) #detail-tools { margin: 6px 0 10px; }
-@media (max-width: 600px) { #detail-tools a { font-size: 14px; padding: 9px 11px; gap: 8px; } }
+@media (max-width: 600px) { #detail-tools :is(a, button) { font-size: 14px; padding: 9px 11px; gap: 8px; } }
 
 /* VS Code walkthrough: explicit slide tabs, distinct from the round arrows that switch desk items. */
 .room-detail[data-topic="vscode"] { width: min(980px, calc(100% - 72px)); }
@@ -470,7 +461,9 @@
 }
 
 .room-header-actions { display: flex; align-items: center; gap: 12px; }
-.setup-buy { pointer-events: auto; min-height: 56px; padding: 14px 28px; border: 1px solid #ead8b6; border-radius: 30px; background: #ead8b6; color: #221c14; font-size: 17px; font-weight: 750; white-space: nowrap; box-shadow: 0 5px 24px #0004; }
+.room-header .room-classic { min-height: 44px; }
+.room-header .linkedin-mark { display: grid; place-items: center; width: 21px; height: 21px; margin: 0; border-radius: 4px; background: #0a66c2; color: white; font: 750 15px/1 system-ui, sans-serif; }
+.setup-buy { pointer-events: auto; min-height: 44px; padding: 10px 18px; border: 1px solid #ead8b6; border-radius: 30px; background: #ead8b6; color: #221c14; font-size: 13px; font-weight: 750; white-space: nowrap; box-shadow: 0 5px 24px #0004; }
 .setup-buy:hover { background: #f5e7cc; }
 .setup-buy:disabled { opacity: .55; cursor: progress; }
 .setup-shopping { width: min(960px, calc(100% - 60px)); }
@@ -509,8 +502,21 @@
  .room-header .room-classic { font-size: 0; }
  .room-header .room-classic svg { width: 20px; height: 20px; }
 }
+@media (max-width: 360px) {
+ .room-header .setup-brand { font-size: 15px; white-space: nowrap; }
+ .room-header .setup-buy { padding-inline: 8px; font-size: 11px; }
+ .room-header-actions { gap: 6px; }
+}
 
 .wand-photo { margin: 28px 0 20px; padding: 36px 18px 24px; border-radius: 16px; background: #202934; text-align: center; }
 .wand-photo img { display: block; width: min(100%, 414px); height: auto; margin: 0 auto 24px; }
 .wand-photo figcaption { font-size: 13px; color: #b4bdcb; }
+@media (min-width: 761px) and (min-height: 521px) {
+ .room-detail, .room-detail:has(#screen-detail:not([hidden])) { max-width: calc(100% - 124px); }
+}
+@media (max-width: 760px), (max-height: 520px) {
+ .detail-nav { top: auto; bottom: max(14px, env(safe-area-inset-bottom)); transform: none; }
+ .room-detail .detail-body { padding-bottom: 68px; }
+ .room-detail:has(#screen-detail:not([hidden])) .detail-body { padding-bottom: 52px; }
+}
 #wand-detail > p { max-width: 640px; line-height: 1.65; }
