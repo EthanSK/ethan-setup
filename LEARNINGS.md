@@ -36,6 +36,10 @@ Image changes must use matching hotspot coordinates and mobile framing. Restorin
 
 Ethan’s “floating thing” is the **Software I use** shortcut near the Dell. It opens the software section, as does the MacBook shortcut. The sidebar’s **Everything I use** button opens the directory from the top. Keep these shortcuts separate from the hardware and demo navigation route. User-corrected — 2026-11-19.
 
+Use the shared `.detail-body` as the scroller for Everything I use and Buy My Setup. Safari clipped the viewport-fixed close button when the dialog itself scrolled. Keep the button outside the scroller and point scroll resets and the portfolio observer at the content that actually scrolls. Verified the close button after scrolling in Safari at desktop and 390 px widths — 2026-11-19.
+
+Create each Skills and Special Picks card from its shared skill entry. A cloned card kept the image markup but lost the load listener that reveals the artwork, leaving initials on the Response Preferences card in Special Picks. The two cards now run through the same creation function — 2026-11-19.
+
 Rank every directory section roughly by current use, with public and private-safe personal skills interleaved. Ethan asked for the app grids to show his curated shortlist. Keep the included IDs in the site’s app order so daily desktop inventory refreshes cannot repopulate the directory with tools he removed. macOS foreground use undercounts background mouse and dictation utilities. Never present ordering as live telemetry or publish raw usage records.
 
 Verify a repository's actual purpose before classifying it. Honest Comments analyzes YouTube criticism; it is not about code comments. Agent Swarm Management is a Mac app and Agent Bridge is a project, so neither belongs among skills. Keep their existing public project links, with no duplicate skill cards.

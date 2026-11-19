@@ -738,19 +738,20 @@ function populateDirectoryCard(card: HTMLElement, name: string, description: str
 }
 
 const directory = requiredElement<HTMLDialogElement>("#setup-directory");
+const directoryBody = requiredElement(".detail-body", directory);
 const portfolioContainer = requiredElement("#portfolio-frame");
 const portfolioView = createFrameView(portfolioContainer);
 const portfolioObserver = new IntersectionObserver(entries => {
   if (!entries.some(entry => entry.isIntersecting)) return;
   portfolioView.load("https://portosaurus.github.io/ethansk/", "Portfolio", "Ethan SK portfolio");
   portfolioObserver.disconnect();
-}, { root: directory, rootMargin: "300px" }); // Begin the loading timer only when the portfolio is near view, not while a lazy iframe is waiting offscreen.
+}, { root: directoryBody, rootMargin: "300px" }); // Begin the loading timer only when the portfolio is near view, not while a lazy iframe is waiting offscreen.
 portfolioObserver.observe(portfolioContainer);
 let directoryTrigger: HTMLElement | undefined;
 function openDirectory(trigger: HTMLElement, showSoftware = false) {
   directoryTrigger = trigger;
   directory.showModal();
-  directory.scrollTop = 0;
+  directoryBody.scrollTop = 0;
   if (!showSoftware) return;
   const heading = requiredElement("#directory-apps");
   heading.focus({ preventScroll: true });
@@ -759,7 +760,7 @@ function openDirectory(trigger: HTMLElement, showSoftware = false) {
 for (const button of document.querySelectorAll<HTMLElement>("#show-directory, [data-directory]")) {
   button.addEventListener("click", () => openDirectory(button, button.dataset.directory === "software"));
 }
-requiredElement(".directory-close").addEventListener("click", () => directory.close());
+requiredElement(".directory-close", directory).addEventListener("click", () => directory.close());
 directory.addEventListener("close", () => directoryTrigger?.focus({preventScroll:true}));
 dismissOutside(directory);
 for (const item of gear) {
@@ -775,6 +776,7 @@ for (const item of gear) {
 }
 
 const shopping = requiredElement<HTMLDialogElement>("#setup-shopping");
+const shoppingBody = requiredElement(".detail-body", shopping);
 const shoppingTrigger = requiredElement<HTMLButtonElement>("#show-shopping");
 const amazonAssociateTag: string | null = null; // Set only to the tracking ID issued by the current UK Associates account; the old account was closed.
 for (const item of gear) {
@@ -799,8 +801,11 @@ for (const item of gear) {
 }
 requiredElement("#shopping-disclosure").hidden = amazonAssociateTag === null;
 shoppingTrigger.disabled = false;
-shoppingTrigger.addEventListener("click", () => { shopping.showModal(); shopping.scrollTop = 0; });
-requiredElement(".shopping-close").addEventListener("click", () => shopping.close());
+shoppingTrigger.addEventListener("click", () => {
+  shopping.showModal();
+  shoppingBody.scrollTop = 0;
+});
+requiredElement(".shopping-close", shopping).addEventListener("click", () => shopping.close());
 shopping.addEventListener("close", () => shoppingTrigger.focus({preventScroll:true}));
 dismissOutside(shopping);
 requiredElement("#shopping-software").addEventListener("click", () => {
@@ -884,8 +889,10 @@ for (const app of rankedApps) {
   const grid = ethanAppIds.has(app.id) ? madeAppsGrid : otherAppsGrid;
   grid.append(link);
 }
-const skills: [name: string, repo: string | null, description: string, icon?: string][] = [
- ["Response Preferences", "response-preferences", "How I want agents to write replies", relatedTools.replies.icon],
+type DirectorySkill = [name: string, repo: string | null, description: string, icon?: string];
+const responsePreferencesSkill: DirectorySkill = ["Response Preferences", "response-preferences", "How I want agents to write replies", relatedTools.replies.icon];
+const skills: DirectorySkill[] = [
+ responsePreferencesSkill,
  ["Development workflow", null, "Plan, build and check work"],
  ["Repository learnings", null, "Keep what agents learn about a repo"],
  ["Browser testing", null, "Test a website in a real browser"],
@@ -909,22 +916,17 @@ function createDirectoryCard(name: string, description: string, url: string | nu
   return card;
 }
 
-const skillCards = new Map<string, HTMLElement>();
-const skillsGrid = requiredElement(".directory-skills");
-for (const [name, repo, description, icon] of skills) {
-  const card = createDirectoryCard(name, description, repo && `https://github.com/EthanSK/${repo}`, icon);
-  skillsGrid.append(card);
-  if (repo) skillCards.set(repo, card);
+function createSkillCard([name, repo, description, icon]: DirectorySkill) {
+  return createDirectoryCard(name, description, repo && `https://github.com/EthanSK/${repo}`, icon);
 }
+requiredElement(".directory-skills").append(...skills.map(createSkillCard));
 
 const [airFryingPick, ...softwarePicks] = [...document.querySelectorAll<HTMLAnchorElement>(".project-rail [data-pick-summary]")]
   .map(link => createDirectoryCard(link.getAttribute("aria-label") ?? "", link.dataset.pickSummary ?? "", link.href, link.querySelector("img")?.src));
-const repliesPick = skillCards.get("response-preferences");
-if (!repliesPick) throw new Error("Special Picks skills are missing");
 requiredElement(".directory-picks .directory-card-grid").append(
   airFryingPick,
   ...softwarePicks,
-  repliesPick.cloneNode(true),
+  createSkillCard(responsePreferencesSkill),
 );
 
 window.addEventListener("message", event => {
