@@ -256,7 +256,8 @@
 .frame-actions a { display: inline-flex; align-items: center; min-height: 44px; color: #c2cbdc; text-underline-offset: 4px; }
 .frame-actions :is(a, button):focus-visible { outline: 2px solid #ead8b6; outline-offset: 4px; }
 @keyframes frame-spin { to { transform: rotate(360deg); } }
-.setup-directory { position: fixed; inset: 0; margin: auto; width: min(1100px, calc(100% - 60px)); max-height: calc(100svh - 70px); padding: 36px; background: #111821; color: #edf0f5; border: 1px solid #ffffff35; border-radius: 22px; overflow: auto; overscroll-behavior: contain; }
+.setup-directory { position: fixed; inset: 0; margin: auto; width: min(1100px, calc(100% - 60px)); max-height: calc(100svh - 70px); padding: 0; background: #111821; color: #edf0f5; border: 1px solid #ffffff35; border-radius: 22px; overflow: visible; }
+.setup-directory > .detail-body { padding: 36px; } /* Use the room dialog's scroller so Safari keeps the fixed close button visible. */
 .setup-directory::backdrop { background: #01030ab3; }
 .setup-directory h1 { font-size: 34px; letter-spacing: -.045em; margin: 0 0 18px; }
 .setup-directory h2 { font-size: 19px; margin: 35px 0 15px; }
@@ -317,7 +318,8 @@
  .room-detail:has(#screen-detail:not([hidden])) .detail-body { padding: 4px; }
  .room-detail[data-topic] { width: calc(100% - 24px); }
  .detail-body { padding: 24px 28px; }
- .setup-directory { width: calc(100% - 22px); max-height: calc(100svh - 36px); padding: 24px 18px; }
+ .setup-directory { width: calc(100% - 22px); max-height: calc(100svh - 36px); }
+ .setup-directory > .detail-body { padding: 24px 18px; }
  .setup-directory h1 { font-size: 28px; }
  .setup-follow { padding: 20px; gap: 18px; }
  .setup-follow .linkedin-logo { width: 62px; height: 62px; font-size: 48px; border-radius: 11px; letter-spacing: -3px; }
@@ -488,7 +490,7 @@
 @media (max-width: 760px), (max-height: 520px) {
  .room-header-actions { gap: 8px; }
  .setup-buy { min-height: 44px; padding: 10px 16px; font-size: 13px; }
- .setup-shopping { width: calc(100% - 24px); padding: 24px 18px; max-height: calc(100svh - 24px); }
+ .setup-shopping { width: calc(100% - 24px); max-height: calc(100svh - 24px); }
  .setup-shopping h1 { padding-right: 40px; font-size: 30px; }
  .shopping-item { grid-template-columns: 60px minmax(0,1fr); gap: 14px; }
  .shopping-item > img { width: 60px; height: 60px; }
