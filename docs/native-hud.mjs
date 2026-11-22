@@ -8,6 +8,7 @@ export function hudPresentation(simulator) {
     visible: state.mode !== "default" || state.legend,
     style: mode.presentationStyle,
     color: mode.color,
+    showsDecorativeOutlines: mode.showsDecorativeOutlines,
     outlineWidth: mode.outlineWidth,
     title: mode.title,
     source: map.sources[hand].name,
@@ -23,6 +24,9 @@ export function hudPresentation(simulator) {
       const control = simulator.control(cell);
       const selected = keypad ? pending?.cell === cell : state.mode !== "default" && state.hudSelection === cell;
       const treatment = selected ? map.hud.selected : control.destinationColor ? map.hud.navigation : map.hud.ordinary;
+      const idleActionOpacity = state.mode === "default" && !control.appIcon
+        ? map.hud.defaultActionFillOpacity ?? .24
+        : .24;
       return {
         cell,
         title: control.title,
@@ -35,7 +39,7 @@ export function hudPresentation(simulator) {
         appIcon: control.appIcon,
         borderWidth: treatment.width,
         borderOpacity: treatment.opacity,
-        fillOpacity: mode.presentationStyle === "neutral" && !control.destinationColor ? (selected ? .58 : .24) : 1,
+        fillOpacity: mode.presentationStyle === "neutral" && !control.destinationColor ? (selected ? .58 : idleActionOpacity) : 1,
         cycle: control.keypad?.cycle.map((character) => shifted ? character.toUpperCase() : character) ?? [],
         activeCycleIndex: pending?.cell === cell ? pending.index : null,
         holdCaption: control.keypad?.holdCaption,
@@ -77,6 +81,7 @@ export function createNativeHUD(element, simulator, { activate, bindHold, keydow
     const hud = hudPresentation(simulator);
     element.hidden = !hud.visible;
     element.dataset.style = hud.style;
+    element.classList.toggle("fill-only", hud.showsDecorativeOutlines === false);
     element.style.setProperty("--hud-accent", hud.color);
     element.style.setProperty("--hud-outline-width", hud.outlineWidth ? `${hud.outlineWidth / 3 * 2}px` : "2px");
     element.style.setProperty("--hud-card-inset", `${simulator.map.hud.cardInset / 6.51}cqw`);
