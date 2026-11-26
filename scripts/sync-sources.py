@@ -2,6 +2,7 @@
 """Refresh the two published sources without reading the installed Mac or private checkouts."""
 import hashlib
 import json
+import os
 from pathlib import Path
 import re
 import urllib.request
@@ -12,8 +13,12 @@ PUBLIC_DESKTOP = 'https://ethansk.github.io/response-preferences/'
 MOUSE_FILES = {'simulator.mjs', 'native-hud.mjs', 'hero-mice.mjs', 'mouse-model.mjs', 'mouse-motion.mjs', 'showcase.css', 'agentic-mouse-mark.svg', 'assets/corsair.webp', 'assets/razer.webp'}
 MOUSE_PREFIXES = ('models/', 'lib/', 'assets/apps/')
 
-def read(url):
+def read(url: str) -> bytes:
     request = urllib.request.Request(url, headers={'User-Agent': 'ethan-setup-source-sync', 'Cache-Control': 'no-cache'})
+    if re.fullmatch(r'https://api\.github\.com/repos/EthanSK/agentic-mouse/git/trees/[0-9a-f]{40}\?recursive=1', url):
+        token = os.environ.get('SOURCE_SYNC_GITHUB_TOKEN')
+        if token:
+            request.add_unredirected_header('Authorization', f'Bearer {token}')  # Keep the Actions token on this request only; redirects must drop it. Original discovery/fix authors unverified.
     with urllib.request.urlopen(request, timeout=45) as response:
         return response.read()
 
