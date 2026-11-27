@@ -35,6 +35,13 @@ test('the built sidebar and OBS example resolve project links before JavaScript 
   }
   const html = readFileSync(new URL('index.html', site), 'utf8');
   assert.match(html, /aria-label="Response Preferences" href="https:\/\/ethansk\.github\.io\/response-preferences\/"/);
-  assert.match(html, /href="https:\/\/github\.com\/EthanSK\/aimvs-dev-skill\/blob\/main\/references\/stack-lifecycle\.md#ports-per-stack"/);
   assert.doesNotMatch(html, /aria-label="Stats Widget"|data-topic="stats"/);
+});
+
+test('private coding rules and their walkthrough stay out of the public site', () => {
+  const site = new URL('../.build.noindex/site/', import.meta.url);
+  for (const file of ['index.html', 'beta.mjs']) {
+    const content = readFileSync(new URL(file, site), 'utf8');
+    assert.doesNotMatch(content, /aimvs-dev-skill|coding-in-typescript|vscode-detail|showSlide|mmcdw|aimvs\d+-/i, file);
+  }
 });
